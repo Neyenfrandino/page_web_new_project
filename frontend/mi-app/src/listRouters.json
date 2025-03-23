@@ -1,0 +1,10 @@
+[
+    { "name": "Sobre Nosotros", "path": "/sobre-nosotros" },
+    { "name": "Contacto", "path": "/contacto" },
+    { "name": "Portfolio", "path": "/portfolio" },
+    { "name": "Inicio", "path": "/" },
+    { "name": "Blog", "path": "/blog" },
+    { "name": "Proyectos", "path": "/proyectos" },
+    { "name": "Servicios", "path": "/servicios" }
+]
+

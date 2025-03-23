@@ -1,0 +1,278 @@
+// Variables
+$mp-blue: #009ee3;
+$mp-light-blue: #00b1ea;
+$mp-yellow: #f5d328;
+$mp-green: #00a650;
+$mp-black: #333333;
+$mp-gray: #f5f5f5;
+$mp-error: #e74c3c;
+$mp-border-color: #e0e0e0;
+$mp-border-radius: 8px;
+$mp-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+$mp-transition: all 0.25s ease;
+
+// Reset
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// MercadoPago Card Component
+.mp-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: $mp-black;
+  
+  &__container {
+    width: 100%;
+    max-width: 450px;
+    background-color: #fff;
+    border-radius: $mp-border-radius;
+    box-shadow: $mp-box-shadow;
+    overflow: hidden;
+    transition: $mp-transition;
+    
+    @media (max-width: 480px) {
+      max-width: 100%;
+    }
+    
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+  }
+  
+  &__header {
+    padding: 16px;
+    background-color: white;
+    border-bottom: 1px solid $mp-border-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  
+  &__brand-name {
+    color: $mp-blue;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  &__content {
+    padding: 0;
+  }
+  
+  &__product {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+  }
+  
+  &__image-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  &__product-details {
+    padding: 16px;
+    background-color: white;
+    border-bottom: 1px solid rgba($mp-border-color, 0.5);
+  }
+  
+  &__product-name {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $mp-black;
+  }
+  
+  &__product-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: $mp-blue;
+  }
+  
+  &__form {
+    padding: 20px;
+  }
+  
+  &__security {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 12px;
+    background-color: rgba($mp-blue, 0.05);
+    border-radius: 6px;
+    color: darken($mp-blue, 10%);
+    
+    svg {
+      stroke: $mp-blue;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    
+    span {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: #009ee3; /* MercadoPago original blue */
+    border: none;
+    border-radius: 4px; /* More like original MP button */
+    cursor: pointer;
+    transition: $mp-transition;
+    
+    &:hover:not(:disabled) {
+      background: $mp-green; /* Cambiado a verde de MercadoPago */
+      box-shadow: 0 4px 12px rgba($mp-green, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Form Elements
+.mp-form-group {
+  margin-bottom: 18px;
+}
+
+.mp-form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $mp-black;
+}
+
+.mp-form-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid $mp-border-color;
+  border-radius: 6px;
+  transition: $mp-transition;
+  
+  &:focus {
+    outline: none;
+    border-color: $mp-blue;
+    box-shadow: 0 0 0 2px rgba($mp-blue, 0.15);
+  }
+  
+  &::placeholder {
+    color: #999;
+  }
+  
+  &--error {
+    border-color: $mp-error;
+    
+    &:focus {
+      border-color: $mp-error;
+      box-shadow: 0 0 0 2px rgba($mp-error, 0.15);
+    }
+  }
+}
+
+.mp-error-message {
+  margin-top: 6px;
+  font-size: 12px;
+  color: $mp-error;
+  font-weight: 500;
+}
+
+.mp-general-error {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: rgba($mp-error, 0.1);
+  border-radius: 6px;
+  color: $mp-error;
+  font-size: 14px;
+  
+  svg {
+    stroke: $mp-error;
+    margin-right: 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+// MercadoPago Button Logo
+.mp-button-icon {
+  margin-right: 10px;
+  z-index: 2;
+}
+
+// Loader Animation
+.mp-button-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: mp-spin 0.8s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes mp-spin {
+  to { transform: rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .mp-card {
+    padding: 10px;
+    
+    &__container {
+      box-shadow: none;
+      border: 1px solid $mp-border-color;
+    }
+    
+    &__image-wrapper {
+      height: 160px;
+    }
+  }
+}
