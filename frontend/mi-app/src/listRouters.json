@@ -1,10 +1,34 @@
-[
-    { "name": "Sobre Nosotros", "path": "/sobre-nosotros" },
-    { "name": "Contacto", "path": "/contacto" },
-    { "name": "Portfolio", "path": "/portfolio" },
-    { "name": "Inicio", "path": "/" },
-    { "name": "Blog", "path": "/blog" },
-    { "name": "Proyectos", "path": "/proyectos" },
-    { "name": "Servicios", "path": "/servicios" }
-]
-
+{
+    "routes": [
+      {
+        "name": "Inicio",
+        "path": "/",
+        "icon": "HomeIcon"
+      },
+      {
+        "name": "Sobre Nosotros", 
+        "path": "/sobre-nosotros",
+        "icon": "UserIcon"
+      },
+      {
+        "name": "Servicios",
+        "path": "/servicios", 
+        "icon": "BriefcaseIcon"
+      },
+      {
+        "name": "Proyectos",
+        "path": "/proyectos",
+        "icon": "FolderIcon"
+      },
+      {
+        "name": "Blog",
+        "path": "/blog",
+        "icon": "BookIcon"
+      },
+      {
+        "name": "Contacto",
+        "path": "/contacto",
+        "icon": "MessageCircleIcon"
+      }
+    ]
+  }

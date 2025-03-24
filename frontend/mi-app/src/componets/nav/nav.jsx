@@ -1,45 +1,117 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "./nav.scss";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  Home as HomeIcon, 
+  User as UserIcon, 
+  Briefcase as BriefcaseIcon, 
+  Folder as FolderIcon, 
+  Book as BookIcon, 
+  MessageCircle as MessageCircleIcon 
+} from 'lucide-react';
 
-const Nav = ({ routers, LogoComponent, isScroll }) => {
+// import routesConfig from './routes.json';
+import listRouters from '../../listRouters.json';
+import './nav.scss';
+
+const MinimalistLogo = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 100 100" 
+    width="50" 
+    height="50"
+  >
+    <rect 
+      x="10" 
+      y="10" 
+      width="80" 
+      height="80" 
+      fill="none" 
+      stroke="#2c3e50" 
+      strokeWidth="6"
+    />
+    <line 
+      x1="50" 
+      y1="10" 
+      x2="50" 
+      y2="90" 
+      stroke="#2c3e50" 
+      strokeWidth="4"
+    />
+    <line 
+      x1="10" 
+      y1="50" 
+      x2="90" 
+      y2="50" 
+      stroke="#2c3e50" 
+      strokeWidth="4"
+    />
+  </svg>
+);
+
+const Nav = ({ brandName = 'Mi Empresa' }) => {
   const location = useLocation();
-  const [active, setActive] = useState(location.pathname);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeRoute, setActiveRoute] = useState(location.pathname);
+
+  // Icon mapping
+  const iconMap = {
+    HomeIcon: HomeIcon,
+    UserIcon: UserIcon,
+    BriefcaseIcon: BriefcaseIcon,
+    FolderIcon: FolderIcon,
+    BookIcon: BookIcon,
+    MessageCircleIcon: MessageCircleIcon
+  };
 
   useEffect(() => {
-    setActive(location.pathname);
+    setActiveRoute(location.pathname);
   }, [location.pathname]);
-  
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleRouteClick = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    <>
-      {/* Background circles */}
-      <div className="bg-circles">
-        <div className="circle"></div>
-        <div className="circle"></div>
-        <div className="circle"></div>
-      </div>
-      
-      
-      <nav className="nav__container">
-        <div className="nav__container-content">
-          <div className={`nav__content-img ${isScroll >= 100 ? 'logo_visable--nav' : 'hidden--nav'}`}>
-            <Link to={'/'}>
-              {LogoComponent && isScroll != false && <LogoComponent logo_img={'img/3.svg'} className="nav__logo" />}
-            </Link>
-          </div>
-          <ul className="nav__content-ul">
-            {routers.map((router, index) => (
-              <li key={index} className={`nav__content-li ${active === router.path ? "active" : ""}`}>
-                <Link to={router.path} className="nav__content-link">
-                  {router.name}
+    <nav className="navigation">
+      <div className="navigation__container">
+        <div className="navigation__brand">
+          <Link to={'/'} className="navigation__logo">
+            <img src="img/3.svg" alt="" />
+          </Link>
+        </div>
+
+        <div 
+          className={`navigation__menu-toggle ${isMenuOpen ? 'open' : ''}`}
+          onClick={toggleMobileMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul className={`navigation__links ${isMenuOpen ? 'mobile-open' : ''}`}>
+          {listRouters.routes.map((route) => {
+            const Icon = iconMap[route.icon];
+            return (
+              <li 
+                key={route.path}
+                className={`navigation__link-item ${activeRoute === route.path ? 'active' : ''}`}
+                onClick={handleRouteClick}
+              >
+                <Link to={route.path} className="navigation__link">
+                  {Icon && <Icon size={16} />}
+                  {route.name}
                 </Link>
               </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
-    </>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
   );
 };
 

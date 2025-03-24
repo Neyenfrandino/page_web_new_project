@@ -16,6 +16,9 @@ dist-ssr
 # Archivos de entornos
 frontend/mi-app/.env
 backend/venv/
+backend/.env
+backend/google_sheets_key.json
+
 
 # Archivos de configuración del editor
 .vscode/*

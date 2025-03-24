@@ -34,19 +34,13 @@
     //     }
     // }
  
-
-    main {
-        padding: 2rem;
-        z-index: 1;
-    }
-
     .App__nav {
-        width: 95%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        margin-top: .2rem;
+        // margin-top: .2rem;
         position: fixed;
         top: 0; /* Se asegura de que esté en la parte superior */
         left: 50%; /* Centrado horizontal */
@@ -54,7 +48,8 @@
         padding: 1rem;
         z-index: 100; /* Asegura que esté sobre otros elementos */
         transition: top 0.3s ease; /* Transición suave al hacer scroll */
-        
+        backdrop-filter: blur(2px);
+                
         @media (max-width: 768px) {
             width: 90%;
             padding: 0.8rem;

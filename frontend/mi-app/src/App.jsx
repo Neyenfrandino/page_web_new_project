@@ -7,6 +7,8 @@ import Nav from './componets/nav/nav';
 import Home from './routers/home/home';
 import LogoHeader from './componets/logo_header/logo_header';
 
+
+
 import './App.scss';
 
 const App = () => {
@@ -31,7 +33,8 @@ const App = () => {
   return (
     <div className="App">
       <div className='App__nav'>
-        <Nav routers={listRouters} LogoComponent={LogoHeader} isScroll={isScroll}/>
+        <Nav brandName="Mi Empresa" />
+
       </div>
 
       <Routes>
