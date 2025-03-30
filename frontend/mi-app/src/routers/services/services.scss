@@ -1,0 +1,175 @@
+// services.scss
+
+// Variables
+$primary-color: #2c3e50;
+$secondary-color: #e74c3c;
+$text-color: #333;
+$light-color: #f8f9fa;
+$gradient-start: #3498db;
+$gradient-end: #2c3e50;
+
+// Animaciones
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+// Estilos de la sección de servicios
+.services {
+  &__container {
+    position: relative;
+    min-height: 100vh;
+    color: $text-color;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $gradient-start, $gradient-end);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    z-index: -1;
+  }
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    position: relative;
+  }
+
+  &__title {
+    color: $light-color;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    animation: fadeIn 1s ease-out;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: $secondary-color;
+    }
+  }
+
+  &__description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+}
+
+// Estilos de las tarjetas de servicios
+.service {
+  &__card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+    
+    &:nth-child(1) { animation-delay: 0.4s; }
+    &:nth-child(2) { animation-delay: 0.6s; }
+    &:nth-child(3) { animation-delay: 0.8s; }
+    
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      
+      &::before {
+        transform: scale(1.2);
+      }
+      
+      h2 {
+        color: $secondary-color;
+      }
+    }
+    
+    &::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 100px;
+      height: 100px;
+      background: rgba(231, 76, 60, 0.1);
+      border-radius: 50%;
+      transition: all 0.5s ease;
+      z-index: 0;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      transition: color 0.3s ease;
+      
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: $primary-color;
+      }
+    }
+    
+    p {
+      color: #666;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+// Media queries para responsividad
+@media (max-width: 768px) {
+  .services {
+    &__title {
+      font-size: 2.5rem;
+    }
+    
+    &__description {
+      font-size: 1rem;
+    }
+    
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .service__card {
+    padding: 2rem;
+  }
+}

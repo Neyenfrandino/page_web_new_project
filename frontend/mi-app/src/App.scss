@@ -49,7 +49,8 @@
         z-index: 100; /* Asegura que esté sobre otros elementos */
         transition: top 0.3s ease; /* Transición suave al hacer scroll */
         backdrop-filter: blur(2px);
-                
+
+        
         @media (max-width: 768px) {
             width: 90%;
             padding: 0.8rem;

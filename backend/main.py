@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.routers_mercado_pago.routers_mercado_pago import router as mercado_pago
+from app.routers.routers_stripe.routers_stripe import router as stripe_router
 import uvicorn
 
 App = FastAPI()
@@ -16,6 +17,7 @@ App.add_middleware(
 
 # Incluir el router
 App.include_router(mercado_pago)
+App.include_router(stripe_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:App", host="0.0.0.0", port=8000, reload=True)

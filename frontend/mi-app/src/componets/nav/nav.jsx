@@ -1,90 +1,110 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Home as HomeIcon, 
-  User as UserIcon, 
-  Briefcase as BriefcaseIcon, 
-  Folder as FolderIcon, 
-  Book as BookIcon, 
-  MessageCircle as MessageCircleIcon 
+import {
+  Home as HomeIcon,
+  User as UserIcon,
+  Briefcase as BriefcaseIcon,
+  Folder as FolderIcon,
+  Book as BookIcon,
+  MessageCircle as MessageCircleIcon
 } from 'lucide-react';
 
-// import routesConfig from './routes.json';
-import listRouters from '../../listRouters.json';
 import './nav.scss';
 
-const MinimalistLogo = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 100 100" 
-    width="50" 
-    height="50"
-  >
-    <rect 
-      x="10" 
-      y="10" 
-      width="80" 
-      height="80" 
-      fill="none" 
-      stroke="#2c3e50" 
-      strokeWidth="6"
-    />
-    <line 
-      x1="50" 
-      y1="10" 
-      x2="50" 
-      y2="90" 
-      stroke="#2c3e50" 
-      strokeWidth="4"
-    />
-    <line 
-      x1="10" 
-      y1="50" 
-      x2="90" 
-      y2="50" 
-      stroke="#2c3e50" 
-      strokeWidth="4"
-    />
-  </svg>
-);
+// Icon mapping
+const iconMap = {
+  HomeIcon,
+  UserIcon,
+  BriefcaseIcon,
+  FolderIcon,
+  BookIcon,
+  MessageCircleIcon
+};
 
-const Nav = ({ brandName = 'Mi Empresa' }) => {
+const Nav = ({ isScroll, listRouters }) => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(location.pathname);
+  const [isAutoClosing, setIsAutoClosing] = useState(false);
+  const menuContainerRef = useRef(null);
+  const closeTimerRef = useRef(null);
 
-  // Icon mapping
-  const iconMap = {
-    HomeIcon: HomeIcon,
-    UserIcon: UserIcon,
-    BriefcaseIcon: BriefcaseIcon,
-    FolderIcon: FolderIcon,
-    BookIcon: BookIcon,
-    MessageCircleIcon: MessageCircleIcon
-  };
-
+  // Update active route on location change
   useEffect(() => {
     setActiveRoute(location.pathname);
   }, [location.pathname]);
 
-  const toggleMobileMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Scroll-based menu management
+  useEffect(() => {
+    // Open menu when scrolled
+    if (isScroll !== 0 && !isMenuOpen) {
+      setIsMenuOpen(true);
+    }
 
-  const handleRouteClick = () => {
+    // Close menu when back to top
+    if (isScroll === 0 && isMenuOpen) {
+      startAutoCloseTimer();
+    }
+  }, [isScroll, isMenuOpen]);
+
+  // Start auto-close timer
+  const startAutoCloseTimer = useCallback(() => {
+    // Clear any existing timer
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+    }
+
+    setIsAutoClosing(true);
+    closeTimerRef.current = setTimeout(() => {
+      setIsMenuOpen(false);
+      setIsAutoClosing(false);
+    }, 2000);
+  }, []);
+
+  // Prevent auto-close when hovering over menu
+  const handleMouseEnter = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      setIsAutoClosing(false);
+    }
+  }, []);
+
+  // Restart auto-close timer when mouse leaves
+  const handleMouseLeave = useCallback(() => {
+    if (isScroll === 0 && isMenuOpen) {
+      startAutoCloseTimer();
+    }
+  }, [isScroll, isMenuOpen, startAutoCloseTimer]);
+
+  // Toggle mobile menu
+  const toggleMobileMenu = useCallback(() => {
+    // Only allow toggle when scroll is 0 and not auto-closing
+    if (isScroll === 0 && !isAutoClosing) {
+      setIsMenuOpen(prevState => !prevState);
+    }
+  }, [isScroll, isAutoClosing]);
+
+  // Close menu when route is clicked
+  const handleRouteClick = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
 
   return (
     <nav className="navigation">
-      <div className="navigation__container">
+      <div
+        ref={menuContainerRef}
+        className={`navigation__container ${isMenuOpen ? 'visible' : 'hidden'}`}
+        style={{ display: isMenuOpen ? 'flex' : 'none' }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className="navigation__brand">
           <Link to={'/'} className="navigation__logo">
-            <img src="img/3.svg" alt="" />
+            <img src="img/4.svg" alt="Navigation Logo" />
           </Link>
         </div>
 
-        <div 
+        <div
           className={`navigation__menu-toggle ${isMenuOpen ? 'open' : ''}`}
           onClick={toggleMobileMenu}
         >
@@ -97,7 +117,7 @@ const Nav = ({ brandName = 'Mi Empresa' }) => {
           {listRouters.routes.map((route) => {
             const Icon = iconMap[route.icon];
             return (
-              <li 
+              <li
                 key={route.path}
                 className={`navigation__link-item ${activeRoute === route.path ? 'active' : ''}`}
                 onClick={handleRouteClick}
@@ -111,6 +131,13 @@ const Nav = ({ brandName = 'Mi Empresa' }) => {
           })}
         </ul>
       </div>
+      <button
+        onClick={toggleMobileMenu}
+        className='btn-nav'
+        disabled={isScroll !== 0 || isAutoClosing}
+      >
+        ▼
+      </button>
     </nav>
   );
 };

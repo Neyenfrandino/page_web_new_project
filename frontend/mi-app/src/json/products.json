@@ -1,0 +1,58 @@
+[
+    {
+      "id": 1,
+      "name": "Introducción a la Permacultura",
+      "description": "Curso básico sobre los principios fundamentales de la permacultura y su aplicación en la vida diaria.",
+      "price": 49.99,
+      "currency": "USD",
+      "duration": "4 semanas",
+      "level": "Principiante",
+      "format": "Online",
+      "image": "https://example.com/images/intro-permacultura.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Diseño de Sistemas Permaculturales",
+      "description": "Aprende a diseñar sistemas agrícolas sostenibles y regenerativos utilizando los principios de la permacultura.",
+      "price": 129.99,
+      "currency": "USD",
+      "duration": "8 semanas",
+      "level": "Intermedio",
+      "format": "Online",
+      "image": "https://example.com/images/diseno-sistemas.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Permacultura en Huertos Urbanos",
+      "description": "Técnicas y estrategias para aplicar la permacultura en espacios urbanos y pequeños jardines.",
+      "price": 79.99,
+      "currency": "USD",
+      "duration": "6 semanas",
+      "level": "Intermedio",
+      "format": "Online y presencial",
+      "image": "https://example.com/images/huertos-urbanos.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Agua y Energía en la Permacultura",
+      "description": "Gestión eficiente del agua y energías renovables aplicadas en proyectos de permacultura.",
+      "price": 99.99,
+      "currency": "USD",
+      "duration": "5 semanas",
+      "level": "Avanzado",
+      "format": "Online",
+      "image": "https://example.com/images/agua-energia.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Certificación en Diseño Permacultural (PDC)",
+      "description": "Curso certificado que cubre todos los aspectos del diseño permacultural y su implementación.",
+      "price": 499.99,
+      "currency": "USD",
+      "duration": "12 semanas",
+      "level": "Avanzado",
+      "format": "Presencial y online",
+      "image": "https://example.com/images/certificacion-pdc.jpg"
+    }
+  ]
+  

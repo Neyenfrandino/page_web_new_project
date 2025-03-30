@@ -1,12 +1,11 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import listRouters from './listRouters.json';
+import listRouters from './json/listRouters.json';
 
 import Nav from './componets/nav/nav';
-import Home from './routers/home/home';
-import LogoHeader from './componets/logo_header/logo_header';
-
+import Home from './routers/home/home'
+import Services from './routers/services/services'
 
 
 import './App.scss';
@@ -33,12 +32,12 @@ const App = () => {
   return (
     <div className="App">
       <div className='App__nav'>
-        <Nav brandName="Mi Empresa" />
-
+        <Nav isScroll={isScroll} listRouters={listRouters} />
       </div>
 
       <Routes>
-        <Route path="/" element={<Home LogoComponent={LogoHeader} isScroll={isScroll}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/servicios" element={<Services />} />
       </Routes>
     </div>
   );

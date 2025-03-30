@@ -1,3 +1,4 @@
+import PaymentForm from '../../componets/payment-form/payment-form';
 import './home.scss';
 
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
             <p>Small steps, significant progress. Continuous improvement.</p>
           </div>
         </section>
+        <PaymentForm />
       </div>
     </div>
   );

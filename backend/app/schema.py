@@ -16,3 +16,8 @@ class MercadoPagoPreferenceSchema(BaseModel):
     items: List[ItemSchema]  # Lista de productos
     back_urls: BackUrlsSchema  # URLs de redirección
     auto_return: str = 'approved'  # Autorización para devolver el dinero
+
+
+class PaymentRequest(BaseModel):
+    paymentMethod: dict
+    product: dict
