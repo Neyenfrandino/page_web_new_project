@@ -8,11 +8,14 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     animation: up_animation 0.5s ease-in-out;
+    
   }
 
   &__container-content {
     width: 100%;
     max-width: 1920px;
+    
+    
   }
 
   &__header {
@@ -29,6 +32,7 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     align-items: center;
     filter: brightness(0.9) contrast(1.1);
     transition: all 0.4s ease;
+    // clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 
     &::after {
       content: '';

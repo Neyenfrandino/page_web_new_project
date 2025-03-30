@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import listRouters from './json/listRouters.json';
+import products from './json/products.json';
 
 import Nav from './componets/nav/nav';
 import Home from './routers/home/home'
@@ -37,7 +38,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/servicios" element={<Services />} />
+        <Route path="/servicios" element={<Services products={products} />} />
       </Routes>
     </div>
   );

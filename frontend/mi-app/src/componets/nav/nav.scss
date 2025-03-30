@@ -267,6 +267,7 @@ $mobile-breakpoint: 768px;
   &:hover {
     opacity: 1;
     transform: translateX(-50%) scale(1.1);
+    color: white;
   }
   
   &:disabled {
