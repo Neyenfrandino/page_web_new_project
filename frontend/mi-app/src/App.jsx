@@ -15,21 +15,19 @@ const App = () => {
 
   const [isScroll, setIsScroll] = useState(false);
 
-  useEffect(() => {
-    setIsScroll(window.scrollY);
-    window.addEventListener('scroll', () => {
-      setIsScroll(window.scrollY);
-    });
-    return () => {
-      window.removeEventListener('scroll', () => {
-        setIsScroll(window.scrollY);
-      });
-    };
-  }, []);
+  // useEffect(() => {
+  //   setIsScroll(window.scrollY);
+  //   window.addEventListener('scroll', () => {
+  //     setIsScroll(window.scrollY);
+  //   });
+  //   return () => {
+  //     window.removeEventListener('scroll', () => {
+  //       setIsScroll(window.scrollY);
+  //     });
+  //   };
+  // }, []);
 
-  // Debería mostrar "hola"
-
-
+  
   return (
     <div className="App">
       <div className='App__nav'>

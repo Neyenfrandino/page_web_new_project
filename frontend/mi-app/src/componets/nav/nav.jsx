@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+// Nav.jsx
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Home as HomeIcon,
@@ -6,11 +7,13 @@ import {
   Briefcase as BriefcaseIcon,
   Folder as FolderIcon,
   Book as BookIcon,
-  MessageCircle as MessageCircleIcon
+  MessageCircle as MessageCircleIcon,
+  ShoppingCart as ShoppingCartIcon,
+  FileText as FileTextIcon,
+  ChevronDown as ChevronDownIcon
 } from 'lucide-react';
 
 import './nav.scss';
-
 // Icon mapping
 const iconMap = {
   HomeIcon,
@@ -18,126 +21,151 @@ const iconMap = {
   BriefcaseIcon,
   FolderIcon,
   BookIcon,
-  MessageCircleIcon
+  MessageCircleIcon,
+  ShoppingCartIcon,
+  FileTextIcon
 };
 
-const Nav = ({ isScroll, listRouters }) => {
+const Nav = ({ listRouters }) => {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(location.pathname);
-  const [isAutoClosing, setIsAutoClosing] = useState(false);
-  const menuContainerRef = useRef(null);
-  const closeTimerRef = useRef(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   // Update active route on location change
   useEffect(() => {
     setActiveRoute(location.pathname);
   }, [location.pathname]);
 
-  // Scroll-based menu management
+  const toggleDropdown = (group, event) => {
+    event.stopPropagation();
+    if (openDropdown === group) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(group);
+    }
+  };
+
+  // Handle click outside to close dropdown
   useEffect(() => {
-    // Open menu when scrolled
-    if (isScroll !== 0 && !isMenuOpen) {
-      setIsMenuOpen(true);
-    }
+    const handleClickOutside = () => {
+      setOpenDropdown(null);
+    };
 
-    // Close menu when back to top
-    if (isScroll === 0 && isMenuOpen) {
-      startAutoCloseTimer();
-    }
-  }, [isScroll, isMenuOpen]);
-
-  // Start auto-close timer
-  const startAutoCloseTimer = useCallback(() => {
-    // Clear any existing timer
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-    }
-
-    setIsAutoClosing(true);
-    closeTimerRef.current = setTimeout(() => {
-      setIsMenuOpen(false);
-      setIsAutoClosing(false);
-    }, 2000);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
-  // Prevent auto-close when hovering over menu
-  const handleMouseEnter = useCallback(() => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      setIsAutoClosing(false);
-    }
-  }, []);
-
-  // Restart auto-close timer when mouse leaves
-  const handleMouseLeave = useCallback(() => {
-    if (isScroll === 0 && isMenuOpen) {
-      startAutoCloseTimer();
-    }
-  }, [isScroll, isMenuOpen, startAutoCloseTimer]);
-
-  // Toggle mobile menu
-  const toggleMobileMenu = useCallback(() => {
-    // Only allow toggle when scroll is 0 and not auto-closing
-    if (isScroll === 0 && !isAutoClosing) {
-      setIsMenuOpen(prevState => !prevState);
-    }
-  }, [isScroll, isAutoClosing]);
-
-  // Close menu when route is clicked
-  const handleRouteClick = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
+  console.log(openDropdown)
 
   return (
     <nav className="navigation">
-      <div
-        ref={menuContainerRef}
-        className={`navigation__container ${isMenuOpen ? 'visible' : 'hidden'}`}
-        style={{ display: isMenuOpen ? 'flex' : 'none' }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className="navigation__container">
+        {/* Logo - Will be centered on mobile via CSS */}
         <div className="navigation__brand">
-          <Link to={'/'} className="navigation__logo">
-            <img src="img/4.svg" alt="Navigation Logo" />
+          <Link to="/" className="navigation__logo">
+            <img src="img/4.svg" alt="Logo" />
           </Link>
         </div>
 
-        <div
-          className={`navigation__menu-toggle ${isMenuOpen ? 'open' : ''}`}
-          onClick={toggleMobileMenu}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
+        {/* Navigation Links - Desktop */}
+        <div className="navigation__menu">
+          <ul className="navigation__links">
+            {/* Principal links directly in the top menu */}
+            {listRouters.find(route => route.group === "Principal")?.items.map((item) => {
+              const Icon = iconMap[item.icon];
+              return (
+                <li key={item.name} className="navigation__item">
+                  <Link
+                    to={item.path}
+                    className={`navigation__link ${activeRoute === item.path ? 'navigation__link--active' : ''}`}
+                  >
+                    {Icon && <Icon className="navigation__icon" />}
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
+
+            {/* Dropdown menus for other groups */}
+            {listRouters
+              .filter(route => route.group !== "Principal")
+              .map((route) => (
+                <li key={route.group} className="navigation__item navigation__item--has-dropdown">
+                  <button
+                    onClick={(e) => toggleDropdown(route.group, e)}
+                    className="navigation__dropdown-toggle"
+                  >
+                    <span>{route.group}</span>
+                    <ChevronDownIcon className={`navigation__dropdown-icon ${openDropdown === route.group ? 'navigation__dropdown-icon--open' : ''}`} />
+                  </button>
+
+                  {openDropdown === route.group && (
+                    <ul className="navigation__dropdown">
+                      {route.items.map((item) => {
+                        const Icon = iconMap[item.icon];
+                        return (
+                          <li key={item.name} className="navigation__dropdown-item">
+                            <Link
+                              to={item.path}
+                              className={`navigation__dropdown-link ${activeRoute === item.path ? 'navigation__dropdown-link--active' : ''}`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {Icon && <Icon className="navigation__dropdown-icon" />}
+                              <span>{item.name}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              ))}
+          </ul>
         </div>
 
-        <ul className={`navigation__links ${isMenuOpen ? 'mobile-open' : ''}`}>
-          {listRouters.routes.map((route) => {
-            const Icon = iconMap[route.icon];
-            return (
-              <li
-                key={route.path}
-                className={`navigation__link-item ${activeRoute === route.path ? 'active' : ''}`}
-                onClick={handleRouteClick}
-              >
-                <Link to={route.path} className="navigation__link">
-                  {Icon && <Icon size={16} />}
-                  {route.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {/* Mobile menu button - positioned on right via CSS */}
+        <div className="navigation__mobile-toggle">
+          <button 
+            className="navigation__hamburger"
+            onClick={(e) => toggleDropdown("mobile", e)}
+          >
+            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+          </button>
+        </div>
       </div>
-      <button
-        onClick={toggleMobileMenu}
-        className='btn-nav'
-        disabled={isScroll !== 0 || isAutoClosing}
-      >
-        ▼
-      </button>
+
+      {/* Mobile menu */}
+      {openDropdown === "mobile" && (
+        <div className="navigation__mobile-menu">
+          {listRouters.map((route) => (
+            <div key={route.group} className="navigation__mobile-group">
+              <div className="navigation__mobile-group-title">
+                {route.group}
+              </div>
+              <ul className="navigation__mobile-items">
+                {route.items.map((item) => {
+                  const Icon = iconMap[item.icon];
+                  return (
+                    <li key={item.name} className="navigation__mobile-item">
+                      <Link
+                        to={item.path}
+                        className={`navigation__mobile-link ${activeRoute === item.path ? 'navigation__mobile-link--active' : ''}`}
+                      >
+                        {Icon && <Icon className="navigation__mobile-icon" />}
+                        <span>{item.name}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

@@ -17,6 +17,11 @@ $gradient-end: #2c3e50;
   100% { transform: translateY(0px); }
 }
 
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 // Estilos de la sección de servicios
 .services {
   &__container {
@@ -37,12 +42,14 @@ $gradient-end: #2c3e50;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     z-index: -1;
   }
-  
+    
   &__content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 100px 20px;
     position: relative;
+    height: 1200px ;
+    overflow-y: auto;
   }
 
   &__title {
@@ -52,7 +59,7 @@ $gradient-end: #2c3e50;
     position: relative;
     display: inline-block;
     animation: fadeIn 1s ease-out;
-    
+        
     &::after {
       content: "";
       position: absolute;
@@ -61,6 +68,11 @@ $gradient-end: #2c3e50;
       width: 80px;
       height: 4px;
       background-color: $secondary-color;
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 100%;
     }
   }
 
@@ -71,10 +83,96 @@ $gradient-end: #2c3e50;
     margin-bottom: 3rem;
     animation: fadeIn 1s ease-out 0.3s forwards;
     opacity: 0;
+    line-height: 1.6;
   }
-
+  
+  &__image-wrapper {
+    background-image: url('img/7.png');
+    height: 600px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.65);
+      transition: background-color 0.3s ease;
+    }
+    
+    &:hover::after {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  &__image-content {
+    max-width: 500px;
+    padding: 40px;
+    color: $light-color;
+    position: relative;
+    z-index: 1;
+    margin-right: 80px;
+    animation: slideInRight 1s ease-out 0.6s forwards;
+    opacity: 0;
+    
+    @media (max-width: 768px) {
+      margin-right: 0;
+      padding: 20px;
+      max-width: 100%;
+    }
+  }
+  
+  &__image-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  
+  &__image-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+  
+  &__image-button {
+    background-color: $secondary-color;
+    color: $light-color;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
 }
-
 
 // Media queries para responsividad
 @media (max-width: 768px) {
@@ -82,37 +180,39 @@ $gradient-end: #2c3e50;
     &__title {
       font-size: 2.5rem;
     }
-    
+        
     &__description {
       font-size: 1rem;
     }
-    
+        
     &__grid {
       grid-template-columns: 1fr;
     }
+    
+    &__image-wrapper {
+      height: 500px;
+      justify-content: center;
+      text-align: center;
+    }
   }
-  
+    
   .service__card {
     padding: 2rem;
   }
 }
 
-
-.services__image-wrapper {
-  background-image: url('img/7.png');
-  height: 800px;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+@media (max-width: 480px) {
+  .services {
+    &__title {
+      font-size: 2rem;
+    }
+    
+    &__image-wrapper {
+      height: 400px;
+    }
+    
+    &__image-title {
+      font-size: 1.8rem;
+    }
   }
 }

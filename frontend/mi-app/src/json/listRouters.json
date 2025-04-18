@@ -1,34 +1,57 @@
-{
-    "routes": [
-      {
-        "name": "Inicio",
-        "path": "/",
-        "icon": "HomeIcon"
-      },
-      {
-        "name": "Sobre Nosotros", 
-        "path": "/sobre-nosotros",
-        "icon": "UserIcon"
-      },
-      {
-        "name": "Servicios",
-        "path": "/servicios", 
-        "icon": "BriefcaseIcon"
-      },
-      {
-        "name": "Proyectos",
-        "path": "/proyectos",
-        "icon": "FolderIcon"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog",
-        "icon": "BookIcon"
-      },
-      {
-        "name": "Contacto",
-        "path": "/contacto",
-        "icon": "MessageCircleIcon"
-      }
-    ]
-  }
+  [
+    {
+      "group": "Principal",
+      "items": [
+        {
+          "name": "Inicio",
+          "path": "/",
+          "icon": "HomeIcon"
+        },
+        {
+          "name": "Servicios",
+          "path": "/servicios",
+          "icon": "BriefcaseIcon"
+        },
+        {
+          "name": "Productos",
+          "path": "/productos",
+          "icon": "ShoppingCartIcon"
+        },
+        {
+          "name": "Contacto",
+          "path": "/contacto",
+          "icon": "MessageCircleIcon"
+        }
+      ]
+    },
+    {
+      "group": "Sobre Nosotros",
+      "items": [
+        {
+          "name": "Sobre Nosotros",
+          "path": "/sobre-nosotros",
+          "icon": "UserIcon"
+        },
+        {
+          "name": "Proyectos",
+          "path": "/proyectos",
+          "icon": "FolderIcon"
+        }
+      ]
+    },
+    {
+      "group": "Contenido",
+      "items": [
+        {
+          "name": "Blog",
+          "path": "/blog",
+          "icon": "BookIcon"
+        },
+        {
+          "name": "Landing Page",
+          "path": "/landing",
+          "icon": "FileTextIcon"
+        }
+      ]
+    }
+  ]
