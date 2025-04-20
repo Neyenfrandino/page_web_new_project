@@ -1,6 +1,7 @@
 // Nav.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import DarkModeToggle from '../darkModeToggle/darkModeToggle';
 import {
   Home as HomeIcon,
   User as UserIcon,
@@ -12,8 +13,8 @@ import {
   FileText as FileTextIcon,
   ChevronDown as ChevronDownIcon
 } from 'lucide-react';
-
 import './nav.scss';
+
 // Icon mapping
 const iconMap = {
   HomeIcon,
@@ -26,12 +27,11 @@ const iconMap = {
   FileTextIcon
 };
 
-const Nav = ({ listRouters }) => {
+const Nav = ({listRouters }) => {
   const location = useLocation();
-  const [activeRoute, setActiveRoute] = useState(location.pathname);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [ activeRoute, setActiveRoute ] = useState(location.pathname);
+  const [ openDropdown, setOpenDropdown ] = useState(null);
 
-  // Update active route on location change
   useEffect(() => {
     setActiveRoute(location.pathname);
   }, [location.pathname]);
@@ -45,7 +45,6 @@ const Nav = ({ listRouters }) => {
     }
   };
 
-  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = () => {
       setOpenDropdown(null);
@@ -56,8 +55,6 @@ const Nav = ({ listRouters }) => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
-
-  console.log(openDropdown)
 
   return (
     <nav className="navigation">
@@ -125,18 +122,26 @@ const Nav = ({ listRouters }) => {
           </ul>
         </div>
 
+  
+
         {/* Mobile menu button - positioned on right via CSS */}
         <div className="navigation__mobile-toggle">
           <button 
             className="navigation__hamburger"
             onClick={(e) => toggleDropdown("mobile", e)}
           >
-            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
-            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
-            <span className={`${openDropdown != 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+            <span className={`${openDropdown !== 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+            <span className={`${openDropdown !== 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
+            <span className={`${openDropdown !== 'mobile' ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
           </button>
         </div>
+
+              {/* Botón de Modo Oscuro */}
+              <div className="navigation__darkmode">
+          <DarkModeToggle />
+        </div>
       </div>
+      
 
       {/* Mobile menu */}
       {openDropdown === "mobile" && (

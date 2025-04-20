@@ -1,0 +1,67 @@
+.products__container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    gap: 3rem;
+    background-color: #f9f9f9;
+    color: #000;
+    animation: fadeInUp 0.5s ease-out both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
+  // ─── DARK MODE ─────────────────────────────────────────────
+  .dark .products__container {
+    background-color: #121212;
+    color: #f0f0f0;
+  }
+  
+  .dark .products__header-content h1 {
+    color: #e6edf3;
+  }
+  
+  .dark .products__header-content p {
+    color: rgba(230, 237, 243, 0.85);
+  }
+  
+  .dark .products__section {
+    background-color: rgba(0, 0, 0, 0.1); // Fondo semi-transparente oscuro
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(230, 237, 243, 0.2);
+  }
+  
+  .dark .products__section h2 {
+    color: #e6edf3;
+  }
+  
+  .dark .products__section p {
+    color: rgba(230, 237, 243, 0.85);
+  }
+  
+  // Animación (opcional)
+  @keyframes fadeZoomIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  

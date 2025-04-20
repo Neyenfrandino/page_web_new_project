@@ -1,0 +1,26 @@
+.header__container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .header__content {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin-top: 5%;          
+    }
+}
+
+
+.dark {
+    .header__container {
+      background-color: #161d2f;
+    }
+  
+    .header__content {
+      color: #f0f0f0;
+    }
+  }

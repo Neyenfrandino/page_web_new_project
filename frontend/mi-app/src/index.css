@@ -9,7 +9,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* background-color: #242424; */
 }
 
 *, html{
@@ -18,7 +18,14 @@
 }
 
 
-body {
-  box-sizing: border-box;
-}
 
+body {
+  background-color: #eee;
+  color: #111;
+  box-sizing: border-box;
+
+  .dark & {
+    background-color: #161d2f;
+    color: #bbbbbb;
+  }
+}
