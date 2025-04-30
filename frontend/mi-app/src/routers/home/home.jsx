@@ -1,10 +1,32 @@
+
+import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import PaymentForm from '../../componets/payment-form/payment-form';
+import MercadoPagoCard from '../../componets/mercado_pago_card/mercado_pago_card';
 import Header from '../../componets/header/header';
 import './home.scss';
+
+const product = {
+  title: 'Plantines albahaca',
+  quantity: 1,
+  currency_id: 'ARS',
+  unit_price: 100,
+  image: 'img/3.png'
+}
 
 const Home = () => {
   return (
     <main className='home__container' aria-label="Página principal">
+      <>
+        <SEOHelmet 
+          title='Home' 
+          description='Simplify Your Focus' 
+          keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
+          author='Neyen Frandino' 
+          url='https://miempresa.com' 
+          image='https://miempresa.com/default-image.jpg' 
+        />
+      </>
+      
       <Header>
         <div className='home__header-content'>
           <h1>Simplify Your Focus</h1>
@@ -26,6 +48,7 @@ const Home = () => {
 
       {/* En caso de que quieras añadir el formulario de pago en el futuro */}
       {/* <PaymentForm /> */}
+      <MercadoPagoCard product={product} />
     </main>
   );
 };

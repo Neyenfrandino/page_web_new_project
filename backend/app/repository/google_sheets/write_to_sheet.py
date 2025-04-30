@@ -100,7 +100,7 @@ def write_to_sheet(service, spreadsheet_id, values):
 
 
 # Llamar a la función para recorrer la columna de "Email" y verificar si el correo ya existe
-correo = "juaan@gmail.com"
+correo = "juaaan@gmail.com"
 email_existe = recorrer_columna_email(authentication, spreadsheet_id, correo=correo)
 
 # Si el correo no existe en la columna, agregarlo a la hoja de cálculo

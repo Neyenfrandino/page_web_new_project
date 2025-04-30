@@ -1,57 +1,80 @@
-  [
+{
+  "Movimiento Naluum": [
     {
-      "group": "Principal",
-      "items": [
+      "name": "Home",
+      "path": "/movimiento-naluum/",
+      "icon": "HomeIcon"
+    },
+    {
+      "name": "Quiénes Somos",
+      "path": "/movimiento-naluum/quienes-somos",
+      "icon": "UserIcon"
+    },
+    {
+      "name": "Brotes del movimiento",
+      "path": "/proyectos",
+      "icon": "FolderIcon",
+      "subnavegacion": [
         {
-          "name": "Inicio",
-          "path": "/",
-          "icon": "HomeIcon"
+          "name": "Madre Selva",
+          "path": "/movimiento-naluum/projects/madre-selva",
+          "icon": "FolderIcon",
+          "subnavegacion": [
+            {
+              "name": "Home",
+              "path": "/madre-selva/home",
+              "icon": "HomeIcon"
+            },
+            {
+              "name": "Productos",
+              "path": "/madre-selva/productos",
+              "icon": "ShoppingCartIcon"
+            },
+            {
+              "name": "Servicios/Cursos/Eventos",
+              "path": "/madre-selva/servicios-cursos-eventos",
+              "icon": "BriefcaseIcon"
+            }
+          ]
         },
         {
-          "name": "Servicios",
-          "path": "/services",
-          "icon": "BriefcaseIcon"
-        },
-        {
-          "name": "Productos",
-          "path": "/products",
-          "icon": "ShoppingCartIcon"
-        },
-        {
-          "name": "Contacto",
-          "path": "/contact",
-          "icon": "MessageCircleIcon"
+          "name": "Naluum",
+          "path": "/movimiento-naluum/projects/naluum",
+          "icon": "FolderIcon",
+          "subnavegacion": [
+            {
+              "name": "Home",
+              "path": "/proyectos/naluum/home",
+              "icon": "HomeIcon"
+            },
+            {
+              "name": "Productos",
+              "path": "/proyectos/naluum/productos",
+              "icon": "ShoppingCartIcon"
+            },
+            {
+              "name": "Servicios/Cursos/Eventos",
+              "path": "/proyectos/naluum/servicios-cursos-eventos",
+              "icon": "BriefcaseIcon"
+            }
+          ]
         }
       ]
     },
     {
-      "group": "Sobre Nosotros",
-      "items": [
-        {
-          "name": "Sobre Nosotros",
-          "path": "/about-me",
-          "icon": "UserIcon"
-        },
-        {
-          "name": "Proyectos",
-          "path": "/projects",
-          "icon": "FolderIcon"
-        }
-      ]
+      "name": "Calendario",
+      "path": "/movimiento-naluum/calendario",
+      "icon": "CalendarIcon"
     },
     {
-      "group": "Contenido",
-      "items": [
-        {
-          "name": "Blog",
-          "path": "/blog",
-          "icon": "BookIcon"
-        },
-        {
-          "name": "Landing Page",
-          "path": "/landing-page",
-          "icon": "FileTextIcon"
-        }
-      ]
+      "name": "Contactos",
+      "path": "/movimiento-naluum/contactos",
+      "icon": "MessageCircleIcon"
+    },
+    {
+      "name": "",
+      "path": "/movimiento-naluum/carrito-de-compras",
+      "icon": "ShoppingCartIcon"
     }
   ]
+}

@@ -1,0 +1,230 @@
+// TimelineNav.scss
+.timeline-nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    z-index: 100;
+  
+    .timeline-container {
+      position: relative;
+      height: 75%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  
+      .timeline-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 9px;
+        width: 1px;
+        background-color: #e2e8f0;
+      }
+  
+      .timeline-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+  
+        .item-content {
+          padding-right: 1.5rem;
+          text-align: right;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          width: 100%;
+          opacity: 0.7;
+          transition: all 0.3s ease;
+  
+          .item-label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-right: 0.75rem;
+            transition: all 0.3s ease;
+            text-align: right;
+          }
+  
+          .item-icon {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+          }
+        }
+  
+        .item-dot {
+          position: absolute;
+          right: 9px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #fff;
+          border: 2px solid #a0aec0;
+          transform: translateX(50%);
+          transition: all 0.3s ease;
+        }
+  
+        &:hover {
+          .item-content {
+            opacity: 1;
+  
+            .item-label {
+              color: #2d3748;
+            }
+  
+            .item-icon {
+              opacity: 1;
+              color: #4299e1;
+            }
+          }
+  
+          .item-dot {
+            border-color: #4299e1;
+            transform: translateX(50%) scale(1.2);
+          }
+        }
+  
+        &.active {
+          .item-content {
+            opacity: 1;
+  
+            .item-label {
+              color: #2b6cb0;
+              font-weight: 600;
+            }
+  
+            .item-icon {
+              opacity: 1;
+              color: #3182ce;
+            }
+          }
+  
+          .item-dot {
+            width: 16px;
+            height: 16px;
+            background-color: #3182ce;
+            border: 2px solid #ebf4ff;
+            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
+          }
+        }
+      }
+    }
+  
+    // Responsive: colapsa verticalmente en pantallas pequeñas
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 8%;
+        padding-right: 0.5rem;
+        padding-top: 1rem;
+        height: auto;
+        bottom: 0;
+        right: 0;
+        // border: 1px solid #e2e8f0;
+        height: fit-content;
+        width: fit-content;
+        backdrop-filter: blur(5px);
+        background-color: #e2e8f011;
+        z-index: 1;
+  
+      .timeline-container {
+        flex-direction: row;
+        height: auto;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+  
+        .timeline-line {
+          display: none;
+        }
+  
+        .timeline-item {
+          flex-direction: column;
+  
+          .item-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-right: 0;
+            margin-bottom: 0.5rem;
+  
+            .item-label {
+              margin: 0;
+            }
+          }
+  
+          .item-dot {
+            position: static;
+            transform: none;
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+    }
+  
+    // Modo oscuro
+    .dark & {
+      .timeline-container {
+        .timeline-line {
+          background-color: #4a5568;
+        }
+  
+        .timeline-item {
+          .item-content {
+            .item-label {
+              color: #cbd5e0;
+            }
+  
+            .item-icon {
+              color: #a0aec0;
+            }
+          }
+  
+          .item-dot {
+            background-color: #1a202c;
+            border-color: #718096;
+          }
+  
+          &:hover {
+            .item-content {
+              .item-label {
+                color: #e2e8f0;
+              }
+  
+              .item-icon {
+                color: #63b3ed;
+              }
+            }
+  
+            .item-dot {
+              border-color: #63b3ed;
+            }
+          }
+  
+          &.active {
+            .item-content {
+              .item-label {
+                color: #63b3ed;
+              }
+  
+              .item-icon {
+                color: #63b3ed;
+              }
+            }
+  
+            .item-dot {
+              background-color: #63b3ed;
+              border-color: #2a4365;
+              box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
+            }
+          }
+        }
+      }
+    }
+  }
+  

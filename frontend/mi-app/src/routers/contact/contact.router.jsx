@@ -1,10 +1,21 @@
 
+import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import Header from '../../componets/header/header';
 import './contact.router.scss';
 
 const Contact = () => {
     return (
         <div className='contact__container'>
+            <>
+                <SEOHelmet 
+                    title='Contact' 
+                    description='Simplify Your Focus' 
+                    keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
+                    author='Neyen Frandino' 
+                    url='https://miempresa.com' 
+                    image='https://miempresa.com/default-image.jpg' 
+                />
+            </>
         
             <Header> 
                 <div className='contact__header-content'>

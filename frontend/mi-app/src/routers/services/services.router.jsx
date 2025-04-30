@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import SEOHelmet from "../../componets/SEOHelmet/SEOHelmet";
 import Card from "../../componets/card/cardV1/card"; 
 import CardV2Img from "../../componets/card/cardV2_Img/cardV2_img";
 import CardV3_testimonios from "../../componets/card/cardV3_testimonios/cardV3_testimonios";
@@ -20,6 +21,17 @@ const Services = ({ products }) => {
 
     return (
         <div className={`services__container ${isVisible ? 'visible' : ''}`}>
+            <>
+                <SEOHelmet 
+                    title='Services' 
+                    description='Simplify Your Focus' 
+                    keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
+                    author='Neyen Frandino' 
+                    url='https://miempresa.com' 
+                    image='https://miempresa.com/default-image.jpg' 
+                />
+            </>
+            
             <div className="services__background"></div>
             
             <div className="services__content">

@@ -1,11 +1,22 @@
 
+import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import Header from '../../componets/header/header';
 import './blog.router.scss';
 
 const Blog = () => {
     return (
         <div className='blog__container'>
-        
+            <>
+                <SEOHelmet 
+                    title='Blog' 
+                    description='Simplify Your Focus' 
+                    keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
+                    author='Neyen Frandino' 
+                    url='https://miempresa.com' 
+                    image='https://miempresa.com/default-image.jpg' 
+                />
+            </>
+            
             <Header> 
                 <div className='blog__header-content'>
                     <h1>Simplify Your Focus</h1>

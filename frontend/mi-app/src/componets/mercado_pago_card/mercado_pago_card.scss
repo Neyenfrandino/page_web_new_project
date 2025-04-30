@@ -1,224 +1,230 @@
-// Variables
-$mp-blue: #009ee3;
-$mp-light-blue: #00b1ea;
-$mp-yellow: #f5d328;
-$mp-green: #00a650;
-$mp-black: #333333;
-$mp-gray: #f5f5f5;
-$mp-error: #e74c3c;
-$mp-border-color: #e0e0e0;
-$mp-border-radius: 8px;
-$mp-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-$mp-transition: all 0.25s ease;
-
-// Reset
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-// MercadoPago Card Component
+/* MercadoPago Card Component */
 .mp-card {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 20px;
-  font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: $mp-black;
-  
-  &__container {
-    width: 100%;
-    max-width: 450px;
-    background-color: #fff;
-    border-radius: $mp-border-radius;
-    box-shadow: $mp-box-shadow;
-    overflow: hidden;
-    transition: $mp-transition;
-    
-    @media (max-width: 480px) {
-      max-width: 100%;
-    }
-    
-    &:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    }
-  }
-  
-  &__header {
-    padding: 16px;
-    background-color: white;
-    border-bottom: 1px solid $mp-border-color;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  &__brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  
-  &__brand-name {
-    color: $mp-blue;
-    font-weight: 600;
-    font-size: 16px;
-  }
-  
-  &__content {
-    padding: 0;
-  }
-  
-  &__product {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-  }
-  
-  &__image-wrapper {
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-  }
-  
-  &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-    
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-  
-  &__product-details {
-    padding: 16px;
-    background-color: white;
-    border-bottom: 1px solid rgba($mp-border-color, 0.5);
-  }
-  
-  &__product-name {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: $mp-black;
-  }
-  
-  &__product-price {
-    font-size: 22px;
-    font-weight: 700;
-    color: $mp-blue;
-  }
-  
-  &__form {
-    padding: 20px;
-  }
-  
-  &__security {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 12px;
-    background-color: rgba($mp-blue, 0.05);
-    border-radius: 6px;
-    color: darken($mp-blue, 10%);
-    
-    svg {
-      stroke: $mp-blue;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
-    
-    span {
-      font-size: 14px;
-      font-weight: 500;
-    }
-  }
-  
-  &__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    background: #009ee3; /* MercadoPago original blue */
-    border: none;
-    border-radius: 4px; /* More like original MP button */
-    cursor: pointer;
-    transition: $mp-transition;
-    
-    &:hover:not(:disabled) {
-      background: $mp-green; /* Cambiado a verde de MercadoPago */
-      box-shadow: 0 4px 12px rgba($mp-green, 0.3);
-    }
-    
-    &:active {
-      transform: translateY(1px);
-    }
-    
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-  }
+  color: #333333;
 }
 
-// Form Elements
+.mp-card__container {
+  width: 100%;
+  max-width: 950px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.mp-card__container:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* New Two Column Layout */
+.mp-card__content-wrapper {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.mp-card__product-column,
+.mp-card__form-column {
+  flex: 1;
+}
+
+.mp-card__product-column {
+  border-right: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.mp-card__header {
+  padding: 16px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.mp-card__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mp-card__brand-name {
+  color: #009ee3;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.mp-card__product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 100%;
+}
+
+.mp-card__image-wrapper {
+  margin: 0 auto;
+  margin-top: 3%;
+  width: 95%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.mp-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.mp-card__image:hover {
+  transform: scale(1.03);
+}
+
+.mp-card__product-details {
+  padding: 24px 20px;
+  background-color: white;
+  flex-grow: 1;
+}
+
+.mp-card__product-name {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.mp-card__product-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #009ee3;
+  margin-bottom: 16px;
+}
+
+.mp-card__security {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 14px;
+  background-color: rgba(0, 158, 227, 0.05);
+  border-radius: 8px;
+  color: #0080b7;
+}
+
+.mp-card__security--product {
+  margin: 0 20px 20px;
+}
+
+.mp-card__security svg {
+  stroke: #009ee3;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.mp-card__security span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mp-card__form {
+  padding: 24px 20px;
+}
+
+.mp-card__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #009ee3; /* MercadoPago original blue */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 158, 227, 0.2);
+  
+}
+
+.mp-card__button:hover:not(:disabled) {
+  background: #007cb1; /* MercadoPago green */
+  box-shadow: 0 4px 12px #ffffff22;
+}
+
+.mp-card__button:active {
+  transform: translateY(1px);
+}
+
+.mp-card__button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Form Elements */
 .mp-form-group {
   margin-bottom: 18px;
 }
 
 .mp-form-label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: $mp-black;
+  color: #333333;
 }
 
 .mp-form-input {
   width: 100%;
   padding: 12px 14px;
   font-size: 15px;
-  border: 1px solid $mp-border-color;
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
-  transition: $mp-transition;
-  
-  &:focus {
-    outline: none;
-    border-color: $mp-blue;
-    box-shadow: 0 0 0 2px rgba($mp-blue, 0.15);
-  }
-  
-  &::placeholder {
-    color: #999;
-  }
-  
-  &--error {
-    border-color: $mp-error;
-    
-    &:focus {
-      border-color: $mp-error;
-      box-shadow: 0 0 0 2px rgba($mp-error, 0.15);
-    }
-  }
+  transition: all 0.25s ease;
+}
+
+.mp-form-input:focus {
+  outline: none;
+  border-color: #009ee3;
+  box-shadow: 0 0 0 2px rgba(0, 158, 227, 0.15);
+}
+
+.mp-form-input::placeholder {
+  color: #999;
+}
+
+.mp-form-input--error {
+  border-color: #e74c3c;
+}
+
+.mp-form-input--error:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
 }
 
 .mp-error-message {
   margin-top: 6px;
   font-size: 12px;
-  color: $mp-error;
+  color: #e74c3c;
   font-weight: 500;
 }
 
@@ -227,26 +233,26 @@ $mp-transition: all 0.25s ease;
   align-items: flex-start;
   margin-bottom: 16px;
   padding: 12px;
-  background-color: rgba($mp-error, 0.1);
+  background-color: rgba(231, 76, 60, 0.1);
   border-radius: 6px;
-  color: $mp-error;
+  color: #e74c3c;
   font-size: 14px;
-  
-  svg {
-    stroke: $mp-error;
-    margin-right: 8px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
 }
 
-// MercadoPago Button Logo
+.mp-general-error svg {
+  stroke: #e74c3c;
+  margin-right: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* MercadoPago Button Logo */
 .mp-button-icon {
   margin-right: 10px;
   z-index: 2;
 }
 
-// Loader Animation
+/* Loader Animation */
 .mp-button-loader {
   width: 16px;
   height: 16px;
@@ -261,18 +267,163 @@ $mp-transition: all 0.25s ease;
   to { transform: rotate(360deg); }
 }
 
-// Responsive adjustments
+/* Dark Mode Styles */
+.dark .mp-card {
+  color: #f5f5f5;
+}
+
+.dark .mp-card__container {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark .mp-card__container:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .mp-card__header {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333333;
+}
+
+.dark .mp-card__product-column {
+  border-right: 1px solid #333333;
+}
+
+.dark .mp-card__product {
+  background-color: #1e1e1e;
+}
+
+.dark .mp-card__product-details {
+  background-color: #1e1e1e;
+}
+
+.dark .mp-card__product-name {
+  color: #f5f5f5;
+}
+
+.dark .mp-card__form-label {
+  color: #e0e0e0;
+}
+
+.dark .mp-form-label {
+  color: #e0e0e0;
+}
+
+.dark .mp-form-input {
+  background-color: #2d2d2d;
+  border-color: #444444;
+  color: #f5f5f5;
+}
+
+.dark .mp-form-input::placeholder {
+  color: #888888;
+}
+
+.dark .mp-form-input:focus {
+  border-color: #00b1ea;
+  box-shadow: 0 0 0 2px rgba(0, 177, 234, 0.2);
+}
+
+.dark .mp-card__security {
+  background-color: rgba(0, 158, 227, 0.1);
+  color: #33c1ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mp-card__content-wrapper {
+    flex-direction: column;
+  }
+  
+  .mp-card__product-column {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .dark .mp-card__product-column {
+    border-bottom: 1px solid #333333;
+  }
+  
+  .mp-card__form {
+    padding: 20px 16px;
+  }
+  
+  .mp-card__product-name {
+    font-size: 18px;
+  }
+  
+  .mp-card__product-price {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  
+  .mp-card__product-details {
+    padding: 20px 16px;
+  }
+  
+  .mp-card__security--product {
+    margin: 0 16px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mp-card {
+    padding: 15px;
+  }
+  
+  .mp-card__image-wrapper {
+    height: 180px;
+  }
+  
+  .mp-card__product-price {
+    font-size: 22px;
+  }
+}
+
 @media (max-width: 480px) {
   .mp-card {
     padding: 10px;
-    
-    &__container {
-      box-shadow: none;
-      border: 1px solid $mp-border-color;
-    }
-    
-    &__image-wrapper {
-      height: 160px;
-    }
+  }
+  
+  .mp-card__container {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+  }
+  
+  .dark .mp-card__container {
+    border: 1px solid #333333;
+  }
+  
+  .mp-card__image-wrapper {
+    height: 160px;
+  }
+  
+  .mp-card__button {
+    padding: 12px;
+    font-size: 15px;
+  }
+  
+  .mp-form-input {
+    padding: 11px 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .mp-card__form {
+    padding: 16px 12px;
+  }
+  
+  .mp-card__product-name {
+    font-size: 16px;
+  }
+  
+  .mp-card__product-price {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .mp-card__security--product {
+    margin: 0 12px 12px;
   }
 }

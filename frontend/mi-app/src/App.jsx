@@ -13,10 +13,11 @@ import Contact from './routers/contact/contact.router'
 import Projects from './routers/projects/projects.router'
 import LandingPage from './routers/landingPage/landingPage.router'
 import Products from './routers/products/products.router'
+import ShoppingCart from './routers/shoppingCart/shoppingCart'
 
 import Footer from './componets/footer/footer';
-
 import ScrollToTop from './componets/scrollToTop/ScrollToTop';
+import UserTracker from './componets/userTracker/userTracker';
 
 import './App.scss';
 
@@ -43,15 +44,18 @@ const App = () => {
         <Nav isScroll={isScroll} listRouters={listRouters} />
       </div>
       <ScrollToTop />
+      <UserTracker />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services products={products} />} />
-        <Route path="/about-me" element={<AboutMe />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/landing-page" element={<LandingPage />} />
-        <Route path="/products" element={<Products />} />
+        <Route index path="movimiento-naluum/" element={<Home />} />
+        <Route path="movimiento-naluum/projects*" element={<Projects/>} />
+        <Route path="movimiento-naluum/about-me" element={<AboutMe />} />
+        <Route path="movimiento-naluum/contact" element={<Contact />} />
+       <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
+        {/* <Route path="/landing-page" element={<LandingPage />} /> */}
+        {/* <Route path="/products" element={<Products />} /> */}
+        {/* <Route path="/blog" element={<Blog />} /> */}
+        {/* <Route path="/services" element={<Services products={products} />} /> */}
+
       </Routes>
 
       <div className='App__footer'>

@@ -6,7 +6,7 @@ from fastapi import HTTPException
 ACCESS_TOKEN = 'APP_USR-8714967665340941-032206-2022354acb93ae44756ff78d44452335-288716343'
 
 # Asegúrate de imprimir el token correctamente
-print(ACCESS_TOKEN, 'aaaa')
+
 
 if not ACCESS_TOKEN:
     raise ValueError("El token de acceso de Mercado Pago (ACCESS_TOKEN) no está configurado.")
