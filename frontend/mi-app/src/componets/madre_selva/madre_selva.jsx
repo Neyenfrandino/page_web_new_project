@@ -1,55 +1,36 @@
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import PaymentForm from '../../componets/payment-form/payment-form';
-import MercadoPagoCard from '../../componets/mercado_pago_card/mercado_pago_card';
-import Header from '../../componets/header/header';
+import React from 'react';
 import './madre_selva.scss';
 
-const product = {
-  title: 'Plantines albahaca',
-  quantity: 1,
-  currency_id: 'ARS',
-  unit_price: 100,
-  image: 'img/3.png'
-}
+const HomeMadreSelva = ({children}) => {
+  return (
+    <div>
+      {children}
+        <section className="home-madre-selva">
+          <div className="home-madre-selva__content">
+            <h2>Bienvenidos a Madre Selva</h2>
+            <p>
+              Somos un proyecto dedicado a la conexión entre la naturaleza y las personas.
+              Creamos productos con alma verde, cultivados con amor y conciencia ecológica.
+            </p>
 
-const MadreSelva = () => {
-    return (
-        <main className='home__container' aria-label="Página principal">
-          <>
-            <SEOHelmet 
-              title='Home' 
-              description='Simplify Your Focus' 
-              keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
-              author='Neyen Frandino' 
-              url='https://miempresa.com' 
-              image='https://miempresa.com/default-image.jpg' 
-            />
-          </>
-          
-          <Header>
-            <div className='home__header-content'>
-              <h1>Simplify Your Focus</h1>
-              <p>Clarity emerges when complexity fades. Embrace the essence of your potential.</p> 
+            <div className="home-madre-selva__highlights">
+              <div className="highlight">
+                <h3>🌱 Plantines Orgánicos</h3>
+                <p>Ofrecemos una variedad de plantines cultivados sin agroquímicos.</p>
+              </div>
+              <div className="highlight">
+                <h3>💧 Cuidado Natural</h3>
+                <p>Promovemos métodos de cultivo sustentables y regenerativos.</p>
+              </div>
+              <div className="highlight">
+                <h3>📦 Entregas Locales</h3>
+                <p>Llegamos con nuestras plantas a toda la ciudad sin intermediarios.</p>
+              </div>
             </div>
-          </Header>
-    
-          <section className='home__content'>
-            <article className='home__section'>
-              <h2>Mindful Design</h2>
-              <p>Less clutter, more meaning. Every element serves a purpose.</p>
-            </article>
-    
-            <article className='home__section'>
-              <h2>Intentional Growth</h2>
-              <p>Small steps, significant progress. Continuous improvement.</p>
-            </article>
-          </section>
-    
-          {/* En caso de que quieras añadir el formulario de pago en el futuro */}
-          {/* <PaymentForm /> */}
-          <MercadoPagoCard product={product} />
-        </main>
-      );
+          </div>
+        </section>
+    </div>
+  );
 };
 
-export default MadreSelva;
+export default HomeMadreSelva;

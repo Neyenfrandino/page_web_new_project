@@ -31,8 +31,8 @@ const iconMap = {
   CalendarIcon
 };
 
-const Nav = ({ listRouters }) => {
-  const location = useLocation();
+const Nav = ({ listRouters, location }) => {
+  // const location = useLocation();
   const [activeRoute, setActiveRoute] = useState(location.pathname);
   const [openDropdowns, setOpenDropdowns] = useState({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -119,6 +119,7 @@ const Nav = ({ listRouters }) => {
     if (!items || !Array.isArray(items)) return null;
     
     return items.map((item) => {
+      console.log(item);
       if (!item) return null;
       
       const Icon = item.icon ? iconMap[item.icon] : null;

@@ -1,64 +1,66 @@
-import { Routes, Route, Link } from 'react-router-dom'; 
+import { Routes, Route, useLocation } from 'react-router-dom'; 
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import Header from '../../componets/header/header';
-
 import MadreSelva from '../../componets/madre_selva/madre_selva';
 import Naluum from '../../componets/naluum/naluum';
-
 import TimelineNav from '../../componets/timeLineNav/timelineNav';
+import Header from '../../componets/header/header';
+import { Clock, Home, User } from 'lucide-react';
 import './projects.router.scss';
 
+const routesMadreSelva = [
+  { id: 1, name: "Inicio", path: "", icon: Home }, // nota: "" para que sea la raíz del proyecto
+  { id: 2, name: "Productos", path: "productos", icon: User },
+  { id: 3, name: "Servicios", path: "servicios", icon: Clock },
+];
+
+const routesNaluum = [
+  { id: 1, name: "Inicio", path: "", icon: Home },
+  { id: 2, name: "Productos", path: "productos", icon: User },
+  { id: 3, name: "Servicios", path: "servicios", icon: Clock },
+];
+
 const Projects = () => {
-    return (
-        <div className='projects__container'>
-            <>
-                <SEOHelmet 
-                    title='Projects' 
-                    description='Simplify Your Focus' 
-                    keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
-                    author='Neyen Frandino' 
-                    url='https://miempresa.com' 
-                    image='https://miempresa.com/default-image.jpg' 
-                />
-            </>
-        
-            {/* <Header> 
-                <div className='projects__header-content'>
-                    <h1>Simplify Your Focus</h1>
-                    <p>Clarity emerges when complexity fades. Embrace the essence of your potential.</p> 
-                </div>
-            </Header>
-        
+  const { pathname } = useLocation();
+  const isMadreSelva = pathname.includes('/projects/madre-selva');
 
-            <section className='projects__content'>
-                <div className='projects__section'>
-                    <h2>Mindful Design</h2>
-                    <p>Less clutter, more meaning. Every element serves a purpose.</p>
-                </div>
-                <div className='projects__section'>
-                    <h2>Intentional Growth</h2>
-                    <p>Small steps, significant progress. Continuous improvement.</p>
-                </div>
-            </section>   */}
+  return (
+    <div className='projects__container'>
+      <SEOHelmet 
+        title='Projects' 
+        description='Simplify Your Focus' 
+        keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
+        author='Neyen Frandino' 
+        url='https://miempresa.com' 
+        image='https://miempresa.com/default-image.jpg' 
+      />
 
-            <TimelineNav />
+      <TimelineNav routes={isMadreSelva ? routesMadreSelva : routesNaluum} />
 
+      <Routes>
+        {/* Madre Selva */}
+        <Route path="madre-selva" 
+            element={
+                <MadreSelva>
+                    <Header>
+                        <SEOHelmet/>
+                    </Header>
+                </MadreSelva>
+            }
+        >
+          <Route index element={<h1>Inicio Madre Selva</h1>} /> {/* Página principal */}
+          <Route path="productos" element={<h1>Productos Madre Selva</h1>} />
+          <Route path="servicios" element={<h1>Servicios Madre Selva</h1>} />
+        </Route>
 
-            <Routes>
-                <Route path="madre-selva" element={<MadreSelva />} />
-                <Route path="naluum" element={<Naluum />} />
-                {/* Agrega más rutas internas correctamente */}
-                {/* Ejemplo para Naluum (deberías tener un componente, no un console.log) */}
-                {/* <Route path="naluum" element={<Naluum />} /> */}
-            </Routes>
-
-        </div>
-        
-        
-
-
-
-    );
+        {/* Naluum */}
+        <Route path="naluum" element={<Naluum />}>
+          <Route index element={<h1>Inicio Naluum</h1>} /> {/* Página principal */}
+          <Route path="productos" element={<h1>Productos Naluum</h1>} />
+          <Route path="servicios" element={<h1>Servicios Naluum</h1>} />
+        </Route>
+      </Routes>
+    </div>
+  );
 };
 
 export default Projects;

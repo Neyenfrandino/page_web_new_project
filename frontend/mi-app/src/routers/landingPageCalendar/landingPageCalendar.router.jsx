@@ -1,9 +1,9 @@
 
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import Header from '../../componets/header/header';
-import './landingPage.router.scss';
+import './LandingPageCalendar.router.scss';
 
-const LandingPage = () => {
+const LandingPageCalendar = () => {
     return (
         <div className='landingPage__container'>
             <>
@@ -41,4 +41,4 @@ const LandingPage = () => {
     );
 };
 
-export default LandingPage;
+export default LandingPageCalendar;

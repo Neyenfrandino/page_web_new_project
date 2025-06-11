@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
 import products from './json/products.json';
@@ -11,7 +11,7 @@ import AboutMe from './routers/aboutMe/aboutMe.router'
 import Blog from './routers/blog/blog.router'
 import Contact from './routers/contact/contact.router'
 import Projects from './routers/projects/projects.router'
-import LandingPage from './routers/landingPage/landingPage.router'
+import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalendar.router'
 import Products from './routers/products/products.router'
 import ShoppingCart from './routers/shoppingCart/shoppingCart'
 
@@ -22,7 +22,8 @@ import UserTracker from './componets/userTracker/userTracker';
 import './App.scss';
 
 const App = () => {
-
+  const location = useLocation();
+  
   const [isScroll, setIsScroll] = useState(false);
 
   // useEffect(() => {
@@ -41,23 +42,23 @@ const App = () => {
   return (
     <div className="App">
       <div className='App__nav'>
-        <Nav isScroll={isScroll} listRouters={listRouters} />
+        <Nav isScroll={isScroll} listRouters={listRouters} location={location} />
       </div>
       <ScrollToTop />
-      <UserTracker />
+
       <Routes>
         <Route index path="movimiento-naluum/" element={<Home />} />
-        <Route path="movimiento-naluum/projects*" element={<Projects/>} />
-        <Route path="movimiento-naluum/about-me" element={<AboutMe />} />
+        <Route path="movimiento-naluum/projects*" element={<Projects currentRoute={location} />} />
+        <Route path="movimiento-naluum/quienes-somos" element={<AboutMe />} />
         <Route path="movimiento-naluum/contact" element={<Contact />} />
-       <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
-        {/* <Route path="/landing-page" element={<LandingPage />} /> */}
+        <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
+        <Route path="/movimiento-naluum/calendario" element={<LandingPageCalendar />} />
         {/* <Route path="/products" element={<Products />} /> */}
         {/* <Route path="/blog" element={<Blog />} /> */}
         {/* <Route path="/services" element={<Services products={products} />} /> */}
 
       </Routes>
-
+      {/* <UserTracker /> */}
       <div className='App__footer'>
         <Footer />
       </div>
