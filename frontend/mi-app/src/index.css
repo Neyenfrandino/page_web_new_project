@@ -20,7 +20,11 @@
 
 
 body {
-  background-color: #eee;
+  /* background-color: #eee; */
+  background-image: url('https://cdn.pixabay.com/photo/2022/09/07/14/56/ferns-7438928_1280.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #111;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;

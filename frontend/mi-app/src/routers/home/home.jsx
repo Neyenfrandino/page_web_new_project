@@ -43,7 +43,7 @@ const Home = () => {
 
       <Header>
         <div className='home__header-img-container'>
-          <img src="/img/3.png" alt="Fondo Naluum" className="home__header-img" />
+          <img src="/img/brote_mano.jpg" alt="Fondo Naluum" className="home__header-img" />
         </div>
 
         <div className='home__header-container'>
@@ -80,9 +80,10 @@ const Home = () => {
       </Header>
 
       <section className='home__content'>
-        <div className='home__content-filosofia'>
-          {/* <CardV2Img /> */}
-        </div>
+        {/* <div className='home__content-question'>
+          
+        </div> */}
+        {<CardV2Img />}
         
 
 

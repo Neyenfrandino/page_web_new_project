@@ -1,47 +1,153 @@
+// Mixins para media queries
+@mixin mobile-xs {
+  @media screen and (max-width: 360px) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media screen and (max-width: 479px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+
 .App {
-    display: flex;
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  justify-content: center;
+
+  .App__nav {
     width: 100%;
-    height: auto;
-    flex-direction: column;
+    display: flex;
     justify-content: center;
- 
-    .App__nav {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        // margin-top: .2rem;
-        position: fixed;
-        top: 0; /* Se asegura de que esté en la parte superior */
-        left: 50%; /* Centrado horizontal */
-        transform: translateX(-50%); /* Ajusta para centrar correctamente */
-        padding: 1rem;
-        z-index: 100; /* Asegura que esté sobre otros elementos */
-        transition: top 0.3s ease; /* Transición suave al hacer scroll */
-        backdrop-filter: blur(2px);
+    align-items: center;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    z-index: 100;
+    transition: top 0.3s ease;
+    backdrop-filter: blur(2px);
 
-        
-        @media (max-width: 768px) {
-            width: 90%;
-            padding: 0.8rem;
-        }
+    @include mobile-xs {
+      width: 95%;
+      padding: 0.6rem;
     }
 
+    @include mobile-sm {
+      width: 92%;
+      padding: 0.7rem;
+    }
+
+    @include mobile {
+      width: 90%;
+      padding: 0.8rem;
+    }
+
+    @include tablet {
+      width: 85%;
+      padding: 0.9rem;
+    }
+
+    @include desktop {
+      width: 100%;
+      padding: 1rem;
+    }
+
+    @include desktop-lg {
+      width: 100%;
+      padding: 1.2rem;
+    }
+  }
 }
 
-@media (max-width: 768px) {
-    .App {
-        flex-direction: column;
-    }
+.App-header {
+  padding: 1.5rem;
+  background-size: contain;
 
-    .App-header {
-        padding: 1.5rem;
-        background-size: contain;
-    }
+  @include mobile-xs {
+    padding: 1rem;
+    background-size: cover;
+  }
+
+  @include mobile-sm {
+    padding: 1.2rem;
+    background-size: cover;
+  }
+
+  @include mobile {
+    padding: 1.5rem;
+    background-size: contain;
+  }
+
+  @include tablet {
+    padding: 2rem;
+    background-size: contain;
+  }
+
+  @include desktop {
+    padding: 2.5rem;
+    background-size: contain;
+  }
+
+  @include desktop-lg {
+    padding: 3rem;
+    background-size: contain;
+  }
 }
-
 
 .App__footer {
+  width: 100%;
+
+  @include mobile-xs {
     width: 100%;
+  }
+
+  @include mobile-sm {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include desktop {
+    width: 100%;
+  }
+
+  @include desktop-lg {
+    width: 100%;
+  }
 }
