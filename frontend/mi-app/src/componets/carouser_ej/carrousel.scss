@@ -1,0 +1,406 @@
+// MissionCarousel.scss
+
+// Variables
+$carousel-height: 500px;
+$carousel-height-mobile: 400px;
+$carousel-border-radius: 20px;
+$arrow-size: 30px;
+$dot-size: 5px;
+$transition-duration: 0.6s;
+$overlay-gradient: linear-gradient(
+  to top,
+  rgba(0, 0, 0, 0.8) 0%,
+  rgba(0, 0, 0, 0.4) 50%,
+  rgba(0, 0, 0, 0.1) 80%,
+  rgba(0, 0, 0, 0) 100%
+);
+
+// Mixins para responsive
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
+// Main carousel container
+.mission-carousel {
+  
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: $carousel-border-radius;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  background: #fff;
+
+  &:focus-visible {
+    outline: 3px solid #3498db;
+    outline-offset: 3px;
+  }
+
+  // Carousel container
+  .carousel-container {
+    position: relative;
+    height: $carousel-height;
+    overflow: hidden;
+    border-radius: $carousel-border-radius;
+
+    @include mobile {
+      height: $carousel-height-mobile;
+    }
+  }
+
+  // Slides wrapper
+  .carousel-slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform $transition-duration cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Individual slide
+  .carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .slide-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .slide-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $overlay-gradient;
+        z-index: 1;
+      }
+    }
+
+    .slide-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+      color: white;
+      z-index: 2;
+      text-align: left;
+
+      @include mobile {
+        padding: 25px;
+      }
+
+      .slide-title {
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0 0 15px 0;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+        @include mobile {
+          margin-bottom: 10px;
+        }
+      }
+
+      .slide-description {
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
+        line-height: 1.5;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        max-width: 600px;
+
+        @include mobile {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    // Hover effect
+    // &:hover {
+    //   .slide-image img {
+    //     transform: scale(1.05);
+    //   }
+    // }
+  }
+
+  // Navigation arrows
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $arrow-size;
+    height: $arrow-size;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    svg {
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+
+      svg {
+        color: #3498db;
+      }
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #3498db;
+      outline-offset: 2px;
+    }
+
+    &--prev {
+      left: 20px;
+
+      @include mobile {
+        left: 15px;
+      }
+    }
+
+    &--next {
+      right: 20px;
+
+      @include mobile {
+        right: 15px;
+      }
+    }
+
+    @include mobile {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  // Dots indicator
+  .carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+
+    @include mobile {
+      bottom: 15px;
+      gap: 6px;
+    }
+
+    .carousel-dot {
+      width: $dot-size;
+      height: $dot-size;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.2);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+      }
+
+      &.active {
+        background: white;
+        transform: scale(1.3);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      @include mobile {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  // Progress bar
+  .carousel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 3;
+
+    .carousel-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      transition: width 0.3s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+      }
+    }
+  }
+  // Counter
+  .carousel-counter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .counter-current {
+      color: #3498db;
+      font-weight: 600;
+    }
+
+    .counter-separator {
+      opacity: 0.7;
+    }
+
+    .counter-total {
+      opacity: 0.9;
+    }
+
+    @include mobile {
+      top: 15px;
+      left: 15px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+  }
+
+  // Responsive adjustments
+  @include mobile {
+    margin: 0 10px;
+    border-radius: 16px;
+
+    .carousel-container {
+      border-radius: 16px;
+    }
+  }
+
+  // Loading state
+  &.loading {
+    .carousel-slide {
+      .slide-image {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+
+        img {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+// Loading animation
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Fade in animation for images
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .mission-carousel {
+    .carousel-slides {
+      transition: none;
+    }
+
+    .carousel-slide {
+      .slide-image img {
+        transition: none;
+      }
+    }
+
+    .carousel-arrow,
+    .carousel-dot,
+    .carousel-play-pause {
+      transition: none;
+    }
+  }
+}

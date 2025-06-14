@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "../../button/button";
 import "./cardV2_img.scss"
 
 const CardV2Img = ({ /* objectContentCard */ }) => {
@@ -22,8 +23,9 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
                     <span className="cardV2__content-title">{objectContentCard.question}</span>
                     <h2 className="cardV2__content-subtitle">{objectContentCard.title}</h2>
                     <p className="cardV2__content-description">{objectContentCard.text}</p>
-                    <div className="cardV2__content-button">
-                        <Link className="cardV2__image-button" to={objectContentCard.buttonPrimary[1]}>{objectContentCard.buttonPrimary[0]}</Link>
+
+                    <div className="button-card">
+                        <Button text={objectContentCard.buttonPrimary[0]} link={objectContentCard.buttonPrimary[1]} style="primary" />
                     </div>
                 </div>
             </div>

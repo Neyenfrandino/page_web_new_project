@@ -1,22 +1,15 @@
+import { Link } from "react-router-dom";
 import "./button.scss";
 
-const Button = ({ text, onClick, type = "primary", className = "" }) => {
-
-    const buttonTypes = {
-        primary: "primary",
-        secondary: "secondary",
-        tertiary: "tertiary",
-    };
-
-    const combinedClassName = `button ${buttonTypes[type]} ${className}`.trim();
-
-    return (
-        <div className="button-container">
-            <button className={combinedClassName} onClick={onClick}>
-                {text}
-            </button>
-        </div>
-    );
+const Button = ({ text, link, icon, style = "primary" }) => {
+  return (
+    <div className={`cardV2__content-button cardV2__content-button--${style}`}>
+      <Link className="cardV2__image-button" to={link}>
+        {icon && <span className="cardV2__button-icon">{icon}</span>}
+        {text}
+      </Link>
+    </div>
+  );
 };
 
 export default Button;

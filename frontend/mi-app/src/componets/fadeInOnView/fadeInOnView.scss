@@ -1,0 +1,97 @@
+// fadeInOnView.scss
+.fade-in-view {
+  // Variables CSS customizables
+  --fade-duration: 600ms;
+  --fade-distance: 20px;
+  --fade-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Base styles
+  transition: 
+    opacity var(--fade-duration) var(--fade-easing),
+    transform var(--fade-duration) var(--fade-easing);
+  
+  // Estado oculto por defecto
+  &--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // Estado visible
+  &--visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    pointer-events: auto;
+  }
+
+  // Direcciones de animación
+  &--up.fade-in-view--hidden {
+    transform: translate3d(0, var(--fade-distance), 0);
+  }
+
+  &--down.fade-in-view--hidden {
+    transform: translate3d(0, calc(-1 * var(--fade-distance)), 0);
+  }
+
+  &--left.fade-in-view--hidden {
+    transform: translate3d(var(--fade-distance), 0, 0);
+  }
+
+  &--right.fade-in-view--hidden {
+    transform: translate3d(calc(-1 * var(--fade-distance)), 0, 0);
+  }
+
+  &--fade.fade-in-view--hidden {
+    transform: translate3d(0, 0, 0);
+  }
+
+  // Optimizaciones de rendimiento
+  &--hidden {
+    will-change: transform, opacity;
+  }
+
+  &--visible {
+    will-change: auto; // Remover will-change una vez completada la animación
+  }
+}
+
+// Clases de utilidad adicionales
+.fade-in-view {
+  // Variantes de velocidad
+  &--fast {
+    --fade-duration: 300ms;
+  }
+
+  &--slow {
+    --fade-duration: 1000ms;
+  }
+
+  // Variantes de distancia
+  &--near {
+    --fade-distance: 10px;
+  }
+
+  &--far {
+    --fade-distance: 40px;
+  }
+
+  // Variantes de easing
+  &--bounce {
+    --fade-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  &--ease-out {
+    --fade-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+// Reducir movimientos para usuarios con preferencias de accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-view {
+    --fade-distance: 0px;
+    --fade-duration: 200ms;
+    
+    &--hidden {
+      transform: none;
+    }
+  }
+}

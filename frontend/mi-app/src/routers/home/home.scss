@@ -42,12 +42,26 @@ $text-light: #f0f0f0;
   }
 }
 
-// Keyframes
-@keyframes fadeInUp {
-  from {
+@keyframes fadeInDelayed {
+  0% {
     opacity: 0;
   }
-  to {
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInSlow {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }
@@ -58,11 +72,14 @@ $text-light: #f0f0f0;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  animation: fadeInUp 0.6s ease-out both;
-  margin-bottom: 2% ;
+  // animation: fadeIn 1s ease-in;
+  
+  // margin-bottom: 2%;
 
   // Contenedor de la imagen de fondo
   .home__header-img-container {
+    // animation: fadeIn 0.8s ease-out both;
+    
     .home__header-img {
       position: absolute;
       top: 0;
@@ -92,6 +109,7 @@ $text-light: #f0f0f0;
         rgba(0, 0, 0, 0) 100%
       );
       z-index: 2;
+      animation: fadeInDelayed 1.5s ease-out both;
 
       @include tablet {
         height: 55%;
@@ -112,8 +130,6 @@ $text-light: #f0f0f0;
     justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    // padding: 1.5rem;
-    // gap: 2rem;
 
     @include mobile {
       flex-direction: column;
@@ -130,19 +146,14 @@ $text-light: #f0f0f0;
     }
 
     @include desktop {
-      // margin: 0 auto;
-      margin-top: 1%;
-      // padding: 2rem 5rem;
+      // margin-top: 1%;
       gap: 0rem;
     }
 
     @include desktop-lg {
-      // margin: 0 auto;
-      margin-top: 1%;
+      // margin-top: 1%;
       margin-right: 5%;
       gap: 0;
-      // padding: 0 6rem;
-      // gap: 5rem;
     }
   }
 
@@ -155,7 +166,7 @@ $text-light: #f0f0f0;
     text-align: center;
     width: 100%;
     backdrop-filter: blur(2px);
-    
+    animation: fadeInDelayed 1.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 
     @include tablet {
       width: 50%;
@@ -172,7 +183,8 @@ $text-light: #f0f0f0;
         height: 15rem;
         width: auto;
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-        transition: height 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInSlow 2.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 
         @include mobile-sm {
           height: 9rem;
@@ -189,6 +201,11 @@ $text-light: #f0f0f0;
         @include desktop-lg {
           height: 15rem;
         }
+
+        &:hover {
+          transform: scale(1.02);
+          filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
+        }
       }
     }
 
@@ -199,7 +216,8 @@ $text-light: #f0f0f0;
         color: $text-white;
         margin: 0;
         text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-        transition: font-size 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInSlow 2.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 
         @include mobile-sm {
           font-size: 1.3rem;
@@ -229,6 +247,8 @@ $text-light: #f0f0f0;
     text-align: center;
     position: relative;
     z-index: 10;
+    animation: fadeInDelayed 2.0s cubic-bezier(0.4, 0, 0.2, 1) both;
+    
 
     @include tablet {
       text-align: left;
@@ -248,8 +268,13 @@ $text-light: #f0f0f0;
         color: $text-white;
         margin: 0;
         line-height: 1.2;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-        transition: font-size 0.3s ease;
+        // text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.7),
+          0 4px 12px rgba(0, 0, 0, 0.6),
+          0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInSlow 2.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 
         @include mobile-sm {
           font-size: 1.5rem;
@@ -277,7 +302,8 @@ $text-light: #f0f0f0;
         margin: 0;
         line-height: 1.5;
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-        transition: font-size 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInSlow 2.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 
         @include mobile-sm {
           font-size: 1rem;
@@ -300,9 +326,10 @@ $text-light: #f0f0f0;
     .home__content-titile-buttons {
       display: flex;
       flex-direction: row;
-      gap: 1rem;
       position: relative;
       z-index: 15;
+      height: 40px;
+      animation: fadeInSlow 2.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 
       @include mobile-sm {
         flex-direction: row;
@@ -314,77 +341,6 @@ $text-light: #f0f0f0;
         justify-content: flex-start;
         gap: 1.5rem;
       }
-
-      .home__content-titile-buttons-link {
-        padding: 0.8rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        position: relative;
-        z-index: 15;
-        min-width: 120px;
-        text-decoration: none;
-        text-align: center;
-        // display: inline-block;
-
-        @include mobile-sm {
-          padding: 0.9rem 1.8rem;
-          font-size: 0.75rem;
-          min-width: 140px;
-        }
-
-        @include tablet {
-          // padding: 1rem 2rem;
-          font-size: 0.75rem;
-          min-width: 160px;
-        }
-
-        @include desktop {
-          // padding: 1.1rem 2.2rem;
-          font-size: .7rem;
-        }
-
-        // Botón primario (verde)
-        &:first-child {
-          background-color: $primary-green;
-          color: $text-white;
-          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-
-          &:hover {
-            background-color: $primary-green-hover;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
-          }
-
-          &:active {
-            transform: translateY(0);
-          }
-        }
-
-        // Botón secundario (outline)
-        &:last-child {
-          background-color: transparent;
-          color: $text-white;
-          border: 2px solid $text-white;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-
-          &:hover {
-            background-color: $text-white;
-            color: #1f2937;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-          }
-
-          &:active {
-            transform: translateY(0);
-          }
-        }
-      }
     }
   }
 
@@ -394,8 +350,8 @@ $text-light: #f0f0f0;
     height: auto;
     position: relative;
     z-index: 1;
-    // margin-top: 1%;
     padding: 3%;
+    // animation: fadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 
     &::before {
       content: '';
@@ -413,7 +369,8 @@ $text-light: #f0f0f0;
         rgba(0, 0, 8, 0.4) 85%, 
         rgba(0, 0, 0,  0.2) 100%
       );
-      z-index: 2;
+      z-index: 0;
+      animation: fadeInDelayed 2.0s ease-out both;
 
       @include tablet {
         height: 55%;
@@ -422,6 +379,90 @@ $text-light: #f0f0f0;
       @include desktop {
         height: 100%;
       }
+    }
+
+  .home__content--mision {
+    margin-top: 4%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 2rem 1rem;
+    // border: 1px solid #e5e5e5;
+
+    .content--mision--titiles {
+      margin-bottom: 3rem;
+      // max-width: 900px;
+      padding: 0 1rem;
+      text-align: center;
+
+      .mision--titile h1 {
+        font-size: 3rem;
+        color: #fdfdfd;
+        font-weight: 700;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7),
+                    0 0 8px rgba(255, 255, 255, 0.05); // Doble sombra para profundidad
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+
+        @include mobile {
+          font-size: 2.2rem;
+        }
+      }
+
+      .mision--subTitle h2 {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #e6e6e6;
+        margin-top: 0.2rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+
+        @include mobile {
+          font-size: 1.3rem;
+        }
+      }
+
+      .mision--parrafo {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #cccccc;
+        line-height: 1.6;
+
+        p {
+          margin: 0 auto;
+          max-width: 600px;
+        }
+
+        span {
+          display: block;
+          margin-top: 0.7rem;
+          font-weight: 300;
+          color: #b0b0b0;
+          font-style: italic;
+          letter-spacing: 0.3px;
+          font-size: 1rem;
+        }
+
+        @include mobile {
+          font-size: 0.95rem;
+        }
+      }
+    }
+
+      .content--mision__carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 2rem;
+        padding: 1rem 0;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      } 
     }
   }
 }
@@ -463,3 +504,4 @@ $text-light: #f0f0f0;
     }
   }
 }
+
