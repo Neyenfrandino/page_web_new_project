@@ -1,9 +1,9 @@
 // MissionCarousel.scss
 
 // Variables
-$carousel-height: 500px;
-$carousel-height-mobile: 400px;
-$carousel-border-radius: 20px;
+$carousel-height: 400px;
+$carousel-height-mobile: 300px;
+$carousel-border-radius: 16px;
 $arrow-size: 30px;
 $dot-size: 5px;
 $transition-duration: 0.6s;
@@ -36,9 +36,8 @@ $overlay-gradient: linear-gradient(
 
 // Main carousel container
 .mission-carousel {
-  
   position: relative;
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   border-radius: $carousel-border-radius;

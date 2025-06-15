@@ -8,7 +8,8 @@ import CardV2Img from '../../componets/card/cardV2_Img/cardV2_img';
 import Button from '../../componets/button/button';
 import Cta from '../../componets/cta/cta';
 import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
-import MissionCarousel from '../../componets/carouser_ej/carrousel_el';
+import MissionCarousel from '../../componets/carrusel_imagenes/carrusel_imagenes';
+import Grid from '../../componets/grid/grid';
 import './home.scss';
 
 const product = {
@@ -145,6 +146,35 @@ const Home = () => {
               <MissionCarousel cards={missionCards} autoPlay={true} autoPlayInterval={5000} />
             </div>
           
+          </FadeInOnView>
+        </div>
+
+
+        <div className='home__content--servicios'>
+          <FadeInOnView threshold={0.3}>
+            <div className='content--servicios__container'>
+
+              <div className='content--servicios__text'>
+                <h2>
+                  El hacer de Naluum es experiencia, vínculo y territorio.
+                </h2>
+
+                <p>
+                  En Naluum, lo que hacemos no son simples servicios:
+                  🌱 Son puertas abiertas hacia una forma distinta de vivir.
+                  🔥 Cada propuesta nace del deseo de regenerar la Tierra, cultivar comunidad y activar el aprendizaje colectivo.
+                </p>
+
+                <span>
+                  Nuestro hacer se manifiesta en encuentros, asesorías, espacios diseñados con propósito y celebraciones que nos recuerdan lo esencial.
+                  Te invitamos a recorrer estos caminos que ya están germinando por toda la región:
+                </span>
+              </div>
+
+              <div className='content--servicios__grid'>
+                  <Grid slice={8} />
+              </div>
+            </div>
           </FadeInOnView>
         </div>
       </section>

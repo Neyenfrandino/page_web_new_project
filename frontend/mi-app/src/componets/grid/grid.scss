@@ -1,0 +1,319 @@
+// Variables
+$grid-gap: 16px;
+$grid-border-radius: 16px;
+$grid-max-width: 1200px;
+$grid-row-height: 200px;
+
+// Colores
+$white: #ffffff;
+$gray-50: #f8fafc;
+$gray-600: #6b7280;
+$gray-900: #1f2937;
+$shadow-light: rgba(0, 0, 0, 0.08);
+$shadow-hover: rgba(0, 0, 0, 0.12);
+$overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+
+// Mixins
+@mixin card-hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px $shadow-hover;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Componente principal
+.grid {
+  padding: 20px;
+  background-color: transparent;
+  min-height: 100vh;
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: $grid-row-height;
+    gap: $grid-gap;
+    max-width: $grid-max-width;
+    margin: 0 auto;
+  }
+
+  &__card {
+    background-color: $white;
+    border-radius: $grid-border-radius;
+    overflow: hidden;
+    box-shadow: 0 4px 20px $shadow-light;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      @include card-hover;
+    }
+
+    &:focus-visible {
+      @include card-hover;
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+
+    // Patrón de tamaños que se repite cada 6 elementos
+    &:nth-child(6n+1) {
+      grid-column: span 2;
+      grid-row: span 2;
+
+      .grid__card-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    &:nth-child(6n+2) {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    &:nth-child(6n+3) {
+      grid-column: span 2;
+      grid-row: span 2;
+
+      .grid__card-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    &:nth-child(6n+4) {
+      grid-column: span 3;
+      grid-row: span 1;
+    }
+
+    &:nth-child(6n+5) {
+      grid-column: span 3;
+      grid-row: span 1;
+    }
+
+    &:nth-child(6n+6) {
+      grid-column: span 6;
+      grid-row: span 1;
+
+      .grid__card-title {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  // Estilos especiales cuando solo hay 3 cards
+  &__container:has(&__card:nth-child(3):last-child) {
+    .grid__card {
+      // Resetear todos los tamaños especiales
+      grid-column: span 2 !important;
+      grid-row: span 2 !important;
+
+      .grid__card-title {
+        font-size: 1.4rem !important;
+      }
+    }
+  }
+
+  &__card-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &__card:hover &__card-image img {
+    transform: scale(1.05);
+  }
+
+  &__card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $overlay-gradient;
+    color: $white;
+    padding: 20px;
+    z-index: 2;
+  }
+
+  &__card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    color: $white;
+  }
+
+  &__card-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  &__card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+  }
+
+  &__card-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    @include flex-center;
+    font-size: 0.7rem;
+  }
+
+  &__card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: $gray-900;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .grid {
+    &__container {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px;
+    }
+
+    &__card {
+      &:nth-child(6n+1),
+      &:nth-child(6n+3) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      &:nth-child(6n+2),
+      &:nth-child(6n+4),
+      &:nth-child(6n+5) {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      &:nth-child(6n+6) {
+        grid-column: span 4;
+        grid-row: span 1;
+      }
+    }
+
+    // Estilos especiales para 3 cards en tablet
+    &__container:has(&__card:nth-child(3):last-child) {
+      .grid__card {
+        grid-column: span 1 !important;
+        grid-row: span 2 !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    padding: 16px;
+
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 160px;
+      gap: 12px;
+    }
+
+    &__card {
+      &:nth-child(6n+1),
+      &:nth-child(6n+3) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      &:nth-child(6n+2),
+      &:nth-child(6n+4),
+      &:nth-child(6n+5),
+      &:nth-child(6n+6) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+
+    // Estilos especiales para 3 cards en móvil
+    &__container:has(&__card:nth-child(3):last-child) {
+      .grid__card {
+        &:nth-child(1),
+        &:nth-child(2) {
+          grid-column: span 1 !important;
+          grid-row: span 2 !important;
+        }
+        
+        &:nth-child(3) {
+          grid-column: span 2 !important;
+          grid-row: span 1 !important;
+        }
+      }
+    }
+
+    &__card-overlay {
+      padding: 16px;
+    }
+
+    &__card-title {
+      font-size: 1.1rem;
+
+      .grid__card:nth-child(6n+1) &,
+      .grid__card:nth-child(6n+3) &,
+      .grid__card:nth-child(6n+6) & {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    padding: 12px;
+
+    &__container {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 200px;
+    }
+
+    &__card {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+
+    &__card-overlay {
+      padding: 14px;
+    }
+
+    &__card-title {
+      font-size: 1.1rem !important;
+    }
+
+    &__card-subtitle {
+      font-size: 0.85rem;
+    }
+  }
+}

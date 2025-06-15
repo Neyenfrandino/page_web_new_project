@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
-import products from './json/products.json';
+// import products from './json/products.json';
 
 import Nav from './componets/nav/nav';
 import Home from './routers/home/home'

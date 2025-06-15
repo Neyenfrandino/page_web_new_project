@@ -1,6 +1,6 @@
 // MissionCarousel.jsx
 import React, { useState, useEffect } from 'react';
-import './carrousel.scss';
+import './carrusel_imagenes.scss';
 
 const MissionCarousel = ({ cards, autoPlay = true, autoPlayInterval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

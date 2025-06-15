@@ -1,0 +1,92 @@
+{
+  "servicios": [
+    {
+      "id": 1,
+      "name": "Diseño de Espacios Regenerativos",
+      "description": "Transformamos patios, chacras, escuelas o casas en sistemas vivos, productivos y sostenibles. Desde el diseño del paisaje hasta la implementación consciente.",
+      "price": 149.99,
+      "currency": "USD",
+      "duration": "6 semanas",
+      "level": "Todos los niveles",
+      "format": "Presencial y online",
+      "image": "https://cdn.pixabay.com/photo/2019/09/25/18/45/saplings-4504323_1280.png"
+    },
+    {
+      "id": 2,
+      "name": "Talleres Vivenciales y Aprendizaje Colectivo",
+      "description": "Viví experiencias transformadoras: compostaje, bioconstrucción, cultivos regenerativos, fermentos, cocina viva y más. Aprender haciendo, aprender compartiendo.",
+      "price": 89.99,
+      "currency": "USD",
+      "duration": "2 a 4 días por taller",
+      "level": "Todos los niveles",
+      "format": "Presencial",
+      "image": "https://cdn.pixabay.com/photo/2017/03/18/17/01/ivy-2154500_1280.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Asesorías Personalizadas para la Transición Consciente",
+      "description": "Acompañamos procesos de cambio: desde proyectos familiares hasta iniciativas comunitarias. Te brindamos guía adaptada a tus necesidades.",
+      "price": 59.99,
+      "currency": "USD",
+      "duration": "1 sesión (1h30) + seguimiento",
+      "level": "Todos los niveles",
+      "format": "Online o presencial",
+      "image": "https://cdn.pixabay.com/photo/2018/03/08/13/14/flora-3208629_1280.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Retiros, Celebraciones y Encuentros Regenerativos",
+      "description": "Espacios de pausa fértil, conexión profunda y celebración de los ciclos. Caminatas, fogones, rituales y vida en comunidad.",
+      "price": 199.99,
+      "currency": "USD",
+      "duration": "3 días",
+      "level": "Todos los niveles",
+      "format": "Presencial",
+      "image": "https://cdn.pixabay.com/photo/2020/10/20/11/10/campfire-5668465_1280.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Huertas Escolares y Comunitarias",
+      "description": "Diseñamos e implementamos huertas agroecológicas como herramientas pedagógicas y de autosuficiencia para comunidades y escuelas.",
+      "price": 109.99,
+      "currency": "USD",
+      "duration": "4 semanas",
+      "level": "Principiante",
+      "format": "Presencial",
+      "image": "https://cdn.pixabay.com/photo/2015/04/10/00/41/garden-715632_1280.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Bioconstrucción y Eco-Hábitat",
+      "description": "Construimos espacios con materiales naturales y técnicas ancestrales. Desde baños secos hasta viviendas completas.",
+      "price": 299.99,
+      "currency": "USD",
+      "duration": "8 semanas",
+      "level": "Intermedio",
+      "format": "Presencial",
+      "image": "https://cdn.pixabay.com/photo/2020/02/01/17/12/cob-house-4811653_1280.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Círculos de Escucha y Cuidado Comunitario",
+      "description": "Facilitamos espacios de contención emocional, escucha activa y fortalecimiento de la red afectiva comunitaria.",
+      "price": 39.99,
+      "currency": "USD",
+      "duration": "Sesiones semanales (1 mes)",
+      "level": "Todos los niveles",
+      "format": "Online y presencial",
+      "image": "https://cdn.pixabay.com/photo/2017/01/14/10/57/friends-1973211_1280.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Laboratorios de Alimentación Viva",
+      "description": "Exploramos la cocina como medicina. Fermentos, alimentos vivos, deshidratados y nutrición regenerativa. Práctico, sabroso y saludable.",
+      "price": 69.99,
+      "currency": "USD",
+      "duration": "2 semanas",
+      "level": "Principiante",
+      "format": "Presencial",
+      "image": "https://cdn.pixabay.com/photo/2022/09/30/17/54/savoy-cabbage-7489978_1280.jpg"
+    }
+  ]
+}

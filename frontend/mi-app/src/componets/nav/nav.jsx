@@ -32,11 +32,9 @@ const iconMap = {
 };
 
 const Nav = ({ listRouters, location }) => {
-  // const location = useLocation();
   const [activeRoute, setActiveRoute] = useState(location.pathname);
   const [openDropdowns, setOpenDropdowns] = useState({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
 
   // Process navigation items from props
   const navItems = useMemo(() => {
@@ -80,7 +78,7 @@ const Nav = ({ listRouters, location }) => {
       item && (item.path === '/movimiento-naluum/projects' || item.name === 'Proyectos')
     );
   }, [navItems]);
-
+ 
   // Update active route when location changes
   useEffect(() => {
     setActiveRoute(location.pathname);
@@ -119,7 +117,6 @@ const Nav = ({ listRouters, location }) => {
     if (!items || !Array.isArray(items)) return null;
     
     return items.map((item) => {
-      console.log(item);
       if (!item) return null;
       
       const Icon = item.icon ? iconMap[item.icon] : null;
@@ -127,14 +124,13 @@ const Nav = ({ listRouters, location }) => {
       
       return (
         <li key={item.path} className={`navigation__dropdown-item ${level > 0 ? 'navigation__dropdown-item--nested' : ''}`}>
-          
           <Link
             to={item.path}
             className={`navigation__dropdown-link ${activeRoute === item.path ? 'navigation__dropdown-link--active' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {projectsFilter.length > 0 && <Carousel projects={projectsFilter} />}
-            {/* <span>{item.name}</span> */}
+            <span>{item.name}</span>
           </Link>
         </li>
       );
@@ -180,6 +176,9 @@ const Nav = ({ listRouters, location }) => {
             >
               {Icon && <Icon className="navigation__mobile-icon" />}
               <span>{item.name || (item.icon === 'ShoppingCartIcon' ? 'Carrito' : '')}</span>
+              {item.icon === 'ShoppingCartIcon' && (
+                <span className="navigation__cart-count">5</span>
+              )}
             </Link>
           )}
         </li>
@@ -222,16 +221,15 @@ const Nav = ({ listRouters, location }) => {
               )}
             </>
           ) : (
-            // Aqui en donde se va a mostrar el carrito de compras, y aqui debemos mostrar el numero de productos en el carrito, y traerlo dinamicamente
             <Link
               to={item.path}
               className={`navigation__link ${activeRoute === item.path ? 'navigation__link--active' : ''}`}
             >
               {Icon && <Icon className="navigation__icon" />}
-              <span>{item.name || (item.icon === 'ShoppingCartIcon' ? (
-                 <span className={`navigation__link-text${activeRoute.includes('/carrito-de-compras') ? ' navigation__link--active' : ''}`}>5</span>
-              ) : '')}</span>
-             
+              <span>{item.name || (item.icon === 'ShoppingCartIcon' ? '' : '')}</span>
+              {item.icon === 'ShoppingCartIcon' && (
+                <span className="navigation__cart-count">5</span>
+              )}
             </Link>
           )}
         </li>
@@ -255,21 +253,21 @@ const Nav = ({ listRouters, location }) => {
           </button>
         </div>
         
-        {/* Logo - Will be centered on mobile via CSS */}
+        {/* Logo - Left side */}
         <div className="navigation__brand">
           <Link to="/movimiento-naluum/" className="navigation__logo">
             <img src="/img/logo_naluum_trasparente.svg" alt="Logo" />
           </Link>
         </div>
 
-        {/* Navigation Links - Desktop */}
+        {/* Navigation Links - Right side */}
         <div className="navigation__menu">
           <ul className="navigation__links">
             {renderDesktopItems(mainNavItems)}
           </ul>
         </div>
 
-        {/* Dark Mode Toggle */}
+        {/* Dark Mode Toggle - Far right */}
         <div className="navigation__darkmode">
           <DarkModeToggle />
         </div>
