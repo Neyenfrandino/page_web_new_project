@@ -130,6 +130,8 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
 
       img{
         width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       // Gradiente mejorado
@@ -190,47 +192,54 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
       }
     }
 
-    // Contenido de texto
+    // Contenido de texto - CORREGIDO PARA MANTENERLO DENTRO DE LA IMAGEN
     .cardV2__content--text {
       display: flex;
       flex-direction: column;
-      // align-items: flex-start; /* aqui puedo ajustar el boton  */
       justify-content: center;
-      text-align: center; /* aqui podemos cambiar la posicion de las lineas justificadas */
+      text-align: left;
       width: 50%;
       max-width: 500px;
       gap: 1rem;
       z-index: 10;
       position: absolute;
-      top: 15%;
+      // top: 50%;
       left: 70px;
-      transform: translate(0%, -50%);
+      transform: translateY(-50%);
       @include card-transition(all, 0.4s, ease-out);
       animation: cardContentSlide 0.8s ease-out 0.2s both;
 
-      // Responsive content positioning
+      // Responsive content positioning - MANTIENE EL TEXTO DENTRO DE LA IMAGEN
       @media (max-width: 1024px) {
-        left: 30px;
-        width: 55%;
+        left: 40px;
+        top: 100px;
+        width: 100%;
+        height: 50%;
         gap: 1.2rem;
       }
 
       @media (max-width: 768px) {
-        position: static;
-        transform: none;
-        width: 100%;
-        // padding: 2rem;
-        align-items: center;
+        // MANTENER POSICIÓN ABSOLUTA PARA QUE ESTÉ DENTRO DE LA IMAGEN
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 100%;
+        max-width: none;
         text-align: center;
-        // gap: 1rem;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(10px);
-        border-radius: 0 0 12px 12px;
+        gap: 0.8rem;
+        padding: 1.5rem;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
       }
 
       @media (max-width: 480px) {
-        padding: 1.5rem;
-        gap: 0.8rem;
+        padding: 1rem;
+        gap: 0.6rem;
+        width: 85%;
+        background: rgba(0, 0, 0, 0.7);
       }
 
       // Título principal
@@ -241,7 +250,6 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
         margin: 0;
         line-height: 1.2;
         text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        // opacity: .25;
         @include card-transition();
         letter-spacing: 0.05em;
 
@@ -251,10 +259,11 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
 
         @media (max-width: 768px) {
           font-size: 1.8rem;
+          color: rgba(110, 133, 73, .9); // Más visible en móvil
         }
 
         @media (max-width: 480px) {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
         }
       }
 
@@ -274,11 +283,12 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
         }
 
         @media (max-width: 768px) {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          opacity: 1; // Más visible en móvil
         }
 
         @media (max-width: 480px) {
-          font-size: 0.9rem;
+          font-size: 1rem;
         }
       }
 
@@ -297,6 +307,7 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
         @media (max-width: 768px) {
           font-size: 0.9rem;
           max-width: 100%;
+          opacity: 0.95; // Más visible en móvil
         }
 
         @media (max-width: 480px) {
@@ -304,12 +315,9 @@ $card-shadow-strong: rgba(0, 0, 0, 0.25);
           line-height: 1.5;
         }
       }
-
-    
     }
   }
 }
-
 
 // Animación de spinner
 @keyframes spin {

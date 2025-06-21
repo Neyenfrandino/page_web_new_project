@@ -1,4 +1,5 @@
-// src/components/modal.scss
+
+// Modal.scss
 .modal__backdrop {
   position: fixed;
   top: 0;
@@ -6,21 +7,79 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(4px);
 }
 
 .modal__content {
+  margin: 0 auto;
   background: white;
-  border-radius: 10px;
-  padding: 2rem;
-  max-width: 500px;
+  border-radius: 12px;
+  // padding: 2rem;
+  max-width: 900px;
   width: 90%;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 0.3s ease-out;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: modalAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: auto;
+  overflow-x: hidden;
+  height: 550px;
+  
+  // Estilos base para el pseudoelemento pointer
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1001;
+  }
+
+  // Pointer hacia arriba (modal está debajo del trigger)
+  &--pointer-top::before {
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+    filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  // Pointer hacia abajo (modal está arriba del trigger)
+  &--pointer-bottom::before {
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  // Pointer hacia la izquierda (modal está a la derecha del trigger)
+  &--pointer-left::before {
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid white;
+    filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, 0.1));
+  }
+
+  // Pointer hacia la derecha (modal está a la izquierda del trigger)
+  &--pointer-right::before {
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    filter: drop-shadow(2px 0 4px rgba(0, 0, 0, 0.1));
+  }
 }
 
 .modal__close {
@@ -29,23 +88,117 @@
   right: 1rem;
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #444;
-  transition: color 0.2s;
-}
+  color: #666;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 
-.modal__close:hover {
-  color: #000;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  &:hover {
+    color: #000;
+    background: rgba(0, 0, 0, 0.05);
   }
-  to {
+
+  &:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes modalAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+
+  50%{
+    opacity: 0.8;
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Estilos para el ejemplo
+.example-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 60vh;
+}
+
+.demo-button {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  &--primary { background: #007bff; color: white; }
+  &--secondary { background: #6c757d; color: white; }
+  &--accent { background: #e83e8c; color: white; }
+  &--warning { background: #ffc107; color: #212529; }
+  &--success { background: #28a745; color: white; }
+  &--info { background: #17a2b8; color: white; }
+  &--dark { background: #343a40; color: white; }
+  &--light { background: #f8f9fa; color: #212529; }
+  &--danger { background: #dc3545; color: white; }
+}
+
+.modal-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &--primary {
+    background: #007bff;
+    color: white;
+    
+    &:hover {
+      background: #0056b3;
+    }
   }
 }

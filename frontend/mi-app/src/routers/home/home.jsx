@@ -10,6 +10,10 @@ import Cta from '../../componets/cta/cta';
 import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
 import MissionCarousel from '../../componets/carrusel_imagenes/carrusel_imagenes';
 import Grid from '../../componets/grid/grid';
+import CtaImgCuentaRgresiva from '../../componets/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
+
+import Modal from '../../componets/modal/modal';
+import ModalCard from '../../componets/card/modal_card/modal_card';
 import './home.scss';
 
 const product = {
@@ -66,9 +70,26 @@ const missionCards = [
 ];
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef(null);
-  const [showAll, setShowAll] = useState(false);
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState({
+    isOpen: false,
+    item: null,
+  });
+
+  const [triggerElement, setTriggerElement] = useState(null);
+
+  const handleOpenModal = (status, e, item) => {
+    console.log(item)
+    setTriggerElement(e.currentTarget);
+    setIsModalOpen({ isOpen: status, item });
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTriggerElement(null);
+  };
+
 
   return (
     <main className='home__container' aria-label="Página principal">
@@ -116,20 +137,35 @@ const Home = () => {
 
       <section className='home__content'>
         <div className='home__content--card-question'>
-          <FadeInOnView threshold={0.3}>
+          <FadeInOnView 
+            direction="up" 
+            duration={800} 
+            delay={200}
+            distance={30}
+            easing="bounce"
+            speed="slow"
+          >
             <CardV2Img />
           </FadeInOnView>
         </div>
         
-        <div className='home__content--mision'>
-          <FadeInOnView threshold={0.3} >
+      <div className='home__content--mision__container'>
+        <FadeInOnView 
+          direction="up" 
+          duration={800} 
+          delay={200}
+          distance={30}
+          easing="bounce"
+          speed="slow"
+        >
+          <div className='home__content--mision'>
             <div className='content--mision--titiles'>
               <div className='mision--titile'>
-                <h1>Lo que hacemos</h1>
+                <h1>! Lo que hacemos !</h1>
               </div>
 
               <div className='mision--subTitle'>
-                <h2>🔮 Cultivar vínculos con la Tierra y entre nosotros</h2>
+                <h2>Cultivar vínculos con la Tierra y entre nosotros</h2>
               </div>
 
               <div className='mision--parrafo'>
@@ -145,13 +181,21 @@ const Home = () => {
 
               <MissionCarousel cards={missionCards} autoPlay={true} autoPlayInterval={5000} />
             </div>
-          
-          </FadeInOnView>
-        </div>
+          </div>
+        
+        </FadeInOnView>
+      </div>
 
 
         <div className='home__content--servicios'>
-          <FadeInOnView threshold={0.3}>
+          <FadeInOnView 
+            direction="up" 
+            duration={800} 
+            delay={200}
+            distance={30}
+            easing="bounce"
+            speed="slow"
+          >
             <div className='content--servicios__container'>
 
               <div className='content--servicios__text'>
@@ -172,9 +216,34 @@ const Home = () => {
               </div>
 
               <div className='content--servicios__grid'>
-                  <Grid slice={8} />
+                  <Grid slice={3} setIsOpen={handleOpenModal} className="demo-button demo-button--success"></Grid> 
+
+                  {isModalOpen.isOpen && isModalOpen.item && (
+                    <Modal
+                      isOpenModal={isModalOpen}
+                      onClose={handleCloseModal}
+                      triggerElement={triggerElement}
+                      showPointer={true}
+                    >
+                      <ModalCard/>
+                    </Modal>
+                  )}
               </div>
             </div>
+
+            <CtaImgCuentaRgresiva 
+              img="/img/brote_mano.jpg"
+              titles={{
+                  main: "",
+                  subtitle: "TALLER DE SIEMBRA DE CACAO"
+              }}
+              text="Lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+              buttonText="Inscríbete ahora"
+              timer={{
+                  "targetDate": "2025-06-23T23:59:59"
+
+              }}
+          />
           </FadeInOnView>
         </div>
       </section>

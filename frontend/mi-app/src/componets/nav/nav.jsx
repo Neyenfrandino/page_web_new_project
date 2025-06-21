@@ -1,290 +1,435 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import DarkModeToggle from '../darkModeToggle/darkModeToggle';
-import Carousel from '../carousel/carousel';
-import projects from '../../json/projects.json';
-
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Home as HomeIcon,
-  User as UserIcon,
-  Briefcase as BriefcaseIcon,
-  Folder as FolderIcon,
-  Book as BookIcon,
-  MessageCircle as MessageCircleIcon,
-  ShoppingCart as ShoppingCartIcon,
-  FileText as FileTextIcon,
-  ChevronDown as ChevronDownIcon,
-  Calendar as CalendarIcon
+  Home,
+  User,
+  Folder,
+  Calendar,
+  MessageCircle,
+  ShoppingCart,
+  Briefcase,
+  ChevronDown,
+  Menu,
+  X
 } from 'lucide-react';
-import './nav.scss';
 
-// Icon mapping
+import DarkModeToggle from '../darkModeToggle/darkModeToggle';
+import './Nav.scss';
+
 const iconMap = {
-  HomeIcon,
-  UserIcon,
-  BriefcaseIcon,
-  FolderIcon,
-  BookIcon,
-  MessageCircleIcon,
-  ShoppingCartIcon,
-  FileTextIcon,
-  CalendarIcon
+  HomeIcon: Home,
+  UserIcon: User,
+  FolderIcon: Folder,
+  CalendarIcon: Calendar,
+  MessageCircleIcon: MessageCircle,
+  ShoppingCartIcon: ShoppingCart,
+  BriefcaseIcon: Briefcase,
 };
 
-const Nav = ({ listRouters, location }) => {
-  const [activeRoute, setActiveRoute] = useState(location.pathname);
-  const [openDropdowns, setOpenDropdowns] = useState({});
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Process navigation items from props
-  const navItems = useMemo(() => {
-    if (!listRouters) return [];
-    
-    // If listRouters is an object with the key "Movimiento Naluum"
-    if (listRouters["Movimiento Naluum"]) {
-      return listRouters["Movimiento Naluum"];
-    }
-    // If listRouters is directly an array
-    else if (Array.isArray(listRouters)) {
-      return listRouters;
-    }
-    // If it's a differently structured object, try to extract an array
-    else if (typeof listRouters === 'object') {
-      // Try to get the first array we find
-      for (const key in listRouters) {
-        if (Array.isArray(listRouters[key])) {
-          return listRouters[key];
-        }
-      }
-    }
-    // Return empty array to avoid errors
-    return [];
-  }, [listRouters]);
-
-  // Main navigation items (excluding individual project pages)
-  const mainNavItems = useMemo(() => {
-    if (!navItems || !Array.isArray(navItems)) return [];
-    
-    return navItems.filter(item => 
-      item && (!item.path.includes('/proyectos/') || item.path === '/movimiento-naluum/proyectos' || item.name === 'Proyectos')
-    );
-  }, [navItems]);
+const Nav = ({ isScroll, listRouters, location, projects }) => {
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [projectImageIndexes, setProjectImageIndexes] = useState({});
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const intervalRefs = useRef({});
+  const navRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null); // Nuevo ref para el timeout
   
-  // Projects menu item
-  const projectsItem = useMemo(() => {
-    if (!navItems || !Array.isArray(navItems)) return null;
+  // Detectar tamaño de pantalla
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1024);
+    };
     
-    return navItems.find(item => 
-      item && (item.path === '/movimiento-naluum/projects' || item.name === 'Proyectos')
-    );
-  }, [navItems]);
- 
-  // Update active route when location changes
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Cerrar menú móvil al hacer click fuera
   useEffect(() => {
-    setActiveRoute(location.pathname);
-  }, [location.pathname]);
-
-  // Handle dropdown toggle
-  const toggleDropdown = (path, event) => {
-    event.stopPropagation();
-    setOpenDropdowns(prev => ({
-      ...prev,
-      [path]: !prev[path]
-    }));
-  };
-
-  // Toggle mobile menu
-  const toggleMobileMenu = (event) => {
-    event.stopPropagation();
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  // Close dropdowns and mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setMobileMenuOpen(false);
-      setOpenDropdowns({});
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target) && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        setOpenDropdown(null);
+      }
     };
 
-    document.addEventListener('click', handleClickOutside);
+    if (isMobile) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isMobile, isMobileMenuOpen]);
+
+  // Prevenir scroll del body cuando el menú móvil está abierto
+  useEffect(() => {
+    if (isMobile && isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobile, isMobileMenuOpen]);
+
+  // Limpiar timeout al desmontar
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
     };
   }, []);
 
-  // Render dropdown items for desktop navigation
-  const renderDropdownItems = (items, level = 0) => {
-    if (!items || !Array.isArray(items)) return null;
-    
-    return items.map((item) => {
-      if (!item) return null;
-      
-      const Icon = item.icon ? iconMap[item.icon] : null;
-      const projectsFilter = item.name ? projects.projects.filter(project => project.name === item.name) : [];
-      
-      return (
-        <li key={item.path} className={`navigation__dropdown-item ${level > 0 ? 'navigation__dropdown-item--nested' : ''}`}>
-          <Link
-            to={item.path}
-            className={`navigation__dropdown-link ${activeRoute === item.path ? 'navigation__dropdown-link--active' : ''}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {projectsFilter.length > 0 && <Carousel projects={projectsFilter} />}
-            <span>{item.name}</span>
-          </Link>
-        </li>
-      );
-    });
-  };
+  const renderIcon = useCallback((iconName) => {
+    const IconComponent = iconMap[iconName];
+    return IconComponent ? <IconComponent size={isMobile ? 20 : 18} /> : null;
+  }, [isMobile]);
 
-  // Render items for mobile navigation
-  const renderMobileItems = (items, level = 0) => {
-    if (!items || !Array.isArray(items)) return null;
+  // Función para inicializar los índices de imágenes
+  const initializeImageIndexes = useCallback(() => {
+    if (!projects?.projects) return;
     
-    return items.map((item) => {
-      if (!item) return null;
+    const initialIndexes = {};
+    projects.projects.forEach(project => {
+      if (project.images && project.images.length > 0) {
+        initialIndexes[project.name] = 0;
+      }
+    });
+    setProjectImageIndexes(initialIndexes);
+  }, [projects]);
+
+  // Función para cambiar la imagen de un proyecto específico
+  const cycleProjectImage = useCallback((projectName, totalImages) => {
+    setProjectImageIndexes(prev => ({
+      ...prev,
+      [projectName]: (prev[projectName] + 1) % totalImages
+    }));
+  }, []);
+
+  // Función para iniciar el ciclo de imágenes de un proyecto
+  const startImageCycle = useCallback((projectName, totalImages) => {
+    if (totalImages <= 1 || isMobile) return;
+    
+    // Limpiar intervalo existente si existe
+    if (intervalRefs.current[projectName]) {
+      clearInterval(intervalRefs.current[projectName]);
+    }
+    
+    // Crear nuevo intervalo
+    intervalRefs.current[projectName] = setInterval(() => {
+      cycleProjectImage(projectName, totalImages);
+    }, 2500); // Cambiar cada 2.5 segundos
+    
+  }, [cycleProjectImage, isMobile]);
+
+  // Función para detener el ciclo de imágenes de un proyecto
+  const stopImageCycle = useCallback((projectName) => {
+    if (intervalRefs.current[projectName]) {
+      clearInterval(intervalRefs.current[projectName]);
+      delete intervalRefs.current[projectName];
+    }
+  }, []);
+
+  // Función para detener todos los ciclos
+  const stopAllImageCycles = useCallback(() => {
+    Object.keys(intervalRefs.current).forEach(projectName => {
+      stopImageCycle(projectName);
+    });
+  }, [stopImageCycle]);
+
+  // Inicializar índices cuando cambien los proyectos
+  useEffect(() => {
+    initializeImageIndexes();
+  }, [initializeImageIndexes]);
+
+  // Limpiar intervalos al desmontar el componente
+  useEffect(() => {
+    return () => {
+      stopAllImageCycles();
+    };
+  }, [stopAllImageCycles]);
+
+  // Función para manejar la entrada del mouse con delay
+  const handleMouseEnter = useCallback((index, hasSubmenu) => {
+    if (hasSubmenu && !isMobile) {
+      // Cancelar cualquier timeout pendiente de cierre
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+        dropdownTimeoutRef.current = null;
+      }
+
+      setOpenDropdown(index);
       
-      const Icon = item.icon ? iconMap[item.icon] : null;
-      const hasSubNav = item.subnavegacion && item.subnavegacion.length > 0;
-      const isMadreSelva = item.name === 'Madre Selva' || item.name === 'Naluum';
+      // Iniciar ciclos de imágenes para todos los proyectos en el dropdown
+      const menuItems = listRouters?.['Movimiento Naluum'] || [];
+      const item = menuItems[index];
       
-      return (
-        <li key={item.path} className={`navigation__mobile-item ${level > 0 ? `navigation__mobile-item--level-${level}` : ''}`}>
-          {hasSubNav && !isMadreSelva ? (
-            <>
-              <div 
-                className={`navigation__mobile-link ${activeRoute === item.path ? 'navigation__mobile-link--active' : ''}`}
-                onClick={(e) => toggleDropdown(item.path, e)}
-                style={{ paddingLeft: `${0.75 + level * 1}rem` }}
+      if (item?.subnavegacion && projects?.projects) {
+        item.subnavegacion.forEach(subItem => {
+          const matchedProject = projects.projects.find(p => p.name === subItem.name);
+          if (matchedProject && matchedProject.images && matchedProject.images.length > 1) {
+            startImageCycle(matchedProject.name, matchedProject.images.length);
+          }
+        });
+      }
+    }
+  }, [listRouters, projects, startImageCycle, isMobile]);
+
+  // Función para manejar la salida del mouse con delay
+  const handleMouseLeave = useCallback(() => {
+    if (!isMobile) {
+      // Cancelar timeout anterior si existe
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+      
+      // Crear nuevo timeout para cerrar el dropdown después de un delay
+      dropdownTimeoutRef.current = setTimeout(() => {
+        setOpenDropdown(null);
+        stopAllImageCycles();
+      }, 150); // 150ms de delay
+    }
+  }, [stopAllImageCycles, isMobile]);
+
+  // Nueva función para manejar cuando el mouse entra al dropdown
+  const handleDropdownMouseEnter = useCallback(() => {
+    if (!isMobile) {
+      // Cancelar el timeout de cierre cuando el mouse entra al dropdown
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+        dropdownTimeoutRef.current = null;
+      }
+    }
+  }, [isMobile]);
+
+  // Nueva función para manejar cuando el mouse sale del dropdown
+  const handleDropdownMouseLeave = useCallback(() => {
+    if (!isMobile) {
+      // Crear timeout para cerrar cuando sale del dropdown
+      dropdownTimeoutRef.current = setTimeout(() => {
+        setOpenDropdown(null);
+        stopAllImageCycles();
+      }, 150);
+    }
+  }, [stopAllImageCycles, isMobile]);
+
+  const handleClick = useCallback((e, hasSubmenu, index, path) => {
+    if (hasSubmenu) {
+      e.preventDefault();
+      if (isMobile) {
+        setOpenDropdown(openDropdown === index ? null : index);
+      }
+    } else {
+      // Si es móvil y no tiene submenu, cerrar el menú
+      if (isMobile) {
+        setIsMobileMenuOpen(false);
+        setOpenDropdown(null);
+      }
+    }
+  }, [isMobile, openDropdown]);
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(prev => {
+      const newState = !prev;
+      if (!newState) {
+        setOpenDropdown(null);
+        stopAllImageCycles();
+      }
+      return newState;
+    });
+  }, [stopAllImageCycles]);
+
+  const handleDropdownLinkClick = useCallback(() => {
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+      setOpenDropdown(null);
+      stopAllImageCycles();
+    }
+  }, [isMobile, stopAllImageCycles]);
+
+  const renderProjectDropdown = useCallback((item) => {
+    if (!item.subnavegacion || !projects?.projects) return null;
+
+    return (
+      <ul 
+        className="nav__dropdown"
+        onMouseEnter={handleDropdownMouseEnter}
+        onMouseLeave={handleDropdownMouseLeave}
+      >
+        {item.subnavegacion.map((subItem, subIndex) => {
+          const matchedProject = projects.projects.find(p => p.name === subItem.name);
+          
+          if (!matchedProject) return null;
+
+          const currentImageIndex = projectImageIndexes[matchedProject.name] || 0;
+
+          return (
+            <li key={subIndex} className="nav__dropdown-item">
+              <Link 
+                to={subItem.path} 
+                className="nav__dropdown-link"
+                onClick={handleDropdownLinkClick}
+                aria-label={`Ver proyecto ${matchedProject.name}: ${matchedProject.description}`}
               >
-                {Icon && <Icon className="navigation__mobile-icon" />}
-                <span>{item.name}</span>
-                <ChevronDownIcon className={`navigation__mobile-chevron ${openDropdowns[item.path] ? 'navigation__mobile-chevron--open' : ''}`} />
-              </div>
-              
-              {openDropdowns[item.path] && (
-                <ul className="navigation__mobile-subitems">
-                  {renderMobileItems(item.subnavegacion, level + 1)}
-                </ul>
-              )}
-            </>
-          ) : (
-            <Link
-              to={item.path}
-              className={`navigation__mobile-link ${activeRoute === item.path ? 'navigation__mobile-link--active' : ''}`}
-              style={{ paddingLeft: `${0.75 + level * 1}rem` }}
-            >
-              {Icon && <Icon className="navigation__mobile-icon" />}
-              <span>{item.name || (item.icon === 'ShoppingCartIcon' ? 'Carrito' : '')}</span>
-              {item.icon === 'ShoppingCartIcon' && (
-                <span className="navigation__cart-count">5</span>
-              )}
-            </Link>
-          )}
-        </li>
-      );
-    });
-  };
+                <div className="nav__project-images">
+                  {matchedProject.images.map((image, imageIndex) => (
+                    <img
+                      key={imageIndex}
+                      src={image}
+                      alt={`${matchedProject.name} - imagen ${imageIndex + 1}`}
+                      className={`nav__project-background ${
+                        imageIndex === currentImageIndex ? 'nav__project-background--active' : ''
+                      }`}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  ))}
+                  <img
+                    src={matchedProject.logo}
+                    alt={`Logo de ${matchedProject.name}`}
+                    className="nav__project-logo"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                </div>
+                <span className="nav__dropdown-text">
+                  {matchedProject.description}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }, [projects, projectImageIndexes, handleDropdownLinkClick, handleDropdownMouseEnter, handleDropdownMouseLeave]);
 
-  // Render desktop navigation items
-  const renderDesktopItems = (items) => {
-    if (!items || !Array.isArray(items)) return null;
-    
-    return items.map((item) => {
-      if (!item) return null;
-      
-      const Icon = item.icon ? iconMap[item.icon] : null;
-      const hasSubNav = item.name === 'Proyectos' || (item.subnavegacion && item.subnavegacion.length > 0);
-      const isMadreSelva = item.name === 'Madre Selva';
-      
-      return (
-        <li key={item.path} className={`navigation__item ${hasSubNav && !isMadreSelva ? 'navigation__item--has-dropdown' : ''}`}>
-          {hasSubNav && !isMadreSelva ? (
-            <>
-              <button
-                onClick={(e) => toggleDropdown(item.path, e)}
-                className={`navigation__dropdown-toggle ${activeRoute.includes(item.path) ? 'navigation__dropdown-toggle--active' : ''}`}
-              >
-                {Icon && <Icon className="navigation__icon" />}
-                <span>{item.name}</span>
-                <ChevronDownIcon className={`navigation__dropdown-icon ${openDropdowns[item.path] ? 'navigation__dropdown-icon--open' : ''}`} />
-              </button>
-
-              {openDropdowns[item.path] && (
-                <ul className="navigation__dropdown">
-                  {(item.subnavegacion && Array.isArray(item.subnavegacion)) 
-                    ? renderDropdownItems(item.subnavegacion) 
-                    : (projectsItem && projectsItem.subnavegacion) 
-                      ? renderDropdownItems(projectsItem.subnavegacion)
-                      : null}
-                </ul>
-              )}
-            </>
-          ) : (
-            <Link
-              to={item.path}
-              className={`navigation__link ${activeRoute === item.path ? 'navigation__link--active' : ''}`}
-            >
-              {Icon && <Icon className="navigation__icon" />}
-              <span>{item.name || (item.icon === 'ShoppingCartIcon' ? '' : '')}</span>
-              {item.icon === 'ShoppingCartIcon' && (
-                <span className="navigation__cart-count">5</span>
-              )}
-            </Link>
-          )}
-        </li>
-      );
-    });
-  };
+  // Verificar que listRouters existe y tiene la estructura esperada
+  const menuItems = listRouters?.['Movimiento Naluum'] || [];
 
   return (
-    <nav className="navigation">
-      <div className="navigation__container">
-        {/* Mobile menu button */}
-        <div className="navigation__mobile-toggle">
-          <button 
-            className="navigation__hamburger"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle mobile menu"
+    <nav className="nav" ref={navRef}>
+      <div className={`nav__content ${isScroll > 0 ? 'isScrollTrue alt-animation' : ''}`}>
+        {/* Logo */}
+        <div className="nav__logo">
+          <Link 
+            to="/movimiento-naluum/" 
+            className="nav__logo-link"
+            onClick={() => {
+              if (isMobile && isMobileMenuOpen) {
+                setIsMobileMenuOpen(false);
+                setOpenDropdown(null);
+              }
+            }}
+            aria-label="Ir al inicio - Movimiento Naluum"
           >
-            <span className={`${!mobileMenuOpen ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
-            <span className={`${!mobileMenuOpen ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
-            <span className={`${!mobileMenuOpen ? 'navigation__hamburger-line' : 'navigation__hamburger-line-close'}`}></span>
-          </button>
-        </div>
-        
-        {/* Logo - Left side */}
-        <div className="navigation__brand">
-          <Link to="/movimiento-naluum/" className="navigation__logo">
-            <img src="/img/logo_naluum_trasparente.svg" alt="Logo" />
+            <img 
+              src="/img/logo_naluum_trasparente.svg" 
+              alt="Logo Movimiento Naluum"
+              loading="lazy"
+              onError={(e) => {
+                e.target.src = '/img/logo_naluum_fallback.png'; // Imagen de respaldo
+              }}
+            />
           </Link>
         </div>
 
-        {/* Navigation Links - Right side */}
-        <div className="navigation__menu">
-          <ul className="navigation__links">
-            {renderDesktopItems(mainNavItems)}
+        {/* Hamburger Button - Solo visible en móvil */}
+        <button 
+          className="nav__hamburger"
+          onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="nav-menu"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Menu */}
+        <div 
+          className={`nav__menu ${isMobileMenuOpen ? 'nav__menu--open' : ''}`}
+          id="nav-menu"
+          role="navigation"
+          aria-label="Navegación principal"
+        >
+          <ul className="nav__menu-list">
+            {menuItems.map((item, index) => (
+              <li
+                key={index}
+                className={`nav__menu-item ${item.subnavegacion ? 'nav__menu-item--has-dropdown' : ''}`}
+                onMouseEnter={() => handleMouseEnter(index, !!item.subnavegacion)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <Link 
+                  to={item.path}  
+                  onClick={(e) => handleClick(e, !!item.subnavegacion, index, item.path)} 
+                  className="nav__menu-link"
+                  aria-haspopup={item.subnavegacion ? "true" : "false"}
+                  aria-expanded={openDropdown === index ? "true" : "false"}
+                  aria-current={location?.pathname === item.path ? "page" : undefined}
+                >
+                  <span className="nav__menu-icon">
+                    {renderIcon(item.icon)}
+                  </span>
+                  <span className="nav__menu-text">{item.name}</span>
+                  {item.subnavegacion && (
+                    <ChevronDown 
+                      size={isMobile ? 16 : 14} 
+                      className={`nav__menu-chevron ${openDropdown === index ? 'nav__menu-chevron--open' : ''}`}
+                      aria-hidden="true"
+                    />
+                  )}
+                </Link>
+
+                {/* Dropdown */}
+                {item.subnavegacion && openDropdown === index && (
+                  renderProjectDropdown(item)
+                )}
+              </li>
+            ))}
           </ul>
+
+          {/* Dark Mode Toggle en móvil */}
+          {/* {isMobile && (
+            <div className="nav__mobile-actions">
+              <DarkModeToggle />
+            </div>
+          )} */}
         </div>
 
-        {/* Dark Mode Toggle - Far right */}
-        <div className="navigation__darkmode">
-          <DarkModeToggle />
-        </div>
+        {/* Dark Mode Toggle - Desktop */}
+        {/* {!isMobile && (
+          <div className="nav__actions">
+            <DarkModeToggle />
+          </div>
+        )} */}
       </div>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="navigation__mobile-menu">
-          <div className="navigation__mobile-group">
-            <div className="navigation__mobile-group-title">
-              Movimiento Naluum
-            </div>
-            <ul className="navigation__mobile-items">
-              {renderMobileItems(navItems)}
-            </ul>
-          </div>
-        </div>
+      {/* Overlay para cerrar menú en móvil */}
+      {isMobile && isMobileMenuOpen && (
+        <div 
+          className="nav__overlay"
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            setOpenDropdown(null);
+          }}
+          aria-hidden="true"
+        />
       )}
     </nav>
   );

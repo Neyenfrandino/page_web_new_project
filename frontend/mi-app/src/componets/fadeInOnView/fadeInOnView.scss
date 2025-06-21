@@ -1,4 +1,4 @@
-// fadeInOnView.scss
+// FadeInOnView.scss
 .fade-in-view {
   // Variables CSS customizables
   --fade-duration: 600ms;
@@ -9,11 +9,12 @@
   transition: 
     opacity var(--fade-duration) var(--fade-easing),
     transform var(--fade-duration) var(--fade-easing);
-  
+
   // Estado oculto por defecto
   &--hidden {
     opacity: 0;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
   // Estado visible
@@ -21,6 +22,7 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
     pointer-events: auto;
+    will-change: auto; // Remover will-change una vez completada la animación
   }
 
   // Direcciones de animación
@@ -44,18 +46,6 @@
     transform: translate3d(0, 0, 0);
   }
 
-  // Optimizaciones de rendimiento
-  &--hidden {
-    will-change: transform, opacity;
-  }
-
-  &--visible {
-    will-change: auto; // Remover will-change una vez completada la animación
-  }
-}
-
-// Clases de utilidad adicionales
-.fade-in-view {
   // Variantes de velocidad
   &--fast {
     --fade-duration: 300ms;
@@ -81,6 +71,10 @@
 
   &--ease-out {
     --fade-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  &--linear {
+    --fade-easing: linear;
   }
 }
 

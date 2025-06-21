@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
+import projects from './json/projects.json';
 // import products from './json/products.json';
 
 import Nav from './componets/nav/nav';
@@ -26,23 +27,23 @@ const App = () => {
   
   const [isScroll, setIsScroll] = useState(false);
 
-  // useEffect(() => {
-  //   setIsScroll(window.scrollY);
-  //   window.addEventListener('scroll', () => {
-  //     setIsScroll(window.scrollY);
-  //   });
-  //   return () => {
-  //     window.removeEventListener('scroll', () => {
-  //       setIsScroll(window.scrollY);
-  //     });
-  //   };
-  // }, []);
+  useEffect(() => {
+    setIsScroll(window.scrollY);
+    window.addEventListener('scroll', () => {
+      setIsScroll(window.scrollY);
+    });
+    return () => {
+      window.removeEventListener('scroll', () => {
+        setIsScroll(window.scrollY);
+      });
+    };
+  }, []);
 
   
   return (
     <div className="App">
       <div className='App__nav'>
-        <Nav isScroll={isScroll} listRouters={listRouters} location={location} />
+        <Nav isScroll={isScroll} listRouters={listRouters} location={location} projects={projects} />
       </div>
       <ScrollToTop />
 

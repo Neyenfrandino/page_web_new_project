@@ -5,7 +5,7 @@ import './carrusel_imagenes.scss';
 const MissionCarousel = ({ cards, autoPlay = true, autoPlayInterval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
-
+ 
   // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;

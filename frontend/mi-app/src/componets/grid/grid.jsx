@@ -1,7 +1,6 @@
-import React from 'react';
 import './grid.scss';
 
-const Grid = ({ items, slice }) => {
+const Grid = ({ items, slice, setIsOpen }) => {
   const defaultItems = [
     {
       id: 1,
@@ -88,24 +87,26 @@ const Grid = ({ items, slice }) => {
 
   const gridItems = items || defaultItems;
 
-  const handleCardClick = (item) => {
+  const handleCardClick = (item, e) => {
     console.log('Card clicked:', item.title);
+    setIsOpen(true, e, item);
     // Aquí puedes agregar la lógica que necesites
+ 
   };
 
   return (
     <div className="grid">
       <div className="grid__container">
-        {gridItems.slice(0, 3).map((item) => (
+        {gridItems.slice(0, slice).map((item) => (
           <div 
             key={item.id} 
             className="grid__card"
-            onClick={() => handleCardClick(item)}
+            onClick={(e) => handleCardClick(item, e)}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                handleCardClick(item);
+                handleCardClick(item, e);
               }
             }}
           >

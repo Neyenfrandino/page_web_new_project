@@ -3,7 +3,7 @@
 // Variables
 $carousel-height: 400px;
 $carousel-height-mobile: 300px;
-$carousel-border-radius: 16px;
+$carousel-border-radius: 10px;
 $arrow-size: 30px;
 $dot-size: 5px;
 $transition-duration: 0.6s;
@@ -43,7 +43,7 @@ $overlay-gradient: linear-gradient(
   border-radius: $carousel-border-radius;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  background: #fff;
+  // background: #fff;
 
   &:focus-visible {
     outline: 3px solid #3498db;
@@ -158,20 +158,22 @@ $overlay-gradient: linear-gradient(
     transform: translateY(-50%);
     width: $arrow-size;
     height: $arrow-size;
-    background: rgba(255, 255, 255, 0.9);
+    background-color: transparent;
+    // background: rgba(255, 255, 255, 0.9);
     border: none;
-    border-radius: 50%;
+    // border-radius: 50%;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 3;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
+    // backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 
     svg {
-      color: #333;
+      // color: #333;
       transition: color 0.3s ease;
     }
 
@@ -181,7 +183,7 @@ $overlay-gradient: linear-gradient(
       box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
 
       svg {
-        color: #3498db;
+        color: #657a44;
       }
     }
 
@@ -228,7 +230,7 @@ $overlay-gradient: linear-gradient(
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 8px;
+    gap: 7px;
     z-index: 3;
 
     @include mobile {
@@ -237,8 +239,9 @@ $overlay-gradient: linear-gradient(
     }
 
     .carousel-dot {
-      width: $dot-size;
-      height: $dot-size;
+      // width: $dot-size;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       border: none;
       background: rgba(255, 255, 255, 0.5);
@@ -270,33 +273,33 @@ $overlay-gradient: linear-gradient(
   }
 
   // Progress bar
-  .carousel-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    z-index: 3;
+  // .carousel-progress {
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 3px;
+  //   background: rgba(255, 255, 255, 0.3);
+  //   z-index: 3;
 
-    .carousel-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #3498db, #2ecc71);
-      transition: width 0.3s ease;
-      position: relative;
+  //   .carousel-progress-bar {
+  //     height: 100%;
+  //     background: linear-gradient(90deg, #3498db, #2ecc71);
+  //     transition: width 0.3s ease;
+  //     position: relative;
 
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 4px;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 2px;
-      }
-    }
-  }
+  //     &::after {
+  //       content: '';
+  //       position: absolute;
+  //       top: 0;
+  //       right: 0;
+  //       width: 4px;
+  //       height: 100%;
+  //       background: rgba(255, 255, 255, 0.8);
+  //       border-radius: 2px;
+  //     }
+  //   }
+  // }
   // Counter
   .carousel-counter {
     position: absolute;
@@ -337,7 +340,7 @@ $overlay-gradient: linear-gradient(
 
   // Responsive adjustments
   @include mobile {
-    margin: 0 10px;
+    // margin: 0 10px;
     border-radius: 16px;
 
     .carousel-container {

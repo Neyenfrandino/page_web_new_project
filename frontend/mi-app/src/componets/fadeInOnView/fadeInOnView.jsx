@@ -1,10 +1,11 @@
+
 // FadeInOnView.jsx
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import './fadeInOnView.scss';
+import './FadeInOnView.scss';
 
-const FadeInOnView = ({ 
-  children, 
-  className = '', 
+const FadeInOnView = ({
+  children,
+  className = '',
   threshold = 0.1,
   rootMargin = '0px',
   triggerOnce = true,
@@ -12,6 +13,8 @@ const FadeInOnView = ({
   duration = 600,
   direction = 'up', // 'up', 'down', 'left', 'right', 'fade'
   distance = 20,
+  easing = 'ease-out', // 'ease-out', 'bounce', 'linear'
+  speed = 'normal', // 'fast', 'normal', 'slow'
   disabled = false
 }) => {
   const ref = useRef(null);
@@ -20,7 +23,7 @@ const FadeInOnView = ({
 
   const handleIntersection = useCallback(([entry]) => {
     const shouldShow = entry.isIntersecting;
-    
+        
     if (shouldShow && !hasTriggered) {
       setTimeout(() => {
         setIsVisible(true);
@@ -33,7 +36,7 @@ const FadeInOnView = ({
 
   useEffect(() => {
     if (disabled) return;
-    
+        
     const element = ref.current;
     if (!element) return;
 
@@ -54,8 +57,12 @@ const FadeInOnView = ({
     const baseClass = 'fade-in-view';
     const directionClass = `${baseClass}--${direction}`;
     const stateClass = isVisible ? `${baseClass}--visible` : `${baseClass}--hidden`;
-    
-    return `${baseClass} ${directionClass} ${stateClass}`;
+    const speedClass = speed !== 'normal' ? `${baseClass}--${speed}` : '';
+    const easingClass = easing !== 'ease-out' ? `${baseClass}--${easing}` : '';
+        
+    return [baseClass, directionClass, stateClass, speedClass, easingClass]
+      .filter(Boolean)
+      .join(' ');
   };
 
   // Estilos inline para duración y distancia personalizadas
