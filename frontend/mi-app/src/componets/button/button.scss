@@ -1,12 +1,11 @@
 .cardV2__content-button {
   display: flex;
-  align-items: center;  // activar alineación vertical centrada
-  justify-content: center; // centrar contenido horizontalmente
+  align-items: center;
+  justify-content: center;
   width: 100%;
   gap: 0.5rem;
   padding: 0.7rem 1.5rem;
   background-color: rgba(239, 233, 233, 0.7);
-  // color: #000000;
   border: none;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -15,19 +14,17 @@
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-
   position: relative;
   overflow: hidden;
-
+  
   .cardV2__image-button {
     text-decoration: none;
-    // color: #000000;
     font-weight: 400;
     font-size: 1rem;
-    width: 100%;           // que el link ocupe todo el ancho
-    text-align: center;    // texto centrado dentro del link
+    width: 100%;
+    text-align: center;
   }
-
+  
   &::before {
     content: '';
     position: absolute;
@@ -39,7 +36,7 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
   }
-
+  
   &:hover {
     background-color: #ffffff44;
     transform: scale(1.02);
@@ -47,60 +44,163 @@
     box-shadow:
       0 5px 16px rgba(4, 90, 43, 0.5),
       0 0 36px rgba(4, 90, 43, 0.2);
-    // color: #ffffff;
   }
-
+  
   &:active {
     transform: translateY(0);
   }
-
+  
   &:focus {
     outline: 3px solid rgba(4, 90, 43, 0.3);
     outline-offset: 2px;
   }
-
+  
   .cardV2__button-icon {
     width: 1rem;
     height: 1rem;
+    transition: transform 0.3s ease;
   }
-
+  
   &:hover .cardV2__button-icon {
     transform: translateX(3px);
   }
-
-  @media (max-width: 768px) {
-    padding: 0.9rem 1.8rem;
+  
+  /* Responsive Design */
+  
+  /* Tablets grandes y escritorio pequeño */
+  @media (max-width: 1024px) {
+    padding: 0.65rem 1.4rem;
     font-size: 0.85rem;
+    gap: 0.45rem;
+    
+    .cardV2__image-button {
+      font-size: 0.95rem;
+    }
   }
-
-  @media (max-width: 480px) {
-    padding: 0.8rem 1.5rem;
+  
+  /* Tablets */
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.2rem;
     font-size: 0.8rem;
+    gap: 0.4rem;
+    border-radius: 6px;
+    
+    .cardV2__image-button {
+      font-size: 0.85rem;
+    }
+    
+    .cardV2__button-icon {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+    
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+  
+  /* Móviles grandes */
+  @media (max-width: 640px) {
+    padding: 0.55rem 1rem;
+    font-size: 0.75rem;
+    gap: 0.35rem;
+    
+    .cardV2__image-button {
+      font-size: 0.8rem;
+    }
+    
+    .cardV2__button-icon {
+      width: 0.85rem;
+      height: 0.85rem;
+    }
+  }
+  
+  /* Móviles medianos */
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.7rem;
     gap: 0.3rem;
+    letter-spacing: 0.3px;
+    
+    .cardV2__image-button {
+      font-size: 0.75rem;
+    }
+    
+    .cardV2__button-icon {
+      width: 0.8rem;
+      height: 0.8rem;
+    }
+    
+    &:hover .cardV2__button-icon {
+      transform: translateX(2px);
+    }
+  }
+  
+  /* Móviles pequeños */
+  @media (max-width: 360px) {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.65rem;
+    gap: 0.25rem;
+    
+    .cardV2__image-button {
+      font-size: 0.7rem;
+    }
+    
+    .cardV2__button-icon {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+  
+  /* Orientación horizontal en móviles */
+  @media (max-height: 500px) and (orientation: landscape) {
+    padding: 0.4rem 1rem;
+    font-size: 0.7rem;
+    
+    .cardV2__image-button {
+      font-size: 0.75rem;
+    }
+  }
+  
+  /* Dispositivos con hover limitado (touch) */
+  @media (hover: none) {
+    &:hover {
+      transform: none;
+      box-shadow: -5px 0px 9px 8px rgba(255, 255, 255, 0.1);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+      background-color: #ffffff44;
+    }
   }
 }
 
-
+/* Variantes de botón */
 .cardV2__content-button--primary {
-  background-color: rgba(110, 133, 73, 0.9); // Verde
-  // color: #000000;
+  background-color: rgba(110, 133, 73, 0.9);
   transition: all 0.3s ease;
-
-
+  
   .cardV2__image-button {
     color: #000000;
   }
-
+  
   &:hover .cardV2__image-button {
     transition: all 0.3s ease;
     color: #ffffff;
   }
+  
+  @media (hover: none) {
+    &:active .cardV2__image-button {
+      color: #ffffff;
+    }
+  }
 }
 
 .cardV2__content-button--secondary {
-  background-color: #cecb39; // Azul
+  background-color: #cecb39;
   color: #000000;
-
+  
   .cardV2__image-button {
     color: #000000;
   }
@@ -110,8 +210,17 @@
   background-color: transparent;
   border: 2px solid rgba(255, 255, 255, 0.8);
   color: #ffffff;
-
+  
   .cardV2__image-button {
     color: #ffffff;
+  }
+  
+  /* Ajustes responsive para el outline */
+  @media (max-width: 768px) {
+    border-width: 1.5px;
+  }
+  
+  @media (max-width: 480px) {
+    border-width: 1px;
   }
 }

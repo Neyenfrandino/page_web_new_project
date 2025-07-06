@@ -2,13 +2,19 @@
   "Movimiento Naluum": [
     {
       "name": "Home",
-      "path": "/movimiento-naluum/",
+      "path": "/",
       "icon": "HomeIcon"
     },
     {
-      "name": "Quiénes Somos",
-      "path": "/movimiento-naluum/quienes-somos",
+      "name": "Sobre nosotros",
+      "path": "/sobre-nosotros",
       "icon": "UserIcon"
+    },
+    
+    {
+      "name": "todos los servicios",
+      "path": "/movimiento-naluum/servicios",
+      "icon": "BriefcaseIcon"
     },
     {
       "name": "Brotes del movimiento",
@@ -58,6 +64,28 @@
               "icon": "BriefcaseIcon"
             }
           ]
+        },
+        {
+          "name": "Global",
+          "path": "/proyectos/global",
+          "icon": "BriefcaseIcon",
+          "subnavegacion": [
+            {
+              "name": "Home",
+              "path": "/proyectos/global/home",
+              "icon": "HomeIcon"
+            },
+            {
+              "name": "Productos",
+              "path": "/proyectos/global/productos",
+              "icon": "ShoppingCartIcon"
+            },
+            {
+              "name": "Servicios/Cursos/Eventos",
+              "path": "/proyectos/global/servicios-cursos-eventos",
+              "icon": "BriefcaseIcon"
+            }
+          ]
         }
       ]
     },
@@ -71,6 +99,7 @@
       "path": "/movimiento-naluum/contactos",
       "icon": "MessageCircleIcon"
     },
+
     {
       "name": "",
       "path": "/movimiento-naluum/carrito-de-compras",

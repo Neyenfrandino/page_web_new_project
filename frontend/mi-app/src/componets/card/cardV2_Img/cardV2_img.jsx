@@ -11,6 +11,7 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
         buttonPrimary: ["Conocer más sobre el movimiento", '/sobre_nosotros'],
         image: "/img/personas_trabajando.jpg"
     }
+    
     return (
 
         <div className="cardV2__container">

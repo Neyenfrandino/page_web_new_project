@@ -17,7 +17,7 @@ const Modal = ({
 
   const { isOpen, item } = isOpenModal;
 
- 
+  
  
   useEffect(() => {
     if (isOpen && triggerElement && modalRef.current) {

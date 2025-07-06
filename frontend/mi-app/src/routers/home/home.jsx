@@ -21,7 +21,10 @@ import Bitacora from '../../componets/bitacora/bitacora';
 import CtaBoletin from '../../componets/cta_boletin/cta_boletin';
 import MessageFinal from '../../componets/message_final/message_final';
 
+import PaymentMethodSelector from '../../componets/payment_method/payment_method_selector';
+
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
+import { MethodStatePaymentContext } from '../../context/method_state_payment/method_state_payment.context';
 import './home.scss';
 
 // Accesibilidad: detectar si se prefiere reducir movimiento
@@ -96,10 +99,11 @@ const missionCards = [
 
 const Home = () => {
   const { products, servicios, testimonios } = useContext(ContextJsonLoadContext);
+  const { methodStatePayment, setMethodStatePayment } = useContext(MethodStatePaymentContext);
 
   const [isModalOpen, setIsModalOpen] = useState({ isOpen: false, item: null });
   const [triggerElement, setTriggerElement] = useState(null);
-
+  
   const handleOpenModal = useCallback((status, e, item) => {
     setTriggerElement(e.currentTarget);
     setIsModalOpen({ isOpen: status, item });
@@ -110,7 +114,12 @@ const Home = () => {
     setTriggerElement(null);
   }, []);
 
+  const handlePayment = useCallback((item, method) => {
+    setMethodStatePayment({ item, method });
+  }, []);
+
   const memoizedCards = useMemo(() => missionCards, []);
+
 
   const modalContent = useMemo(() => {
     if (!isModalOpen.isOpen || !isModalOpen.item) return null;
@@ -121,7 +130,9 @@ const Home = () => {
         triggerElement={triggerElement}
         showPointer={true}
       >
-        <ModalCard course={isModalOpen.item} />
+        <ModalCard course={isModalOpen.item}> 
+          <PaymentMethodSelector /* onMethodSelect={handlePayment} */ />
+        </ModalCard>
       </Modal>
     );
   }, [isModalOpen, handleCloseModal, triggerElement]);
@@ -138,7 +149,6 @@ const Home = () => {
       />
 
       <Header>
-        {/* <FadeInOnView {...fadeInProps}> */}
           <div className='home__header-img-container'>
             <img src="/img/Fotodeinicio.jpg" alt="Fondo Naluum" className="home__header-img" />
           </div>
@@ -160,12 +170,12 @@ const Home = () => {
                 <h2>Soluciones regenerativas que transforman tu vida, te conectan con tu comunidad y sanan la Tierra.</h2>
               </div>
               <div className='home__content-titile-buttons'>
-                <Button text="Explorá lo que hacemos" link="/sobre_nosotros" style="primary" />
-                <Button text="Sumate al Movimiento" link="/login" style="outline" />
+                <Button text="Sobre el movimiento naluum" link="/sobre-nosotros" style="primary" />
+                <Button text="Explorar" link="/proyectos" style="outline" />
               </div>
             </div>
           </div>
-        {/* </FadeInOnView> */}
+
       </Header>
 
       <section className='home__content'>

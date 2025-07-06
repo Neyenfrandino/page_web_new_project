@@ -26,6 +26,11 @@ $dark-text: #e5e5e5;
 $dark-hover: #2a2a2a;
 $dark-accent: #4ade80;
 
+// Active State Colors
+$active-bg: rgba(74, 222, 128, 0.15);
+$active-border: rgba(74, 222, 128, 0.6);
+$active-text: #4ade80;
+
 // Transitions
 $transition-fast: 0.2s ease;
 $transition-medium: 0.3s ease;
@@ -61,6 +66,29 @@ $breakpoint-sm: 480px;
   }
 }
 
+@mixin active-state {
+  background-color: $active-bg;
+  color: $active-text;
+  border: 1px solid $active-border;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: $primary-color;
+    border-radius: 0 2px 2px 0;
+  }
+  
+  &:hover {
+    background-color: rgba(74, 222, 128, 0.25);
+    transform: translateY(0);
+  }
+}
+
 @mixin dropdown-shadow {
   box-shadow: 
     0 4px 6px -1px rgba(0, 0, 0, 0.3),
@@ -68,15 +96,14 @@ $breakpoint-sm: 480px;
 }
 
 @mixin focus-outline {
-  &:focus {
-  outline: none; // Quitamos el outline por defecto
-  border-radius: 0.5rem;
-  outline: 2px solid $primary-color;
-  outline-offset: 1px;
-
-  box-shadow: 0 0 0 4px rgba($primary-color, 0.3);
-  transition: outline-offset 0.2s ease, box-shadow 0.2s ease;
-  }
+  // &:focus {
+  //   outline: none;
+  //   border-radius: 0.5rem;
+  //   outline: 2px solid $primary-color;
+  //   outline-offset: 1px;
+  //   box-shadow: 0 0 0 4px rgba($primary-color, 0.3);
+  //   transition: outline-offset 0.2s ease, box-shadow 0.2s ease;
+  // }
 }
 
 // ========================================
@@ -116,6 +143,18 @@ $breakpoint-sm: 480px;
   }
 }
 
+@keyframes activeGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.3);
+  }
+}
+
 // ========================================
 // MAIN NAVIGATION STYLES
 // ========================================
@@ -140,20 +179,16 @@ $breakpoint-sm: 480px;
     background: $dark-bg;
     border: 1px solid $border-color;
     transition: all 1s ease;
-    
-    
   }
 
   .isScrollTrue.alt-animation {
     transition: all 1s ease;
     width: auto !important;
-    // animation: fadeInSlow 0.5s ease-in-out;
     transform-origin: left center;
     border-radius: 16px;
     background-color: rgb(0, 0, 0, .7); 
     backdrop-filter: blur(10px);
     border: 1px solid #ffffff;
-    
   }
 
   // ========================================
@@ -197,10 +232,9 @@ $breakpoint-sm: 480px;
       border-radius: 6px;
       transition: all $transition-fast;
 
-       .isScrollTrue.alt-animation & {
+      .isScrollTrue.alt-animation & {
         transition: all 0.5s ease;
         transform: translateX(0px);
-
       }
 
       &:hover {
@@ -236,6 +270,7 @@ $breakpoint-sm: 480px;
       position: relative;
 
       &--has-dropdown {
+        // border: 2px solid red;
         .nav__menu-link {
           &::after {
             content: '';
@@ -252,6 +287,17 @@ $breakpoint-sm: 480px;
           &:hover::after {
             width: 80%;
           }
+          
+          &--active::after {
+            width: 100%;
+            animation: activeGlow 2s ease-in-out infinite;
+          }
+        }
+      }
+
+      &--active {
+        .nav__menu-link {
+          @include active-state;
         }
       }
     }
@@ -269,16 +315,33 @@ $breakpoint-sm: 480px;
       position: relative;
       white-space: nowrap;
       gap: 0.5rem;
+      border: 1px solid transparent;
+      
+
+      &--active {
+        @include active-state;
+        font-weight: 600;
+        
+        .nav__menu-icon {
+          color: $active-text;
+        }
+        
+        .nav__menu-text {
+          color: $active-text;
+        }
+      }
     }
 
     &-icon {
       display: flex;
       align-items: center;
       flex-shrink: 0;
+      transition: color $transition-fast;
     }
 
     &-text {
       font-weight: 500;
+      transition: color $transition-fast;
     }
 
     &-chevron {
@@ -307,28 +370,57 @@ $breakpoint-sm: 480px;
   // ========================================
 
   &__dropdown { 
+    // border: 2px solid red;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     position: absolute;
     top: calc(100% + 10px);
-    left: 50%;
+    left: 25%;
     transform: translateX(-50%);
     background: $dropdown-bg;
-    // border: 1px solid $border-color;
     border-radius: $nav-border-radius;
     @include dropdown-shadow;
     list-style: none;
     z-index: $nav-z-index - 1;
-    width: 800px;
-    height: 300px;
-    min-width: 800px;
+    width: 1000px;
+    height: auto;
+    // min-width: 800px;
     gap: 0.2rem;
     animation: dropdownSlideIn 0.2s ease-out;
 
+
     &-item {
       flex: 1;
-      min-width: 200px;
+      width: 200px;
+      height: 300px;
+      // min-width: 200px;
+      //  border: 2px solid red;
+      
+      &--active {
+        .nav__dropdown-link {
+          border: 2px solid $active-border;
+          background-color: $active-bg;
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background: $primary-color;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
+            animation: activeGlow 2s ease-in-out infinite;
+          }
+          
+          .nav__dropdown-text {
+            color: $active-text;
+            font-weight: 600;
+          }
+        }
+      }
     }
 
     &-link {
@@ -343,12 +435,27 @@ $breakpoint-sm: 480px;
       height: 100%;
       position: relative;
       overflow: hidden;
+      border: 1px solid transparent;
       @include focus-outline;
+
+      &--active {
+        background-color: $active-bg;
+        border-color: $active-border;
+        
+        .nav__dropdown-text {
+          color: $active-text;
+          font-weight: 600;
+        }
+      }
 
       &:hover {
         background-color: $hover-bg;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        &.nav__dropdown-link--active {
+          background-color: rgba(74, 222, 128, 0.25);
+        }
 
         .nav__project-images {
           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
@@ -490,7 +597,6 @@ $breakpoint-sm: 480px;
     left: 0;
     right: 0;
     bottom: 0;
-    // background: rgba(0, 0, 0, 0.5);
     z-index: $nav-z-index - 2;
     backdrop-filter: blur(2px);
     animation: fadeIn 0.2s ease-out;
@@ -624,6 +730,18 @@ $breakpoint-sm: 480px;
             }
           }
         }
+
+        &--active {
+          .nav__menu-link {
+            background-color: $active-bg;
+            color: $active-text;
+            border-left: 4px solid $primary-color;
+            
+            &::before {
+              display: none;
+            }
+          }
+        }
       }
 
       &-link {
@@ -633,10 +751,35 @@ $breakpoint-sm: 480px;
         border-radius: 0;
         font-size: 0.95rem;
         color: $dark-text;
+        border: none;
+        border-left: 4px solid transparent;
+
+        &--active {
+          background-color: $active-bg;
+          color: $active-text;
+          border-left-color: $primary-color;
+          font-weight: 600;
+          
+          &::before {
+            display: none;
+          }
+          
+          .nav__menu-icon {
+            color: $active-text;
+          }
+          
+          .nav__menu-text {
+            color: $active-text;
+          }
+        }
 
         &:hover {
           background-color: $dark-hover;
           transform: none;
+          
+          &.nav__menu-link--active {
+            background-color: rgba(74, 222, 128, 0.25);
+          }
         }
       }
 
@@ -660,7 +803,7 @@ $breakpoint-sm: 480px;
       display: none;
     }
 
-    // Dropdown móvil - CENTRADO Y BIEN PROPORCIONADO
+    // Dropdown móvil
     &__dropdown {
       position: static;
       transform: none;
@@ -685,6 +828,21 @@ $breakpoint-sm: 480px;
         &:last-child {
           margin-bottom: 0;
         }
+
+        &--active {
+        
+          .nav__dropdown-link {
+            background-color: $active-bg;
+            border: 1px solid $active-border;
+            
+            &::before {
+              top: 4px;
+              right: 4px;
+              width: 8px;
+              height: 8px;
+            }
+          }
+        }
       }
 
       &-link {
@@ -700,10 +858,24 @@ $breakpoint-sm: 480px;
         border: 1px solid $dark-border;
         color: $dark-text;
 
+        &--active {
+          background-color: $active-bg;
+          border-color: $active-border;
+          
+          .nav__dropdown-text {
+            color: $active-text;
+            font-weight: 600;
+          }
+        }
+
         &:hover {
           transform: none;
           box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
           background-color: $dark-hover;
+          
+          &.nav__dropdown-link--active {
+            background-color: rgba(74, 222, 128, 0.25);
+          }
 
           .nav__dropdown-text {
             position: static;
@@ -852,6 +1024,15 @@ $breakpoint-sm: 480px;
   font-size: 0.75rem;
   line-height: 1.3;
   padding: 0.75rem;
+}
+
+// Active state utilities
+.nav__menu-item--active,
+.nav__dropdown-item--active {
+  .nav__menu-link,
+  .nav__dropdown-link {
+    @include active-state;
+  }
 }
 
 // Accessibility improvements

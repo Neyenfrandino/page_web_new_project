@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Home,
   User,
@@ -13,7 +13,6 @@ import {
   X
 } from 'lucide-react';
 
-import DarkModeToggle from '../darkModeToggle/darkModeToggle';
 import './Nav.scss';
 
 const iconMap = {
@@ -26,7 +25,8 @@ const iconMap = {
   BriefcaseIcon: Briefcase,
 };
 
-const Nav = ({ isScroll, listRouters, location, projects }) => {
+const Nav = ({ isScroll, listRouters, projects }) => {
+
   const [openDropdown, setOpenDropdown] = useState(null);
   const [projectImageIndexes, setProjectImageIndexes] = useState({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,7 +34,10 @@ const Nav = ({ isScroll, listRouters, location, projects }) => {
   const [isTablet, setIsTablet] = useState(false);
   const intervalRefs = useRef({});
   const navRef = useRef(null);
-  const dropdownTimeoutRef = useRef(null); // Nuevo ref para el timeout
+  const dropdownTimeoutRef = useRef(null);
+  
+  // Usar useLocation para obtener la ruta actual
+  const location = useLocation();
   
   // Detectar tamaño de pantalla
   useEffect(() => {
@@ -91,6 +94,33 @@ const Nav = ({ isScroll, listRouters, location, projects }) => {
       }
     };
   }, []);
+
+  // Función para verificar si una ruta está activa
+  const isActiveRoute = useCallback((itemPath, subnavegacion = null) => {
+    const currentPath = location.pathname;
+    
+    // Verificar si la ruta actual coincide exactamente
+    if (currentPath === itemPath) {
+      return true;
+    }
+    
+    // Si tiene subnavegación, verificar si alguna subruta está activa
+    if (subnavegacion) {
+      return subnavegacion.some(subItem => currentPath === subItem.path);
+    }
+    
+    // Verificar si es una ruta padre (para casos como /projects/project-name)
+    if (itemPath !== '/' && currentPath.startsWith(itemPath)) {
+      return true;
+    }
+    
+    return false;
+  }, [location.pathname]);
+
+  // Función para verificar si un dropdown item está activo
+  const isActiveDropdownItem = useCallback((subItemPath) => {
+    return location.pathname === subItemPath;
+  }, [location.pathname]);
 
   const renderIcon = useCallback((iconName) => {
     const IconComponent = iconMap[iconName];
@@ -270,18 +300,24 @@ const Nav = ({ isScroll, listRouters, location, projects }) => {
       >
         {item.subnavegacion.map((subItem, subIndex) => {
           const matchedProject = projects.projects.find(p => p.name === subItem.name);
+          console.log(matchedProject);
           
           if (!matchedProject) return null;
 
           const currentImageIndex = projectImageIndexes[matchedProject.name] || 0;
+          const isActive = isActiveDropdownItem(subItem.path);
 
           return (
-            <li key={subIndex} className="nav__dropdown-item">
+            <li 
+              key={subIndex} 
+              className={`nav__dropdown-item ${isActive ? 'nav__dropdown-item--active' : ''}`}
+            >
               <Link 
                 to={subItem.path} 
-                className="nav__dropdown-link"
+                className={`nav__dropdown-link ${isActive ? 'nav__dropdown-link--active' : ''}`}
                 onClick={handleDropdownLinkClick}
                 aria-label={`Ver proyecto ${matchedProject.name}: ${matchedProject.description}`}
+                aria-current={isActive ? "page" : undefined}
               >
                 <div className="nav__project-images">
                   {matchedProject.images.map((image, imageIndex) => (
@@ -317,7 +353,7 @@ const Nav = ({ isScroll, listRouters, location, projects }) => {
         })}
       </ul>
     );
-  }, [projects, projectImageIndexes, handleDropdownLinkClick, handleDropdownMouseEnter, handleDropdownMouseLeave]);
+  }, [projects, projectImageIndexes, handleDropdownLinkClick, handleDropdownMouseEnter, handleDropdownMouseLeave, isActiveDropdownItem]);
 
   // Verificar que listRouters existe y tiene la estructura esperada
   const menuItems = listRouters?.['Movimiento Naluum'] || [];
@@ -368,56 +404,48 @@ const Nav = ({ isScroll, listRouters, location, projects }) => {
           aria-label="Navegación principal"
         >
           <ul className="nav__menu-list">
-            {menuItems.map((item, index) => (
-              <li
-                key={index}
-                className={`nav__menu-item ${item.subnavegacion ? 'nav__menu-item--has-dropdown' : ''}`}
-                onMouseEnter={() => handleMouseEnter(index, !!item.subnavegacion)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link 
-                  to={item.path}  
-                  onClick={(e) => handleClick(e, !!item.subnavegacion, index, item.path)} 
-                  className="nav__menu-link"
-                  aria-haspopup={item.subnavegacion ? "true" : "false"}
-                  aria-expanded={openDropdown === index ? "true" : "false"}
-                  aria-current={location?.pathname === item.path ? "page" : undefined}
+            {menuItems.map((item, index) => {
+              const isActive = isActiveRoute(item.path, item.subnavegacion);
+              
+              return (
+                <li
+                  key={index}
+                  className={`nav__menu-item ${item.subnavegacion ? 'nav__menu-item--has-dropdown' : ''} ${isActive ? 'nav__menu-item--active' : ''}`}
+                  onMouseEnter={() => handleMouseEnter(index, !!item.subnavegacion)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <span className="nav__menu-icon">
-                    {renderIcon(item.icon)}
-                  </span>
-                  <span className="nav__menu-text">{item.name}</span>
-                  {item.subnavegacion && (
-                    <ChevronDown 
-                      size={isMobile ? 16 : 14} 
-                      className={`nav__menu-chevron ${openDropdown === index ? 'nav__menu-chevron--open' : ''}`}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Link>
+                  <Link 
+                    to={item.path}  
+                    onClick={(e) => handleClick(e, !!item.subnavegacion, index, item.path)} 
+                    className={`nav__menu-link ${isActive ? 'nav__menu-link--active' : ''}`}
+                    aria-haspopup={item.subnavegacion ? "true" : "false"}
+                    aria-expanded={openDropdown === index ? "true" : "false"}
+                    aria-current={location?.pathname === item.path ? "page" : undefined}
+                  >
+                    <span className="nav__menu-icon">
+                      {renderIcon(item.icon)}
+                    </span>
+                    <span className="nav__menu-text">{item.name}</span>
+                    {item.subnavegacion && (
+                      <ChevronDown 
+                        size={isMobile ? 16 : 14} 
+                        className={`nav__menu-chevron ${openDropdown === index ? 'nav__menu-chevron--open' : ''}`}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Link>
 
-                {/* Dropdown */}
-                {item.subnavegacion && openDropdown === index && (
-                  renderProjectDropdown(item)
-                )}
-              </li>
-            ))}
+                  {/* Dropdown */}
+                  {item.subnavegacion && openDropdown === index && (
+                    renderProjectDropdown(item)
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
-          {/* Dark Mode Toggle en móvil */}
-          {/* {isMobile && (
-            <div className="nav__mobile-actions">
-              <DarkModeToggle />
-            </div>
-          )} */}
+  
         </div>
-
-        {/* Dark Mode Toggle - Desktop */}
-        {/* {!isMobile && (
-          <div className="nav__actions">
-            <DarkModeToggle />
-          </div>
-        )} */}
       </div>
 
       {/* Overlay para cerrar menú en móvil */}

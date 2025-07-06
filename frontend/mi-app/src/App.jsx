@@ -20,6 +20,8 @@ import Footer from './componets/footer/footer';
 import ScrollToTop from './componets/scrollToTop/ScrollToTop';
 import UserTracker from './componets/userTracker/userTracker';
 
+import Payment from './routers/payment/payment';
+
 import './App.scss';
 
 const App = () => {
@@ -51,6 +53,7 @@ const App = () => {
   }, [location.pathname]);
 
 
+
   return (
     <div className="App">
       <div className='App__nav'>
@@ -60,12 +63,13 @@ const App = () => {
 
       <main id="view-root">
         <Routes location={{ ...location, pathname: currentPath }} key={currentPath}>
-          <Route index path="movimiento-naluum/" element={<Home />} />
-          <Route path="movimiento-naluum/projects/*" element={<Projects currentRoute={location} />} />
-          <Route path="movimiento-naluum/quienes-somos" element={<AboutMe />} />
+          <Route index path="/" element={<Home />} />
+          <Route path="/projects/*" element={<Projects currentRoute={location} />} />
+          <Route path="/sobre-nosotros" element={<AboutMe />} />
           <Route path="movimiento-naluum/contact" element={<Contact />} />
           <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
           <Route path="/movimiento-naluum/calendario" element={<LandingPageCalendar />} />
+          <Route path="/movimiento-naluum/payment" element={<Payment />} />
         </Routes>
       </main>
 

@@ -116,7 +116,7 @@ const MercadoPagoCard = ({ product }) => {
       maximumFractionDigits: 2
     });
   };
-
+ 
   return (
     <div className="mp-card">
       <div className="mp-card__container mp-card__container--two-columns">

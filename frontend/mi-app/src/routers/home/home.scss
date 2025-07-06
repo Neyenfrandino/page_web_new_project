@@ -587,7 +587,7 @@ $desktop-lg: 1280px;
           margin-top: 1rem;
           font-weight: 500;
           color: #efea21;
-          font-style: italic;
+          // font-style: italic;
           font-size: clamp(0.85rem, 1.8vw, 1.05rem);
           opacity: 0.95;
           position: relative;
@@ -843,6 +843,19 @@ $desktop-lg: 1280px;
         position: relative;
         opacity: 1;
         transition: all 0.3s ease;
+        border-left: 4px solid #22c55e;
+
+              // Comillas decorativas
+        &::before {
+          content: '"';
+          font-size: 4rem;
+          color: #22c55e;
+          position: absolute;
+          top: -20px;
+          left: 10px;
+          font-family: serif;
+          opacity: 0.2;
+        }
         
 
         &:hover{
@@ -858,7 +871,10 @@ $desktop-lg: 1280px;
 
       // Párrafo normal
       p {
-        background: rgba(255, 255, 255, 0.5);
+        background: linear-gradient(135deg,
+            rgba(34, 197, 94, 0.1),
+            rgba(59, 130, 246, 0.1));
+        background: rgba(8, 8, 8, 0.5);
         font-size: .95rem;
         color: #ffffff;
         line-height: 1.7;
@@ -869,30 +885,18 @@ $desktop-lg: 1280px;
       // Texto destacado
       span {
         background: linear-gradient(135deg,
-            rgba(34, 197, 94, 0.1),
-            rgba(59, 130, 246, 0.1));
-        font-size: .95rem;
-        color: #ffffff;
+            rgba(34, 197, 94, 0.5),
+            rgba(59, 130, 246, 0.15));
+        font-size: 1rem;
+        color: #000000;
         line-height: 1.6;
-        font-style: italic;
-        border-left: 4px solid #22c55e;
+        // font-style: italic;
         margin-bottom: 1rem;
         animation-delay: 0.4s;
 
         @include mobile { margin-top: 1rem; margin-bottom: 1rem; }
         @include desktop { margin-top: 5rem; }
 
-        // Comillas decorativas
-        &::before {
-          content: '"';
-          font-size: 4rem;
-          color: #22c55e;
-          position: absolute;
-          top: -20px;
-          left: 10px;
-          font-family: serif;
-          opacity: 0.2;
-        }
       }
     }
 
