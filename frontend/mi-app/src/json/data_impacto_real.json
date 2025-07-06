@@ -1,0 +1,62 @@
+[
+  {
+    "icon": "fa-solid fa-seedling",
+    "title": "Proyectos activos",
+    "value": "+12",
+    "description": "Proyectos de permacultura en marcha"
+  },
+  {
+    "icon": "fa-solid fa-leaf",
+    "title": "Espacios regenerados",
+    "value": "+5.000 m²",
+    "description": "De tierra restaurada"
+  },
+  {
+    "icon": "fa-solid fa-people-group",
+    "title": "Comunidades beneficiadas",
+    "value": "+80",
+    "description": "Familias involucradas en prácticas sostenibles"
+  },
+  {
+    "icon": "fa-solid fa-chalkboard-user",
+    "title": "Talleres dictados",
+    "value": "+40",
+    "description": "Talleres de educación ambiental"
+  },
+  {
+    "icon": "fa-solid fa-calendar-days",
+    "title": "Años de experiencia",
+    "value": "7",
+    "description": "Años promoviendo la regeneración del planeta"
+  },
+  {
+    "icon": "fa-solid fa-map-location-dot",
+    "title": "Regiones activas",
+    "value": "4",
+    "description": "Provincias argentinas con presencia del proyecto"
+  },
+  {
+    "icon": "fa-solid fa-recycle",
+    "title": "Impacto ambiental",
+    "value": "20 toneladas",
+    "description": "De residuos reducidos al año"
+  },
+  {
+    "icon": "fa-solid fa-users-line",
+    "title": "Voluntarios",
+    "value": "+60",
+    "description": "Personas que han participado como voluntarios"
+  },
+  {
+    "icon": "fa-solid fa-school",
+    "title": "Proyecto destacado",
+    "value": "Escuela Sustentable",
+    "description": "Caso de éxito en Córdoba (2024)"
+  },
+  {
+    "icon": "fa-solid fa-heart",
+    "title": "Satisfacción",
+    "value": "98%",
+    "description": "De las personas recomiendan nuestros procesos"
+  }
+]

@@ -1,147 +1,136 @@
-// MissionCarousel.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './carrusel_imagenes.scss';
 
-const MissionCarousel = ({ cards, autoPlay = true, autoPlayInterval = 5000 }) => {
+const MissionCarousel = ({ cards = [], autoPlay = true, autoPlayInterval = 5000 }) => {
+  // console.log('MissionCarousel RENDER'); // Puedes usar para debug
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
- 
-  // Auto-play functionality
+
+  // Auto-play effect
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || cards.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === cards.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentIndex(prevIndex => (prevIndex === cards.length - 1 ? 0 : prevIndex + 1));
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, cards.length, autoPlayInterval]);
 
-  // Navigation functions
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-  };
+  // Handlers con useCallback para evitar recreación
+  const goToSlide = useCallback((index) => setCurrentIndex(index), []);
 
-  const goToPrevious = () => {
-    setCurrentIndex(currentIndex === 0 ? cards.length - 1 : currentIndex - 1);
-  };
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex(currentIndex => (currentIndex === 0 ? cards.length - 1 : currentIndex - 1));
+  }, [cards.length]);
 
-  const goToNext = () => {
-    setCurrentIndex(currentIndex === cards.length - 1 ? 0 : currentIndex + 1);
-  };
+  const goToNext = useCallback(() => {
+    setCurrentIndex(currentIndex => (currentIndex === cards.length - 1 ? 0 : currentIndex + 1));
+  }, [cards.length]);
 
-  // Pause auto-play on hover
-  const handleMouseEnter = () => {
-    setIsAutoPlaying(false);
-  };
+  const handleMouseEnter = useCallback(() => setIsAutoPlaying(false), []);
+  
+  const handleMouseLeave = useCallback(() => {
+    if (autoPlay) setIsAutoPlaying(true);
+  }, [autoPlay]);
 
-  const handleMouseLeave = () => {
-    if (autoPlay) {
-      setIsAutoPlaying(true);
-    }
-  };
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'ArrowLeft') goToPrevious();
+    else if (e.key === 'ArrowRight') goToNext();
+  }, [goToPrevious, goToNext]);
 
-  // Keyboard navigation
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') {
-      goToPrevious();
-    } else if (e.key === 'ArrowRight') {
-      goToNext();
-    }
-  };
+  // Memorizar estilos para evitar recalculaciones innecesarias
+  const slidesStyle = useMemo(() => ({
+    transform: `translateX(-${currentIndex * 100}%)`
+  }), [currentIndex]);
+
+  const progressBarStyle = useMemo(() => ({
+    width: `${((currentIndex + 1) / cards.length) * 100}%`,
+    animationDuration: isAutoPlaying ? `${autoPlayInterval}ms` : 'none'
+  }), [currentIndex, cards.length, isAutoPlaying, autoPlayInterval]);
+
+  // Memorizar slides para evitar recreación de elementos
+  const slides = useMemo(() => cards.map((card, index) => (
+    <div
+      key={card.id}
+      className={`carousel-slide ${index === currentIndex ? 'active' : ''}`}
+      aria-hidden={index !== currentIndex}
+    >
+      <div className="slide-image">
+        <img
+          src={card.image}
+          alt={card.title}
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+        <div className="slide-overlay"></div>
+      </div>
+      <div className="slide-content">
+        <h3 className="slide-title">{card.title}</h3>
+        <p className="slide-description">{card.description}</p>
+      </div>
+    </div>
+  )), [cards, currentIndex]);
+
+  // Memorizar dots
+  const dots = useMemo(() => cards.map((_, index) => (
+    <button
+      key={index}
+      className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+      onClick={() => goToSlide(index)}
+      aria-label={`Ir a la imagen ${index + 1}`}
+      type="button"
+    />
+  )), [cards.length, currentIndex, goToSlide]);
+
+  if (cards.length === 0) {
+    return <div className="mission-carousel">No hay imágenes para mostrar</div>;
+  }
 
   return (
-    <div 
-      className="mission-carousel" 
-    //   onMouseEnter={handleMouseEnter}
-    //   onMouseLeave={handleMouseLeave}
+    <div
+      className="mission-carousel"
       onKeyDown={handleKeyDown}
-      tabIndex="0"
+      tabIndex={0}
       role="region"
       aria-label="Carrusel de misión"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Main carousel container */}
       <div className="carousel-container">
-        {/* Slides wrapper */}
-        <div 
-          className="carousel-slides"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {cards.map((card, index) => (
-            <div 
-              key={card.id} 
-              className={`carousel-slide ${index === currentIndex ? 'active' : ''}`}
-              aria-hidden={index !== currentIndex}
-            >
-              <div className="slide-image">
-                <img 
-                  src={card.image} 
-                  alt={card.title}
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                />
-                <div className="slide-overlay"></div>
-              </div>
-              
-              <div className="slide-content">
-                <h3 className="slide-title">{card.title}</h3>
-                <p className="slide-description">{card.description}</p>
-              </div>
-            </div>
-          ))}
+        <div className="carousel-slides" style={slidesStyle}>
+          {slides}
         </div>
 
-        {/* Navigation arrows */}
-        <button 
+        <button
           className="carousel-arrow carousel-arrow--prev"
           onClick={goToPrevious}
           aria-label="Imagen anterior"
           type="button"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
-        <button 
+        <button
           className="carousel-arrow carousel-arrow--next"
           onClick={goToNext}
           aria-label="Siguiente imagen"
           type="button"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
       </div>
 
-      {/* Dots indicator */}
-      <div className="carousel-dots">
-        {cards.map((_, index) => (
-          <button
-            key={index}
-            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => goToSlide(index)}
-            aria-label={`Ir a la imagen ${index + 1}`}
-            type="button"
-          />
-        ))}
-      </div>
+      <div className="carousel-dots">{dots}</div>
 
-      {/* Progress bar */}
       <div className="carousel-progress">
-        <div 
-          className="carousel-progress-bar"
-          style={{ 
-            width: `${((currentIndex + 1) / cards.length) * 100}%`,
-            animationDuration: isAutoPlaying ? `${autoPlayInterval}ms` : 'none'
-          }}
-        />
+        <div className="carousel-progress-bar" style={progressBarStyle} />
       </div>
 
-
-      {/* Counter */}
       <div className="carousel-counter">
         <span className="counter-current">{currentIndex + 1}</span>
         <span className="counter-separator">/</span>
@@ -151,4 +140,20 @@ const MissionCarousel = ({ cards, autoPlay = true, autoPlayInterval = 5000 }) =>
   );
 };
 
-export default MissionCarousel;
+MissionCarousel.displayName = 'MissionCarousel';
+
+// Comparación personalizada para evitar renders innecesarios
+const areEqual = (prevProps, nextProps) => {
+  // Se recomienda comparar arrays con cuidado, usar IDs o memoización en el padre para evitar pasar arrays nuevos cada render
+  if (prevProps.autoPlay !== nextProps.autoPlay) return false;
+  if (prevProps.autoPlayInterval !== nextProps.autoPlayInterval) return false;
+
+  if (prevProps.cards.length !== nextProps.cards.length) return false;
+
+  for (let i = 0; i < prevProps.cards.length; i++) {
+    if (prevProps.cards[i].id !== nextProps.cards[i].id) return false;
+  }
+  return true;
+};
+
+export default React.memo(MissionCarousel, areEqual);

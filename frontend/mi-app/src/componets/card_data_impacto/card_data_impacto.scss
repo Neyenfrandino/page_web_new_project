@@ -1,0 +1,407 @@
+.card-data-impacto__container {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 0 15px; // Agregado para evitar que toque los bordes
+
+    .card-data-impacto__content {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(200deg, #2d501655 0%, #4a7c5966 25%, #5d8a6677 50%, #7ba05a88 75%, #90b49499 100%); 
+        position: relative;
+        overflow: hidden;
+        // border-radius: 15px; // Descomentado para mejor apariencia
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.03) 0%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.03) 100%);
+            background-size: 200% 200%;
+            animation: shimmer 5s ease-in-out infinite;
+        }
+
+        .card-data-impacto__item {
+            width: 250px;
+            height: 250px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.05);
+            
+            // Animación de entrada
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            animation: slideInUp 0.8s ease-out forwards;
+            
+            // Efecto hover
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            &:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 
+                    0 30px 60px rgba(0, 0, 0, 0.15),
+                    0 15px 30px rgba(0, 0, 0, 0.1);
+                
+                .card-data-impacto__icon {
+                    transform: scale(1.1) rotate(5deg);
+                    color: #2980b9;
+                }
+                
+                .card-data-impacto__value {
+                    transform: scale(1.05);
+                    color: #2980b9;
+                }
+            }
+
+            .card-data-impacto__icon {
+                font-size: 3rem;
+                color: #3498db;
+                transition: all 0.3s ease;
+                opacity: 0;
+                animation: fadeInScale 0.6s ease-out 0.3s forwards;
+            }
+
+            .card-data-impacto__title {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 8px;
+                opacity: 0;
+                animation: fadeInUp 0.6s ease-out 0.4s forwards;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            .card-data-impacto__value {
+                font-size: 2.1rem;
+                font-weight: 700;
+                color: #3498db;
+                text-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+                transition: all 0.3s ease;
+                opacity: 0;
+                animation: fadeInUp 0.6s ease-out 0.5s forwards;
+                margin-bottom: 8px;
+            }
+
+            .card-data-impacto__description {
+                font-size: 0.9rem;
+                color: #7f8c8d;
+                line-height: 1.4;
+                opacity: 0;
+                animation: fadeInUp 0.6s ease-out 0.6s forwards;
+                text-align: center;
+            }
+        }
+    }
+}
+
+// Animaciones keyframes
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes numberPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+// ===== RESPONSIVE DESIGN =====
+
+// Tablets grandes y pantallas medianas (1024px - 1200px)
+@media (max-width: 1200px) {
+    .card-data-impacto__container {
+        .card-data-impacto__content {
+            gap: 18px;
+            padding: 18px;
+        }
+    }
+}
+
+// Tablets (768px - 1024px)
+@media (max-width: 1024px) {
+    .card-data-impacto__container {
+        margin-top: 3%;
+        
+        .card-data-impacto__content {
+            gap: 16px;
+            padding: 16px;
+            
+            .card-data-impacto__item {
+                width: 220px;
+                height: 220px;
+                padding: 18px;
+                
+                .card-data-impacto__icon {
+                    font-size: 2.8rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 1.25rem;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 2rem;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.85rem;
+                }
+            }
+        }
+    }
+}
+
+// Tablets verticales y móviles grandes (768px)
+@media (max-width: 768px) {
+    .card-data-impacto__container {
+        margin-top: 2%;
+        padding: 0 10px;
+        
+        .card-data-impacto__content {
+            padding: 15px;
+            gap: 15px;
+            border-radius: 10px;
+            
+            .card-data-impacto__item {
+                width: 200px;
+                height: 200px;
+                padding: 15px;
+                border-radius: 12px;
+                
+                // Reducir efecto hover en tablets
+                &:hover {
+                    transform: translateY(-5px) scale(1.01);
+                }
+                
+                .card-data-impacto__icon {
+                    font-size: 2.5rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 1.2rem;
+                    margin-bottom: 6px;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 1.8rem;
+                    margin-bottom: 6px;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}
+
+// Móviles grandes (480px - 640px)
+@media (max-width: 640px) {
+    .card-data-impacto__container {
+        .card-data-impacto__content {
+            gap: 12px;
+            padding: 12px;
+            
+            .card-data-impacto__item {
+                width: 180px;
+                height: 180px;
+                padding: 12px;
+                
+                .card-data-impacto__icon {
+                    font-size: 2.2rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 1.1rem;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 1.6rem;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+}
+
+// Móviles pequeños (320px - 480px)
+@media (max-width: 480px) {
+    .card-data-impacto__container {
+        margin-top: 1%;
+        padding: 0 8px;
+        
+        .card-data-impacto__content {
+            padding: 10px;
+            gap: 10px;
+            border-radius: 8px;
+            
+            .card-data-impacto__item {
+                width: 160px;
+                height: 160px;
+                padding: 10px;
+                border-radius: 10px;
+                
+                // Desactivar hover en móviles pequeños
+                &:hover {
+                    transform: none;
+                    box-shadow: 
+                        0 20px 40px rgba(0, 0, 0, 0.1),
+                        0 10px 20px rgba(0, 0, 0, 0.05);
+                }
+                
+                .card-data-impacto__icon {
+                    font-size: 2rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 1rem;
+                    margin-bottom: 4px;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 1.4rem;
+                    margin-bottom: 4px;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.7rem;
+                    line-height: 1.3;
+                }
+            }
+        }
+    }
+}
+
+// Móviles muy pequeños (320px)
+@media (max-width: 320px) {
+    .card-data-impacto__container {
+        padding: 0 5px;
+        
+        .card-data-impacto__content {
+            padding: 8px;
+            gap: 8px;
+            
+            .card-data-impacto__item {
+                width: 140px;
+                height: 140px;
+                padding: 8px;
+                
+                .card-data-impacto__icon {
+                    font-size: 1.8rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 0.9rem;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 1.3rem;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.65rem;
+                }
+            }
+        }
+    }
+}
+
+// ===== ORIENTACIÓN LANDSCAPE EN MÓVILES =====
+@media (max-height: 500px) and (orientation: landscape) {
+    .card-data-impacto__container {
+        margin-top: 1%;
+        
+        .card-data-impacto__content {
+            padding: 10px;
+            
+            .card-data-impacto__item {
+                width: 140px;
+                height: 140px;
+                padding: 8px;
+                
+                .card-data-impacto__icon {
+                    font-size: 1.6rem;
+                }
+                
+                .card-data-impacto__title {
+                    font-size: 0.85rem;
+                }
+                
+                .card-data-impacto__value {
+                    font-size: 1.2rem;
+                }
+                
+                .card-data-impacto__description {
+                    font-size: 0.6rem;
+                }
+            }
+        }
+    }
+}

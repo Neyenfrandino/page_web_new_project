@@ -1,297 +1,445 @@
-.footer {
-    position: relative;
-    // background-color: #f9f9f9;
-    color: #333;
-    padding: 4rem 1.5rem 2rem;
-    overflow: hidden;
-    width: 100%;
-    box-sizing: border-box;
-    
-    // Decorative border instead of wave SVG
-    .footer__decorative-border {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 90%;
-        height: 1px;
-        background: linear-gradient(90deg, #3498db, #2ecc71, #f1c40f, #e74c3c, #9b59b6);
-        background-size: 500% 100%;
-        animation: gradientBorder 15s ease infinite;
-        z-index: 1;
-        transform: translate(-50%, 0);
+// Variables - Tema Regeneración Planetaria
+$primary-color: #16a34a; // Verde regenerativo
+$secondary-color: #15803d; // Verde más oscuro
+$accent-color: #22c55e; // Verde brillante
+$earth-brown: #8b5a2b; // Marrón tierra
+$ocean-blue: #0891b2; // Azul océano
+$forest-green: #166534; // Verde bosque
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$text-light: #9ca3af;
+$background-dark: #0c1b0f; // Verde muy oscuro
+$background-darker: #071a0a; // Verde casi negro
+$border-color: #e5e7eb;
+$white: #ffffff;
 
-    }
-    
-    @keyframes gradientBorder {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .footer__container {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .footer__content {
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-        margin-top: 1rem;
-
-        @media (min-width: 768px) {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-    }
-
-    .footer__logo {
-        flex: 1;
-        max-width: 100%;
-
-    @media (min-width: 768px) {
-        max-width: 300px;
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #3498db;
-            margin: 0;
-            position: relative;
-            
-            &::before {
-                content: "";
-                position: absolute;
-                width: 8px;
-                height: 8px;
-                background-color: #3498db;
-                border-radius: 50%;
-                left: -16px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-    }
-
-        p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-    }
-
-    .footer__social {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-
-        a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: #3498db;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-
-            &:hover {
-            transform: translateY(-5px);
-            background-color: #2980b9;
-            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
-            }
-        }
-    }
-
-    .footer__nav {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        flex: 2;
-
-        @media (min-width: 768px) {
-            flex-direction: row;
-            justify-content: space-around;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-            position: relative;
-
-            &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 100%;
-            height: 2px;
-            background-color: #3498db;
-            }
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-
-            li {
-            margin-bottom: 0.8rem;
-            }
-        }
-    }
-
-    .footer__links {
-        a {
-            color: #333;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            display: inline-block;
-            position: relative;
-            padding-left: 0;
-
-            &::before {
-                content: "›";
-                position: absolute;
-                left: -12px;
-                opacity: 0;
-                transition: all 0.3s ease;
-            }
-
-            &:hover {
-                color: #3498db;
-                padding-left: 12px;
-            
-                &::before {
-                    opacity: 1;
-                    left: 0;
-                }
-            }
-        }
-    }
-
-    .footer__contact {
-        li {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-
-            i {
-                color: #3498db;
-                margin-top: 4px;
-                min-width: 16px;
-                transition: transform 0.3s ease;
-            }
-
-            span {
-                font-size: 0.9rem;
-            }
-
-            &:hover i {
-                transform: scale(1.2);
-            }
-        }
-    }
-
-    .footer__bottom {
-        margin-top: 3rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    
-        @media (min-width: 768px) {
-            flex-direction: row;
-            justify-content: center;
-        }
-    
-        p {
-            font-size: 0.85rem;
-            color: #999;
-            margin: 0;
-        }
-    
-    }
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dark {
-    background-color: #161d2f;
-    color: #eee;
+@mixin transition($properties: all, $duration: 0.3s) {
+  transition: $properties $duration ease-in-out;
+}
 
-    h3{
-        color: #eee;
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Footer principal
+.footer {
+  position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .20) 0%,  rgba(0, 0, 0, 0.8) 100%);
+  color: $white;
+  overflow: hidden;
+
+  // Contenedor principal
+  &__container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px 0;
+    z-index: 2;
+  }
+
+  // Contenido principal
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      text-align: center;
+    }
+  }
+
+  // Secciones
+  &__section {
+    &.footer__brand {
+      grid-column: span 1;
+    }
+  }
+
+  // Logo y marca
+  &__logo {
+    margin-bottom: 20px;
+    position: relative;
+
+    &-text {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, $primary-color, $accent-color, $forest-green);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+
+      @media (max-width: 480px) {
+        font-size: 2rem;
+      }
     }
 
-    .footer__decorative-border {
-        opacity: 0.8;
+    &-decoration {
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba($primary-color, 0.5);
+
+      @media (max-width: 768px) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      &::after {
+        content: '🌱';
+        position: absolute;
+        right: -25px;
+        top: -8px;
+        font-size: 12px;
+        color: $accent-color;
+        animation: leafGrow 2s ease-in-out infinite alternate;
+      }
+    }
+  }
+
+  // Descripción
+  &__description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba($white, 0.9);
+    margin-bottom: 30px;
+    max-width: 400px;
+
+    @media (max-width: 768px) {
+      max-width: none;
+      margin: 0 auto 30px;
+    }
+  }
+
+  // Redes sociales
+  &__social {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+
+    @media (max-width: 768px) {
+      justify-content: center;
     }
 
-    .footer__logo {
-        h2 {
-            color: #5dade2;
+    &-link {
+      @include flex-center;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba($white, 0.1);
+      color: $white;
+      font-size: 1.2rem;
+      @include transition();
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+
+      @media (max-width: 480px) {
+        width: 45px;
+        height: 45px;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--social-color, $primary-color);
+        @include transition(left);
+        z-index: -1;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         
-            &::before {
-                background-color: #5dade2;
-            }
+        &::before {
+          left: 0;
         }
+      }
+    }
+  }
 
-        p {
-            color: #ccc;
-        }
+  // Títulos de sección
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    position: relative;
+    color: $white;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-color, $accent-color);
+      border-radius: 1px;
+
+      @media (max-width: 768px) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  // Información de contacto
+  &__contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba($white, 0.05);
+    @include transition();
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      text-align: left;
     }
 
-    .footer__social a {
-        background-color: #5dade2;
+    &:hover {
+      background: rgba($white, 0.1);
+      transform: translateX(5px);
 
-        &:hover {
-            background-color: #3498db;
-            box-shadow: 0 5px 15px rgba(93, 173, 226, 0.3);
-        }
+      @media (max-width: 768px) {
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  &__contact-icon {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    color: $white;
+    font-size: 1rem;
+    flex-shrink: 0;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, $primary-color, $accent-color, $forest-green);
+      z-index: -1;
+      opacity: 0;
+      @include transition(opacity);
+    }
+    
+    .footer__contact-item:hover & {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__contact-text {
+    color: rgba($white, 0.9);
+    text-decoration: none;
+    line-height: 1.5;
+    @include transition(color);
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  // Newsletter
+  &__newsletter {
+    &-description {
+      color: rgba($white, 0.8);
+      margin-bottom: 25px;
+      line-height: 1.6;
     }
 
-    .footer__links {
-        a {
-            color: #ccc;
+    &-form {
+      margin-top: 20px;
+    }
+  }
 
-            &:hover {
-                color: #5dade2;
-            }
-        }
+  &__input-group {
+    display: flex;
+    gap: 10px;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid rgba($white, 0.2);
+    border-radius: 12px;
+    background: rgba($white, 0.1);
+    color: $white;
+    font-size: 1rem;
+    @include transition();
+
+    &::placeholder {
+      color: rgba($white, 0.6);
     }
 
-    .footer__nav {
-        h3::after {
-            background-color: #5dade2;
-            width: 100%;
-        }
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+      background: rgba($white, 0.15);
+      box-shadow: 0 0 0 3px rgba($accent-color, 0.1);
+    }
+  }
+
+  &__submit-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    color: $white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    @include transition();
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '🌍';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      @include transition(transform);
     }
 
-    .footer__contact li {
-        i {
-            color: #5dade2;
-        }
-
-        span {
-            color: #ffffff;
-        }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba($primary-color, 0.4);
+      padding-right: 40px;
+      
+      &::before {
+        transform: translateY(-50%) scale(1);
+      }
     }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // Parte inferior
+  &__bottom {
+    border-top: 1px solid rgba($white, 0.1);
+    padding: 30px 0;
+    margin-top: 40px;
+
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  }
+
+  &__copyright {
+    color: rgba($white, 0.7);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  &__legal-links {
+    display: flex;
+    gap: 25px;
+    
+    @media (max-width: 480px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__legal-link {
+    color: rgba($white, 0.6);
+    text-decoration: none;
+    font-size: 0.85rem;
+    @include transition(color);
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+// Animaciones inspiradas en la naturaleza
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes leafGrow {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+@keyframes naturalFlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  66% {
+    opacity: 0.9;
+    transform: translateY(3px);
+  }
 }

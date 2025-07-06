@@ -1,0 +1,222 @@
+[
+  {
+    "id": 101,
+    "type": "product",
+    "title": "AOSION Countertop Compost Bin",
+    "subtitle": "Compostera de cocina con filtro y cierre hermético.",
+    "description": "Esta compostera de cocina combina funcionalidad y diseño para hacer el compostaje doméstico sencillo y limpio. Con capacidad para 2.4 galones, su sistema de filtro de carbón activado neutraliza olores eficazmente, mientras que su tapa giratoria con cierre hermético previene derrames y mantiene tu cocina fresca. Ideal para familias que buscan reducir sus residuos orgánicos sin sacrificar espacio ni estética en su cocina.",
+    "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQiEicLOqGXB8y0H0eFC25fSC1Yfdiubd-zhKIurOS5YGj6LOUb2eQf8OVsz2z_fee-acDQYzXFFyAPV6pCcm9r8Tcfoga-iqOx9j9ApDi0jY4O3nEXsX252g",
+    "price": 22.99,
+    "currency": "USD",
+    "badge": "Ecológico",
+    "stock": 50,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Filtro de carbón activado",
+      "Cierre hermético",
+      "Tapa giratoria",
+      "Fácil limpieza",
+      "Capacidad familiar"
+    ],
+    "rating": 4.6,
+    "sold": 1200
+  },
+  {
+    "id": 102,
+    "type": "product",
+    "title": "All Seasons Indoor Composter",
+    "subtitle": "Composter doméstico con filtro bokashi.",
+    "description": "Revoluciona tu compostaje en interiores con este sistema completo que incluye activador bokashi para acelerar la descomposición. Diseñado específicamente para espacios urbanos, su tecnología de filtración avanzada elimina olores mientras transformas tus residuos de cocina en abono rico en nutrientes. Perfecto para departamentos o casas pequeñas donde el espacio es limitado pero el compromiso ecológico es grande.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShvil-FIdIH-19wxufT5K-O05583D6VfFX1w&s",
+    "price": 62.22,
+    "currency": "USD",
+    "badge": "Indoor",
+    "stock": 45,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Filtración de olores",
+      "Material reciclado",
+      "Fácil de limpiar",
+      "Incluye bokashi",
+      "Apto para residencias"
+    ],
+    "rating": 4.8,
+    "sold": 190
+  },
+  {
+    "id": 103,
+    "type": "product",
+    "title": "The Kitchn's Avocado Compost Bin",
+    "subtitle": "Compostera de cocina en color aguacate.",
+    "description": "Una solución elegante y sostenible para el compostaje diario en tu cocina. Fabricada con plástico vegetal 100% renovable, esta compostera combina un diseño moderno en tono aguacate con funcionalidad práctica. Su filtro integrado mantiene los olores bajo control, mientras que su tamaño compacto se adapta perfectamente a cualquier encimera. Un accesorio imprescindible para hogares con conciencia ecológica y buen gusto.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5b-E2jvsYIknBo9SGxT2g2xRy-0u2iv2MdQ&s",
+    "price": 50.00,
+    "currency": "USD",
+    "badge": "Estética",
+    "stock": 35,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "100% plástico vegetal",
+      "Filtro incorporado",
+      "Diseño elegante",
+      "Durabilidad 2 años",
+      "Apto lavavajillas"
+    ],
+    "rating": 4.7,
+    "sold": 220
+  },
+  {
+    "id": 104,
+    "type": "product",
+    "title": "Countertop Compost Bin Kit",
+    "subtitle": "Compostera para mesada con bolsa y filtro.",
+    "description": "Este kit completo transforma el compostaje doméstico en una experiencia limpia y organizada. Fabricado en acero inoxidable duradero, incluye todo lo necesario: cubeta principal, bolsas compostables biodegradables y filtro de carbón activado premium. Su diseño compacto pero espacioso se integra perfectamente en cualquier cocina moderna, haciendo que la reducción de residuos sea tan sencilla como estéticamente placentera.",
+    "image": "https://m.media-amazon.com/images/I/71BsPIC44yL._UF894,1000_QL80_.jpg",
+    "price": 69.78,
+    "currency": "USD",
+    "badge": "Práctico",
+    "stock": 50,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Acero inoxidable",
+      "Filtro carbón activado",
+      "Ideal para hogares",
+      "Bolsas compostables incluidas",
+      "Diseño compacto"
+    ],
+    "rating": 4.6,
+    "sold": 150
+  },
+  {
+    "id": 105,
+    "type": "product",
+    "title": "Filtro de Agua de Cerámica",
+    "subtitle": "Filtración natural sin electricidad.",
+    "description": "Este sistema de filtración artesanal combina sabiduría ancestral con tecnología moderna para ofrecer agua pura y vitalizada. Su cámara de cerámica microporosa elimina bacterias y metales pesados, mientras que su diseño sin electricidad lo hace perfecto para hogares fuera de la red o quienes buscan reducir su huella ecológica. Cada unidad está hecha a mano por artesanos expertos, garantizando calidad y durabilidad excepcionales.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQTBgHy0yuyV3zN7P8hXlN_mnIDsyca62Ygg&s",
+    "price": 129.99,
+    "currency": "USD",
+    "badge": "Sustentable",
+    "stock": 15,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Hecho a mano",
+      "Filtra bacterias y metales pesados",
+      "No necesita energía",
+      "Durabilidad de años",
+      "Incluye recambio"
+    ],
+    "rating": 4.6,
+    "sold": 190
+  },
+  {
+    "id": 106,
+    "type": "product",
+    "title": "Almohadón de Meditación",
+    "subtitle": "Cáscara de trigo sarraceno, artesanal.",
+    "description": "Diseñado para practicantes de meditación que buscan comodidad y soporte postural, este zafu relleno de cáscara de trigo sarraceno orgánico se adapta perfectamente a tu cuerpo. Su relleno natural permite una circulación óptima del aire y un soporte firme pero cómodo. La funda lavable de tejido natural completa este producto artesanal, ideal para crear un espacio sagrado en tu hogar o para llevar contigo en retiros espirituales.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTZRd3fXJxEY_T9NVfTgWhT002_JYonAxzcQ&s",
+    "price": 44.99,
+    "currency": "USD",
+    "badge": "Hecho a mano",
+    "stock": 30,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Postura alineada",
+      "Antibacteriano natural",
+      "Funda lavable",
+      "Ideal para viajes",
+      "Cáscara orgánica"
+    ],
+    "rating": 4.9,
+    "sold": 210
+  },
+  {
+    "id": 107,
+    "type": "product",
+    "title": "Set de Semillas Orgánicas",
+    "subtitle": "10 variedades agroecológicas.",
+    "description": "Este cuidadosamente seleccionado conjunto incluye 10 variedades de semillas orgánicas, no transgénicas y de polinización abierta, perfectas para iniciar tu huerto urbano o ampliar tu jardín comestible. Cada paquete viene con instrucciones detalladas de siembra y cuidados, haciendo que el cultivo de tus propios alimentos sea accesible incluso para principiantes. Disfruta del verdadero sabor de vegetales cultivados naturalmente, libres de químicos y llenos de nutrientes.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWfMtiprUfZeIo4Fa58mev4LNAjw5cKac8Rg&s",
+    "price": 19.99,
+    "currency": "USD",
+    "badge": "Principiante",
+    "stock": 200,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Semillas no transgénicas",
+      "Alta germinación",
+      "Apto para macetas",
+      "Cosecha en 30 días",
+      "Sabor original"
+    ],
+    "rating": 4.7,
+    "sold": 620
+  },
+  {
+    "id": 108,
+    "type": "product",
+    "title": "Eco Pack de Higiene Natural",
+    "subtitle": "Desodorante, jabón y pasta dental veganos.",
+    "description": "Transforma tu rutina de higiene con este pack completo de productos naturales formulados para cuidar tu cuerpo sin exponerlo a químicos agresivos. El desodorante de bicarbonato neutraliza olores naturalmente, el jabón de aceites esenciales limpia suavemente, y la pasta dental con carbón activado blanquea sin fluoruro. Todos los productos son veganos, cruelty-free y vienen en empaques 100% reciclables o compostables.",
+    "image": "https://almazenvital.com/wp-content/uploads/2023/06/eco-pack-cuidado.webp",
+    "price": 24.99,
+    "currency": "USD",
+    "badge": "Vegano",
+    "stock": 60,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Sin sulfatos",
+      "Empaque reciclable",
+      "Aroma a lavanda",
+      "Hecho localmente",
+      "Cruelty-free"
+    ],
+    "rating": 4.6,
+    "sold": 460
+  },
+  {
+    "id": 109,
+    "type": "product",
+    "title": "Calendario Siembra 2025",
+    "subtitle": "Planificación mes a mes con fases lunares.",
+    "description": "Esta herramienta indispensable para todo horticultor combina un calendario lunar detallado con recomendaciones específicas de siembra para cada mes. Las hermosas ilustraciones botánicas acompañan información práctica sobre asociación de cultivos, rotaciones y cuidados estacionales. Diseñado específicamente para el hemisferio sur, incluye acceso a una versión digital actualizable y tips exclusivos para maximizar tu producción de alimentos durante todo el año.",
+    "image": "https://http2.mlstatic.com/D_710124-CBT83997847616_052025-C.jpg",
+    "price": 12.99,
+    "currency": "USD",
+    "badge": "Edición limitada",
+    "stock": 80,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Diseño ilustrado",
+      "Compatible hemisferio sur",
+      "Tips de asociación",
+      "Envío gratis AR",
+      "Acceso digital inmediato"
+    ],
+    "rating": 4.7,
+    "sold": 330
+  },
+  {
+    "id": 110,
+    "type": "product",
+    "title": "Combo Fermentos Artesanales",
+    "subtitle": "Kéfir, chucrut y kombucha casera.",
+    "description": "Descubre el poder de los alimentos fermentados con este kit completo que incluye cultivos vivos para preparar tus propias bebidas y alimentos probióticos en casa. Cada cultivo ha sido cuidadosamente mantenido por fermentadores expertos, garantizando resultados consistentes. El paquete incluye instrucciones detalladas y recetas creativas para que puedas disfrutar de los beneficios digestivos e inmunológicos de estos superalimentos ancestrales, preparados con ingredientes 100% orgánicos y locales.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS0tkPmKbOCcE5z0-5LpROTbXdv1PXSk3n0g&s",
+    "price": 59.99,
+    "currency": "USD",
+    "badge": "Probiótico",
+    "stock": 25,
+    "format": "Envío a domicilio",
+    "highlights": [
+      "Starter kit",
+      "100% orgánico",
+      "Para microbiota",
+      "Conservación natural",
+      "Hecho localmente"
+    ],
+    "rating": 4.9,
+    "sold": 180
+  }
+]

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
@@ -24,22 +24,33 @@ import './App.scss';
 
 const App = () => {
   const location = useLocation();
-  
   const [isScroll, setIsScroll] = useState(false);
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+
+  const transitioningRef = useRef(false);
 
   useEffect(() => {
-    setIsScroll(window.scrollY);
-    window.addEventListener('scroll', () => {
-      setIsScroll(window.scrollY);
-    });
-    return () => {
-      window.removeEventListener('scroll', () => {
-        setIsScroll(window.scrollY);
-      });
-    };
+    const handleScroll = () => setIsScroll(window.scrollY);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  
+  useEffect(() => {
+    if (!document.startViewTransition || transitioningRef.current) {
+      setCurrentPath(location.pathname);
+      return;
+    }
+
+    transitioningRef.current = true;
+    document.startViewTransition(() => {
+      setCurrentPath(location.pathname);
+    }).finished.finally(() => {
+      transitioningRef.current = false;
+    });
+  }, [location.pathname]);
+
+
   return (
     <div className="App">
       <div className='App__nav'>
@@ -47,24 +58,22 @@ const App = () => {
       </div>
       <ScrollToTop />
 
-      <Routes>
-        <Route index path="movimiento-naluum/" element={<Home />} />
-        <Route path="movimiento-naluum/projects*" element={<Projects currentRoute={location} />} />
-        <Route path="movimiento-naluum/quienes-somos" element={<AboutMe />} />
-        <Route path="movimiento-naluum/contact" element={<Contact />} />
-        <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
-        <Route path="/movimiento-naluum/calendario" element={<LandingPageCalendar />} />
-        {/* <Route path="/products" element={<Products />} /> */}
-        {/* <Route path="/blog" element={<Blog />} /> */}
-        {/* <Route path="/services" element={<Services products={products} />} /> */}
+      <main id="view-root">
+        <Routes location={{ ...location, pathname: currentPath }} key={currentPath}>
+          <Route index path="movimiento-naluum/" element={<Home />} />
+          <Route path="movimiento-naluum/projects/*" element={<Projects currentRoute={location} />} />
+          <Route path="movimiento-naluum/quienes-somos" element={<AboutMe />} />
+          <Route path="movimiento-naluum/contact" element={<Contact />} />
+          <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
+          <Route path="/movimiento-naluum/calendario" element={<LandingPageCalendar />} />
+        </Routes>
+      </main>
 
-      </Routes>
-      {/* <UserTracker /> */}
-      <div className='App__footer'>
+      <footer className='App__footer'>
         <Footer />
-      </div>
+      </footer>
     </div>
   );
-}
+};
 
 export default App;

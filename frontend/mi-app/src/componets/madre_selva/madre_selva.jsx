@@ -3,7 +3,7 @@ import './madre_selva.scss';
 
 const HomeMadreSelva = ({children}) => {
   return (
-    <div>
+    <div /* style={{ viewTransitionName: 'projects-root' }} */>
       {children}
         <section className="home-madre-selva">
           <div className="home-madre-selva__content">

@@ -1,0 +1,397 @@
+// Variables
+$primary-green: #006148;
+$secondary-green: #4a7c59;
+$light-green: #7fb069;
+$earth-brown: #8b4513;
+$cream: #f5f5dc;
+$warm-white: #fafafa;
+$text-dark: #2c2c2c;
+$text-light: #666;
+$border-radius: 12px;
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+.bitacora__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .bitacora__content {
+        width: 85%;
+        background-image: url('/img/fodoPapelMadera.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 2rem;
+        position: relative;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: $border-radius;
+            z-index: 0;
+        }
+
+        & > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, $cream 0%, rgba(127, 176, 105, 0.1) 100%);
+            padding: 2rem;
+            border-radius: $border-radius;
+            box-shadow: $box-shadow;
+
+            &-img {
+                flex-shrink: 0;
+                z-index: 1;
+                
+                img {
+                    width: 350px;
+                    height: 380px;
+                    object-fit: cover;
+                    border-radius: 16px;
+                    border: 1px solid $primary-green;
+                    box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+                    transition: $transition;
+
+                    &:hover {
+                        transform: scale(1.05);
+                        box-shadow: 0 6px 25px rgba(45, 80, 22, 0.4);
+                    }
+                }
+            }
+
+            &-text {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                flex: 1;
+                position: relative;
+                
+                h2 {
+                    font-size: 4rem;
+                    color: $primary-green;
+                    margin: 0 0 1rem 0;
+                    line-height: 1.0;
+                    font-weight: 600;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+
+                span {
+                    position: absolute;
+                    bottom: -40px;
+                    right: 85px;
+                    text-align: right;
+                    padding: .5rem 4rem;
+                    letter-spacing: 1.4px;
+                    font-size: 1.2rem;
+                    color: $earth-brown;
+                    font-style: italic;
+                    font-weight: 500;
+                    width: 100%;
+                    border: 1px solid $earth-brown;
+                    background: rgba(255, 255, 255, 0.9);
+                    border-radius: 8px;
+                    z-index: 0;
+                    backdrop-filter: blur(2px);
+                }
+            }
+        }
+
+        &__blog--seccion {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+
+            &-item {
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: $border-radius;
+                overflow: hidden;
+                box-shadow: $box-shadow;
+                transition: $transition;
+                border: 1px solid rgba(127, 176, 105, 0.2);
+                backdrop-filter: blur(8px);
+
+                &:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+                    border-color: $light-green;
+                    background: rgba(255, 255, 255, 1);
+                }
+
+                &-img {
+                    position: relative;
+                    overflow: hidden;
+                    height: 220px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: $transition;
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: linear-gradient(to bottom, transparent 0%, rgba(45, 80, 22, 0.1) 100%);
+                        z-index: 1;
+                    }
+                }
+
+                &:hover &-img img {
+                    transform: scale(1.1);
+                }
+
+                &-text {
+                    padding: 1.5rem;
+
+                    .date {
+                        display: inline-block;
+                        background: linear-gradient(135deg, $light-green, $secondary-green);
+                        color: white;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 20px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        margin-bottom: 1rem;
+                        text-transform: capitalize;
+                        box-shadow: 0 2px 8px rgba(127, 176, 105, 0.3);
+                    }
+
+                    h3 {
+                        font-size: 1.3rem;
+                        color: $text-dark;
+                        margin: 0 0 1rem 0;
+                        line-height: 1.4;
+                        font-weight: 600;
+                        
+                        // Emoji styling
+                        &::first-letter {
+                            font-size: 1.5em;
+                            margin-right: 0.2rem;
+                        }
+                    }
+
+                    p {
+                        color: $text-light;
+                        line-height: 1.6;
+                        margin: 0 0 1.5rem 0;
+                        font-size: 0.95rem;
+                    }
+
+                    .read-more {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background: $primary-green;
+                        color: white;
+                        text-decoration: none;
+                        padding: 0.7rem 1.2rem;
+                        border-radius: 25px;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: $transition;
+                        position: relative;
+                        overflow: hidden;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                            transition: left 0.5s;
+                        }
+
+                        &:hover {
+                            background: $secondary-green;
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 15px rgba(0, 97, 72, 0.3);
+
+                            &::before {
+                                left: 100%;
+                            }
+                        }
+
+                        &::after {
+                            content: '→';
+                            margin-left: 0.3rem;
+                            transition: $transition;
+                        }
+
+                        &:hover::after {
+                            transform: translateX(3px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+    .bitacora__container {
+        .bitacora__content {
+            width: 90%;
+            padding: 1.5rem;
+            
+            &__header {
+                gap: 1.5rem;
+                
+                &-img img {
+                    width: 280px;
+                    height: 300px;
+                }
+                
+                &-text {
+                    h2 {
+                        font-size: 3rem;
+                    }
+                    
+                    span {
+                        right: 60px;
+                        padding: .4rem 3rem;
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .bitacora__container {
+        .bitacora__content {
+            width: 95%;
+            padding: 1rem;
+            
+            &__header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 1.5rem;
+
+                &-img img {
+                    width: 200px;
+                    height: 220px;
+                }
+
+                &-text {
+                    h2 {
+                        font-size: 2.5rem;
+                    }
+
+                    span {
+                        position: static;
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        font-size: 1.1rem;
+                        padding: .5rem 2rem;
+                        margin-top: 1rem;
+                    }
+                }
+            }
+
+            &__blog--seccion {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+
+                &-item {
+                    &-img {
+                        height: 200px;
+                    }
+
+                    &-text {
+                        padding: 1.2rem;
+
+                        h3 {
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .bitacora__container {
+        .bitacora__content {
+            width: 98%;
+            padding: 0.8rem;
+            
+            &__header {
+                padding: 1rem;
+                
+                &-img img {
+                    width: 150px;
+                    height: 180px;
+                }
+                
+                &-text {
+                    h2 {
+                        font-size: 2rem;
+                    }
+                    
+                    span {
+                        font-size: 1rem;
+                        padding: .4rem 1.5rem;
+                        letter-spacing: 1px;
+                    }
+                }
+            }
+
+            &__blog--seccion {
+                gap: 1rem;
+                
+                &-item {
+                    &-img {
+                        height: 180px;
+                    }
+
+                    &-text {
+                        padding: 1rem;
+
+                        h3 {
+                            font-size: 1.1rem;
+                        }
+
+                        p {
+                            font-size: 0.9rem;
+                        }
+                        
+                        .read-more {
+                            padding: 0.6rem 1rem;
+                            font-size: 0.85rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

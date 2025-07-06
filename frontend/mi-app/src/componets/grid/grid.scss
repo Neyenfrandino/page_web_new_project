@@ -1,19 +1,31 @@
-// Variables
+// ===== VARIABLES =====
 $grid-gap: 16px;
 $grid-border-radius: 16px;
 $grid-max-width: 1200px;
 $grid-row-height: 200px;
 
-// Colores
+// Colores base
 $white: #ffffff;
 $gray-50: #f8fafc;
 $gray-600: #6b7280;
 $gray-900: #1f2937;
+
+// Sombras
 $shadow-light: rgba(0, 0, 0, 0.08);
 $shadow-hover: rgba(0, 0, 0, 0.12);
 $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
 
-// Mixins
+// Colores de tipo
+$service-accent: #10b981;
+$product-accent: #ef4444;
+
+// Variables responsive
+$breakpoint-xl: 1200px;
+$breakpoint-lg: 1024px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 480px;
+
+// ===== MIXINS =====
 @mixin card-hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 32px $shadow-hover;
@@ -25,11 +37,46 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   justify-content: center;
 }
 
-// Componente principal
+@mixin button-base {
+  border: none;
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  white-space: nowrap;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Mixin para responsive
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+  @if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+// ===== GRID PRINCIPAL =====
 .grid {
   padding: 20px;
   background-color: transparent;
-  // min-height: 100vh;
 
   &__container {
     display: grid;
@@ -40,8 +87,8 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     margin: 0 auto;
   }
 
+  // ===== CARD BASE =====
   &__card {
-    background-color: $white;
     border-radius: $grid-border-radius;
     overflow: hidden;
     box-shadow: 0 4px 20px $shadow-light;
@@ -51,6 +98,18 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     position: relative;
     cursor: pointer;
     outline: none;
+    border: 1px solid white;
+
+    // Overlay oscuro
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      opacity: 0.65;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
 
     &:hover {
       @include card-hover;
@@ -62,63 +121,78 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
       outline-offset: 2px;
     }
 
-    // Patrón de tamaños que se repite cada 6 elementos
+    // ===== PATRÓN DE TAMAÑOS DESKTOP =====
     &:nth-child(6n+1) {
       grid-column: span 2;
       grid-row: span 2;
-
-      .grid__card-title {
-        font-size: 1.4rem;
-      }
+      .grid__card-title { font-size: 1.4rem; }
     }
 
     &:nth-child(6n+2) {
       grid-column: span 2;
-      grid-row: span 1;
+      grid-row: span 3;
     }
 
     &:nth-child(6n+3) {
       grid-column: span 2;
       grid-row: span 2;
-
-      .grid__card-title {
-        font-size: 1.4rem;
-      }
+      .grid__card-title { font-size: 1.4rem; }
     }
 
     &:nth-child(6n+4) {
-      grid-column: span 3;
+      grid-column: span 2;
       grid-row: span 1;
     }
 
     &:nth-child(6n+5) {
-      grid-column: span 3;
+      grid-column: span 2;
       grid-row: span 1;
     }
 
     &:nth-child(6n+6) {
-      grid-column: span 6;
+      grid-column: span 2;
       grid-row: span 1;
+      .grid__card-title { font-size: 1.3rem; }
+    }
 
-      .grid__card-title {
-        font-size: 1.3rem;
+    // ===== ESTILOS POR TIPO =====
+    &--product {
+      .grid__card-badge {
+        border-left: 3px solid $product-accent;
+      }
+      .grid__card-price {
+        background-color: rgba(239, 68, 68, 0.9);
+      }
+      .grid__card-button-main {
+        background-color: rgba(76, 175, 80, 0.9);
+        &:hover { background-color: rgba(67, 160, 71, 0.95); }
+      }
+    }
+
+    &--service {
+      .grid__card-badge {
+        border-left: 3px solid $service-accent;
+      }
+      .grid__card-price {
+        background-color: rgba(16, 185, 129, 0.9);
+      }
+      .grid__card-button-main {
+        background-color: rgba(59, 130, 246, 0.9);
+        &:hover { background-color: rgba(37, 99, 235, 0.95); }
       }
     }
   }
 
-  // Estilos especiales cuando solo hay 3 cards
+  // ===== CASO ESPECIAL: 3 CARDS =====
   &__container:has(&__card:nth-child(3):last-child) {
     .grid__card {
-      // Resetear todos los tamaños especiales
       grid-column: span 2 !important;
       grid-row: span 2 !important;
-
-      .grid__card-title {
-        font-size: 1.4rem !important;
-      }
+      .grid__card-title { font-size: 1.4rem !important; }
     }
   }
 
+  // ===== ELEMENTOS DE LA CARD =====
   &__card-image {
     width: 100%;
     height: 100%;
@@ -144,8 +218,11 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     right: 0;
     background: $overlay-gradient;
     color: $white;
-    padding: 20px;
+    padding: 16px;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   &__card-title {
@@ -154,13 +231,35 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     margin-bottom: 8px;
     line-height: 1.3;
     color: $white;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+  }
+
+  &__card:hover &__card-title {
+    transform: translateY(-4px);
   }
 
   &__card-subtitle {
     font-size: 0.9rem;
-    opacity: 0.9;
-    margin-bottom: 12px;
+    opacity: 0;
+    height: 0;
+    max-height: 0;
+    margin-bottom: 0;
     line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(8px);
+  }
+
+  &__card:hover &__card-subtitle {
+    opacity: 0.95;
+    height: auto;
+    max-height: 4.2em;
+    margin-bottom: 12px;
+    transform: translateY(0);
   }
 
   &__card-meta {
@@ -168,6 +267,8 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
   }
 
   &__card-avatar {
@@ -177,13 +278,23 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     background-color: rgba(255, 255, 255, 0.2);
     @include flex-center;
     font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  &__card-category {
+    flex-shrink: 0;
+    opacity: 0.95;
   }
 
   &__card-badge {
     position: absolute;
     top: 12px;
     right: 12px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     color: $gray-900;
     padding: 4px 8px;
     border-radius: 12px;
@@ -192,91 +303,325 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
     z-index: 2;
     backdrop-filter: blur(4px);
   }
-}
 
-// Responsive Design
-@media (max-width: 1024px) {
-  .grid {
-    &__container {
-      // grid-template-columns: repeat(3, 1fr);
-      // grid-auto-rows: 180px;
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 160px;
-      gap: 12px;
+  &__card-price {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    flex-shrink: 0;
+  }
+
+  &__card-extra-info {
+    font-size: 0.8rem;
+    opacity: 0;
+    height: 0;
+    max-height: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0 8px;
+    border-radius: 8px;
+    margin-bottom: 0;
+    backdrop-filter: blur(4px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(8px);
+    overflow: hidden;
+  }
+
+  &__card--service:hover &__card-extra-info {
+    opacity: 0.9;
+    height: auto;
+    max-height: 2em;
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    transform: translateY(0);
+  }
+
+  // ===== BOTONES =====
+  &__card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+    opacity: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(8px);
+  }
+
+  &__card:hover &__card-buttons {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__card-button-info {
+    @include button-base;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: $gray-900;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+  }
+
+  &__card-button-main {
+    @include button-base;
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+
+  // ===== AJUSTES PARA CARDS PEQUEÑAS =====
+  &__card:nth-child(6n+4),
+  &__card:nth-child(6n+5),
+  &__card:nth-child(6n+6) {
+    .grid__card-overlay {
+      padding: 12px;
+      gap: 6px;
     }
 
-    &__container:has(&__card:nth-child(3):last-child) {
-      .grid__card {
-        &:nth-child(1),
-        &:nth-child(2) {
-          grid-column: span 1 !important;
-          grid-row: span 2 !important;
-        }
-        
-        &:nth-child(3) {
-          grid-column: span 2 !important;
-          grid-row: span 1 !important;
-        }
-      }
+    .grid__card-title {
+      font-size: 1rem !important;
+      margin-bottom: 6px;
     }
 
-    // &__card {
-    //   &:nth-child(6n+1),
-    //   &:nth-child(6n+3) {
-    //     grid-column: span 2;
-    //     grid-row: span 2;
-    //   }
+    .grid__card-subtitle {
+      font-size: 0.8rem;
+      -webkit-line-clamp: 2;
+      max-height: 2.8em;
+    }
 
-    //   &:nth-child(6n+2),
-    //   &:nth-child(6n+4),
-    //   &:nth-child(6n+5) {
-    //     grid-column: span 2;
-    //     grid-row: span 1;
-    //   }
+    .grid__card:hover & {
+      margin-bottom: 8px;
+    }
 
-    //   &:nth-child(6n+6) {
-    //     grid-column: span 4;
-    //     grid-row: span 1;
-    //   }
-    // }
+    .grid__card-meta {
+      font-size: 0.75rem;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
 
-    // // Estilos especiales para 3 cards en tablet
-    // &__container:has(&__card:nth-child(3):last-child) {
-    //   .grid__card {
-    //     grid-column: span 1 !important;
-    //     grid-row: span 2 !important;
-    //   }
-    // }
+    .grid__card-avatar {
+      width: 20px;
+      height: 20px;
+      font-size: 0.65rem;
+    }
+
+    .grid__card-extra-info {
+      font-size: 0.75rem;
+      max-height: 1.5em;
+    }
+
+    .grid__card-buttons {
+      margin: 6px;
+      gap: 6px;
+    }
+
+    .grid__card-button-main {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      min-width: 70px;
+    }
+
+    .grid__card-button-info {
+      padding: 5px 10px;
+      font-size: 0.75rem;
+    }
   }
 }
 
-@media (max-width: 768px) {
+// ===== RESPONSIVE DESIGN MEJORADO =====
+
+// ===== DESKTOP GRANDE (1200px+) =====
+@include respond-to(xl) {
+  .grid {
+    padding: 18px;
+    
+    &__container {
+      gap: 14px;
+    }
+  }
+}
+
+// ===== TABLET HORIZONTAL (1024px) =====
+@include respond-to(lg) {
   .grid {
     padding: 16px;
 
     &__container {
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 160px;
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px;
+      gap: 14px;
     }
 
     &__card {
-      &:nth-child(6n+1),
-      &:nth-child(6n+3) {
+      // Resetear todos los nth-child para tablet
+      &:nth-child(n) {
+        grid-column: span 2;
+        grid-row: span 2;
+        .grid__card-title { font-size: 1.2rem !important; }
+      }
+
+      // Patrón específico para 4 columnas
+      &:nth-child(4n+1),
+      &:nth-child(4n+2) {
         grid-column: span 2;
         grid-row: span 2;
       }
 
-      &:nth-child(6n+2),
-      &:nth-child(6n+4),
-      &:nth-child(6n+5),
-      &:nth-child(6n+6) {
-        grid-column: span 1;
+      &:nth-child(4n+3),
+      &:nth-child(4n+4) {
+        grid-column: span 2;
         grid-row: span 1;
+      }
+
+      // Ajustes para cards pequeñas en tablet
+      &:nth-child(4n+3),
+      &:nth-child(4n+4) {
+        .grid__card-overlay {
+          padding: 12px;
+          gap: 6px;
+        }
+
+        .grid__card-title {
+          font-size: 1rem !important;
+          margin-bottom: 6px;
+        }
+
+        .grid__card-subtitle {
+          font-size: 0.8rem;
+          -webkit-line-clamp: 2;
+          max-height: 2.4em;
+        }
+
+        .grid__card-meta {
+          font-size: 0.75rem;
+          gap: 6px;
+          margin-bottom: 6px;
+        }
+
+        .grid__card-buttons {
+          margin: 6px;
+          gap: 6px;
+        }
+
+        .grid__card-button-main {
+          padding: 6px 12px;
+          font-size: 0.75rem;
+        }
+
+        .grid__card-button-info {
+          padding: 5px 10px;
+          font-size: 0.75rem;
+        }
       }
     }
 
-    // Estilos especiales para 3 cards en móvil
+    // Caso especial para 3 cards en tablet
+    &__container:has(&__card:nth-child(3):last-child) {
+      .grid__card {
+        &:nth-child(1),
+        &:nth-child(2) {
+          grid-column: span 2 !important;
+          grid-row: span 2 !important;
+        }
+        &:nth-child(3) {
+          grid-column: span 4 !important;
+          grid-row: span 1 !important;
+        }
+      }
+    }
+  }
+}
+
+// ===== TABLET VERTICAL (768px) =====
+@include respond-to(md) {
+  .grid {
+    padding: 14px;
+
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 170px;
+      gap: 12px;
+    }
+
+    &__card {
+      // Resetear y aplicar patrón para 2 columnas
+      &:nth-child(n) {
+        .grid__card-title { font-size: 1.1rem !important; }
+      }
+
+      // Patrón alternado para tablet vertical
+      &:nth-child(odd) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      &:nth-child(even) {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      // Cada 4to elemento ocupa más espacio
+      &:nth-child(4n) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      // Ajustes específicos para cards de una fila
+      &:nth-child(even):not(:nth-child(4n)) {
+        .grid__card-overlay {
+          padding: 10px;
+          gap: 4px;
+        }
+
+        .grid__card-title {
+          font-size: 0.95rem !important;
+          margin-bottom: 4px;
+        }
+
+        .grid__card-subtitle {
+          font-size: 0.75rem;
+          -webkit-line-clamp: 2;
+          max-height: 2.2em;
+        }
+
+        .grid__card-meta {
+          font-size: 0.7rem;
+          gap: 4px;
+          margin-bottom: 4px;
+        }
+
+        .grid__card-avatar {
+          width: 18px;
+          height: 18px;
+          font-size: 0.6rem;
+        }
+
+        .grid__card-buttons {
+          margin: 6px;
+          gap: 4px;
+        }
+
+        .grid__card-button-main {
+          padding: 5px 10px;
+          font-size: 0.7rem;
+          min-width: 60px;
+        }
+
+        .grid__card-button-info {
+          padding: 4px 8px;
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    // Caso especial para 3 cards en tablet vertical
     &__container:has(&__card:nth-child(3):last-child) {
       .grid__card {
         &:nth-child(1),
@@ -284,54 +629,114 @@ $overlay-gradient: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
           grid-column: span 1 !important;
           grid-row: span 2 !important;
         }
-        
         &:nth-child(3) {
           grid-column: span 2 !important;
           grid-row: span 1 !important;
         }
       }
     }
-
-    &__card-overlay {
-      padding: 16px;
-    }
-
-    &__card-title {
-      font-size: 1.1rem;
-
-      .grid__card:nth-child(6n+1) &,
-      .grid__card:nth-child(6n+3) &,
-      .grid__card:nth-child(6n+6) & {
-        font-size: 1.2rem;
-      }
-    }
   }
 }
 
-@media (max-width: 480px) {
+// ===== MÓVIL (480px) =====
+@include respond-to(sm) {
   .grid {
     padding: 12px;
 
     &__container {
       grid-template-columns: 1fr;
       grid-auto-rows: 200px;
+      gap: 12px;
+      max-width: 100%;
     }
 
     &__card {
-      grid-column: span 1 !important;
-      grid-row: span 1 !important;
+      // Todas las cards ocupan toda la columna en móvil
+      &:nth-child(n) {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+      }
+
+      // Cada 3era card es más alta para variedad
+      &:nth-child(3n) {
+        grid-row: span 2 !important;
+      }
+
+      .grid__card-overlay {
+        padding: 16px;
+        gap: 8px;
+      }
+
+      .grid__card-title {
+        font-size: 1.15rem !important;
+        margin-bottom: 8px;
+      }
+
+      .grid__card-subtitle {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+        max-height: 3.6em;
+      }
+
+      .grid__card:hover & {
+        margin-bottom: 10px;
+      }
+
+      .grid__card-meta {
+        font-size: 0.8rem;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      .grid__card-avatar {
+        width: 22px;
+        height: 22px;
+        font-size: 0.65rem;
+      }
+
+      .grid__card-badge {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+
+      .grid__card-buttons {
+        margin: 10px;
+        gap: 8px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .grid__card-button-main {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        min-width: 90px;
+      }
+
+      .grid__card-button-info {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .grid__card-extra-info {
+        font-size: 0.75rem;
+        max-height: 2em;
+        padding: 6px 10px;
+      }
     }
 
-    &__card-overlay {
-      padding: 14px;
-    }
-
-    &__card-title {
-      font-size: 1.1rem !important;
-    }
-
-    &__card-subtitle {
-      font-size: 0.85rem;
+    // Remover caso especial en móvil
+    &__container:has(&__card:nth-child(3):last-child) {
+      .grid__card {
+        &:nth-child(n) {
+          grid-column: span 1 !important;
+          grid-row: span 1 !important;
+        }
+        &:nth-child(3n) {
+          grid-row: span 2 !important;
+        }
+      }
     }
   }
 }

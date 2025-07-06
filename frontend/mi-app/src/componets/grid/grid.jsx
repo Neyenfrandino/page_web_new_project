@@ -1,141 +1,162 @@
+import React from 'react';
 import './grid.scss';
 
-const Grid = ({ items, slice, setIsOpen }) => {
-  const defaultItems = [
-    {
-      id: 1,
-      title: "A Guide To Rocky Mountain Vacations",
-      subtitle: "Descubre los paisajes más impresionantes",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
-      badge: "Aventura",
-      icon: "🏔️",
-      category: "Guía de viaje"
-    },
-    {
-      id: 2,
-      title: "Traveling to USA",
-      subtitle: "Aventuras en el desierto americano",
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop",
-      badge: "Explorar",
-      icon: "🏜️",
-      category: "Destino"
-    },
-    {
-      id: 3,
-      title: "Beach Vacation Paradise",
-      subtitle: "Relájate en playas paradisíacas",
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop",
-      badge: "Relax",
-      icon: "🏖️",
-      category: "Vacaciones"
-    },
-    {
-      id: 4,
-      title: "Meet Big Cat The Hard Way",
-      subtitle: "Aventuras en la nieve",
-      image: "https://images.unsplash.com/photo-1544737151-6e4b0b5b59d7?w=600&h=400&fit=crop",
-      badge: "Invierno",
-      icon: "❄️",
-      category: "Deportes"
-    },
-    {
-      id: 5,
-      title: "Most Unusual Objector",
-      subtitle: "Descubre secretos urbanos",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
-      badge: "Ciudad",
-      icon: "🏙️",
-      category: "Urbano"
-    },
-    {
-      id: 6,
-      title: "Mountain Lake Adventure",
-      subtitle: "Lagos cristalinos y montañas majestuosas",
-      image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600&h=400&fit=crop",
-      badge: "Naturaleza",
-      icon: "🏔️",
-      category: "Naturaleza"
-    },
-    {
-      id: 7,
-      title: "Fairy-tale Settings",
-      subtitle: "Castillos de cuento de hadas",
-      image: "https://images.unsplash.com/photo-1471919743851-c4df8b6ee130?w=600&h=400&fit=crop",
-      badge: "Historia",
-      icon: "🏰",
-      category: "Cultura"
-    },
-    {
-      id: 8,
-      title: "Wild Adventure",
-      subtitle: "Aventuras extremas en la naturaleza",
-      image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600&h=400&fit=crop",
-      badge: "Aventura",
-      icon: "🦁",
-      category: "Extremo"
-    },
-    {
-      id: 9,
-      title: "Hidden Gems",
-      subtitle: "Lugares únicos para descubrir",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
-      badge: "Relax",
-      icon: "🌿",
-      category: "Único"
+const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
+  // Mapeo de iconos para servicios
+  const getServiceIcon = (service) => {
+    const name = service.title.toLowerCase();
+    const iconMap = {
+      'diseño': '🌱', 'espacio': '🌱',
+      'taller': '🤝', 'vivencial': '🤝',
+      'asesor': '💡', 'consultor': '💡',
+      'retiro': '🔥', 'encuentro': '🔥',
+      'huerta': '🌿', 'escolar': '🌿',
+      'bioconstrucción': '🏘️', 'construcción': '🏘️',
+      'círculo': '👥', 'escucha': '👥',
+      'alimentación': '🥬', 'cocina': '🥬'
+    };
+     
+    for (const [key, icon] of Object.entries(iconMap)) {
+      if (name.includes(key)) return icon;
     }
-  ];
+    return '🌿';
+  };
 
-  const gridItems = items || defaultItems;
+  // Normalizar items para estructura consistente
+  const normalizeItem = (item) => ({
+    id: item.id,
+    title: item.title,
+    subtitle: item.subtitle || item.description,
+    image: item.image,
+    badge: item.badge || '',
+    icon: item.icon || (item.type === 'service' ? getServiceIcon(item) : ''),
+    category: item.category || '',
+    price: item.price,
+    currency: item.currency || 'USD',
+    content: item.content || '',
+    originalData: item,
+    itemType: item.type
+  });
 
-  const handleCardClick = (item, e) => {
-    console.log('Card clicked:', item.title);
-    setIsOpen(true, e, item);
-    // Aquí puedes agregar la lógica que necesites
- 
+  // Formatear precio
+  const formatPrice = (item) => {
+    if (!item.price) return '';
+    return `${item.currency} ${item.price.toFixed(2)}`;
+  };
+
+  // Manejadores de eventos
+  const handleCardClick = (normalizedItem, e) => {
+    if (setIsOpen) {
+      setIsOpen(true, e, normalizedItem.originalData);
+    }
+  };
+
+  const handlePrimaryAction = (normalizedItem, e) => {
+    e.stopPropagation();
+    const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
+    console.log(`${action} ahora:`, normalizedItem.title);
+    // Aquí va tu lógica específica
+  };
+
+  const handleKeyDown = (normalizedItem, e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleCardClick(normalizedItem, e);
+    }
   };
 
   return (
     <div className="grid">
       <div className="grid__container">
-        {gridItems.slice(0, slice).map((item) => (
-          <div 
-            key={item.id} 
-            className="grid__card"
-            onClick={(e) => handleCardClick(item, e)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                handleCardClick(item, e);
-              }
-            }}
-          >
-            <div className="grid__card-image">
-              <img 
-                src={item.image} 
-                alt={item.title}
-                loading="lazy"
-              />
-              {item.badge && (
-                <div className="grid__card-badge">
-                  {item.badge}
+        {items.slice(0, slice).map((item) => {
+          const normalizedItem = normalizeItem(item);
+
+          return (
+            <div
+              key={normalizedItem.id}
+              className={`grid__card grid__card--${normalizedItem.itemType}`}
+              // onClick={(e) => handleCardClick(normalizedItem, e)}
+              onKeyDown={(e) => handleKeyDown(normalizedItem, e)}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver detalles de ${normalizedItem.title}`}
+            >
+              {/* Imagen */}
+              <div className="grid__card-image">
+                <img
+                  src={normalizedItem.image}
+                  alt={normalizedItem.title}
+                  loading="lazy"
+                />
+                {normalizedItem.badge && (
+                  <div className="grid__card-badge">
+                    {normalizedItem.badge}
+                  </div>
+                )}
+              </div>
+
+              {/* Contenido superpuesto */}
+              <div className="grid__card-overlay">
+                {/* Título */}
+                <h3 className="grid__card-title">
+                  {normalizedItem.title}
+                </h3>
+
+                {/* Descripción (solo visible en hover) */}
+                {normalizedItem.subtitle && (
+                  <p className="grid__card-subtitle">
+                    {normalizedItem.subtitle}
+                  </p>
+                )}
+
+                {/* Meta información */}
+                <div className="grid__card-meta">
+                  {
+                    normalizedItem.icon &&
+                    <div className={`grid__card-avatar ${normalizeItem.icon ? 'hidden' : ''}`}>
+                      {normalizedItem.icon}
+                    </div>
+                  }
+                  <span className="grid__card-category">
+                    {normalizedItem.category}
+                  </span>
+                  
+                  {normalizedItem.price && (
+                    <span className="grid__card-price">
+                      {formatPrice(normalizedItem)}
+                    </span>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className="grid__card-overlay">
-              <h3 className="grid__card-title">{item.title}</h3>
-              {item.subtitle && (
-                <p className="grid__card-subtitle">{item.subtitle}</p>
-              )}
-              <div className="grid__card-meta">
-                <div className="grid__card-avatar">
-                  {item.icon}
+
+                {/* Información extra para servicios (solo visible en hover) */}
+                {normalizedItem.content && normalizedItem.itemType === 'service' && (
+                  <div className="grid__card-extra-info">
+                    {normalizedItem.content}
+                  </div>
+                )}
+
+                {/* Botones (solo visibles en hover) */}
+                <div className="grid__card-buttons">
+                  <button
+                    className="grid__card-button-info"
+                    onClick={(e) => handleCardClick(normalizedItem, e)}
+                    aria-label={`Ver más información de ${normalizedItem.title}`}
+                  >
+                    Ver más info
+                  </button>
+
+                  <button
+                    className="grid__card-button-main"
+                    onClick={(e) => handlePrimaryAction(normalizedItem, e)}
+                    aria-label={`${normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse'} ${normalizedItem.title}`}
+                  >
+                    {normalizedItem.itemType === 'product' ? 'Comprar ahora' : 'Inscribirse ahora'}
+                  </button>
                 </div>
-                <span>{item.category}</span>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

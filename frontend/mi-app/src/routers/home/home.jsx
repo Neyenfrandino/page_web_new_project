@@ -1,27 +1,52 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useMemo, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import PaymentForm from '../../componets/payment-form/payment-form';
 import MercadoPagoCard from '../../componets/mercado_pago_card/mercado_pago_card';
 import Header from '../../componets/header/header';
 import CardV2Img from '../../componets/card/cardV2_Img/cardV2_img';
 import Button from '../../componets/button/button';
-import Cta from '../../componets/cta/cta';
 import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
 import MissionCarousel from '../../componets/carrusel_imagenes/carrusel_imagenes';
 import Grid from '../../componets/grid/grid';
 import CtaImgCuentaRgresiva from '../../componets/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
-
+import CardDataImpacto from '../../componets/card_data_impacto/card_data_impacto';
+import LineLogoSeparacion from '../../componets/line_logo_separacion/line_logo_separacion';
+import BeforeAndAfter from '../../componets/before_and_after/before_and_after';
+import Testimonios from '../../componets/testimonios/testimonios';
 import Modal from '../../componets/modal/modal';
 import ModalCard from '../../componets/card/modal_card/modal_card';
+import Bitacora from '../../componets/bitacora/bitacora';
+import CtaBoletin from '../../componets/cta_boletin/cta_boletin';
+import MessageFinal from '../../componets/message_final/message_final';
+
+import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './home.scss';
 
-const product = {
-  title: 'Plantines albahaca',
-  quantity: 1,
-  currency_id: 'ARS',
-  unit_price: 100,
-  image: 'img/3.png'
+// Accesibilidad: detectar si se prefiere reducir movimiento
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const fadeInProps = {
+  direction: "up",
+  duration: prefersReducedMotion ? 0 : 800,
+  delay: prefersReducedMotion ? 0 : 200,
+  distance: prefersReducedMotion ? 0 : 30,
+  easing: prefersReducedMotion ? 'linear' : "bounce",
+  speed: prefersReducedMotion ? 'fast' : "slow"
+};
+
+const timerProps = {
+  img: "/img/brote_mano.jpg",
+  titles: {
+    main: "",
+    subtitle: "TALLER DE SIEMBRA DE CACAO"
+  },
+  text: "Lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+  buttonText: "Inscríbete ahora",
+  timer: {
+    targetDate: "2025-07-23T23:59:59"
+  }
 };
 
 const missionCards = [
@@ -70,29 +95,39 @@ const missionCards = [
 ];
 
 const Home = () => {
+  const { products, servicios, testimonios } = useContext(ContextJsonLoadContext);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState({
-    isOpen: false,
-    item: null,
-  });
-
+  const [isModalOpen, setIsModalOpen] = useState({ isOpen: false, item: null });
   const [triggerElement, setTriggerElement] = useState(null);
 
-  const handleOpenModal = (status, e, item) => {
-    console.log(item)
+  const handleOpenModal = useCallback((status, e, item) => {
     setTriggerElement(e.currentTarget);
     setIsModalOpen({ isOpen: status, item });
-  };
+  }, []);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen({ isOpen: false, item: null });
     setTriggerElement(null);
-  };
+  }, []);
 
+  const memoizedCards = useMemo(() => missionCards, []);
 
+  const modalContent = useMemo(() => {
+    if (!isModalOpen.isOpen || !isModalOpen.item) return null;
+    return (
+      <Modal
+        isOpenModal={isModalOpen}
+        onClose={handleCloseModal}
+        triggerElement={triggerElement}
+        showPointer={true}
+      >
+        <ModalCard course={isModalOpen.item} />
+      </Modal>
+    );
+  }, [isModalOpen, handleCloseModal, triggerElement]);
+ 
   return (
-    <main className='home__container' aria-label="Página principal">
+    <main className='home__container' aria-label="Página principal" >
       <SEOHelmet 
         title="Movimiento Naluum | Soluciones Regenerativas"
         description="Descubrí cómo el Movimiento Naluum impulsa soluciones regenerativas para transformar vidas, conectar comunidades y sanar la Tierra."
@@ -103,99 +138,79 @@ const Home = () => {
       />
 
       <Header>
-        <div className='home__header-img-container'>
-          <img src="/img/brote_mano.jpg" alt="Fondo Naluum" className="home__header-img" />
-        </div>
+        {/* <FadeInOnView {...fadeInProps}> */}
+          <div className='home__header-img-container'>
+            <img src="/img/Fotodeinicio.jpg" alt="Fondo Naluum" className="home__header-img" />
+          </div>
 
-        <div className='home__header-container'>
-          <div className='home__header-logo'>
-            <div className='home__header-logo-img'>
-              <img src="/img/logo_naluum_trasparente.svg" alt="Logo Movimiento Naluum" />
+          <div className='home__header-container'>
+            <div className='home__header-logo'>
+              <div className='home__header-logo-img'>
+                <img src="/img/logo_naluum_trasparente.svg" alt="Logo Movimiento Naluum" />
+              </div>
+              <div className='home__header-logo-text'>
+                <h1>Movimiento Naluum</h1>
+              </div>
             </div>
-
-            <div className='home__header-logo-text'>
-              <h1>Movimiento Naluum</h1>
+            <div className="home__content-titile">
+              <div className='home__content-titile-text'>
+                <h1>Hoy sembramos futuro con el Movimiento Naluum</h1>
+              </div>
+              <div className='home__content-titile-subtitle'>
+                <h2>Soluciones regenerativas que transforman tu vida, te conectan con tu comunidad y sanan la Tierra.</h2>
+              </div>
+              <div className='home__content-titile-buttons'>
+                <Button text="Explorá lo que hacemos" link="/sobre_nosotros" style="primary" />
+                <Button text="Sumate al Movimiento" link="/login" style="outline" />
+              </div>
             </div>
           </div>
-          
-          <div className="home__content-titile">
-            <div className='home__content-titile-text'>
-              <h1>Hoy sembramos futuro con el Movimiento Naluum</h1>
-            </div>
-
-            <div className='home__content-titile-subtitle'>
-              <h2>Soluciones regenerativas que transforman tu vida, te conectan con tu comunidad y sanan la Tierra.</h2>
-            </div>
-
-            <div className='home__content-titile-buttons'>
-              <Button text="Explorá lo que hacemos" link="/sobre_nosotros" style="primary" />
-              <Button text="Sumate al Movimiento" link="/login" style="outline" />
-            </div>
-          </div>
-        </div>
+        {/* </FadeInOnView> */}
       </Header>
 
       <section className='home__content'>
+        <LineLogoSeparacion />
+
         <div className='home__content--card-question'>
-          <FadeInOnView 
-            direction="up" 
-            duration={800} 
-            delay={200}
-            distance={30}
-            easing="bounce"
-            speed="slow"
-          >
+          <FadeInOnView {...fadeInProps}>
             <CardV2Img />
           </FadeInOnView>
         </div>
-        
-      <div className='home__content--mision__container'>
-        <FadeInOnView 
-          direction="up" 
-          duration={800} 
-          delay={200}
-          distance={30}
-          easing="bounce"
-          speed="slow"
-        >
-          <div className='home__content--mision'>
-            <div className='content--mision--titiles'>
-              <div className='mision--titile'>
-                <h1>! Lo que hacemos !</h1>
+
+        <LineLogoSeparacion />
+
+        <div className='home__content--mision__container'>
+          <FadeInOnView {...fadeInProps}>        
+            <div className='home__content--mision'>
+              <div className='content--mision--titiles'>
+                <div className='mision--titile'>
+                  <h1>! Lo que hacemos !</h1>
+                </div>
+
+                <div className='mision--subTitle'>
+                  <h2>Cultivar vínculos con la Tierra y entre nosotros</h2>
+                </div>
+
+                <div className='mision--parrafo'>
+                  <p>
+                    En Naluum, hacer es un acto sagrado.
+                    No se trata solo de construir o producir, sino de regenerar lo que fue dañado, de tejer relaciones vivas entre el ser humano y su entorno.
+                  </p>
+                  <span>Cada acción —por pequeña que parezca— es una semilla de transformación.</span>
+                </div>
               </div>
 
-              <div className='mision--subTitle'>
-                <h2>Cultivar vínculos con la Tierra y entre nosotros</h2>
-              </div>
-
-              <div className='mision--parrafo'>
-                <p>
-                  En Naluum, hacer es un acto sagrado.
-                  No se trata solo de construir o producir, sino de regenerar lo que fue dañado, de tejer relaciones vivas entre el ser humano y su entorno.
-                </p>
-                <span>Cada acción —por pequeña que parezca— es una semilla de transformación.</span>
+              <div className='content--mision--carousel-wrapper'>
+                <MissionCarousel cards={memoizedCards} autoPlay={true} autoPlayInterval={5000} />
               </div>
             </div>
+          </FadeInOnView>
+        </div>
 
-            <div className='content--mision--carousel-wrapper'>
-
-              <MissionCarousel cards={missionCards} autoPlay={true} autoPlayInterval={5000} />
-            </div>
-          </div>
-        
-        </FadeInOnView>
-      </div>
-
+        <LineLogoSeparacion />
 
         <div className='home__content--servicios'>
-          <FadeInOnView 
-            direction="up" 
-            duration={800} 
-            delay={200}
-            distance={30}
-            easing="bounce"
-            speed="slow"
-          >
+          <FadeInOnView {...fadeInProps}>
             <div className='content--servicios__container'>
 
               <div className='content--servicios__text'>
@@ -216,36 +231,76 @@ const Home = () => {
               </div>
 
               <div className='content--servicios__grid'>
-                  <Grid slice={3} setIsOpen={handleOpenModal} className="demo-button demo-button--success"></Grid> 
-
-                  {isModalOpen.isOpen && isModalOpen.item && (
-                    <Modal
-                      isOpenModal={isModalOpen}
-                      onClose={handleCloseModal}
-                      triggerElement={triggerElement}
-                      showPointer={true}
-                    >
-                      <ModalCard/>
-                    </Modal>
-                  )}
+                <Grid items={servicios} slice={3} setIsOpen={handleOpenModal} className="demo-button demo-button--success" />
+                {modalContent}
               </div>
             </div>
 
-            <CtaImgCuentaRgresiva 
-              img="/img/brote_mano.jpg"
-              titles={{
-                  main: "",
-                  subtitle: "TALLER DE SIEMBRA DE CACAO"
-              }}
-              text="Lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat."
-              buttonText="Inscríbete ahora"
-              timer={{
-                  "targetDate": "2025-06-23T23:59:59"
-
-              }}
-          />
+            <CtaImgCuentaRgresiva {...timerProps} />
           </FadeInOnView>
         </div>
+        
+        <LineLogoSeparacion />
+
+        <div className='home__content--impacto'>
+          <FadeInOnView {...fadeInProps}>
+            <CardDataImpacto />
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
+
+        <div className='home__content--beforeAfter'>
+          <FadeInOnView {...fadeInProps}>
+            <BeforeAndAfter />
+          </FadeInOnView>
+        </div>
+        
+        <div className='home__content--testimonios'>
+          <FadeInOnView {...fadeInProps}>
+            <Testimonios testimonios={testimonios} />
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
+
+        <div className='home__content--products'>
+          <FadeInOnView {...fadeInProps}>
+            <Grid items={products} slice={5} setIsOpen={handleOpenModal} />
+            {modalContent}
+          
+            <div className='home__content--products-button'>
+              <Button text="Ver todos los productos" link="/productos" style="primary" />
+            </div>
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
+        
+        <div className='home__content--bitacora'>
+          <FadeInOnView {...fadeInProps}>
+            {/* Contenido de bitácora aquí */}
+            <Bitacora />
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
+
+        <div className='home__content--boletin'>
+          <FadeInOnView {...fadeInProps}>
+            <CtaBoletin />
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
+
+        <div className='home__content--message_final'>
+          <FadeInOnView {...fadeInProps}>
+            <MessageFinal />
+          </FadeInOnView>
+        </div>
+
+        <LineLogoSeparacion />
       </section>
     </main>
   );

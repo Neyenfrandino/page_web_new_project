@@ -1,37 +1,171 @@
-:root {
-  /* font-family: 'Montserrat', sans-serif;
-  font-weight: 200; */
-  line-height: 1.5;
-  font-synthesis: none;
-  
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  /* background-color: #242424; */
+@font-face {
+  font-family: 'Arsenica';
+  src: url('./assets/fonts/arsenica/Arsenica-Regular.woff2') format('woff2'),
+       url('./assets/fonts/arsenica/Arsenica-Regular.woff') format('woff'),
+       url('./assets/fonts/arsenica/Arsenica-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  /* font-display: swap; */
 }
 
-*, html{
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  /* Variables CSS para mejor mantenimiento */
+  --color-text: #111;
+  --color-text-light: rgba(255, 255, 255, 0.87);
+  --font-main: 'Arsenica';
+  --line-height: 1.5;
+  --transition-speed: 0.3s;
+  
+  line-height: var(--line-height);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+  color: var(--color-text-light);
+  
+  
+}
+
+/* Reset mejorado */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-
+html {
+  font-size: 16px; /* Base para rem */
+  scroll-behavior: smooth;
+  /* Mejora el rendimiento del scroll */
+  -webkit-overflow-scrolling: touch;
+}
 
 body {
-  /* background-color: #eee; */
-  background-image: url('https://cdn.pixabay.com/photo/2022/09/07/14/56/ferns-7438928_1280.jpg');
+  background-image: url('/img/fondo_1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: #111;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  background-attachment: fixed; 
+  color: var(--color-text);
+  font-family: var(--font-main);
   font-weight: 400;
+  min-height: 100vh;
+  overflow-x: hidden; /* Previene scroll horizontal */
+  /* Mejora el rendimiento */
+  will-change: scroll-position;
+  /* Transición suave para cambios de tema */
+  transition: color var(--transition-speed) ease;
+}
 
-  .dark & {
-    background-color: #000000;
-    color: #bbbbbb;
+/* Utilidades CSS para responsive */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Media Queries para Responsive */
+
+/* Tablets (768px y menor) */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Reduce ligeramente el tamaño base */
+  }
+  
+  body {
+    background-attachment: scroll; /* Mejor rendimiento en móviles */
+    background-position: center top;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Móviles pequeños (480px y menor) */
+@media (max-width: 480px) {
+  html {
+    font-size: 13px; /* Tamaño base más pequeño para móviles */
+  }
+  
+  body {
+    background-size: cover;
+    background-position: center;
+    /* Asegura que el fondo se vea bien en pantallas pequeñas */
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Móviles muy pequeños (320px y menor) */
+@media (max-width: 320px) {
+  html {
+    font-size: 12px;
+  }
+  
+  .container {
+    padding: 0 0.25rem;
+  }
+}
+
+/* Pantallas grandes (1200px y mayor) */
+@media (min-width: 1200px) {
+  html {
+    font-size: 18px; /* Tamaño base más grande para pantallas grandes */
+  }
+  
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Soporte para dispositivos de alta densidad de píxeles */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    background-image: url('/img/fondo_1.jpg'); /* Considera tener una versión 2x si es necesario */
+  }
+}
+
+
+/* Reducir movimiento para usuarios que lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    background-attachment: scroll;
+    transition: none;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Soporte para navegadores antiguos */
+@supports not (font-display: swap) {
+  @font-face {
+    font-family: 'Arsenica';
+    src: url('./assets/fonts/arsenica/Arsenica-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
   }
 }

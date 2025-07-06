@@ -18,7 +18,7 @@ const Modal = ({
   const { isOpen, item } = isOpenModal;
 
  
-
+ 
   useEffect(() => {
     if (isOpen && triggerElement && modalRef.current) {
       const triggerRect = triggerElement.getBoundingClientRect();
@@ -58,9 +58,9 @@ const Modal = ({
     };
 
     const handleClickOutside = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        onClose();
-      }
+      // if (modalRef.current && !modalRef.current.contains(e.target)) {
+      //   onClose();
+      // }
     };
 
     if (isOpen) {

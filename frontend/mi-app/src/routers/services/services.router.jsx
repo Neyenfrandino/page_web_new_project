@@ -5,7 +5,6 @@ import Card from "../../componets/card/cardV1/card";
 import CardV2Img from "../../componets/card/cardV2_Img/cardV2_img";
 import CardV3_testimonios from "../../componets/card/cardV3_testimonios/cardV3_testimonios";
 
-import Cta from "../../componets/cta/cta";
 import "./services.router.scss";
 
 const Services = ({ products }) => {
