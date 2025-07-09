@@ -13,7 +13,7 @@
     
     {
       "name": "todos los servicios",
-      "path": "/movimiento-naluum/servicios",
+      "path": "/servicios",
       "icon": "BriefcaseIcon"
     },
     {
@@ -23,7 +23,7 @@
       "subnavegacion": [
         {
           "name": "Madre Selva",
-          "path": "/movimiento-naluum/projects/madre-selva",
+          "path": "/projects/madre-selva",
           "icon": "FolderIcon",
           "subnavegacion": [
             {
@@ -45,7 +45,7 @@
         },
         {
           "name": "Naluum",
-          "path": "/movimiento-naluum/projects/naluum",
+          "path": "/projects/naluum",
           "icon": "FolderIcon",
           "subnavegacion": [
             {
@@ -91,18 +91,18 @@
     },
     {
       "name": "Calendario",
-      "path": "/movimiento-naluum/calendario",
+      "path": "/calendario",
       "icon": "CalendarIcon"
     },
     {
       "name": "Contactos",
-      "path": "/movimiento-naluum/contactos",
+      "path": "/contactos",
       "icon": "MessageCircleIcon"
     },
 
     {
       "name": "",
-      "path": "/movimiento-naluum/carrito-de-compras",
+      "path": "/carrito-de-compras",
       "icon": "ShoppingCartIcon"
     }
   ]

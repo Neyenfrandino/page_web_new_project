@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './cta_img_cuenta_rgresiva.scss';
+import { Link } from 'react-router-dom';
 
 const CtaImgCuentaRgresiva = ({ 
     img, 
     titles = { main:'', subtitle: "¿Ya tienes una cuenta?" }, 
     text = "Accede a tu cuenta para ver tus productos y servicios.", 
-    buttonText = "Iniciar sesión", 
-    timer = { targetDate: null } 
+    buttonText = "Inscrivete", 
+    timer = { targetDate: null }, 
+    link = "/servicios/laboratorios-alimentacion-viva"
 }) => {
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
@@ -90,12 +92,10 @@ const CtaImgCuentaRgresiva = ({
                         <div className="cta-cuenta-regresiva__text-section">
                             <h2>{titles.subtitle}</h2>
                             <p>{text}</p>
-                            <button className="cta-cuenta-regresiva__button">
+                            <Link to={link} className="cta-cuenta-regresiva__link">
                                 <span>{buttonText}</span>
-                            </button>
+                            </Link>
                         </div>
-                        
-
                     </div>
                 </div>
             </div>

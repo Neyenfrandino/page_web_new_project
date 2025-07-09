@@ -1,4 +1,5 @@
 import { useReducer, useEffect, createContext, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const MethodStatePaymentContext = createContext({
     methodStatePayment: null,
@@ -23,12 +24,20 @@ const reducer = (state, action) => {
 };
 
 export const MethodStatePaymentContextProvider = ({ children }) => {
+    const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialState);
     const { methodStatePayment } = state;
 
     const setMethodStatePayment = (payload) => {
         dispatch({ type: TYPE_FORM.SET_METHOD_STATE_PAYMENT, payload });
     };
+
+    useEffect(() => {
+        if (methodStatePayment) {
+            navigate('/movimiento-naluum/payment');
+        }
+    }, [methodStatePayment]);
+
     console.log(methodStatePayment)
 
     return (

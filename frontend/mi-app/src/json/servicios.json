@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "diseno-espacios-regenerativos",
     "type": "service",
     "title": "Diseño de Espacios Regenerativos",
     "subtitle": "Transformamos patios, chacras, escuelas o casas en sistemas vivos, productivos y sostenibles.",
@@ -20,10 +20,11 @@
       "Seguimiento personalizado"
     ],
     "rating": 4.9,
-    "students": 856
+    "students": 856,
+    "router": "/servicios/diseno-espacios-regenerativos"
   },
   {
-    "id": 2,
+    "id": "talleres-vivenciales-aprendizaje",
     "type": "service",
     "title": "Talleres Vivenciales y Aprendizaje Colectivo",
     "subtitle": "Viví experiencias transformadoras: compostaje, bioconstrucción, cultivos regenerativos y más.",
@@ -43,10 +44,11 @@
       "Espacios naturales"
     ],
     "rating": 4.7,
-    "students": 530
+    "students": 530,
+    "router": "/servicios/talleres-vivenciales-aprendizaje"
   },
   {
-    "id": 3,
+    "id": "asesorias-transicion-consciente",
     "type": "service",
     "title": "Asesorías Personalizadas para la Transición Consciente",
     "subtitle": "Acompañamos procesos de cambio familiar o comunitario.",
@@ -66,10 +68,11 @@
       "Disponible en todo el país"
     ],
     "rating": 4.8,
-    "students": 220
+    "students": 220,
+    "router": "/servicios/asesorias-transicion-consciente"
   },
   {
-    "id": 4,
+    "id": "retiros-encuentros-regenerativos",
     "type": "service",
     "title": "Retiros, Celebraciones y Encuentros Regenerativos",
     "subtitle": "Espacios de pausa fértil, conexión y celebración.",
@@ -89,10 +92,11 @@
       "Alojamiento incluido"
     ],
     "rating": 5.0,
-    "students": 140
+    "students": 140,
+    "router": "/servicios/retiros-encuentros-regenerativos"
   },
   {
-    "id": 5,
+    "id": "huertas-escolares-comunitarias",
     "type": "service",
     "title": "Huertas Escolares y Comunitarias",
     "subtitle": "Diseñamos huertas agroecológicas como herramientas pedagógicas.",
@@ -112,10 +116,11 @@
       "Manual digital incluido"
     ],
     "rating": 4.6,
-    "students": 310
+    "students": 310,
+    "router": "/servicios/huertas-escolares-comunitarias"
   },
   {
-    "id": 6,
+    "id": "bioconstruccion-eco-habitat",
     "type": "service",
     "title": "Bioconstrucción y Eco-Hábitat",
     "subtitle": "Espacios con materiales naturales y técnicas ancestrales.",
@@ -135,10 +140,11 @@
       "Certificado"
     ],
     "rating": 4.9,
-    "students": 185
+    "students": 185,
+    "router": "/servicios/bioconstruccion-eco-habitat"
   },
   {
-    "id": 7,
+    "id": "circulos-escucha-comunitaria",
     "type": "service",
     "title": "Círculos de Escucha y Cuidado Comunitario",
     "subtitle": "Espacios de contención emocional y fortalecimiento comunitario.",
@@ -158,10 +164,11 @@
       "Seguimiento grupal"
     ],
     "rating": 4.8,
-    "students": 270
+    "students": 270,
+    "router": "/servicios/circulos-escucha-comunitaria"
   },
   {
-    "id": 8,
+    "id": "laboratorios-alimentacion-viva",
     "type": "service",
     "title": "Laboratorios de Alimentación Viva",
     "subtitle": "Exploramos la cocina como medicina viva.",
@@ -181,6 +188,7 @@
       "Acceso a comunidad"
     ],
     "rating": 4.7,
-    "students": 310
+    "students": 310,
+    "router": "/servicios/laboratorios-alimentacion-viva"
   }
 ]

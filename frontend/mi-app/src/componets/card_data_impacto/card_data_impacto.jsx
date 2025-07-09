@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import './card_data_impacto.scss';
-import card_data_impacto from '../../json/data_impacto_real.json';
+
+import {ContextJsonLoadContext} from '../../context/context_json_load/context_json_load'
 
 // Hook personalizado para animar números
 const useCountUp = (end, duration = 2000, start = 0) => {
@@ -72,10 +73,12 @@ const useCountUp = (end, duration = 2000, start = 0) => {
 };
 
 const CardDataImpacto = ({ data }) => {
+    const { dataImpactoReal } = useContext(ContextJsonLoadContext);
+    
     return (
         <div className='card-data-impacto__container'>
             <div className='card-data-impacto__content'>
-                {card_data_impacto.slice(0, 4).map((item, index) => {
+                {dataImpactoReal.slice(0, 4).map((item, index) => {
                     const [animatedValue, ref] = useCountUp(item.value, 2500 + index * 200);
                     
                     return (

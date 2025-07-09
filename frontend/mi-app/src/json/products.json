@@ -1,6 +1,6 @@
 [
   {
-    "id": 101,
+    "id": "aosion-countertop-compost-bin",
     "type": "product",
     "title": "AOSION Countertop Compost Bin",
     "subtitle": "Compostera de cocina con filtro y cierre hermético.",
@@ -19,10 +19,11 @@
       "Capacidad familiar"
     ],
     "rating": 4.6,
-    "sold": 1200
+    "sold": 1200,
+    "router": "/productos/aosion-countertop-compost-bin"
   },
   {
-    "id": 102,
+    "id": "all-seasons-indoor-composter",
     "type": "product",
     "title": "All Seasons Indoor Composter",
     "subtitle": "Composter doméstico con filtro bokashi.",
@@ -41,10 +42,11 @@
       "Apto para residencias"
     ],
     "rating": 4.8,
-    "sold": 190
+    "sold": 190,
+    "router": "/productos/all-seasons-indoor-composter"
   },
   {
-    "id": 103,
+    "id": "the-kitchn-avocado-compost-bin",
     "type": "product",
     "title": "The Kitchn's Avocado Compost Bin",
     "subtitle": "Compostera de cocina en color aguacate.",
@@ -63,10 +65,11 @@
       "Apto lavavajillas"
     ],
     "rating": 4.7,
-    "sold": 220
+    "sold": 220,
+    "router": "/productos/the-kitchn-avocado-compost-bin"
   },
   {
-    "id": 104,
+    "id": "countertop-compost-bin-kit",
     "type": "product",
     "title": "Countertop Compost Bin Kit",
     "subtitle": "Compostera para mesada con bolsa y filtro.",
@@ -85,10 +88,11 @@
       "Diseño compacto"
     ],
     "rating": 4.6,
-    "sold": 150
+    "sold": 150,
+    "router": "/productos/countertop-compost-bin-kit"
   },
   {
-    "id": 105,
+    "id": "filtro-agua-ceramica",
     "type": "product",
     "title": "Filtro de Agua de Cerámica",
     "subtitle": "Filtración natural sin electricidad.",
@@ -107,10 +111,11 @@
       "Incluye recambio"
     ],
     "rating": 4.6,
-    "sold": 190
+    "sold": 190,
+    "router": "/productos/filtro-agua-ceramica"
   },
   {
-    "id": 106,
+    "id": "almohadon-meditacion",
     "type": "product",
     "title": "Almohadón de Meditación",
     "subtitle": "Cáscara de trigo sarraceno, artesanal.",
@@ -129,10 +134,11 @@
       "Cáscara orgánica"
     ],
     "rating": 4.9,
-    "sold": 210
+    "sold": 210,
+    "router": "/productos/almohadon-meditacion"
   },
   {
-    "id": 107,
+    "id": "set-semillas-organicas",
     "type": "product",
     "title": "Set de Semillas Orgánicas",
     "subtitle": "10 variedades agroecológicas.",
@@ -151,10 +157,11 @@
       "Sabor original"
     ],
     "rating": 4.7,
-    "sold": 620
+    "sold": 620,
+    "router": "/productos/set-semillas-organicas"
   },
   {
-    "id": 108,
+    "id": "eco-pack-higiene-natural",
     "type": "product",
     "title": "Eco Pack de Higiene Natural",
     "subtitle": "Desodorante, jabón y pasta dental veganos.",
@@ -173,10 +180,11 @@
       "Cruelty-free"
     ],
     "rating": 4.6,
-    "sold": 460
+    "sold": 460,
+    "router": "/productos/eco-pack-higiene-natural"
   },
   {
-    "id": 109,
+    "id": "calendario-siembra-2025",
     "type": "product",
     "title": "Calendario Siembra 2025",
     "subtitle": "Planificación mes a mes con fases lunares.",
@@ -195,10 +203,11 @@
       "Acceso digital inmediato"
     ],
     "rating": 4.7,
-    "sold": 330
+    "sold": 330,
+    "router": "/productos/calendario-siembra-2025"
   },
   {
-    "id": 110,
+    "id": "combo-fermentos-artesanales",
     "type": "product",
     "title": "Combo Fermentos Artesanales",
     "subtitle": "Kéfir, chucrut y kombucha casera.",
@@ -217,6 +226,7 @@
       "Hecho localmente"
     ],
     "rating": 4.9,
-    "sold": 180
+    "sold": 180,
+    "router": "/productos/combo-fermentos-artesanales"
   }
 ]

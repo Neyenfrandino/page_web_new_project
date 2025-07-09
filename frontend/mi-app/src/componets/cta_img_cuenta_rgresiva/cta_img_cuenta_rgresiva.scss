@@ -99,7 +99,7 @@ $desktop-xl: 1600px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   
   @include desktop-md {
     max-width: 1400px;
@@ -150,11 +150,11 @@ $desktop-xl: 1600px;
   
   // Hover effect solo en desktop
   @include desktop {
-    &:hover {
-      transform: translateY(-5px);
-      transition: transform 0.3s ease;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    }
+    // &:hover {
+    //   transform: translateY(-5px);
+    //   transition: transform 0.3s ease;
+    //   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    // }
   }
 }
 
@@ -163,6 +163,9 @@ $desktop-xl: 1600px;
   flex-direction: column;
   gap: 2rem;
   height: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+  border-radius: 20px;
+
   
   @include desktop-md {
     height: 450px;
@@ -499,7 +502,7 @@ $desktop-xl: 1600px;
   }
 }
 
-.cta-cuenta-regresiva__button {
+.cta-cuenta-regresiva__link {
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
   border: none;
   border-radius: 10px;
@@ -511,11 +514,13 @@ $desktop-xl: 1600px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
   letter-spacing: 0.5px;
-  align-self: flex-start;
+  // align-self: flex-start;
   white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
   
   @include desktop-md {
-    padding: 0.875rem 2.25rem;
+    padding: 0.5rem 2.25rem;
     font-size: 1.1rem;
     border-radius: 12px;
   }

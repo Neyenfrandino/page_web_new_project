@@ -1,0 +1,39 @@
+.button-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #063B2C;
+  color: #D0DE85;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .icon {
+    color: #D0DE85;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    background-color: #48514A;
+    color: #ffffff;
+
+    .icon {
+      transform: translateX(-4px);
+      color: #ffffff;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    outline: 2px solid #D5CEA9;
+    outline-offset: 2px;
+  }
+}

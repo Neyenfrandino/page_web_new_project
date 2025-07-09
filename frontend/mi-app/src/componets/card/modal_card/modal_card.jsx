@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { 
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import {
   Star, Clock, Users, Monitor, DollarSign, Sparkles,
-  ArrowRight, ShoppingCart, Heart, BookOpen
+  ArrowRight, ShoppingCart, BookOpen
 } from 'lucide-react';
+import { FaExpandArrowsAlt, FaLink } from 'react-icons/fa';
+
 import './modal_card.scss';
 
 const ModalCard = ({ course, children }) => {
@@ -10,10 +13,8 @@ const ModalCard = ({ course, children }) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const [activeHighlight, setActiveHighlight] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [isFormVisible, setIsFormVisible] = useState(false); // <- nombre claro
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isLoading] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -27,182 +28,142 @@ const ModalCard = ({ course, children }) => {
     return () => clearInterval(interval);
   }, [course.id, course.highlights?.length]);
 
-  const handleLikeToggle = useCallback(() => {
-    setIsLiked(prev => !prev);
-  }, []);
+  const handleEnrollClick = () => setIsFormVisible(true);
+  const handleBackClick = () => setIsFormVisible(false);
 
-  const handleEnrollClick = useCallback(() => {
-    setIsFormVisible(true); // mostrar formulario
-  }, []);
-
-  const handleBackClick = useCallback(() => {
-    setIsFormVisible(false); // volver a info del curso
-  }, []);
-
-  const renderStars = useCallback((rating) => {
+  const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
 
     return [...Array(5)].map((_, i) => {
       const isFilled = i < fullStars;
       const isHalf = i === fullStars && hasHalfStar;
-
       return (
-        <Star 
-          key={i} 
-          size={16} 
+        <Star
+          key={i}
+          size={16}
           fill={isFilled || isHalf ? '#f59e0b' : 'none'}
           stroke={isFilled || isHalf ? '#f59e0b' : '#d1d5db'}
           style={{
             opacity: isFilled ? 1 : isHalf ? 0.7 : 0.3,
-            transition: 'all 0.2s ease'
+            transition: 'all 0.2s ease',
           }}
         />
       );
     });
-  }, []);
+  };
 
-  const formatPrice = useCallback((price) => {
-    return new Intl.NumberFormat('en-US', {
+  const formatPrice = (price) =>
+    new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: course.currency
+      currency: course.currency,
     }).format(price);
-  }, [course.currency]);
+
+  const handleCopy = () => {
+    const url = `${window.location.origin}${course.router}${course.id}`;
+    navigator.clipboard.writeText(url)
+      .then(() => alert('¡Enlace copiado!'))
+      .catch(() => alert('Error al copiar'));
+  };
 
   return (
     <>
       {isFormVisible ? (
-        <div className='children__container'>
+        <div className="children__container">
           {children}
-
           <div className="button__container">
-            <button onClick={handleBackClick} className="button--back">
-              ← Volver
-            </button>
+            <button onClick={handleBackClick} className="button--back">← Volver</button>
           </div>
         </div>
-      ) :
-      <div className={`card_modal__container ${isVisible ? 'visible' : ''}`}>
-        {/* Header */}
-        <div className="card_modal__header">
-          <div style={{ position: 'relative' }}>
-            <img 
-              src={course?.image}
-              alt={course.title} 
-              className="card_modal__image"
-              loading="lazy"
-            />
-          </div>
-
-          <div className="card_modal__header-content">
-            <h2 className="card_modal__title">{course.title}</h2>
-            {course.subtitle && <p className="card_modal__subtitle">{course.subtitle}</p>}
-            {course.description && <p className="card_modal__description">{course.description}</p>}
-
-            <div className="card_modal__rating">
-              <div className="stars">{renderStars(course.rating)}</div>
-              <span className="rating-number">{course.rating}</span>
-              {course.students && <span className="students-count">({course.students.toLocaleString()} estudiantes)</span>}
-              {course.sold && <span className="students-count">({course.sold.toLocaleString()} vendidos)</span>}
+      ) : (
+        <div className={`card_modal__container ${isVisible ? 'visible' : ''}`}>
+          <div className="card_modal__header">
+            <div style={{ position: 'relative' }}>
+              <img src={course.image} alt={course.title} className="card_modal__image" loading="lazy" />
             </div>
-
-            {course.instructor && (
-              <div className="card_modal__instructor">
-                <BookOpen size={16} className='svg-icon'/>
-                <span>Instructor: <strong>{course.instructor}</strong></span>
+            <div className="card_modal__header-content">
+              <h2 className="card_modal__title">{course.title}</h2>
+              {course.subtitle && <p className="card_modal__subtitle">{course.subtitle}</p>}
+              {course.description && <p className="card_modal__description">{course.description}</p>}
+              <div className="card_modal__rating">
+                <div className="stars">{renderStars(course.rating)}</div>
+                <span className="rating-number">{course.rating}</span>
+                {course.students && <span className="students-count">({course.students.toLocaleString()} estudiantes)</span>}
+                {course.sold && <span className="students-count">({course.sold.toLocaleString()} vendidos)</span>}
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="card_modal__highlights">
-          {course.highlights?.map((highlight, index) => (
-            <div 
-              key={index}
-              className={`card_modal__highlight-item ${index === activeHighlight ? 'active' : ''}`}
-            >
-              <Sparkles size={16} />
-              <span>{highlight}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Body */}
-        <div className="card_modal__body">
-          {course.duration && (
-            <div className="card_modal__info-item">
-              <Clock size={20} />
-              <div><strong>Duración:</strong><br /><span>{course.duration}</span></div>
-            </div>
-          )}
-
-          {course.badge && (
-            <div className="card_modal__info-item">
-              <Users size={20} />
-              <div><strong>Nivel:</strong><br /><span>{course.badge}</span></div>
-            </div>
-          )}
-
-          {course.format && (
-            <div className="card_modal__info-item">
-              <Monitor size={20} />
-              <div><strong>Formato:</strong><br /><span>{course.format}</span></div>
-            </div>
-          )}
-
-          <div className="card_modal__info-item card_modal__price">
-            <DollarSign size={22} />
-            <div>
-              {course.originalPrice && (
-                <div className="card_modal__original-price">
-                  <span className="line-through">{formatPrice(course.originalPrice)}</span>
-                  <span className="oferta-label">Oferta</span>
+              {course.instructor && (
+                <div className="card_modal__instructor">
+                  <BookOpen size={16} className="svg-icon" />
+                  <span>Instructor: <strong>{course.instructor}</strong></span>
                 </div>
               )}
-              <div className="price-final">{formatPrice(course.price)}</div>
             </div>
           </div>
+
+          <div className="card_modal__highlights">
+            {course.highlights?.map((highlight, index) => (
+              <div key={index} className={`card_modal__highlight-item ${index === activeHighlight ? 'active' : ''}`}>
+                <Sparkles size={16} />
+                <span>{highlight}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="card_modal__body">
+            {course.duration && (
+              <div className="card_modal__info-item">
+                <Clock size={20} />
+                <div><strong>Duración:</strong><br /><span>{course.duration}</span></div>
+              </div>
+            )}
+            {course.badge && (
+              <div className="card_modal__info-item">
+                <Users size={20} />
+                <div><strong>Nivel:</strong><br /><span>{course.badge}</span></div>
+              </div>
+            )}
+            {course.format && (
+              <div className="card_modal__info-item">
+                <Monitor size={20} />
+                <div><strong>Formato:</strong><br /><span>{course.format}</span></div>
+              </div>
+            )}
+            <div className="card_modal__info-item card_modal__price">
+              <DollarSign size={22} />
+              <div>
+                {course.originalPrice && (
+                  <div className="card_modal__original-price">
+                    <span className="line-through">{formatPrice(course.originalPrice)}</span>
+                    <span className="oferta-label">Oferta</span>
+                  </div>
+                )}
+                <div className="price-final">{formatPrice(course.price)}</div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            className="card_modal__action-button"
+            onClick={handleEnrollClick}
+            style={{ opacity: isLoading ? 0.8 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
+          >
+            <ShoppingCart size={20} /> Comprar Ahora <ArrowRight size={18} />
+          </button>
+
+          <div className="card_modal__buttons-floating">
+            <button onClick={handleCopy} className="btn-copy-link">
+              <FaLink />
+              Copiar enlace
+            </button>
+            
+            <Link to={`${course.router}${course.id}`} className="card_modal__vermas-link" title='Expandir'>
+              <FaExpandArrowsAlt />
+            </Link>
+
+          </div>
+
         </div>
-
-        {/* Botón acción */}
-        {/* {
-          stateButton ? <>{children}</> :
-          <button 
-            className="card_modal__action-button"
-            onClick={handleEnrollClick}
-            // disabled={isLoading}
-            style={{ opacity: isLoading ? 0.8 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
-          >
-            <ShoppingCart size={20} /> {'Comprar Ahora'} <ArrowRight size={18} />
-          </button>
-        } */}
-          <button 
-            className="card_modal__action-button"
-            onClick={handleEnrollClick}
-            // disabled={isLoading}
-            style={{ opacity: isLoading ? 0.8 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
-          >
-            <ShoppingCart size={20} /> {'Comprar Ahora'} <ArrowRight size={18} />
-          </button>
-
-        {/* Estilos en línea */}
-        <style jsx>{`
-          .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid transparent;
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-          }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-      }
+      )}
     </>
   );
 };

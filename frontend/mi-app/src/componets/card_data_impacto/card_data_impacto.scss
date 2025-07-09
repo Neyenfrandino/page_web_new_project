@@ -13,29 +13,29 @@
         align-items: center;
         text-align: center;
         padding: 20px;
-        background: linear-gradient(200deg, #2d501655 0%, #4a7c5966 25%, #5d8a6677 50%, #7ba05a88 75%, #90b49499 100%); 
+        // background: linear-gradient(200deg, #2d501655 0%, #4a7c5966 25%, #5d8a6677 50%, #7ba05a88 75%, #90b49499 100%); 
         position: relative;
         overflow: hidden;
         // border-radius: 15px; // Descomentado para mejor apariencia
         
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(255, 255, 255, 0.03) 0%, 
-                transparent 50%, 
-                rgba(255, 255, 255, 0.03) 100%);
-            background-size: 200% 200%;
-            animation: shimmer 5s ease-in-out infinite;
-        }
+        // &::before {
+        //     content: '';
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     right: 0;
+        //     bottom: 0;
+        //     background: linear-gradient(45deg, 
+        //         rgba(255, 255, 255, 0.03) 0%, 
+        //         transparent 50%, 
+        //         rgba(255, 255, 255, 0.03) 100%);
+        //     background-size: 200% 200%;
+        //     animation: shimmer 5s ease-in-out infinite;
+        // }
 
         .card-data-impacto__item {
             width: 250px;
-            height: 250px;
+            height: 260px;
             border-radius: 15px;
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
             border: 1px solid rgba(255, 255, 255, 0.8);

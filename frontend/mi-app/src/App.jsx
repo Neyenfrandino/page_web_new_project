@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useSearchParams, useNavigate  } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
 import projects from './json/projects.json';
@@ -15,10 +15,14 @@ import Projects from './routers/projects/projects.router'
 import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalendar.router'
 import Products from './routers/products/products.router'
 import ShoppingCart from './routers/shoppingCart/shoppingCart'
+import ProductDetail from './routers/products/products_detail';
+import ServicesDetail from './routers/services/services_detail';
 
 import Footer from './componets/footer/footer';
 import ScrollToTop from './componets/scrollToTop/ScrollToTop';
 import UserTracker from './componets/userTracker/userTracker';
+
+
 
 import Payment from './routers/payment/payment';
 
@@ -26,6 +30,7 @@ import './App.scss';
 
 const App = () => {
   const location = useLocation();
+  
   const [isScroll, setIsScroll] = useState(false);
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
@@ -66,10 +71,19 @@ const App = () => {
           <Route index path="/" element={<Home />} />
           <Route path="/projects/*" element={<Projects currentRoute={location} />} />
           <Route path="/sobre-nosotros" element={<AboutMe />} />
-          <Route path="movimiento-naluum/contact" element={<Contact />} />
-          <Route path="movimiento-naluum/carrito-de-compras" element={<ShoppingCart />} />
-          <Route path="/movimiento-naluum/calendario" element={<LandingPageCalendar />} />
-          <Route path="/movimiento-naluum/payment" element={<Payment />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/carrito-de-compras" element={<ShoppingCart />} />
+          <Route path="/calendario" element={<LandingPageCalendar />} />
+          <Route path="/payment" element={<Payment />} />
+
+          <Route path="/productos/*" element={<Products />}>
+            <Route path=":id" element={<ProductDetail />} />
+          </Route>
+         
+          <Route path="/servicios/*" element={<Services />}>
+            <Route path=":id" element={<ServicesDetail />} />
+          </Route>
+
         </Routes>
       </main>
 
@@ -79,5 +93,5 @@ const App = () => {
     </div>
   );
 };
-
+ 
 export default App;

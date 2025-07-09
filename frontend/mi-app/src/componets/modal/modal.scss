@@ -1,85 +1,33 @@
-
-// Modal.scss
 .modal__backdrop {
   position: fixed;
   top: 0;
-  // left: 15px;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding: 1rem;
 }
 
 .modal__content {
-  margin: 0 auto;
   background: white;
   border-radius: 12px;
-  // padding: 2rem;
   max-width: 900px;
-  width: 90%;
-  position: relative;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-height: 90vh;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   animation: modalAppear 0.4s ease-out;
-  overflow: auto;
-  overflow-x: hidden;
-  height: 550px;
-  
-  // Estilos base para el pseudoelemento pointer
-  &::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    z-index: 1001;
-  }
-
-  // Pointer hacia arriba (modal está debajo del trigger)
-  &--pointer-top::before {
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid white;
-    filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  // Pointer hacia abajo (modal está arriba del trigger)
-  &--pointer-bottom::before {
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid white;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  // Pointer hacia la izquierda (modal está a la derecha del trigger)
-  &--pointer-left::before {
-    left: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid white;
-    filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, 0.1));
-  }
-
-  // Pointer hacia la derecha (modal está a la izquierda del trigger)
-  &--pointer-right::before {
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid white;
-    filter: drop-shadow(2px 0 4px rgba(0, 0, 0, 0.1));
-  }
+  // overflow-y: visible;
+  // overflow-x: hidden;
+  position: relative;
+  // padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__close {
@@ -90,7 +38,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #666;
+  color: #ad0404;
   transition: all 0.2s ease;
   border-radius: 4px;
   width: 32px;
@@ -101,100 +49,36 @@
   z-index: 10;
 
   &:hover {
-    color: #000;
+    color: #ffffff;
     background: rgba(0, 0, 0, 0.05);
-  }
-
-  &:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
   }
 }
 
 @keyframes modalAppear {
-  0% {
+  from {
     opacity: 0;
-    transform: scale(0.97) translateY(20px);
+    transform: scale(0.95);
   }
-  100% {
+  to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1);
   }
 }
 
-
-// Estilos para el ejemplo
-.example-container {
-  padding: 2rem;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-  h1 {
-    text-align: center;
-    color: white;
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+// Media queries para responsive
+@media (max-width: 768px) {
+  .modal__content {
+    max-width: 95%;
+    padding: .2rem;
   }
 }
 
-.demo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 800px;
-  margin: 0 auto;
-  min-height: 60vh;
-}
-
-.demo-button {
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  &--primary { background: #007bff; color: white; }
-  &--secondary { background: #6c757d; color: white; }
-  &--accent { background: #e83e8c; color: white; }
-  &--warning { background: #ffc107; color: #212529; }
-  &--success { background: #28a745; color: white; }
-  &--info { background: #17a2b8; color: white; }
-  &--dark { background: #343a40; color: white; }
-  &--light { background: #f8f9fa; color: #212529; }
-  &--danger { background: #dc3545; color: white; }
-}
-
-.modal-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &--primary {
-    background: #007bff;
-    color: white;
-    
-    &:hover {
-      background: #0056b3;
-    }
+@media (max-width: 480px) {
+  .modal__content {
+    width: 100%;
+    height: auto;
+    max-height: 90vh;
+    border-radius: 8px;
+    padding: .2rem;
   }
 }
