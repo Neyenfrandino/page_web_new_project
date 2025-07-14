@@ -83,7 +83,7 @@
 .card_modal__subtitle {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #7b7a70;
+  color: #059669;
 }
 
 .card_modal__description {
@@ -165,31 +165,71 @@
 
 .card_modal__info-item {
   background: #fafaf5;
-  padding: 0.3rem;
+  padding: 1rem;
   border-radius: 18px;
   font-size: 16px;
   font-weight: 400;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  text-align: center;
+  gap: 0.5rem;
   border: 1px solid #e5e7eb;
+  min-height: 90px;
 
   svg {
     flex-shrink: 0;
+    margin-bottom: 0.3rem;
   }
 }
 
+/* ESTILO ESPECIAL PARA LA FECHA */
+.card_modal__date {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  
+  svg {
+    color: #2e7d32;
+  }
+  
+  strong {
+    color: #1b5e20;
+  }
+  
+  span {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+  
+  &:hover {
+    background: #c8e6c9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+}
+
+/* PRECIO MEJORADO */
 .card_modal__price {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border-radius: 12px;
-  padding: 0.8rem 1.2rem;
+  padding: 1.2rem 1rem 1rem;
   font-size: 1rem;
   font-weight: 800;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible; // Cambiado de hidden a visible para el badge
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100px;
+
+  // Padding superior extra para el badge
+  padding-top: 1.5rem;
 
   &::before {
     content: '';
@@ -200,6 +240,51 @@
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     animation: shine 3s infinite;
+  }
+
+  // Contenedor de precios
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    width: 100%;
+  }
+
+  // Precio original y etiqueta oferta
+  .card_modal__original-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    opacity: 0.9;
+
+    .line-through {
+      text-decoration: line-through;
+      opacity: 0.8;
+    }
+
+    .oferta-label {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  // Precio final
+  .price-final {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  // Sin el ícono de dólar ya que viene en el precio formateado
+  > svg {
+    display: none;
   }
 }
 
@@ -294,7 +379,6 @@
 .card_modal__buttons-floating {
   display: flex;
   justify-content: center;
-  // align-items: center;
   position: absolute;
   top: 10px;
   right: 12px;
@@ -302,7 +386,6 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   z-index: 2;
-  // border: 1px solid red;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -317,8 +400,6 @@
     color: black;
     padding: 0.2rem 0.8rem;
     transition: all 0.2s ease;
-
-    // border: 1px solid red;
   }
 
   .btn-copy-link {
@@ -347,7 +428,6 @@
 
   .card_modal__vermas-link:hover svg {
     transform: scale(1.15) translateY(-2px);
-        transition: all 0.2s ease;
-
+    transition: all 0.2s ease;
   }
 }

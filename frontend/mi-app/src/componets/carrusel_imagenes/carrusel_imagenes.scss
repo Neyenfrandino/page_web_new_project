@@ -1,7 +1,7 @@
 // MissionCarousel.scss
 
 // Variables
-$carousel-height: 400px;
+$carousel-height: 350px;
 $carousel-height-mobile: 300px;
 $carousel-border-radius: 10px;
 $arrow-size: 30px;
@@ -44,6 +44,7 @@ $overlay-gradient: linear-gradient(
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   // background: #fff;
+
 
   &:focus-visible {
     outline: 3px solid #3498db;

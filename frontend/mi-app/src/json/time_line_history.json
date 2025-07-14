@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "year": "2019",
+    "title": "El Despertar",
+    "content": "En una pequeña comunidad costera de Costa Rica, un grupo de biólogos marinos descubrió algo extraordinario: los arrecifes que habían dado por muertos comenzaban a regenerarse de forma acelerada. Este fenómeno, que llamaron 'Naluum' (renacimiento en lengua maya), marcó el inicio de todo.",
+    "image": "🌊",
+    "highlight": "Primera señal de esperanza"
+  },
+  {
+    "id": 2,
+    "year": "2020",
+    "title": "La Conexión Global",
+    "content": "Durante los meses de quietud mundial, científicos, activistas y comunidades indígenas de cinco continentes se conectaron virtualmente. Compartieron conocimientos ancestrales y descubrimientos modernos sobre regeneración ecosistémica. Naluum dejó de ser un fenómeno local para convertirse en una filosofía de vida.",
+    "image": "🌍",
+    "highlight": "De lo local a lo global"
+  },
+  {
+    "id": 3,
+    "year": "2021",
+    "title": "Los Primeros Guardianes",
+    "content": "Surgieron los 'Guardianes Naluum': personas comprometidas con acciones concretas de regeneración. Desde reforestación masiva hasta limpieza de océanos, cada guardián adoptó un ecosistema. La red creció exponencialmente, alcanzando 100,000 miembros en 50 países.",
+    "image": "🌱",
+    "highlight": "100,000 guardianes activos"
+  },
+  {
+    "id": 4,
+    "year": "2022",
+    "title": "Tecnología y Sabiduría",
+    "content": "El movimiento fusionó tecnología de punta con sabiduría ancestral. Drones reforestadores, biotecnología para limpiar agua y aplicaciones de monitoreo ecosistémico se combinaron con prácticas indígenas de agricultura regenerativa. Naluum demostró que el futuro está en honrar el pasado.",
+    "image": "🔬",
+    "highlight": "Innovación con propósito"
+  },
+  {
+    "id": 5,
+    "year": "2023",
+    "title": "El Gran Cambio",
+    "content": "Gobiernos y corporaciones comenzaron a adoptar los principios Naluum. Se crearon las primeras 'Ciudades Regenerativas' y los 'Corredores de Vida' - extensiones de tierra dedicadas exclusivamente a la regeneración natural. El movimiento ya no era alternativo, era el nuevo paradigma.",
+    "image": "🏙️",
+    "highlight": "Del activismo a la política"
+  },
+  {
+    "id": 6,
+    "year": "2024",
+    "title": "El Presente es Futuro",
+    "content": "Hoy, Naluum es más que un movimiento: es una forma de entender nuestra relación con el planeta. Millones de personas viven según sus principios: regenerar más de lo que consumimos, sanar más de lo que dañamos, crear más vida de la que encontramos. El planeta responde, y la esperanza florece.",
+    "image": "✨",
+    "highlight": "5 millones de miembros activos"
+  }
+]

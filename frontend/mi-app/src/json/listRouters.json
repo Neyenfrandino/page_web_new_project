@@ -1,109 +1,93 @@
 {
   "Movimiento Naluum": [
     {
-      "name": "Home",
+      "name": "Inicio",
       "path": "/",
-      "icon": "HomeIcon"
+      "icon": "HomeIcon",
+      "type": "single"
     },
     {
-      "name": "Sobre nosotros",
+      "name": "Nosotros",
       "path": "/sobre-nosotros",
-      "icon": "UserIcon"
-    },
-    
-    {
-      "name": "todos los servicios",
-      "path": "/servicios",
-      "icon": "BriefcaseIcon"
+      "icon": "UserIcon",
+      "type": "single"
     },
     {
-      "name": "Brotes del movimiento",
-      "path": "/proyectos",
-      "icon": "FolderIcon",
-      "subnavegacion": [
+      "name": "Tienda",
+      "icon": "StoreIcon",
+      "type": "dropdown",
+      "subItems": [
         {
-          "name": "Madre Selva",
-          "path": "/projects/madre-selva",
-          "icon": "FolderIcon",
-          "subnavegacion": [
-            {
-              "name": "Home",
-              "path": "/madre-selva/home",
-              "icon": "HomeIcon"
-            },
-            {
-              "name": "Productos",
-              "path": "/madre-selva/productos",
-              "icon": "ShoppingCartIcon"
-            },
-            {
-              "name": "Servicios/Cursos/Eventos",
-              "path": "/madre-selva/servicios-cursos-eventos",
-              "icon": "BriefcaseIcon"
-            }
-          ]
+          "name": "Todos los Productos",
+          "path": "/productos",
+          "icon": "PackageIcon",
+          "image": "/img/3.png",
+          "description": "Explora nuestra colección completa de productos naturales y conscientes"
         },
         {
-          "name": "Naluum",
-          "path": "/projects/naluum",
-          "icon": "FolderIcon",
-          "subnavegacion": [
-            {
-              "name": "Home",
-              "path": "/proyectos/naluum/home",
-              "icon": "HomeIcon"
-            },
-            {
-              "name": "Productos",
-              "path": "/proyectos/naluum/productos",
-              "icon": "ShoppingCartIcon"
-            },
-            {
-              "name": "Servicios/Cursos/Eventos",
-              "path": "/proyectos/naluum/servicios-cursos-eventos",
-              "icon": "BriefcaseIcon"
-            }
-          ]
-        },
-        {
-          "name": "Global",
-          "path": "/proyectos/global",
+          "name": "Todos los Servicios",
+          "path": "/servicios",
           "icon": "BriefcaseIcon",
-          "subnavegacion": [
-            {
-              "name": "Home",
-              "path": "/proyectos/global/home",
-              "icon": "HomeIcon"
-            },
-            {
-              "name": "Productos",
-              "path": "/proyectos/global/productos",
-              "icon": "ShoppingCartIcon"
-            },
-            {
-              "name": "Servicios/Cursos/Eventos",
-              "path": "/proyectos/global/servicios-cursos-eventos",
-              "icon": "BriefcaseIcon"
-            }
-          ]
+          "image": "/img/3.png",
+          "description": "Descubre nuestros servicios de transformación y crecimiento personal"
         }
       ]
     },
     {
-      "name": "Calendario",
-      "path": "/calendario",
-      "icon": "CalendarIcon"
+      "name": "Proyectos",
+      "icon": "FolderIcon",
+      "type": "dropdown",
+      "subItems": [
+        {
+          "name": "Madre Selva",
+          "path": "/proyectos/madre-selva",
+          "icon": "LeafIcon"
+        },
+        {
+          "name": "Naluum",
+          "path": "/proyectos/naluum",
+          "icon": "StarIcon"
+        },
+        {
+          "name": "Global",
+          "path": "/proyectos/global",
+          "icon": "GlobeIcon"
+        }
+      ]
     },
     {
-      "name": "Contactos",
-      "path": "/contactos",
-      "icon": "MessageCircleIcon"
+      "name": "Recursos",
+      "icon": "BookOpenIcon",
+      "type": "dropdown",
+      "subItems": [
+        {
+          "name": "Blog",
+          "path": "/blog",
+          "icon": "PenToolIcon",
+          "image": "/img/blog-preview.jpg",
+          "description": "Artículos, reflexiones y sabiduría compartida de nuestra comunidad"
+        },
+        {
+          "name": "Calendario de Eventos",
+          "path": "/calendario",
+          "icon": "CalendarIcon",
+          "image": "/img/eventos-preview.jpg",
+          "description": "Próximos talleres, ceremonias y encuentros del movimiento"
+        }
+      ]
     },
-
+    {
+      "name": "Contacto",
+      "path": "/contacto",
+      "icon": "MessageCircleIcon",
+      "type": "single"
+    },
     {
       "name": "",
-      "path": "/carrito-de-compras",
-      "icon": "ShoppingCartIcon"
+      "path": "/carrito",
+      "icon": "ShoppingCartIcon",
+      "type": "cart",
+      "showBadge": true
     }
   ]
 }

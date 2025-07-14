@@ -30,7 +30,7 @@ const CtaBoletin = () => {
         }   
     }, []);
     
- 
+  
     return (
         <div className='cta-boletin__container'>
             <div className='cta-boletin__background'></div>
@@ -41,63 +41,68 @@ const CtaBoletin = () => {
                 </div>
                 
                 <form className='cta-boletin__form' onSubmit={handleFormSubmit} onChange={handleFormChange}>
-                    <div className='cta-boletin__form-group'>
-                        <label htmlFor="nombre">Nombre</label>
-                        <input 
-                            type="text" 
-                            id="nombre" 
-                            name="nombre" 
-                            value={nombre}
-                            placeholder="Tu nombre completo" 
-                            required 
-                        />
+                    <div className='cta-boletin__form-groups'>
+                        <div className='cta-boletin__form-group'>
+                            <label htmlFor="nombre">Nombre</label>
+                            <input 
+                                type="text" 
+                                id="nombre" 
+                                name="nombre" 
+                                value={nombre}
+                                placeholder="Tu nombre completo" 
+                                required 
+                            />
+                        </div>
+                        
+                        <div className='cta-boletin__form-group'>
+                            <label htmlFor="correo">Correo electrónico</label>
+                            <input 
+                                type="email" 
+                                id="correo" 
+                                name="correo" 
+                                value={correo}
+                                placeholder="tu@email.com" 
+                                required 
+                            />
+                        </div>
+                        
+                        <div className='cta-boletin__form-group'>
+                            <label htmlFor="mensaje">Mensaje</label>
+                            <textarea 
+                                id="mensaje" 
+                                name="mensaje" 
+                                value={mensaje}
+                                placeholder="Cuéntanos qué te interesa de nuestra comunidad..."
+                                rows="4"
+                            ></textarea>
+                        </div>
                     </div>
-                    
-                    <div className='cta-boletin__form-group'>
-                        <label htmlFor="correo">Correo electrónico</label>
-                        <input 
-                            type="email" 
-                            id="correo" 
-                            name="correo" 
-                            value={correo}
-                            placeholder="tu@email.com" 
-                            required 
-                        />
+
+                    <div className='cta-boletin__action-section'>
+                        <button type="submit" className='cta-boletin__submit'>
+                            <span>Únete ahora</span>
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <div className='cta-boletin__benefits'>
+                            <div className='cta-boletin__benefit'>
+                                <div className='cta-boletin__benefit-icon'>🌿</div>
+                                <span>Contenido exclusivo</span>
+                            </div>
+                            <div className='cta-boletin__benefit'>
+                                <div className='cta-boletin__benefit-icon'>📧</div>
+                                <span>Newsletter semanal</span>
+                            </div>
+                            <div className='cta-boletin__benefit'>
+                                <div className='cta-boletin__benefit-icon'>🤝</div>
+                                <span>Comunidad activa</span>
+                            </div>
+                        </div>
+                        
                     </div>
-                    
-                    <div className='cta-boletin__form-group'>
-                        <label htmlFor="mensaje">Mensaje</label>
-                        <textarea 
-                            id="mensaje" 
-                            name="mensaje" 
-                            value={mensaje}
-                            placeholder="Cuéntanos qué te interesa de nuestra comunidad..."
-                            rows="4"
-                        ></textarea>
-                    </div>
-                    
-                    <button type="submit" className='cta-boletin__submit'>
-                        <span>Únete ahora</span>
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                    </button>
                 </form>
-                
-                <div className='cta-boletin__benefits'>
-                    <div className='cta-boletin__benefit'>
-                        <div className='cta-boletin__benefit-icon'>🌿</div>
-                        <span>Contenido exclusivo</span>
-                    </div>
-                    <div className='cta-boletin__benefit'>
-                        <div className='cta-boletin__benefit-icon'>📧</div>
-                        <span>Newsletter semanal</span>
-                    </div>
-                    <div className='cta-boletin__benefit'>
-                        <div className='cta-boletin__benefit-icon'>🤝</div>
-                        <span>Comunidad activa</span>
-                    </div>
-                </div>
             </div>
         </div>
     )

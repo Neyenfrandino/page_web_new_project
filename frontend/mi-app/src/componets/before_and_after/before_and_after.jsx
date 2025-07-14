@@ -38,7 +38,7 @@ const BeforeAndAfter = () => {
     return (
         <div className="before-and-after__container">
             <div className="before-and-after__header">
-                <h2>Impacto del movimiento Naluum y testimonios de personas que lo han hecho realidad</h2>
+                <h2>Impacto y testimonios de personas que lo han hecho realidad</h2>
                 <p>Descubre la transformación real que experimenta cada persona con Naluum</p>
             </div>
 

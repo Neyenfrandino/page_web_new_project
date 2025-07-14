@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Star, Clock, Users, Monitor, DollarSign, Sparkles,
-  ArrowRight, ShoppingCart, BookOpen
+  ArrowRight, ShoppingCart, BookOpen, Calendar
 } from 'lucide-react';
 import { FaExpandArrowsAlt, FaLink } from 'react-icons/fa';
+
+import DiscountBadge from '../../discount_badge/discount_badge';
 
 import './modal_card.scss';
 
@@ -59,6 +61,19 @@ const ModalCard = ({ course, children }) => {
       currency: course.currency,
     }).format(price);
 
+  const formatDate = (date) => {
+    if (!date) return null;
+    
+    const courseDate = new Date(date);
+    const options = { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    };
+    
+    return courseDate.toLocaleDateString('es-ES', options);
+  };
+
   const handleCopy = () => {
     const url = `${window.location.origin}${course.router}${course.id}`;
     navigator.clipboard.writeText(url)
@@ -108,8 +123,14 @@ const ModalCard = ({ course, children }) => {
               </div>
             ))}
           </div>
-
+ 
           <div className="card_modal__body">
+            {course.date && (
+              <div className="card_modal__info-item card_modal__date">
+                <Calendar size={20} />
+                <div><strong>Fecha:</strong><br /><span>{formatDate(course.date)}</span></div>
+              </div>
+            )}
             {course.duration && (
               <div className="card_modal__info-item">
                 <Clock size={20} />
@@ -128,18 +149,25 @@ const ModalCard = ({ course, children }) => {
                 <div><strong>Formato:</strong><br /><span>{course.format}</span></div>
               </div>
             )}
-            <div className="card_modal__info-item card_modal__price">
-              <DollarSign size={22} />
-              <div>
+              <div className="card_modal__info-item card_modal__price">
                 {course.originalPrice && (
-                  <div className="card_modal__original-price">
-                    <span className="line-through">{formatPrice(course.originalPrice)}</span>
-                    <span className="oferta-label">Oferta</span>
-                  </div>
+                  <DiscountBadge 
+                    originalPrice={course.originalPrice} 
+                    currentPrice={course.price}
+                    // position="top-right"
+                    // style="circle"
+                  />
                 )}
-                <div className="price-final">{formatPrice(course.price)}</div>
+                <div>
+                  {course.originalPrice && (
+                    <div className="card_modal__original-price">
+                      <span className="line-through">{formatPrice(course.originalPrice)}</span>
+                      <span className="oferta-label">Oferta</span>
+                    </div>
+                  )}
+                  <div className="price-final">{formatPrice(course.price)}</div>
+                </div>
               </div>
-            </div>
           </div>
 
           <button

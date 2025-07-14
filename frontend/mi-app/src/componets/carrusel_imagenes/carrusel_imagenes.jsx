@@ -157,3 +157,4 @@ const areEqual = (prevProps, nextProps) => {
 };
 
 export default React.memo(MissionCarousel, areEqual);
+ 

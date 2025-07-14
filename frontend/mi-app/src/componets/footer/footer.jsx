@@ -17,9 +17,9 @@ const Footer = () => {
   // Objeto estático con toda la información del footer
   const footerData = {
     company: {
-      name: "EcoRegen",
+      name: "Movimiento Naluum",
       description: "Transformamos tu negocio hacia un futuro sostenible con soluciones innovadoras que regeneran nuestro planeta mientras impulsan tu éxito.",
-      logo: null
+      logo: '/img/logo_naluum_trasparente.svg'
     },
     socialMedia: [
       { name: "Facebook", icon: Facebook, url: "https://facebook.com", color: "#1877f2" },
@@ -56,7 +56,7 @@ const Footer = () => {
       placeholder: "Tu email para un futuro verde..."
     },
     legal: {
-      copyright: `© ${new Date().getFullYear()} EcoRegen. Todos los derechos reservados. Juntos por un planeta mejor.`,
+      copyright: `© ${new Date().getFullYear()} Movimien Naluum. Todos los derechos reservados. Juntos por un planeta mejor.`,
       links: [
         { name: "Política de Privacidad", url: "/privacy" },
         { name: "Términos de Servicio", url: "/terms" },
@@ -85,6 +85,7 @@ const Footer = () => {
             <div className="footer__logo">
               <h2 className="footer__logo-text">{footerData.company.name}</h2>
               <div className="footer__logo-decoration"></div>
+              <img src={footerData.company.logo} alt="Logo Movimiento Naluum" className="footer__logo-img" />
             </div>
             <p className="footer__description">{footerData.company.description}</p>
             
@@ -130,28 +131,6 @@ const Footer = () => {
                 );
               })}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div className="footer__section footer__newsletter">
-            <h3 className="footer__title">{footerData.newsletter.title}</h3>
-            <p className="footer__newsletter-description">
-              {footerData.newsletter.description}
-            </p>
-            <div className="footer__newsletter-form">
-              <div className="footer__input-group">
-                <input 
-                  type="email" 
-                  placeholder={footerData.newsletter.placeholder}
-                  className="footer__input"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button onClick={handleSubmit} className="footer__submit-btn">
-                  Suscribirse
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 

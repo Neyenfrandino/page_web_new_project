@@ -8,6 +8,7 @@ import products from '../../json/products.json';
 import projects from '../../json/projects.json';
 import servicios from '../../json/servicios.json';
 import testimonios from '../../json/testimonios.json';
+import time_line_history from '../../json/time_line_history.json';
 
 // Crear el contexto
 export const ContextJsonLoadContext = createContext();
@@ -21,6 +22,7 @@ const initialState = {
   projects: [],
   servicios: [],
   testimonios: [],
+  time_line_history: [],
 };
 
 // Tipos de acciones
@@ -64,6 +66,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
           projects: projects,
           servicios: servicios,
           testimonios: testimonios,
+          time_line_history: time_line_history,
         },
       });
     };
@@ -83,6 +86,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
     setJsonLoad,
   };
 
+  console.log(dataImpactoReal);
 
   return (
     <ContextJsonLoadContext.Provider value={value}>

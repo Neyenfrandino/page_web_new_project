@@ -24,5 +24,5 @@ const MessageFinal = ({ /* message */ }) => {
         </div>
     )
 }
-
+ 
 export default MessageFinal;

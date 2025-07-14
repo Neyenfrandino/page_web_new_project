@@ -1,7 +1,12 @@
+import { useContext } from 'react';
+import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './testimonios.scss';
 
+ 
+const Testimonios = () => {
+    const { testimonios } = useContext(ContextJsonLoadContext);
+    if (!testimonios || testimonios.length === 0) return null;
 
-const Testimonios = ({testimonios}) => {
     return (
         <div className="testimonios__container">
             <div className="testimonios__content">

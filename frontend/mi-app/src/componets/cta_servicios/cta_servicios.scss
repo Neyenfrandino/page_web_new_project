@@ -1,0 +1,130 @@
+.cta-servicios__container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// Sección principal
+.cta-section {
+    background: linear-gradient(to top, transparent, #063B2C88, #48514A88, transparent);
+    backdrop-filter: blur(04px);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(213, 206, 169, 0.07) 0%, transparent 70%);
+        animation: pulse 6s ease-in-out infinite;
+        z-index: 1;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 10;
+        max-width: 640px;
+        margin: 0 auto;
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: #D5CEA9;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-text {
+            font-size: 1rem;
+            color: #D0DE85;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+    .cta-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+
+      .stat {
+        text-align: center;
+        color: #D5CEA9;
+
+        .stat-number {
+          font-size: 2.2rem;
+          font-weight: 700;
+          background: linear-gradient(90deg, #D0DE85, #8F764C);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .stat-label {
+          font-size: 0.75rem;
+          color: #7B7A70;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    .cta-button {
+      background: linear-gradient(to right, #8F764C, #D0DE85);
+      color: #063B2C;
+      border: none;
+      padding: 0.85rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(208, 222, 133, 0.2);
+
+        .button-arrow {
+          transform: translateX(4px);
+        }
+      }
+
+      .button-arrow {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+}
+
+// Animación suave de fondo
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}

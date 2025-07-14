@@ -71,7 +71,7 @@ const useCountUp = (end, duration = 2000, start = 0) => {
 
     return [count, elementRef];
 };
-
+  
 const CardDataImpacto = ({ data }) => {
     const { dataImpactoReal } = useContext(ContextJsonLoadContext);
     

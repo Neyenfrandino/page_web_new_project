@@ -50,12 +50,12 @@ const timerProps = {
   img: "/img/3.png",
   titles: {
     main: "",
-    subtitle: "TALLER DE SIEMBRA DE ALBAHACA"
+    subtitle: "Festival Eco de la Tierra",
   },
-  text: "Lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+  text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
   buttonText: "Inscríbete ahora",
   timer: {
-    targetDate: "2025-07-23T23:59:59"
+    targetDate: "2025-09-23T18:59:59"
   },
   link : "/servicios/laboratorios-alimentacion-viva"
 };
@@ -190,15 +190,23 @@ const Home = () => {
           </div>
           <div className="home__content-titile">
             <div className='home__content-titile-text'>
-              <h1>Hoy sembramos futuro con el Movimiento Naluum</h1>
+              <h1>Diseñamos futuros regenerativos que florecen desde el corazón</h1>
             </div>
             <div className='home__content-titile-subtitle'>
-              <h2>Soluciones regenerativas que transforman tu vida, te conectan con tu comunidad y sanan la Tierra.</h2>
+              <h2>
+               Un movimiento vivo que aprende, crea y conecta para transformar el mundo desde el diseño consciente hacia una vida sustentable y colaborativa.a
+              </h2>
             </div>
             <div className='home__content-titile-buttons'>
               <Button text="Sobre el movimiento naluum" link="/sobre-nosotros" style="primary" />
               <Button text="Explorar" link="/proyectos" style="outline" />
             </div>
+
+            <a href="#boletin" className="button-CTA">
+              <button>
+                Sumate a nuestra comunidad
+              </button>
+            </a>
           </div>
         </div>
       </Header>
@@ -222,13 +230,13 @@ const Home = () => {
                   <h1>! Lo que hacemos !</h1>
                 </div>
                 <div className='mision--subTitle'>
-                  <h2>Cultivar vínculos con la Tierra y entre nosotros</h2>
+                  <h2>Acompañamos proyectos con impacto regenerativo</h2>
                 </div>
                 <div className='mision--parrafo'>
                   <p>
-                    En Naluum, hacer es un acto sagrado. No se trata solo de construir o producir, sino de regenerar lo que fue dañado, de tejer relaciones vivas entre el ser humano y su entorno.
+                    Apoyamos proyectos y personas mediante capacitaciones efectivas para impulsar iniciativas regenerativas, guiados por el compromiso de regenerar el planeta y alcanzar un equilibrio social, económico y ecológico, sustentado en valores como el respeto, la integridad, la diversidad, la colaboración, el compromiso y el amor
                   </p>
-                  <span>Cada acción —por pequeña que parezca— es una semilla de transformación.</span>
+                  {/* <span>Cada acción —por pequeña que parezca— es una semilla de transformación.</span> */}
                 </div>
               </div>
               <div className='content--mision--carousel-wrapper'>
@@ -244,14 +252,12 @@ const Home = () => {
           <FadeInOnView {...fadeInProps}>
             <div className='content--servicios__container'>
               <div className='content--servicios__text'>
-                <h2>El hacer de Naluum es experiencia, vínculo y territorio.</h2>
+                <h2>Juntos en el proceso de diseñar un mundo renovado</h2>
                 <p>
-                  En Naluum, lo que hacemos no son simples servicios:
-                  🌱 Son puertas abiertas hacia una forma distinta de vivir.
-                  🔥 Cada propuesta nace del deseo de regenerar la Tierra, cultivar comunidad y activar el aprendizaje colectivo.
+                   Nuestro objetivo es crear una red de apoyo comunitaria global que impulse la colaboración y el aprendizaje compartido. A través de propuestas teórico-prácticas y procesos de diseño colaborativo, acompañamos a quienes buscan transformar su entorno y modo de vida de manera profunda y consciente.
                 </p>
                 <span>
-                  Nuestro hacer se manifiesta en encuentros, asesorías, espacios diseñados con propósito y celebraciones que nos recuerdan lo esencial.
+                Dirigimos nuestras actividades a personas comprometidas con un cambio auténtico, con la esperanza de generar una transformación social y económica significativa en familias, proyectos y territorios, construyendo juntos un futuro más sostenible y equitativo.
                 </span>
               </div>
               <div className='content--servicios__grid'>
@@ -260,6 +266,10 @@ const Home = () => {
               </div>
             </div>
             <CtaImgCuentaRgresiva {...timerProps} />
+
+            <div className='home__content--servicios-buttons'>
+              <Button text="Explora todos los servicios" link="/servicios" style="outline" />
+            </div>
           </FadeInOnView>
         </div>
 
@@ -289,10 +299,15 @@ const Home = () => {
 
         <div className='home__content--products'>
           <FadeInOnView {...fadeInProps}>
+            <div className='home__content--products-title'>
+              <h2>Productos</h2>
+              <p>Conoce los productos que nos ayudan a cumplir con nuestras metas</p>
+
+            </div>
             <Grid items={products} slice={5} setIsOpen={handleOpenModal} />
             {modalContent}
             <div className='home__content--products-button'>
-              <Button text="Ver todos los productos" link="/productos" style="primary" />
+              <Button text="Ver todos los productos" link="/productos" style="outline" />
             </div>
           </FadeInOnView>
         </div>
@@ -307,7 +322,7 @@ const Home = () => {
 
         <LineLogoSeparacion />
 
-        <div className='home__content--boletin'>
+        <div className='home__content--boletin' id='boletin'>
           <FadeInOnView {...fadeInProps}>
             <CtaBoletin />
           </FadeInOnView>

@@ -1,3 +1,5 @@
+
+import { Link } from 'react-router-dom';
 import './bitacora.scss';
 
 const bitacora = [
@@ -51,7 +53,7 @@ const Bitacora = () => {
             <div className='bitacora__content'>
                 <div className='bitacora__content__header'>
                     <div className='bitacora__content__header-img'>
-                        <img src="/img/bitacora.jpg" alt="Bitacora de la Tierra" />
+                        <img src="/img/Bitacoradelatierra1.jpg" alt="Bitacora de la Tierra" />
                     </div>
                     
                     <div className='bitacora__content__header-text'>
@@ -70,9 +72,9 @@ const Bitacora = () => {
                                 <span className='date'>{formatDate(item.fecha)}</span>
                                 <h3>{item.title}</h3>
                                 <p>{item.description}</p>
-                                <a href={item.routeSeccion} className='read-more'>
+                                <Link to={item.routeSeccion} className='read-more'>
                                     Leer más
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     ))}

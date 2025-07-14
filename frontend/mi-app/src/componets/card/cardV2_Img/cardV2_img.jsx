@@ -6,8 +6,8 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
 
     const objectContentCard = {
         question: "¿Qué es Movimiento Naluum?",
-        title: "Redescubrí la conexión con la Tierra",
-        text: "Naluum es un movimiento que nace del deseo profundo de regenerar nuestra forma de vivir. Inspirado en los principios de la permacultura, buscamos rediseñar nuestros vínculos con la naturaleza, la comunidad y nosotros mismos.",
+        title: "Educación, conciencia y colaboración para transforma",
+        text: "El Movimiento Naluum es una propuesta para generar una comunidad educativa consciente y profesional que inspire a más personas. Está inspirado en los sistemas vivos que se autorregulan y se sostienen gracias a la colaboración efectiva y amorosa. Se basa en crear un sistema vivo, sustentable en el tiempo",
         buttonPrimary: ["Conocer más sobre el movimiento", '/sobre_nosotros'],
         image: "/img/personas_trabajando.jpg"
     }
@@ -34,5 +34,5 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
 
     )
 }
-
+ 
 export default CardV2Img;

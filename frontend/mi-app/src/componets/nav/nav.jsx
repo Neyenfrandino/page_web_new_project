@@ -10,7 +10,14 @@ import {
   Briefcase,
   ChevronDown,
   Menu,
-  X
+  X,
+  Store,
+  Package,
+  BookOpen,
+  PenTool,
+  Leaf,
+  Star,
+  Globe
 } from 'lucide-react';
 
 import './Nav.scss';
@@ -23,9 +30,16 @@ const iconMap = {
   MessageCircleIcon: MessageCircle,
   ShoppingCartIcon: ShoppingCart,
   BriefcaseIcon: Briefcase,
+  StoreIcon: Store,
+  PackageIcon: Package,
+  BookOpenIcon: BookOpen,
+  PenToolIcon: PenTool,
+  LeafIcon: Leaf,
+  StarIcon: Star,
+  GlobeIcon: Globe
 };
 
-const Nav = ({ isScroll, listRouters, projects }) => {
+const Nav = ({ isScroll, listRouters, projects, cartItemsCount }) => {
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [projectImageIndexes, setProjectImageIndexes] = useState({});
@@ -96,22 +110,25 @@ const Nav = ({ isScroll, listRouters, projects }) => {
   }, []);
 
   // Función para verificar si una ruta está activa
-  const isActiveRoute = useCallback((itemPath, subnavegacion = null) => {
+  const isActiveRoute = useCallback((item) => {
     const currentPath = location.pathname;
     
-    // Verificar si la ruta actual coincide exactamente
-    if (currentPath === itemPath) {
-      return true;
+    // Para items tipo "single" o "cart"
+    if (item.type === 'single' || item.type === 'cart') {
+      return currentPath === item.path;
     }
     
-    // Si tiene subnavegación, verificar si alguna subruta está activa
-    if (subnavegacion) {
-      return subnavegacion.some(subItem => currentPath === subItem.path);
-    }
-    
-    // Verificar si es una ruta padre (para casos como /projects/project-name)
-    if (itemPath !== '/' && currentPath.startsWith(itemPath)) {
-      return true;
+    // Para items con dropdown
+    if (item.type === 'dropdown' || item.type === 'mega-dropdown') {
+      // Verificar si alguna subruta está activa
+      if (item.subItems) {
+        return item.subItems.some(subItem => {
+          if (subItem.type === 'group' && subItem.subItems) {
+            return subItem.subItems.some(groupItem => currentPath === groupItem.path);
+          }
+          return currentPath === subItem.path;
+        });
+      }
     }
     
     return false;
@@ -192,8 +209,10 @@ const Nav = ({ isScroll, listRouters, projects }) => {
   }, [stopAllImageCycles]);
 
   // Función para manejar la entrada del mouse con delay
-  const handleMouseEnter = useCallback((index, hasSubmenu) => {
-    if (hasSubmenu && !isMobile) {
+  const handleMouseEnter = useCallback((index, item) => {
+    const hasDropdown = item.type === 'dropdown' || item.type === 'mega-dropdown';
+    
+    if (hasDropdown && !isMobile) {
       // Cancelar cualquier timeout pendiente de cierre
       if (dropdownTimeoutRef.current) {
         clearTimeout(dropdownTimeoutRef.current);
@@ -202,12 +221,9 @@ const Nav = ({ isScroll, listRouters, projects }) => {
 
       setOpenDropdown(index);
       
-      // Iniciar ciclos de imágenes para todos los proyectos en el dropdown
-      const menuItems = listRouters?.['Movimiento Naluum'] || [];
-      const item = menuItems[index];
-      
-      if (item?.subnavegacion && projects?.projects) {
-        item.subnavegacion.forEach(subItem => {
+      // Si es el dropdown de proyectos, iniciar ciclos de imágenes
+      if (item.name === 'Proyectos' && projects?.projects) {
+        item.subItems.forEach(subItem => {
           const matchedProject = projects.projects.find(p => p.name === subItem.name);
           if (matchedProject && matchedProject.images && matchedProject.images.length > 1) {
             startImageCycle(matchedProject.name, matchedProject.images.length);
@@ -215,7 +231,7 @@ const Nav = ({ isScroll, listRouters, projects }) => {
         });
       }
     }
-  }, [listRouters, projects, startImageCycle, isMobile]);
+  }, [projects, startImageCycle, isMobile]);
 
   // Función para manejar la salida del mouse con delay
   const handleMouseLeave = useCallback(() => {
@@ -255,15 +271,17 @@ const Nav = ({ isScroll, listRouters, projects }) => {
     }
   }, [stopAllImageCycles, isMobile]);
 
-  const handleClick = useCallback((e, hasSubmenu, index, path) => {
-    if (hasSubmenu) {
+  const handleClick = useCallback((e, item, index) => {
+    const hasDropdown = item.type === 'dropdown' || item.type === 'mega-dropdown';
+    
+    if (hasDropdown) {
       e.preventDefault();
       if (isMobile) {
         setOpenDropdown(openDropdown === index ? null : index);
       }
     } else {
       // Si es móvil y no tiene submenu, cerrar el menú
-      if (isMobile) {
+      if (isMobile && item.type !== 'cart') {
         setIsMobileMenuOpen(false);
         setOpenDropdown(null);
       }
@@ -289,18 +307,70 @@ const Nav = ({ isScroll, listRouters, projects }) => {
     }
   }, [isMobile, stopAllImageCycles]);
 
-  const renderProjectDropdown = useCallback((item) => {
-    if (!item.subnavegacion || !projects?.projects) return null;
+  // Renderizar dropdown estándar con imágenes
+  const renderStandardDropdown = useCallback((item) => {
+    if (!item.subItems) return null;
 
     return (
       <ul 
-        className="nav__dropdown"
+        className="nav__dropdown nav__dropdown--standard"
         onMouseEnter={handleDropdownMouseEnter}
         onMouseLeave={handleDropdownMouseLeave}
       >
-        {item.subnavegacion.map((subItem, subIndex) => {
+        {item.subItems.map((subItem, subIndex) => {
+          const isActive = isActiveDropdownItem(subItem.path);
+
+          return (
+            <li 
+              key={subIndex} 
+              className={`nav__dropdown-item nav__dropdown-item--standard ${isActive ? 'nav__dropdown-item--active' : ''}`}
+            >
+              <Link 
+                to={subItem.path} 
+                className={`nav__dropdown-link nav__dropdown-link--standard ${isActive ? 'nav__dropdown-link--active' : ''}`}
+                onClick={handleDropdownLinkClick}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <div className="nav__standard-images">
+                  <img
+                    src={subItem.image || '/img/default-preview.jpg'}
+                    alt={subItem.name}
+                    className="nav__standard-background"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = '/img/default-preview.jpg';
+                    }}
+                  />
+                  <div className="nav__standard-overlay">
+                    {/* <span className="nav__standard-icon">
+                      {renderIcon(subItem.icon)}
+                    </span> */}
+                    <h4 className="nav__standard-title">{subItem.name}</h4>
+                  </div>
+                </div>
+                <span className="nav__dropdown-text">
+                  {subItem.description || 'Descubre más sobre esta sección'}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }, [handleDropdownLinkClick, handleDropdownMouseEnter, handleDropdownMouseLeave, isActiveDropdownItem, renderIcon]);
+
+  // Renderizar dropdown de proyectos con imágenes
+  const renderProjectDropdown = useCallback((item) => {
+    if (!item.subItems || !projects?.projects) return null;
+
+    return (
+      <ul 
+        className="nav__dropdown nav__dropdown--projects"
+        onMouseEnter={handleDropdownMouseEnter}
+        onMouseLeave={handleDropdownMouseLeave}
+      >
+        {item.subItems.map((subItem, subIndex) => {
           const matchedProject = projects.projects.find(p => p.name === subItem.name);
-          console.log(matchedProject);
           
           if (!matchedProject) return null;
 
@@ -405,46 +475,50 @@ const Nav = ({ isScroll, listRouters, projects }) => {
         >
           <ul className="nav__menu-list">
             {menuItems.map((item, index) => {
-              const isActive = isActiveRoute(item.path, item.subnavegacion);
+              const isActive = isActiveRoute(item);
+              const hasDropdown = item.type === 'dropdown' || item.type === 'mega-dropdown';
               
               return (
                 <li
                   key={index}
-                  className={`nav__menu-item ${item.subnavegacion ? 'nav__menu-item--has-dropdown' : ''} ${isActive ? 'nav__menu-item--active' : ''}`}
-                  onMouseEnter={() => handleMouseEnter(index, !!item.subnavegacion)}
+                  className={`nav__menu-item ${hasDropdown ? 'nav__menu-item--has-dropdown' : ''} ${isActive ? 'nav__menu-item--active' : ''} ${item.type === 'cart' ? 'nav__menu-item--cart' : ''}`}
+                  onMouseEnter={() => handleMouseEnter(index, item)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link 
-                    to={item.path}  
-                    onClick={(e) => handleClick(e, !!item.subnavegacion, index, item.path)} 
-                    className={`nav__menu-link ${isActive ? 'nav__menu-link--active' : ''}`}
-                    aria-haspopup={item.subnavegacion ? "true" : "false"}
+                    to={item.path || '#'}  
+                    onClick={(e) => handleClick(e, item, index)} 
+                    className={`nav__menu-link ${isActive ? 'nav__menu-link--active' : ''} ${item.type === 'cart' ? 'nav__menu-link--cart' : ''}`}
+                    aria-haspopup={hasDropdown ? "true" : "false"}
                     aria-expanded={openDropdown === index ? "true" : "false"}
                     aria-current={location?.pathname === item.path ? "page" : undefined}
                   >
                     <span className="nav__menu-icon">
                       {renderIcon(item.icon)}
                     </span>
-                    <span className="nav__menu-text">{item.name}</span>
-                    {item.subnavegacion && (
+                    {item.name && <span className="nav__menu-text">{item.name}</span>}
+                    {hasDropdown && (
                       <ChevronDown 
                         size={isMobile ? 16 : 14} 
                         className={`nav__menu-chevron ${openDropdown === index ? 'nav__menu-chevron--open' : ''}`}
                         aria-hidden="true"
                       />
                     )}
+                    {item.type === 'cart' && item.showBadge && cartItemsCount > 0 && (
+                      <span className="nav__cart-badge">{cartItemsCount}</span>
+                    )}
                   </Link>
 
                   {/* Dropdown */}
-                  {item.subnavegacion && openDropdown === index && (
-                    renderProjectDropdown(item)
+                  {hasDropdown && openDropdown === index && (
+                    item.name === 'Proyectos' 
+                      ? renderProjectDropdown(item)
+                      : renderStandardDropdown(item)
                   )}
                 </li>
               );
             })}
           </ul>
-
-  
         </div>
       </div>
 

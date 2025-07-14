@@ -1,6 +1,7 @@
 import React from 'react';
 import './grid.scss';
 
+
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
   // Mapeo de iconos para servicios
   const getServiceIcon = (service) => {
@@ -35,7 +36,9 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     currency: item.currency || 'USD',
     content: item.content || '',
     originalData: item,
-    itemType: item.type
+    itemType: item.type,
+    originalPrice: item.originalPrice || item.price,
+
   });
 
   // Formatear precio
@@ -123,6 +126,7 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
                   
                   {normalizedItem.price && (
                     <span className="grid__card-price">
+        
                       {formatPrice(normalizedItem)}
                     </span>
                   )}
