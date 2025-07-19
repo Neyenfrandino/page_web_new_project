@@ -89,40 +89,40 @@
   }
 }
 
-.App-header {
-  padding: 1.5rem;
-  background-size: contain;
+// .App-header {
+//   padding: 1.5rem;
+//   background-size: contain;
 
-  @include mobile-xs {
-    padding: 1rem;
-    background-size: cover;
-  }
+//   @include mobile-xs {
+//     padding: 1rem;
+//     background-size: cover;
+//   }
 
-  @include mobile-sm {
-    padding: 1.2rem;
-    background-size: cover;
-  }
+//   @include mobile-sm {
+//     padding: 1.2rem;
+//     background-size: cover;
+//   }
 
-  @include mobile {
-    padding: 1.5rem;
-    background-size: contain;
-  }
+//   @include mobile {
+//     padding: 1.5rem;
+//     background-size: contain;
+//   }
 
-  @include tablet {
-    padding: 2rem;
-    background-size: contain;
-  }
+//   @include tablet {
+//     padding: 2rem;
+//     background-size: contain;
+//   }
 
-  @include desktop {
-    padding: 2.5rem;
-    background-size: contain;
-  }
+//   @include desktop {
+//     padding: 2.5rem;
+//     background-size: contain;
+//   }
 
-  @include desktop-lg {
-    padding: 3rem;
-    background-size: contain;
-  }
-}
+//   @include desktop-lg {
+//     padding: 3rem;
+//     background-size: contain;
+//   }
+// }
 
 .App__footer {
   width: 100%;

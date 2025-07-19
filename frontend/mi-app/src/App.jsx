@@ -70,8 +70,9 @@ const App = () => {
         <Routes location={{ ...location, pathname: currentPath }} key={currentPath}>
           <Route index path="/" element={<Home />} />
           <Route path="/projects/*" element={<Projects currentRoute={location} />} />
+
           <Route path="/sobre-nosotros" element={<AboutMe />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="//contacto" element={<Contact />} />
           <Route path="/carrito-de-compras" element={<ShoppingCart />} />
           <Route path="/calendario" element={<LandingPageCalendar />} />
           <Route path="/payment" element={<Payment />} />

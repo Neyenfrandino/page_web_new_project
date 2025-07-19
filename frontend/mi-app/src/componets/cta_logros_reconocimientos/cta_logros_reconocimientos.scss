@@ -1,0 +1,376 @@
+                // Variables de colores
+$primary-dark: #063B2C;
+$primary-light: #D0DE85;
+$accent-brown: #8F764C;
+$neutral-dark: #7B7A70;
+$neutral-medium: #48514A;
+$neutral-light: #D5CEA9;
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes grow {
+    0% { 
+        opacity: 0;
+        transform: scale(0) translateY(50px);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+@keyframes leafGrow {
+    0% { 
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    100% { 
+        transform: scale(1) rotate(var(--rotation));
+        opacity: 1;
+    }
+}
+
+.cta-logros-reconocimientos__container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        rgba(6, 59, 44, 0.1) 0%, 
+        rgba(208, 222, 133, 0.05) 50%, 
+        rgba(143, 118, 76, 0.08) 100%
+    );
+}
+
+.cta-logros-reconocimientos__container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, 
+        rgba(208, 222, 133, 0.15) 0%, 
+        transparent 50%
+    );
+    animation: float 20s ease-in-out infinite;
+}
+
+.cta-logros-reconocimientos__background-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-seed {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50% 50% 50% 0;
+    background: linear-gradient(135deg, #D0DE85, #8F764C);
+    opacity: 0.3;
+}
+
+.floating-seed::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    background: #063B2C;
+    border-radius: 50%;
+}
+
+.seed-1 {
+    top: 10%;
+    left: 10%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.seed-2 {
+    top: 70%;
+    right: 15%;
+    animation: float 10s ease-in-out infinite 2s;
+}
+
+.seed-3 {
+    bottom: 20%;
+    left: 20%;
+    animation: float 12s ease-in-out infinite 4s;
+}
+
+.leaf {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(45deg, #063B2C, #D0DE85);
+    border-radius: 0 100% 0 100%;
+    opacity: 0.2;
+}
+
+.leaf-1 {
+    top: 30%;
+    right: 10%;
+    transform: rotate(45deg);
+    animation: float 15s ease-in-out infinite 1s;
+}
+
+.leaf-2 {
+    bottom: 30%;
+    left: 5%;
+    transform: rotate(-30deg);
+    animation: float 18s ease-in-out infinite 3s;
+}
+
+.cta-logros-reconocimientos__content {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 
+        0 25px 50px rgba(6, 59, 44, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: grow 1s ease-out;
+}
+
+.cta-logros-reconocimientos__decoration-top,
+.cta-logros-reconocimientos__decoration-bottom {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+}
+
+.cta-logros-reconocimientos__decoration-top svg,
+.cta-logros-reconocimientos__decoration-bottom svg {
+    width: 100%;
+    height: 100%;
+    fill: rgba(208, 222, 133, 0.1);
+}
+
+.cta-logros-reconocimientos__decoration-top {
+    top: 0;
+    transform: translateY(-1px);
+}
+
+.cta-logros-reconocimientos__decoration-bottom {
+    bottom: 0;
+    transform: translateY(1px);
+}
+
+.cta-logros-reconocimientos__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 5rem 4rem;
+    align-items: center;
+}
+
+.cta-logros-reconocimientos__text-container {
+    text-align: center;
+    z-index: 2;
+}
+
+.cta-logros-reconocimientos__text-title {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.cta-logros-reconocimientos__text-title h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: #ffffff;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(6, 59, 44, 0.1);
+    animation: grow 1s ease-out 0.2s both;
+}
+
+.title-underline {
+    width: 320px;
+    height: 2px;
+    background: linear-gradient(90deg, #8F764C, #D0DE85);
+    margin-top: .8rem;
+    border-radius: 2px;
+    animation: grow 1s ease-out 0.4s both;
+    transform-origin: left center;
+}
+
+.cta-logros-reconocimientos__text-subtitle {
+    margin-bottom: 2rem;
+    animation: grow 1s ease-out 0.6s both;
+    
+}
+
+.cta-logros-reconocimientos__text-subtitle p {
+    font-size: 1.125rem;
+    color: black;
+    line-height: 1.8;
+    margin: 0;
+    font-weight: 500;
+}
+
+.cta-logros-reconocimientos__text-paragraph {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 2rem;
+    animation: grow 1s ease-out 0.8s both;
+}
+
+.quote-mark {
+    position: absolute;
+    left: -10px;
+    top: -20px;
+    font-size: 4rem;
+    color: #D0DE85;
+    font-family: Georgia, serif;
+    opacity: 0.5;
+}
+
+.cta-logros-reconocimientos__text-paragraph span {
+    font-size: 1rem;
+    color:white;
+    line-height: 1.7;
+    display: block;
+    font-style: italic;
+}
+
+.cta-logros-reconocimientos__text-button {
+    animation: grow 1s ease-out 1s both;
+}
+
+.button-CTA-logros {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .8rem 2.5rem;
+    background: linear-gradient(135deg, #063B2C, #041e16);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(6, 59, 44, 0.3);
+}
+
+.button-CTA-logros::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(208, 222, 133, 0.3), 
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.button-CTA-logros:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(6, 59, 44, 0.4);
+}
+
+.button-CTA-logros:hover::before {
+    left: 100%;
+}
+
+.button-CTA-logros:hover .button-icon {
+    transform: translateY(-2px) scale(1.1);
+}
+
+.button-text {
+    position: relative;
+    z-index: 1;
+}
+
+.button-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+    color: #D0DE85;
+}
+
+.cta-logros-reconocimientos__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.growth-animation {
+    width: 300px;
+    height: 400px;
+    position: relative;
+}
+
+.plant-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.plant-svg .leaf {
+    opacity: 0;
+    transform-origin: center;
+}
+
+@media (max-width: 968px) {
+    .cta-logros-reconocimientos__inner {
+        grid-template-columns: 1fr;
+        padding: 3rem 2rem;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-logros-reconocimientos__container {
+        padding: 2rem 1rem;
+    }
+    
+    .cta-logros-reconocimientos__content {
+        border-radius: 20px;
+    }
+    
+    .cta-logros-reconocimientos__visual {
+        order: -1;
+    }
+    
+    .growth-animation {
+        width: 200px;
+        height: 300px;
+    }
+    
+    .cta-logros-reconocimientos__text-button {
+        text-align: center;
+    }
+    
+    .button-CTA {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+    }
+}

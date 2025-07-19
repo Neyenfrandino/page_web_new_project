@@ -1,130 +1,222 @@
 .cta-servicios__container {
-    width: 100%;
-    height: auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   width: 100%;
+  //  height: auto;
+    // height: 100vh;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 // Sección principal
 .cta-section {
-    background: linear-gradient(to top, transparent, #063B2C88, #48514A88, transparent);
-    backdrop-filter: blur(04px);
-    padding: 4rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    width: 90%;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+   background-image: url('../../../public/img/cta_sobre_nosotros.jpg');
+   background-size: cover;
+   background-position: center;
+  //  padding: 4rem 2rem;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   width: 90%;
+   max-width: 1400px;
+   border: 1px solid rgba(0, 0, 0, 0.5);
+   border-radius: 10px;
+   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(213, 206, 169, 0.07) 0%, transparent 70%);
-        animation: pulse 6s ease-in-out infinite;
-        z-index: 1;
-    }
+   // Tablet
+   @media (max-width: 768px) {
+       width: 95%;
+       padding: 3rem 1.5rem;
+   }
 
-    .cta-content {
-        position: relative;
-        z-index: 10;
-        max-width: 640px;
-        margin: 0 auto;
+   // Mobile
+   @media (max-width: 480px) {
+       width: 100%;
+       border-radius: 0;
+       padding: 2rem 1rem;
+   }
 
-        .cta-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            color: #D5CEA9;
-            margin-bottom: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+   &::before {
+       content: '';
+       position: absolute;
+       top: -50%;
+       left: -50%;
+       width: 200%;
+       height: 200%;
+       background: rgba(0, 0, 0, 0.4);
+       animation: pulse 6s ease-in-out infinite;
+       z-index: 1;
+   }
 
-        .cta-text {
-            font-size: 1rem;
-            color: #D0DE85;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-weight: 400;
-        }
+   .cta-content {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       position: relative;
+       z-index: 10;
+       margin: 0 auto;
+       text-align: center;
+       padding: 3rem 1.5rem;
+       backdrop-filter: blur(2px);
+       max-width: 800px;
 
-    .cta-stats {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
+       @media (max-width: 768px) {
+           padding: 2rem 1rem;
+       }
 
-      .stat {
-        text-align: center;
-        color: #D5CEA9;
+       @media (max-width: 480px) {
+           padding: 1.5rem 0.5rem;
+       }
 
-        .stat-number {
-          font-size: 2.2rem;
-          font-weight: 700;
-          background: linear-gradient(90deg, #D0DE85, #8F764C);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
+       .cta-title {
+           font-size: clamp(2rem, 4vw, 2.5rem);
+           color: #ffffff;
+           margin-bottom: 1.2rem;
+           font-weight: 700;
+           letter-spacing: -0.5px;
+           line-height: 1.2;
 
-        .stat-label {
-          font-size: 0.75rem;
-          color: #7B7A70;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-      }
-    }
+           @media (max-width: 480px) {
+               font-size: clamp(1.5rem, 5vw, 2rem);
+               margin-bottom: 1rem;
+           }
+       }
 
-    .cta-button {
-      background: linear-gradient(to right, #8F764C, #D0DE85);
-      color: #063B2C;
-      border: none;
-      padding: 0.85rem 2rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
+       .cta-text {
+           font-size: 1rem;
+           color: #ffffff;
+           margin-bottom: 3rem;
+           line-height: 1.7;
+           font-weight: 300;
+           opacity: 0.9;
+           max-width: 600px;
 
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 22px rgba(208, 222, 133, 0.2);
+           @media (max-width: 768px) {
+               font-size: 0.95rem;
+               margin-bottom: 2rem;
+           }
 
-        .button-arrow {
-          transform: translateX(4px);
-        }
-      }
+           @media (max-width: 480px) {
+               font-size: 0.9rem;
+               line-height: 1.6;
+           }
+       }
 
-      .button-arrow {
-        font-size: 1rem;
-        transition: transform 0.3s ease;
-      }
-    }
-  }
+       .cta-stats {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+          //  border: 1px solid red;
+           gap: 3rem;
+          //  margin-bottom: 3rem;
+           flex-wrap: wrap;
+           width: 100%;
+
+           @media (max-width: 768px) {
+               gap: 2rem;
+               margin-bottom: 2rem;
+           }
+
+           @media (max-width: 480px) {
+               gap: 1.5rem;
+               flex-direction: column;
+               align-items: center;
+           }
+
+           .stat {
+               text-align: center;
+               color: #ffffff;
+               min-width: 120px;
+               flex: 1;
+
+               @media (max-width: 480px) {
+                   min-width: unset;
+                   width: 100%;
+               }
+
+               .stat-number {
+                   font-size: 2.5rem;
+                   font-weight: 700;
+                   background: white;
+                   -webkit-background-clip: text;
+                   -webkit-text-fill-color: transparent;
+                   background-clip: text;
+                   line-height: 1;
+                   display: block;
+                   margin-bottom: 0.5rem;
+
+                   @media (max-width: 768px) {
+                       font-size: 2rem;
+                   }
+
+                   @media (max-width: 480px) {
+                       font-size: 1.8rem;
+                   }
+               }
+
+               .stat-label {
+                   font-size: 0.75rem;
+                   color: #ffffff;
+                   text-transform: uppercase;
+                   letter-spacing: 1px;
+                   font-weight: 400;
+
+                   @media (max-width: 480px) {
+                       font-size: 0.7rem;
+                   }
+               }
+           }
+       }
+
+       .cta-button-container {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           margin-top: 2rem;
+           width: 50%;
+           min-width: 200px;
+           position: relative;
+           z-index: 10;
+
+           @media (max-width: 768px) {
+               width: 70%;
+           }
+
+           @media (max-width: 480px) {
+               width: 90%;
+               margin-top: 1.5rem;
+           }
+       }
+   }
 }
 
 // Animación suave de fondo
 @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
+   0%, 100% {
+       transform: scale(1);
+       opacity: 0.7;
+   }
+   50% {
+       transform: scale(1.1);
+       opacity: 1;
+   }
+}
+
+// Optimización para pantallas muy grandes
+@media (min-width: 1920px) {
+   .cta-section {
+       .cta-content {
+           .cta-title {
+               font-size: 3rem;
+           }
+           .cta-text {
+               font-size: 1.1rem;
+           }
+           .cta-stats .stat .stat-number {
+               font-size: 3rem;
+           }
+       }
+   }
 }

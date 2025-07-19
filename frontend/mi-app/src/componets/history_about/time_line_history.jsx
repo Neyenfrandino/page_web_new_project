@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './time_line_history.scss';
-
+ 
 const TimeLineHistory = () => {
   const { time_line_history } = useContext(ContextJsonLoadContext);
   const [activeChapter, setActiveChapter] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [moreInfo, setMoreInfo] = useState(false);
   const [isVisible, setIsVisible] = useState({});
   const chapterRefs = useRef([]);
 
@@ -17,7 +17,6 @@ const TimeLineHistory = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (scrollTop / docHeight) * 100;
-      setScrollProgress(progress);
 
       // Check which chapters are visible
       chapterRefs.current.forEach((ref, index) => {
@@ -34,6 +33,7 @@ const TimeLineHistory = () => {
         }
       });
     };
+    
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
@@ -72,17 +72,13 @@ const TimeLineHistory = () => {
       <section className="timeline-section">
         <div className="timeline-line" />
         
-        {chapters.map((chapter, index) => (
+        {chapters.slice(0, moreInfo ? chapters.length : 3).map((chapter, index) => (
           <div
             key={chapter.id}
             ref={el => chapterRefs.current[index] = el}
             className={`chapter ${isVisible[index] ? 'visible' : ''} ${index % 2 === 0 ? 'left' : 'right'}`}
           >
-            <div className="chapter-marker">
-              <div className={`marker-dot ${activeChapter === index ? 'active' : ''}`} />
-            </div>
-            
-            <div className="chapter-content">
+              <div className="chapter-content">
                 <div className='chapter-content-icon-year'>
                     <div className="chapter-year">{chapter.year}</div>
                     <div className="chapter-icon">{chapter.image}</div>
@@ -94,9 +90,19 @@ const TimeLineHistory = () => {
                     <span className="highlight-icon">⚡</span>
                     {chapter.highlight}
                 </div>
+              </div>
+            <div className="chapter-marker">
+              <div className={`marker-dot ${activeChapter === index ? 'active' : ''}`} />
             </div>
           </div>
+
         ))}
+      
+        <div className='timeline-buttons'>
+          <button className="more-info" disabled={moreInfo} onClick={() => setMoreInfo(!moreInfo)}>
+            mas info
+          </button>
+        </div>
       </section>
 
     </div>

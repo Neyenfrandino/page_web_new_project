@@ -6,7 +6,7 @@ import {
   useContext,
   useEffect
 } from 'react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import PaymentForm from '../../componets/payment-form/payment-form';
