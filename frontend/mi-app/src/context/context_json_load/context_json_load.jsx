@@ -9,6 +9,7 @@ import projects from '../../json/projects.json';
 import servicios from '../../json/servicios.json';
 import testimonios from '../../json/testimonios.json';
 import time_line_history from '../../json/time_line_history.json';
+import message from '../../json/messge.json';
 
 // Crear el contexto
 export const ContextJsonLoadContext = createContext();
@@ -67,6 +68,8 @@ export const ContextJsonLoadProvider = ({ children }) => {
           servicios: servicios,
           testimonios: testimonios,
           time_line_history: time_line_history,
+          message: message,
+
         },
       });
     };
@@ -86,7 +89,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
     setJsonLoad,
   };
 
-  console.log(dataImpactoReal);
+  console.log(message);
 
   return (
     <ContextJsonLoadContext.Provider value={value}>

@@ -654,124 +654,6 @@ $desktop-lg: 1280px;
         margin-top: 0;
       }
     }
-
-    // // Estilos del carrusel
-    // .content--mision__carousel {
-    //   display: flex;
-    //   overflow-x: auto;
-    //   overflow-y: hidden;
-    //   gap: 1rem;
-    //   padding: 1rem 0;
-    //   scroll-snap-type: x mandatory;
-    //   scroll-behavior: smooth;
-    //   height: 100%;
-    //   width: 100%;
-      
-    //   // Padding lateral para primera y última card
-    //   @include mobile {
-    //     gap: 0.75rem;
-    //     padding: 1rem;
-    //     padding-left: 0.5rem;
-    //     padding-right: 0.5rem;
-    //   }
-      
-    //   @include tablet {
-    //     gap: 1rem;
-    //     padding: 1rem 0;
-    //   }
-      
-    //   @include desktop {
-    //     gap: 1.25rem;
-    //     padding: 1.5rem 0;
-    //   }
-
-    //   // Ocultar scrollbar
-    //   &::-webkit-scrollbar { display: none; }
-    //   -ms-overflow-style: none;
-    //   scrollbar-width: none;
-
-    //   // Items del carrusel
-    //   > * {
-    //     scroll-snap-align: start;
-    //     flex-shrink: 0;
-    //     background: linear-gradient(145deg, #1f1f1f 0%, #2a2a2a 100%);
-    //     border-radius: 1rem;
-    //     padding: 1.25rem;
-    //     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    //     border: 1px solid rgba(255, 255, 255, 0.08);
-    //     transition: all 0.3s ease;
-    //     position: relative;
-    //     overflow: hidden;
-        
-    //     // Ajustes responsive para cards
-    //     @include mobile { 
-    //       min-width: 85%; // Mostrar casi toda la card
-    //       max-width: 300px;
-    //       padding: 1rem;
-    //       border-radius: 0.75rem;
-          
-    //       &:first-child {
-    //         margin-left: 0.5rem;
-    //       }
-          
-    //       &:last-child {
-    //         margin-right: 0.5rem;
-    //       }
-    //     }
-        
-    //     @include tablet { 
-    //       min-width: 45%; // Mostrar 2 cards y pico
-    //       max-width: 320px;
-    //       padding: 1.25rem;
-    //     }
-        
-    //     @include desktop {
-    //       min-width: 280px;
-    //       max-width: 320px;
-    //       padding: 1.5rem;
-    //     }
-
-    //     // Efecto hover solo en desktop
-    //     @media (hover: hover) and (pointer: fine) {
-    //       &:hover {
-    //         transform: translateY(-8px) scale(1.02);
-    //         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    //         border-color: rgba(110, 133, 73, 0.3);
-    //       }
-    //     }
-        
-    //     // Efecto reducido en móvil
-    //     @include mobile {
-    //       &:active {
-    //         transform: scale(0.98);
-    //       }
-    //     }
-
-    //     // Efecto de brillo al hacer hover
-    //     &::before {
-    //       content: '';
-    //       position: absolute;
-    //       top: 0;
-    //       left: -100%;
-    //       width: 100%;
-    //       height: 100%;
-    //       background: linear-gradient(
-    //         90deg,
-    //         transparent 0%,
-    //         rgba(255, 255, 255, 0.05) 50%,
-    //         transparent 100%
-    //       );
-    //       transition: left 0.6s ease;
-    //     }
-
-    //     @media (hover: hover) and (pointer: fine) {
-    //       &:hover::before { 
-    //         left: 100%; 
-    //       }
-    //     }
-    //   }
-    // }
-
     // Elemento decorativo lateral - solo desktop
     @include desktop {
       &::after {
@@ -792,127 +674,247 @@ $desktop-lg: 1280px;
 
     // ============================================
     // SECCIÓN DE SERVICIOS
-    // ============================================
-    .home__content--servicios {
-      &-buttons{
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        margin: 0 auto;
-        width: 50%;
+// ============================================
+.home__content--servicios {
+  &-buttons{
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 0 auto;
+    width: 50%;
+    
+    // Mejoras para pantallas grandes
+    @media (min-width: 1400px) {
+      width: 40%;
+      max-width: 600px;
+    }
+    
+    @media (min-width: 1800px) {
+      width: 35%;
+      max-width: 700px;
+    }
+  }
+}
+
+.content--servicios__container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content--servicios__text {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  
+  // Mejoras para pantallas grandes
+  @media (min-width: 1400px) {
+    max-width: 1400px;
+    gap: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 1800px) {
+    max-width: 1600px;
+    gap: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  @include desktop {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  // Título con efecto de gradiente animado
+  h2 {
+    margin: 0 auto;
+    // margin-bottom: 3%;
+    width: 100%;
+    font-size: 2.5rem;
+    font-weight: 600;
+    background: linear-gradient(200deg, #1e293b, #22c55e, #efea21, #a62228, #ffffff99, #0b0b0b);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    animation: gradientShift 6s ease-in-out infinite;
+    text-align: center;
+    opacity: 0;
+    animation: fadeZoomIn 0.8s ease forwards;
+
+    // Ajustes responsive
+    @include mobile { font-size: 2rem; }
+    @include tablet { font-size: 2.2rem; }
+    @include desktop { width: 80%; font-size: 2.5rem; }
+    
+    // Mejoras para pantallas grandes
+    @media (min-width: 1400px) {
+      font-size: 3rem;
+      width: 85%;
+      margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 1800px) {
+      font-size: 3.5rem;
+      width: 90%;
+      margin-bottom: 3rem;
+    }
+    
+    @media (min-width: 2200px) {
+      font-size: 4rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  // Textos descriptivos
+  p, span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: relative;
+    opacity: 1;
+    transition: all 0.3s ease;
+    border-left: 4px solid #22c55e;
+    height: 170px;
+
+    // Comillas decorativas
+    &::before {
+      content: '"';
+      font-size: 4rem;
+      color: #22c55e;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      font-family: serif;
+      opacity: 0.2;
+      
+      // Mejoras para pantallas grandes
+      @media (min-width: 1400px) {
+        font-size: 4.5rem;
+        top: -25px;
+        left: 15px;
+      }
+      
+      @media (min-width: 1800px) {
+        font-size: 5rem;
+        top: -30px;
+        left: 20px;
       }
     }
-
-    .content--servicios__text {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      position: relative;
-      margin-top: 3rem;
-      margin-bottom: 1rem;
-
-      @include desktop {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        flex-wrap: wrap;
-      }
-
-      // Título con efecto de gradiente animado
-      h2 {
-        margin: 0 auto;
-        // margin-bottom: 3%;
-        width: 100%;
-        font-size: 2.5rem;
-        font-weight: 600;
-        background: linear-gradient(200deg, #1e293b, #22c55e, #efea21, #a62228, #ffffff99, #0b0b0b);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        line-height: 1.2;
-        animation: gradientShift 6s ease-in-out infinite;
-        text-align: center;
-        opacity: 0;
-        animation: fadeZoomIn 0.8s ease forwards;
-
-        // Ajustes responsive
-        @include mobile { font-size: 2rem; }
-        @include tablet { font-size: 2.2rem; }
-        @include desktop { width: 80%; font-size: 2.5rem; }
-      }
-
-      // Textos descriptivos
-      p, span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        border-radius: 24px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        position: relative;
-        opacity: 1;
-        transition: all 0.3s ease;
-        border-left: 4px solid #22c55e;
-        height: 170px;
-
-        // Comillas decorativas
-        &::before {
-          content: '"';
-          font-size: 4rem;
-          color: #22c55e;
-          position: absolute;
-          top: -20px;
-          left: 10px;
-          font-family: serif;
-          opacity: 0.2;
-        }
-        
-
-        &:hover{
-          transform: scale(1.02);
-          border-color: rgba(255, 253, 253, 0.2);
-          transition: all 0.3s ease;
-          box-shadow: 0 15px 40px rgba(255, 253, 253, 0.2);
-        }
-
-        @include mobile { padding: 1.5rem; margin: 0; }
-        @include desktop { flex: 1 1 45%; }
-      }
-
-      // Párrafo normal
-      p {
-        background: linear-gradient(135deg,
-            rgba(34, 197, 94, 0.1),
-            rgba(59, 130, 246, 0.1));
-        background: rgba(8, 8, 8, 0.5);
-        font-size: .95rem;
-        color: #ffffff;
-        line-height: 1.7;
-        font-weight: 400;
-        // animation-delay: 0.2s;
-      }
-
-      // Texto destacado
-      span {
-        background: linear-gradient(135deg,
-            rgba(34, 197, 94, 0.5),
-            rgba(59, 130, 246, 0.15));
-        font-size: 1rem;
-        color: #000000;
-        line-height: 1.6;
-        // font-style: italic;
-        // margin-bottom: 1rem;
-        animation-delay: 0.4s;
-
-        @include mobile { margin-top: 1rem; margin-bottom: 1rem; }
-        @include desktop { /* margin-top: 5rem; */ }
-
-      }
+              
+    &:hover{
+      transform: scale(1.02);
+      border-color: rgba(255, 253, 253, 0.2);
+      transition: all 0.3s ease;
+      box-shadow: 0 15px 40px rgba(255, 253, 253, 0.2);
     }
+
+    @include mobile { padding: 1.5rem; margin: 0; }
+    @include desktop { flex: 1 1 45%; }
+    
+    // Mejoras para pantallas grandes
+    @media (min-width: 1400px) {
+      padding: 2.5rem;
+      height: 200px;
+      border-radius: 28px;
+      flex: 1 1 48%;
+      max-width: calc(48% - 1rem);
+    }
+    
+    @media (min-width: 1800px) {
+      padding: 3rem;
+      height: 220px;
+      border-radius: 32px;
+      flex: 1 1 47%;
+      max-width: calc(47% - 1.5rem);
+    }
+    
+    @media (min-width: 2200px) {
+      padding: 3.5rem;
+      height: 250px;
+      border-radius: 36px;
+      flex: 1 1 46%;
+      max-width: calc(46% - 2rem);
+    }
+  }
+
+  // Párrafo normal
+  p {
+    background: linear-gradient(135deg,
+        rgba(34, 197, 94, 0.1),
+        rgba(59, 130, 246, 0.1));
+    background: rgba(8, 8, 8, 0.5);
+    font-size: .95rem;
+    color: #ffffff;
+    line-height: 1.7;
+    font-weight: 400;
+    // animation-delay: 0.2s;
+    
+    // Mejoras para pantallas grandes
+    @media (min-width: 1400px) {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    @media (min-width: 1800px) {
+      font-size: 1.2rem;
+      line-height: 1.9;
+    }
+    
+    @media (min-width: 2200px) {
+      font-size: 1.3rem;
+      line-height: 2;
+    }
+  }
+
+  // Texto destacado
+  span {
+    background: linear-gradient(135deg,
+        rgba(34, 197, 94, 0.5),
+        rgba(59, 130, 246, 0.15));
+    font-size: 1rem;
+    color: #000000;
+    line-height: 1.6;
+    // font-style: italic;
+    // margin-bottom: 1rem;
+    animation-delay: 0.4s;
+
+    @include mobile { margin-top: 1rem; margin-bottom: 1rem; }
+    @include desktop { /* margin-top: 5rem; */ }
+    
+    // Mejoras para pantallas grandes
+    @media (min-width: 1400px) {
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+    
+    @media (min-width: 1800px) {
+      font-size: 1.25rem;
+      line-height: 1.8;
+    }
+    
+    @media (min-width: 2200px) {
+      font-size: 1.35rem;
+      line-height: 1.9;
+    }
+  }
+}
 
     // ============================================
     // BOTÓN DE PRODUCTOS

@@ -25,7 +25,7 @@ import Testimonios from '../../componets/testimonios/testimonios';
 import Modal from '../../componets/modal/modal';
 import ModalCard from '../../componets/card/modal_card/modal_card';
 import Bitacora from '../../componets/bitacora/bitacora';
-import CtaBoletin from '../../componets/cta_boletin/cta_boletin';
+import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
 import MessageFinal from '../../componets/message_final/message_final';
 import PaymentMethodSelector from '../../componets/payment_method/payment_method_selector';
 
@@ -324,7 +324,7 @@ const Home = () => {
 
         <div className='home__content--boletin' id='boletin'>
           <FadeInOnView {...fadeInProps}>
-            <CtaBoletin />
+            <CtaHablemos />
           </FadeInOnView>
         </div>
 
@@ -332,7 +332,7 @@ const Home = () => {
 
         <div className='home__content--message_final'>
           <FadeInOnView {...fadeInProps}>
-            <MessageFinal />
+            <MessageFinal indexMessage={0} />
           </FadeInOnView>
         </div>
 

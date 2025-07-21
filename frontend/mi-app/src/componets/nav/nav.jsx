@@ -39,7 +39,9 @@ const iconMap = {
   GlobeIcon: Globe
 };
 
-const Nav = ({ isScroll, listRouters, projects, cartItemsCount }) => {
+const Nav = ({ listRouters, projects, cartItemsCount }) => {
+  const [isScroll, setIsScroll] = useState(false);
+
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [projectImageIndexes, setProjectImageIndexes] = useState({});
@@ -53,7 +55,15 @@ const Nav = ({ isScroll, listRouters, projects, cartItemsCount }) => {
   // Usar useLocation para obtener la ruta actual
   const location = useLocation();
   
-  // Detectar tamaño de pantalla
+
+    useEffect(() => {
+      const handleScroll = () => setIsScroll(window.scrollY);
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  // Detect
+  // ar tamaño de pantalla
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;

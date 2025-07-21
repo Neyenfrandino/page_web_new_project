@@ -31,7 +31,7 @@ const AboutMe = () => {
   rootMargin: '0px 0px -100px 0px', // ajustá según cuándo querés que aparezca
   threshold: 0.3, // 30% visible
 });
-
+ 
     return (
         <div className='aboutMe__container'>
             <SEOHelmet title="Sobre mí" description="Conoce más sobre mí y mi trayectoria." />

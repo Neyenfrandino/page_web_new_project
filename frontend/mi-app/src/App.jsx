@@ -31,18 +31,10 @@ import './App.scss';
 const App = () => {
   const location = useLocation();
   
-  const [isScroll, setIsScroll] = useState(false);
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   const transitioningRef = useRef(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScroll(window.scrollY);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  
   useEffect(() => {
     if (!document.startViewTransition || transitioningRef.current) {
       setCurrentPath(location.pathname);
@@ -62,7 +54,7 @@ const App = () => {
   return (
     <div className="App">
       <div className='App__nav'>
-        <Nav isScroll={isScroll} listRouters={listRouters} location={location} projects={projects} />
+        <Nav listRouters={listRouters} projects={projects} />
       </div>
       <ScrollToTop />
 

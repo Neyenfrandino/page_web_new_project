@@ -1,10 +1,20 @@
 
+import { useContext } from 'react';
+import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
 import Header from '../../componets/header/header';
 import Button from '../../componets/button/button';
+import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
+import MessageFinal from '../../componets/message_final/message_final';
 import './contact.router.scss';
 
 const Contact = () => {
+
+    const { message } = useContext(ContextJsonLoadContext);
+    console.log(message);
+
+    if (!message) return null;
+
     return (
         <div className='contact__container'>
             <>
@@ -47,6 +57,18 @@ const Contact = () => {
                     </div>
                 </div>
             </Header>
+
+            <div className='contact--content'>
+
+                <div className='contact--content__socials-media'>
+                    <CtaHablemos />
+                </div>
+
+                <div className='contact--content__message'>
+                    <MessageFinal indexMessage={4} />
+                </div>
+
+            </div>
         
         </div>
     );

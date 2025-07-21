@@ -36,3 +36,4 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
 }
  
 export default CardV2Img;
+ 
