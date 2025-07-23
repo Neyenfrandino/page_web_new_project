@@ -24,6 +24,6 @@ const MessageFinal = ({indexMessage}) => {
             </div>
         </div>
     );
-}
+} 
  
 export default MessageFinal;

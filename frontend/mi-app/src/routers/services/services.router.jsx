@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { Outlet, useSearchParams } from "react-router-dom";
+import { Outlet, useParams, useLocation } from "react-router-dom";
 
 import SEOHelmet from "../../componets/SEOHelmet/SEOHelmet";
-import Card from "../../componets/card/cardV1/card";
-import CardV2Img from "../../componets/card/cardV2_Img/cardV2_img";
-import CardV3_testimonios from "../../componets/card/cardV3_testimonios/cardV3_testimonios";
-import ServicesDetail from "./services_detail"; // importa el detalle
+import ServicesDetail from "./services_detail";
 
 import "./services.router.scss";
 
-const Services = ({ products }) => {
+const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [searchParams] = useSearchParams();
-  const servicioId = searchParams.get("servicios");
+  const { id } = useParams(); // Obtener el id desde la URL
+  const location = useLocation();
+  
+  // Verificar si estamos en la ruta exacta /servicios o en una subruta
+  const isExactServicesRoute = location.pathname === '/servicios' || location.pathname === '/servicios/';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,32 +25,22 @@ const Services = ({ products }) => {
   return (
     <div className={`services__container ${isVisible ? "visible" : ""}`}>
       <SEOHelmet
-        title="Services"
+        title={id ? "Detalle del Servicio" : "Servicios"}
         description="Simplify Your Focus"
         keywords="tecnología, software, negocios, soluciones digitales, emprendimientos"
         author="Neyen Frandino"
         url="https://miempresa.com"
         image="/img/7.png"
       />
-
-      <div className="services__background"></div>
-
-
-
-      {/* 🔽 Si hay query param, mostrar directamente el detalle */}
-      {servicioId ? (
-        <ServicesDetail id={servicioId} />
-      ) : (
-              <div className="services__content">
-        <h1 className="services__title">Nuestros Servicios</h1>
-        <p className="services__description">
-          Descubre cómo podemos ayudarte con soluciones innovadoras y efectivas
-          para transformar tu negocio y alcanzar nuevos horizontes.
-        </p>
-      </div>
+      
+      {/* Mostrar contenido solo si estamos en la ruta exacta /servicios */}
+      {isExactServicesRoute && !id && (
+        <div className="services__content">
+          <h1 className="services__title">Nuestros Servicios</h1>
+        </div>
       )}
 
-      {/* Esto se usará si accedés con /servicios/:id directamente */}
+      {/* El Outlet renderizará ServicesDetail cuando haya un id en la ruta */}
       <Outlet />
     </div>
   );

@@ -15,11 +15,14 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
     return (
 
         <div className="cardV2__container">
-            <div className="cardV2__image-content">
-                <div className="cardV2__image">
-                    <img src={`${objectContentCard.image}`} alt="Personas trabajando" />
-                </div>
-
+            <div
+            className="cardV2__image-content"
+            style={{
+                backgroundImage: `url(${objectContentCard.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+            >
                 <div className="cardV2__content--text">
                     <span className="cardV2__content-title">{objectContentCard.question}</span>
                     <h2 className="cardV2__content-subtitle">{objectContentCard.title}</h2>
@@ -34,6 +37,6 @@ const CardV2Img = ({ /* objectContentCard */ }) => {
 
     )
 }
- 
+
 export default CardV2Img;
  

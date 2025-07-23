@@ -6,6 +6,8 @@ import Header from '../../componets/header/header';
 import Button from '../../componets/button/button';
 import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
 import MessageFinal from '../../componets/message_final/message_final';
+import MapLocations from '../../componets/map_location/map_location';
+import LineLogoSeparacion from '../../componets/line_logo_separacion/line_logo_separacion';
 import './contact.router.scss';
 
 const Contact = () => {
@@ -27,7 +29,7 @@ const Contact = () => {
                     image="https://miempresa.com/img/logo_naluum_og.jpg"
                 />
             </>
-        
+         
             <Header>
                 <div className='contact--header__container'>
                     <div className='contact--header__img'>
@@ -58,15 +60,37 @@ const Contact = () => {
                 </div>
             </Header>
 
+           
+
             <div className='contact--content'>
+                
+                <LineLogoSeparacion />
 
                 <div className='contact--content__socials-media'>
                     <CtaHablemos />
                 </div>
 
+                
+                <LineLogoSeparacion />
+
+
                 <div className='contact--content__message'>
-                    <MessageFinal indexMessage={4} />
+                    <MessageFinal indexMessage={2} />
                 </div>
+                
+                <LineLogoSeparacion />
+
+                <div className='contact--content__map-location'>
+                    <MapLocations />
+                </div>
+                
+                <LineLogoSeparacion />
+
+                <div className='contact--content__message-final'>
+                    <MessageFinal indexMessage={3} />
+                </div>
+                
+                <LineLogoSeparacion />
 
             </div>
         

@@ -1,10 +1,11 @@
 import { Routes, Route, useLocation } from 'react-router-dom'; 
 import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import MadreSelva from '../../componets/madre_selva/madre_selva';
+import HomeMadreSelva from '../../componets/madre_selva/madre_selva';
 import Naluum from '../../componets/naluum/naluum';
 import TimelineNav from '../../componets/timeLineNav/timelineNav';
 import Header from '../../componets/header/header';
 import { Clock, Home, User } from 'lucide-react';
+
 import './projects.router.scss';
 
 const routesMadreSelva = [
@@ -17,11 +18,13 @@ const routesNaluum = [
   { id: 1, name: "Inicio", path: "", icon: Home },
   { id: 2, name: "Productos", path: "productos", icon: User },
   { id: 3, name: "Servicios", path: "servicios", icon: Clock },
-];
+]; 
 
 const Projects = () => {
   const { pathname } = useLocation();
-  const isMadreSelva = pathname.includes('/projects/madre-selva');
+  const isMadreSelva = pathname.includes('/proyectos/madre-selva');
+
+  console.log(isMadreSelva);
 
   return (
     <div className='projects__container'>
@@ -38,26 +41,12 @@ const Projects = () => {
 
       <Routes>
         {/* Madre Selva */}
-        <Route path="madre-selva" 
-            element={
-                <MadreSelva>
-                    <Header>
-                        <SEOHelmet/>
-                    </Header>
-                </MadreSelva>
-            }
-        >
-          <Route index element={<h1>Inicio Madre Selva</h1>} /> {/* Página principal */}
-          <Route path="productos" element={<h1>Productos Madre Selva</h1>} />
-          <Route path="servicios" element={<h1>Servicios Madre Selva</h1>} />
-        </Route>
-
+        <Route path="madre-selva" element={<HomeMadreSelva />}/>
+  
         {/* Naluum */}
-        <Route path="naluum" element={<Naluum />}>
-          <Route index element={<h1>Inicio Naluum</h1>} /> {/* Página principal */}
-          <Route path="productos" element={<h1>Productos Naluum</h1>} />
-          <Route path="servicios" element={<h1>Servicios Naluum</h1>} />
-        </Route>
+        <Route path="naluum" element={<Naluum />}/>
+
+        <Route path='global' element={<div>Global</div>} />
       </Routes>
     </div>
   );

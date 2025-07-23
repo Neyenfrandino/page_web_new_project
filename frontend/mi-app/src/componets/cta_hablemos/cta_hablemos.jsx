@@ -22,7 +22,7 @@ const CtaHablemos = () => {
             alert('Por favor completa todos los campos');
             return;
         }
-        
+         
         setIsFormSubmitted(true);
         
         // Simular envío

@@ -16,7 +16,7 @@ import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalend
 import Products from './routers/products/products.router'
 import ShoppingCart from './routers/shoppingCart/shoppingCart'
 import ProductDetail from './routers/products/products_detail';
-import ServicesDetail from './routers/services/services_detail';
+import ServiceDetail from './routers/services/services_detail';
 
 import Footer from './componets/footer/footer';
 import ScrollToTop from './componets/scrollToTop/ScrollToTop';
@@ -61,10 +61,10 @@ const App = () => {
       <main id="view-root">
         <Routes location={{ ...location, pathname: currentPath }} key={currentPath}>
           <Route index path="/" element={<Home />} />
-          <Route path="/projects/*" element={<Projects currentRoute={location} />} />
+          <Route path="/proyectos/*" element={<Projects/>} />
 
           <Route path="/sobre-nosotros" element={<AboutMe />} />
-          <Route path="//contacto" element={<Contact />} />
+          <Route path="/contacto" element={<Contact />} />
           <Route path="/carrito-de-compras" element={<ShoppingCart />} />
           <Route path="/calendario" element={<LandingPageCalendar />} />
           <Route path="/payment" element={<Payment />} />
@@ -74,7 +74,7 @@ const App = () => {
           </Route>
          
           <Route path="/servicios/*" element={<Services />}>
-            <Route path=":id" element={<ServicesDetail />} />
+            <Route path=":id" element={<ServiceDetail />} />
           </Route>
 
         </Routes>

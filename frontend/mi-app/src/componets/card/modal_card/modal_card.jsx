@@ -11,6 +11,8 @@ import DiscountBadge from '../../discount_badge/discount_badge';
 import './modal_card.scss';
 
 const ModalCard = ({ course, children }) => {
+
+  console.log(course, 'course')
   if (!course) return null;
 
   const [isVisible, setIsVisible] = useState(false);
@@ -74,8 +76,25 @@ const ModalCard = ({ course, children }) => {
     return courseDate.toLocaleDateString('es-ES', options);
   };
 
+  // Función para construir la URL correctamente
+  const buildCourseUrl = useCallback(() => {
+    // Limpiar el router de barras finales
+    const cleanRouter = course.router?.replace(/\/$/, '') || '';
+    
+    // Asegurarse de que el id no tenga barras iniciales
+    const cleanId = course.id?.toString().replace(/^\//, '') || '';
+    
+    // Si el router ya incluye el id, no agregarlo nuevamente
+    if (cleanRouter.includes(cleanId)) {
+      return cleanRouter;
+    }
+    
+    // Construir la URL con una sola barra entre router e id
+    return `${cleanRouter}/${cleanId}`;
+  }, [course.router, course.id]);
+
   const handleCopy = () => {
-    const url = `${window.location.origin}${course.router}${course.id}`;
+    const url = `${window.location.origin}${buildCourseUrl()}`;
     navigator.clipboard.writeText(url)
       .then(() => alert('¡Enlace copiado!'))
       .catch(() => alert('Error al copiar'));
@@ -184,7 +203,7 @@ const ModalCard = ({ course, children }) => {
               Copiar enlace
             </button>
             
-            <Link to={`${course.router}${course.id}`} className="card_modal__vermas-link" title='Expandir'>
+            <Link to={buildCourseUrl()} className="card_modal__vermas-link" title='Expandir'>
               <FaExpandArrowsAlt />
             </Link>
 

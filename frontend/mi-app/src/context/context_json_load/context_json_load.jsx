@@ -89,7 +89,6 @@ export const ContextJsonLoadProvider = ({ children }) => {
     setJsonLoad,
   };
 
-  console.log(message);
 
   return (
     <ContextJsonLoadContext.Provider value={value}>
