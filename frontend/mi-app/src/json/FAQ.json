@@ -1,0 +1,145 @@
+[
+  {
+    "id": "faq-1",
+    "category": "general",
+    "question": "¿Qué es Naluum y cuál es su filosofía?",
+    "answer": "Naluum es una comunidad dedicada a la educación y práctica del diseño regenerativo y la permacultura. Nuestra filosofía se basa en crear sistemas sostenibles que trabajen en armonía con la naturaleza, promoviendo la regeneración de ecosistemas y comunidades resilientes.",
+    "additionalInfo": "Trabajamos con principios éticos de cuidado de la tierra, cuidado de las personas y distribución equitativa de los recursos."
+  },
+  {
+    "id": "faq-2",
+    "category": "servicios",
+    "question": "¿Cómo funciona el Curso Certificado de Diseño en Permacultura?",
+    "answer": "El curso es un programa intensivo de 10 días que combina teoría y práctica. Incluye módulos sobre ética permacultural, principios de diseño, bioconstrucción, manejo del agua, agricultura regenerativa y diseño social. Al completarlo, recibes una certificación reconocida internacionalmente.",
+    "links": [
+      {
+        "text": "Ver programa completo",
+        "url": "/servicios/curso-certificado-diseno-permacultura",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-3",
+    "category": "servicios",
+    "question": "¿Qué modalidades ofrecen para los cursos?",
+    "answer": "Ofrecemos modalidades presenciales y online para adaptarnos a tus necesidades. Los cursos presenciales incluyen prácticas en terreno y experiencias inmersivas. Los cursos online tienen sesiones en vivo, materiales descargables y acceso a nuestra comunidad virtual.",
+    "additionalInfo": "Todos los cursos incluyen materiales, certificación y acceso de por vida a actualizaciones del contenido."
+  },
+  {
+    "id": "faq-4",
+    "category": "productos",
+    "question": "¿Cómo funcionan las composteras de cocina?",
+    "answer": "Nuestras composteras están diseñadas para uso doméstico diario. Incluyen filtros de carbón activado para eliminar olores, tapas herméticas y sistemas de drenaje. Simplemente agrega tus residuos orgánicos diariamente y en pocas semanas tendrás compost rico en nutrientes para tus plantas.",
+    "links": [
+      {
+        "text": "Ver guía de compostaje",
+        "url": "/guias/compostaje-domestico",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-5",
+    "category": "productos",
+    "question": "¿Las semillas orgánicas vienen con instrucciones de siembra?",
+    "answer": "Sí, cada paquete de semillas incluye instrucciones detalladas sobre época de siembra, profundidad, distancia entre plantas y cuidados específicos. Además, proporcionamos acceso a videos tutoriales y soporte técnico para asegurar el éxito de tu huerto.",
+    "additionalInfo": "Nuestras semillas son 100% orgánicas, no transgénicas y de polinización abierta, lo que significa que puedes guardar semillas de tu cosecha."
+  },
+  {
+    "id": "faq-6",
+    "category": "pagos",
+    "question": "¿Qué métodos de pago aceptan?",
+    "answer": "Aceptamos tarjetas de crédito y débito (Visa, MasterCard, American Express), transferencias bancarias, PayPal y pagos en efectivo para compras presenciales. También ofrecemos planes de pago sin intereses para cursos y programas de formación.",
+    "links": [
+      {
+        "text": "Ver opciones de financiamiento",
+        "url": "/pagos/financiamiento",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-7",
+    "category": "pagos",
+    "question": "¿Realizan envíos a todo el país?",
+    "answer": "Sí, realizamos envíos a todo el territorio nacional. Los costos varían según la ubicación y el peso del pedido. Para compras superiores a $100 USD, el envío es gratuito. Los productos digitales y cursos online no tienen costos de envío.",
+    "additionalInfo": "Tiempo estimado de entrega: 3-5 días hábiles para zonas urbanas, 5-10 días para zonas rurales."
+  },
+  {
+    "id": "faq-8",
+    "category": "servicios",
+    "question": "¿Qué incluyen las consultorías personalizadas?",
+    "answer": "Las consultorías incluyen análisis inicial de tu proyecto, diseño personalizado según tus objetivos, plan de implementación paso a paso, lista de recursos necesarios y seguimiento durante los primeros 3 meses. Cada consultoría se adapta a tus necesidades específicas.",
+    "links": [
+      {
+        "text": "Solicitar consultoría",
+        "url": "/servicios/consultorias-personalizadas",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-9",
+    "category": "cuenta",
+    "question": "¿Cómo accedo a los materiales de los cursos online?",
+    "answer": "Al inscribirte, recibirás credenciales de acceso a nuestra plataforma educativa. Allí encontrarás videos, documentos descargables, foros de discusión y sesiones en vivo. El acceso es de por vida, incluyendo futuras actualizaciones del contenido."
+  },
+  {
+    "id": "faq-10",
+    "category": "productos",
+    "question": "¿Los productos de higiene natural son aptos para todo tipo de piel?",
+    "answer": "Nuestros productos están formulados con ingredientes naturales suaves, libres de químicos agresivos. Son aptos para la mayoría de tipos de piel, incluyendo pieles sensibles. Sin embargo, recomendamos hacer una prueba en una pequeña área antes del uso completo.",
+    "additionalInfo": "Todos nuestros productos son veganos, cruelty-free y vienen en empaques biodegradables o reutilizables."
+  },
+  {
+    "id": "faq-11",
+    "category": "general",
+    "question": "¿Puedo visitar sus instalaciones?",
+    "answer": "¡Por supuesto! Organizamos días de puertas abiertas el primer sábado de cada mes. También puedes agendar una visita guiada personalizada. Es una excelente oportunidad para conocer nuestros proyectos demostrativos y conversar con el equipo.",
+    "links": [
+      {
+        "text": "Agendar visita",
+        "url": "/contacto",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-12",
+    "category": "servicios",
+    "question": "¿Ofrecen certificaciones reconocidas internacionalmente?",
+    "answer": "Sí, nuestros cursos de Diseño en Permacultura están avalados por institutos reconocidos internacionalmente. El certificado que recibes es válido en todo el mundo y te permite aplicar a programas avanzados o iniciar tu práctica profesional en diseño regenerativo."
+  },
+  {
+    "id": "faq-13",
+    "category": "productos",
+    "question": "¿Cuál es la vida útil de los filtros de agua de cerámica?",
+    "answer": "Los filtros de cerámica tienen una vida útil de 2-3 años con mantenimiento adecuado. Incluimos instrucciones de limpieza y mantenimiento, además de un filtro de repuesto. La cerámica puede limpiarse mensualmente para mantener su eficiencia.",
+    "additionalInfo": "Cada filtro puede procesar hasta 5,000 litros de agua antes de necesitar reemplazo."
+  },
+  {
+    "id": "faq-14",
+    "category": "general",
+    "question": "¿Cómo puedo unirme a la comunidad Naluum?",
+    "answer": "Puedes unirte participando en nuestros cursos, comprando productos o simplemente suscribiéndote a nuestro boletín. También tenemos grupos locales en diferentes ciudades donde realizamos actividades mensuales, intercambio de semillas y proyectos comunitarios.",
+    "links": [
+      {
+        "text": "Unirse a la comunidad",
+        "url": "/comunidad",
+        "external": false
+      },
+      {
+        "text": "Suscribirse al boletín",
+        "url": "/newsletter",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-15",
+    "category": "pagos",
+    "question": "¿Tienen política de devoluciones?",
+    "answer": "Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra para productos físicos en su estado original. Para cursos online, ofrecemos garantía de satisfacción de 7 días. Los cursos presenciales no son reembolsables, pero pueden reprogramarse con 48 horas de anticipación."
+  }
+]

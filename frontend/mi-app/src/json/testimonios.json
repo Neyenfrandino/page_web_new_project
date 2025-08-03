@@ -1,92 +1,145 @@
-[
-  {
-    "id": 1,
-    "nombre": "Alejandro Ríos",
-    "avatar": "https://www.shutterstock.com/image-photo/portrait-young-investor-banker-workplace-600nw-2364566447.jpg",
-    "testimonio": "El valle era puro polvo antes de Naluum. Hoy tenemos un bosque joven con 500+ árboles nativos y manantiales revividos.",
-    "puntuacion": 5,
-    "fecha": "2023-04-10",
-    "lugar": "Valle de Lumbría, México"
-  },
-  {
-    "id": 2,
-    "nombre": "Isabel Mora",
-    "avatar": "https://www.shutterstock.com/image-photo/portrait-young-investor-banker-workplace-600nw-2364566447.jpg",
-    "testimonio": "Restauramos 20 hectáreas de bosque quemado con técnicas de Naluum. Ahora es un santuario de aves migratorias.",
-    "puntuacion": 5,
-    "fecha": "2023-05-22",
-    "lugar": "Bosque de Los Pinos, Colombia"
-  },
-  {
-    "id": 3,
-    "nombre": "Luis Guerrero",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=luis",
-    "testimonio": "Convertimos tierras áridas en un vivero comunitario. Producimos 3,000 árboles anuales con el método Naluum.",
-    "puntuacion": 4,
-    "fecha": "2023-07-15",
-    "lugar": "Finca La Esperanza, Ecuador"
-  },
-  {
-    "id": 4,
-    "nombre": "Carmen Sosa",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=carmen",
-    "testimonio": "Nuestro río pasó de contaminado a cristalino en 18 meses. Las jornadas de reforestación de Naluum lo hicieron posible.",
-    "puntuacion": 5,
-    "fecha": "2023-08-30",
-    "lugar": "Río Sanaró, Perú"
-  },
-  {
-    "id": 5,
-    "nombre": "Ricardo Peña",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=ricardo",
-    "testimonio": "Enseñamos a 200 familias a hacer compostaje con el sistema Naluum. Ahora fertilizan sus árboles sin químicos.",
-    "puntuacion": 4,
-    "fecha": "2023-09-12",
-    "lugar": "Comunidad Las Flores, Guatemala"
-  },
-  {
-    "id": 6,
-    "nombre": "Daniela Castro",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=daniela",
-    "testimonio": "Creamos un cinturón verde con 7 especies nativas alrededor del pueblo. Naluum nos dio las herramientas técnicas.",
-    "puntuacion": 5,
-    "fecha": "2023-10-05",
-    "lugar": "Pueblo Nuevo, Chile"
-  },
-  {
-    "id": 7,
-    "nombre": "Omar Quintana",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=omar",
-    "testimonio": "Recuperamos un antiguo basural. Hoy es un parque con 150 árboles frutales gracias a las capacitaciones Naluum.",
-    "puntuacion": 5,
-    "fecha": "2023-11-18",
-    "lugar": "Barrio San Javier, Argentina"
-  },
-  {
-    "id": 8,
-    "nombre": "Valeria Rojas",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=valeria",
-    "testimonio": "Implementamos agricultura sintrópica con Naluum. La tierra recuperó su fertilidad en solo dos ciclos de lluvia.",
-    "puntuacion": 4,
-    "fecha": "2024-01-22",
-    "lugar": "Selva Central, Costa Rica"
-  },
-  {
-    "id": 9,
-    "nombre": "Fernando Paz",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=fernando",
-    "testimonio": "Naluum nos ayudó a mapear zonas degradadas. Reforestamos 5 km de ribera con especies en peligro de extinción.",
-    "puntuacion": 5,
-    "fecha": "2024-02-14",
-    "lugar": "Reserva Nativa, Paraguay"
-  },
-  {
-    "id": 10,
-    "nombre": "Gabriela Montes",
-    "avatar": "https://api.dicebear.com/7.x/pixel-art/svg?seed=gabriela",
-    "testimonio": "Capacitamos a jóvenes en viveros forestales con técnicas Naluum. Ahora exportan árboles a municipios vecinos.",
-    "puntuacion": 5,
-    "fecha": "2024-03-30",
-    "lugar": "Ecoaldea Armonía, Bolivia"
-  }
-]
+{
+  "producto": [
+    {
+      "id": 1,
+      "name": "YERBA MATE",
+      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "DELICIOSO Y NATURAL",
+      "description": "Me encanta este mate porque permite que mi cuerpo se sienta mejor",
+      "author": "Tomas Chammard"
+    },
+    {
+      "id": 2,
+      "name": "CAFÉ PREMIUM",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "AROMÁTICO Y FUERTE",
+      "description": "El mejor café que he probado, con un aroma inigualable y sabor intenso",
+      "author": "María González"
+    },
+    {
+      "id": 3,
+      "name": "TÉ VERDE",
+      "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "rating": 4,
+      "title": "REFRESCANTE Y SALUDABLE",
+      "description": "Perfecto para relajarse después de un día largo, muy saludable",
+      "author": "Carlos Rivera"
+    }
+  ],
+  "servicio": [
+    {
+      "id": 1,
+      "name": "ASESORAMIENTO AGROECOLÓGICO",
+      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "CON CONSCIENCIA Y PROPÓSITO",
+      "description": "Te ayudamos a transformar tu forma de producir, desde prácticas regenerativas hasta la implementación de cultivos biodinámicos.",
+      "author": "Equipo Naluum"
+    },
+    {
+      "id": 2,
+      "name": "DISEÑO DE HUERTAS",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "CULTIVA EN TU ESPACIO",
+      "description": "Diseñamos huertas adaptadas a tu espacio, con enfoque en biodiversidad y soberanía alimentaria.",
+      "author": "Equipo Naluum"
+    },
+    {
+      "id": 3,
+      "name": "CAPACITACIÓN COMUNITARIA",
+      "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "APRENDIZAJE VIVO",
+      "description": "Formaciones presenciales y virtuales sobre agroecología, regeneración de suelos y prácticas ancestrales.",
+      "author": "Equipo Naluum"
+    },
+    {
+      "id": 4,
+      "name": "TIENDAS CONSCIENTES",
+      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "UN ESPACIO DIFERENTE",
+      "description": "Desarrollamos espacios de comercialización para productos orgánicos, locales y con propósito.",
+      "author": "Equipo Naluum"
+    }
+  ],
+  "testimonios_movimiento": [
+    {
+      "id": 1,
+      "name": "CAMILA TORRES",
+      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "TRANSFORMADOR",
+      "description": "Naluum me devolvió la fe en que podemos regenerar lo que parecía perdido. Es más que un movimiento, es una esperanza.",
+      "author": "Camila Torres"
+    },
+    {
+      "id": 2,
+      "name": "JUAN PABLO MÉNDEZ",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "RECONEXIÓN",
+      "description": "Participar en las actividades del movimiento me ayudó a reconectar con la tierra y conmigo mismo.",
+      "author": "Juan Pablo Méndez"
+    },
+    {
+      "id": 3,
+      "name": "AGUSTINA LÓPEZ",
+      "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "INSPIRADOR",
+      "description": "Gracias a Naluum comprendí que el cambio empieza en uno, sembrando una semilla de conciencia cada día.",
+      "author": "Agustina López"
+    },
+    {
+      "id": 4,
+      "name": "LUCIANO HERRERA",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "ORGULLO",
+      "description": "Es una comunidad viva que actúa desde el amor a la naturaleza y a la humanidad. Siento orgullo de ser parte.",
+      "author": "Luciano Herrera"
+    }
+  ],
+  "testimonios_naluum": [
+    {
+      "id": 1,
+      "name": "BELÉN RUIZ",
+      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "TRANSFORMACIÓN",
+      "description": "Naluum no solo me enseñó sobre agroecología, me transformó como persona y me dio herramientas reales.",
+      "author": "Belén Ruiz"
+    },
+    {
+      "id": 2,
+      "name": "DIEGO FERNÁNDEZ",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "PROPÓSITO",
+      "description": "El equipo de Naluum acompaña con humanidad y coherencia. Se nota que hacen todo con propósito.",
+      "author": "Diego Fernández"
+    },
+    {
+      "id": 3,
+      "name": "SOFÍA MORALES",
+      "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "RED DE APOYO",
+      "description": "La red de apoyo que se genera en cada encuentro de Naluum es única. Aprendo y me nutro cada día.",
+      "author": "Sofía Morales"
+    },
+    {
+      "id": 4,
+      "name": "RAMIRO CORTÉS",
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "rating": 5,
+      "title": "GRATITUD",
+      "description": "Gracias a Naluum logré poner en marcha mi emprendimiento regenerativo. Estoy profundamente agradecido.",
+      "author": "Ramiro Cortés"
+    }
+  ]
+}

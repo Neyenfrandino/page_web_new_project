@@ -260,10 +260,12 @@ const Home = () => {
                 Dirigimos nuestras actividades a personas comprometidas con un cambio auténtico, con la esperanza de generar una transformación social y económica significativa en familias, proyectos y territorios, construyendo juntos un futuro más sostenible y equitativo.
                 </span>
               </div>
-              <div className='content--servicios__grid'>
-                <Grid items={servicios} slice={3} setIsOpen={handleOpenModal} className="demo-button demo-button--success" />
-                {modalContent}
-              </div>
+<div className='content--servicios__grid'>
+  <div className="grid-wrapper">
+    <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+  </div>
+  {modalContent}
+</div>
             </div>
             <CtaImgCuentaRgresiva {...timerProps} />
 

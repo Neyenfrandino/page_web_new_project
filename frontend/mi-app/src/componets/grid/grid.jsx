@@ -1,7 +1,6 @@
 import React from 'react';
 import './grid.scss';
 
-
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
   // Mapeo de iconos para servicios
   const getServiceIcon = (service) => {
@@ -38,7 +37,6 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     originalData: item,
     itemType: item.type,
     originalPrice: item.originalPrice || item.price,
-
   });
 
   // Formatear precio
@@ -100,6 +98,20 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
 
               {/* Contenido superpuesto */}
               <div className="grid__card-overlay">
+                {/* NUEVA ESTRUCTURA: Header con precio e ícono arriba */}
+                <div className="grid__card-header">
+                  {normalizedItem.price && (
+                    <span className="grid__card-price">
+                      {formatPrice(normalizedItem)}
+                    </span>
+                  )}
+                  {normalizedItem.icon && (
+                    <div className="grid__card-avatar">
+                      {normalizedItem.icon}
+                    </div>
+                  )}
+                </div>
+
                 {/* Título */}
                 <h3 className="grid__card-title">
                   {normalizedItem.title}
@@ -112,24 +124,11 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
                   </p>
                 )}
 
-                {/* Meta información */}
+                {/* Meta información (ahora solo categoría) */}
                 <div className="grid__card-meta">
-                  {
-                    normalizedItem.icon &&
-                    <div className={`grid__card-avatar ${normalizeItem.icon ? 'hidden' : ''}`}>
-                      {normalizedItem.icon}
-                    </div>
-                  }
                   <span className="grid__card-category">
                     {normalizedItem.category}
                   </span>
-                  
-                  {normalizedItem.price && (
-                    <span className="grid__card-price">
-        
-                      {formatPrice(normalizedItem)}
-                    </span>
-                  )}
                 </div>
 
                 {/* Información extra para servicios (solo visible en hover) */}

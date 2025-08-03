@@ -10,6 +10,7 @@ import servicios from '../../json/servicios.json';
 import testimonios from '../../json/testimonios.json';
 import time_line_history from '../../json/time_line_history.json';
 import message from '../../json/messge.json';
+import FAQ from '../../json/FAQ.json';
 
 // Crear el contexto
 export const ContextJsonLoadContext = createContext();
@@ -24,6 +25,7 @@ const initialState = {
   servicios: [],
   testimonios: [],
   time_line_history: [],
+  FAQ: [],
 };
 
 // Tipos de acciones
@@ -69,6 +71,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
           testimonios: testimonios,
           time_line_history: time_line_history,
           message: message,
+          FAQ: FAQ,
 
         },
       });
@@ -83,6 +86,8 @@ export const ContextJsonLoadProvider = ({ children }) => {
       payload: value,
     });
   };
+
+  console.log(FAQ)
 
   const value = {
     ...state,

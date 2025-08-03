@@ -1,8 +1,8 @@
 // ===== VARIABLES =====
 $grid-gap: 16px;
-$grid-border-radius: 16px;
+$grid-border-radius: 5px;
 $grid-max-width: 1200px;
-$grid-row-height: 200px;
+$grid-row-height: 240px; // Aumentado de 200px a 240px
 
 // Colores base
 $white: #ffffff;
@@ -39,17 +39,18 @@ $breakpoint-sm: 480px;
 
 @mixin button-base {
   border: none;
-  border-radius: 16px;
+  border-radius: 5px; // Cambiado a 5px
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // Mejorada la transición
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
   white-space: nowrap;
   
   &:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px); // Más movimiento en hover
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
   
   &:active {
@@ -89,10 +90,10 @@ $breakpoint-sm: 480px;
 
   // ===== CARD BASE =====
   &__card {
-    border-radius: $grid-border-radius;
+    border-radius: $grid-border-radius; // Ahora usa 5px
     overflow: hidden;
     box-shadow: 0 4px 20px $shadow-light;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // Mejorada la transición
     display: flex;
     flex-direction: column;
     position: relative;
@@ -105,14 +106,18 @@ $breakpoint-sm: 480px;
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-      opacity: 0.65;
-      transition: opacity 0.3s ease;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); // Ajustado para mejor legibilidad
+      opacity: 0.7;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
 
     &:hover {
       @include card-hover;
+      
+      &::after {
+        opacity: 0.8; // Más oscuro en hover para mejor contraste
+      }
     }
 
     &:focus-visible {
@@ -125,34 +130,37 @@ $breakpoint-sm: 480px;
     &:nth-child(6n+1) {
       grid-column: span 2;
       grid-row: span 2;
-      .grid__card-title { font-size: 1.4rem; }
+      .grid__card-title { font-size: 1.5rem; } // Aumentado
     }
 
     &:nth-child(6n+2) {
       grid-column: span 2;
       grid-row: span 3;
+      .grid__card-title { font-size: 1.6rem; } // Añadido para cards más grandes
     }
 
     &:nth-child(6n+3) {
       grid-column: span 2;
       grid-row: span 2;
-      .grid__card-title { font-size: 1.4rem; }
+      .grid__card-title { font-size: 1.5rem; } // Aumentado
     }
 
     &:nth-child(6n+4) {
       grid-column: span 2;
       grid-row: span 1;
+      .grid__card-title { font-size: 1.1rem; } // Añadido
     }
 
     &:nth-child(6n+5) {
       grid-column: span 2;
       grid-row: span 1;
+      .grid__card-title { font-size: 1.1rem; } // Añadido
     }
 
     &:nth-child(6n+6) {
       grid-column: span 2;
       grid-row: span 1;
-      .grid__card-title { font-size: 1.3rem; }
+      .grid__card-title { font-size: 1.1rem; } // Ajustado
     }
 
     // ===== ESTILOS POR TIPO =====
@@ -188,7 +196,7 @@ $breakpoint-sm: 480px;
     .grid__card {
       grid-column: span 2 !important;
       grid-row: span 2 !important;
-      .grid__card-title { font-size: 1.4rem !important; }
+      .grid__card-title { font-size: 1.5rem !important; }
     }
   }
 
@@ -203,12 +211,12 @@ $breakpoint-sm: 480px;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); // Transición más suave
     }
   }
 
   &__card:hover &__card-image img {
-    transform: scale(1.05);
+    transform: scale(1.08); // Ligeramente más zoom
   }
 
   &__card-overlay {
@@ -218,29 +226,59 @@ $breakpoint-sm: 480px;
     right: 0;
     background: $overlay-gradient;
     color: $white;
-    padding: 16px;
+    padding: 18px; // Aumentado
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0; // Sin gap para mejor control del espaciado
+  }
+
+  // ===== HEADER INFO (Precio e ícono arriba del título) =====
+  &__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__card:hover &__card-header {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s; // Aparece ligeramente después del hover
+  }
+
+  &__card:not(:hover) &__card-header {
+    transition-delay: 0s;
+    transition-duration: 0.4s;
   }
 
   &__card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    font-size: 1.3rem; // Base aumentado
+    font-weight: 700; // Más bold
+    margin-bottom: 0; // Sin margen por defecto
+    line-height: 1.2; // Mejor proporción
     color: $white;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); // Mejor legibilidad
   }
 
   &__card:hover &__card-title {
-    transform: translateY(-4px);
+    transform: translateY(-6px); // Más movimiento
+    margin-bottom: 10px; // Espacio solo en hover
+  }
+
+  &__card:not(:hover) &__card-title {
+    transition-delay: 0s;
+    transition-duration: 0.4s;
   }
 
   &__card-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.95rem; // Ligeramente más grande
     opacity: 0;
     height: 0;
     max-height: 0;
@@ -250,34 +288,56 @@ $breakpoint-sm: 480px;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(8px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(12px); // Más movimiento inicial
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); // Mejor legibilidad
   }
 
   &__card:hover &__card-subtitle {
     opacity: 0.95;
     height: auto;
-    max-height: 4.2em;
-    margin-bottom: 12px;
+    max-height: 4.8em; // Más espacio
+    margin-bottom: 14px; // Más espacio
     transform: translateY(0);
+    transition-delay: 0.15s; // Aparece ligeramente después del título
+  }
+
+  &__card:not(:hover) &__card-subtitle {
+    transition-delay: 0s;
+    transition-duration: 0.4s;
   }
 
   &__card-meta {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
+    gap: 10px; // Aumentado
+    font-size: 0.9rem; // Ligeramente más grande
     flex-wrap: wrap;
-    margin-bottom: 8px;
+    margin-bottom: 0; // Sin margen por defecto
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__card:hover &__card-meta {
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 10px; // Espacio solo en hover
+    transition-delay: 0.2s; // Aparece después del header
+  }
+
+  &__card:not(:hover) &__card-meta {
+    transition-delay: 0s;
+    transition-duration: 0.4s;
   }
 
   &__card-avatar {
-    width: 24px;
-    height: 24px;
+    width: 26px; // Aumentado
+    height: 26px; // Aumentado
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.2);
     @include flex-center;
-    font-size: 0.7rem;
+    font-size: 0.75rem; // Aumentado
     flex-shrink: 0;
   }
 
@@ -288,69 +348,81 @@ $breakpoint-sm: 480px;
   &__card-category {
     flex-shrink: 0;
     opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
 
   &__card-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 14px; // Aumentado
+    right: 14px; // Aumentado
     background-color: rgba(255, 255, 255, 0.95);
     color: $gray-900;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    padding: 6px 10px; // Aumentado
+    border-radius: 5px; // Cambiado a 5px
+    font-size: 0.85rem; // Aumentado
+    font-weight: 600; // Más bold
     z-index: 2;
     backdrop-filter: blur(4px);
   }
 
   &__card-price {
-    margin-left: auto;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-weight: 600;
+    padding: 4px 10px; // Aumentado
+    border-radius: 5px; // Cambiado a 5px
+    font-weight: 700; // Más bold
     backdrop-filter: blur(4px);
     flex-shrink: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 0.9rem; // Añadido para mejor legibilidad
   }
 
   &__card-extra-info {
-    font-size: 0.8rem;
+    font-size: 0.85rem; // Aumentado
     opacity: 0;
     height: 0;
     max-height: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0 8px;
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.15); // Más visible
+    padding: 0 10px; // Aumentado
+    border-radius: 5px; // Cambiado a 5px
     margin-bottom: 0;
     backdrop-filter: blur(4px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(8px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(10px); // Más movimiento
     overflow: hidden;
   }
 
   &__card--service:hover &__card-extra-info {
     opacity: 0.9;
     height: auto;
-    max-height: 2em;
-    padding: 4px 8px;
-    margin-bottom: 4px;
+    max-height: 2.5em; // Más espacio
+    padding: 6px 10px; // Aumentado
+    margin-bottom: 6px; // Aumentado
     transform: translateY(0);
+    transition-delay: 0.25s; // Aparece entre meta y botones
+  }
+
+  &__card--service:not(:hover) &__card-extra-info {
+    transition-delay: 0s;
+    transition-duration: 0.4s;
   }
 
   // ===== BOTONES =====
   &__card-buttons {
     display: flex;
     justify-content: space-between;
-    margin: 8px;
+    margin: 10px 0 0 0; // Margen siempre visible
     flex-wrap: wrap;
-    gap: 8px;
-    opacity: 1;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(8px);
+    gap: 10px; // Aumentado
+    opacity: 1; // Siempre visibles
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // Transición más rápida
+    transform: translateY(0); // Sin movimiento inicial
   }
 
   &__card:hover &__card-buttons {
     opacity: 1;
+    transform: translateY(-2px); // Leve movimiento hacia arriba en hover
+  }
+
+  &__card:not(:hover) &__card-buttons {
     transform: translateY(0);
   }
 
@@ -358,22 +430,26 @@ $breakpoint-sm: 480px;
     @include button-base;
     background-color: rgba(255, 255, 255, 0.9);
     color: $gray-900;
-    padding: 6px 14px;
-    font-size: 0.8rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 8px 16px; // Aumentado
+    font-size: 0.85rem; // Aumentado
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); // Más sombra
 
     &:hover {
       background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
   }
 
   &__card-button-main {
     @include button-base;
     color: white;
-    padding: 8px 16px;
-    font-size: 0.85rem;
+    padding: 10px 18px; // Aumentado
+    font-size: 0.9rem; // Aumentado
+    font-weight: 700; // Más bold
     flex-shrink: 0;
-    min-width: 80px;
+    min-width: 90px; // Aumentado
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   // ===== AJUSTES PARA CARDS PEQUEÑAS =====
@@ -381,56 +457,59 @@ $breakpoint-sm: 480px;
   &__card:nth-child(6n+5),
   &__card:nth-child(6n+6) {
     .grid__card-overlay {
-      padding: 12px;
-      gap: 6px;
+      padding: 14px; // Aumentado
     }
 
     .grid__card-title {
-      font-size: 1rem !important;
-      margin-bottom: 6px;
+      font-size: 1.1rem !important; // Aumentado
+    }
+
+    .grid__card:hover .grid__card-title {
+      margin-bottom: 8px; // Aumentado
     }
 
     .grid__card-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.85rem; // Aumentado
       -webkit-line-clamp: 2;
-      max-height: 2.8em;
+      max-height: 3.2em; // Aumentado
     }
 
-    .grid__card:hover & {
-      margin-bottom: 8px;
+    .grid__card:hover .grid__card-subtitle {
+      margin-bottom: 10px; // Aumentado
     }
 
-    .grid__card-meta {
-      font-size: 0.75rem;
-      gap: 6px;
-      margin-bottom: 6px;
+    .grid__card:hover .grid__card-meta {
+      font-size: 0.8rem; // Aumentado
+      gap: 8px; // Aumentado
+      margin-bottom: 8px; // Aumentado
     }
 
     .grid__card-avatar {
-      width: 20px;
-      height: 20px;
-      font-size: 0.65rem;
+      width: 22px; // Aumentado
+      height: 22px; // Aumentado
+      font-size: 0.7rem; // Aumentado
     }
 
     .grid__card-extra-info {
-      font-size: 0.75rem;
-      max-height: 1.5em;
+      font-size: 0.8rem; // Aumentado
+      max-height: 2em; // Aumentado
     }
 
-    .grid__card-buttons {
-      margin: 6px;
-      gap: 6px;
+    .grid__card:hover .grid__card-buttons {
+      margin: 8px 0 0 0; // Margen siempre
+      gap: 8px; // Aumentado
+      transform: translateY(-1px); // Leve movimiento en cards pequeñas
     }
 
     .grid__card-button-main {
-      padding: 6px 12px;
-      font-size: 0.75rem;
-      min-width: 70px;
+      padding: 8px 14px; // Aumentado
+      font-size: 0.8rem; // Aumentado
+      min-width: 80px; // Aumentado
     }
 
     .grid__card-button-info {
-      padding: 5px 10px;
-      font-size: 0.75rem;
+      padding: 6px 12px; // Aumentado
+      font-size: 0.8rem; // Aumentado
     }
   }
 }
@@ -444,6 +523,7 @@ $breakpoint-sm: 480px;
     
     &__container {
       gap: 14px;
+      grid-auto-rows: 220px; // Ajustado para pantallas más pequeñas
     }
   }
 }
@@ -455,7 +535,7 @@ $breakpoint-sm: 480px;
 
     &__container {
       grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 180px;
+      grid-auto-rows: 200px; // Aumentado
       gap: 14px;
     }
 
@@ -464,7 +544,7 @@ $breakpoint-sm: 480px;
       &:nth-child(n) {
         grid-column: span 2;
         grid-row: span 2;
-        .grid__card-title { font-size: 1.2rem !important; }
+        .grid__card-title { font-size: 1.3rem !important; } // Aumentado
       }
 
       // Patrón específico para 4 columnas
@@ -484,40 +564,40 @@ $breakpoint-sm: 480px;
       &:nth-child(4n+3),
       &:nth-child(4n+4) {
         .grid__card-overlay {
-          padding: 12px;
-          gap: 6px;
+          padding: 14px; // Aumentado
+          gap: 8px; // Aumentado
         }
 
         .grid__card-title {
-          font-size: 1rem !important;
-          margin-bottom: 6px;
+          font-size: 1.1rem !important; // Aumentado
+          margin-bottom: 8px; // Aumentado
         }
 
         .grid__card-subtitle {
-          font-size: 0.8rem;
+          font-size: 0.85rem; // Aumentado
           -webkit-line-clamp: 2;
-          max-height: 2.4em;
+          max-height: 2.8em; // Aumentado
         }
 
         .grid__card-meta {
-          font-size: 0.75rem;
-          gap: 6px;
-          margin-bottom: 6px;
+          font-size: 0.8rem; // Aumentado
+          gap: 8px; // Aumentado
+          margin-bottom: 8px; // Aumentado
         }
 
         .grid__card-buttons {
-          margin: 6px;
-          gap: 6px;
+          margin: 8px; // Aumentado
+          gap: 8px; // Aumentado
         }
 
         .grid__card-button-main {
-          padding: 6px 12px;
-          font-size: 0.75rem;
+          padding: 8px 14px; // Aumentado
+          font-size: 0.8rem; // Aumentado
         }
 
         .grid__card-button-info {
-          padding: 5px 10px;
-          font-size: 0.75rem;
+          padding: 6px 12px; // Aumentado
+          font-size: 0.8rem; // Aumentado
         }
       }
     }
@@ -546,14 +626,14 @@ $breakpoint-sm: 480px;
 
     &__container {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 170px;
+      grid-auto-rows: 190px; // Aumentado
       gap: 12px;
     }
 
     &__card {
       // Resetear y aplicar patrón para 2 columnas
       &:nth-child(n) {
-        .grid__card-title { font-size: 1.1rem !important; }
+        .grid__card-title { font-size: 1.2rem !important; } // Aumentado
       }
 
       // Patrón alternado para tablet vertical
@@ -576,47 +656,47 @@ $breakpoint-sm: 480px;
       // Ajustes específicos para cards de una fila
       &:nth-child(even):not(:nth-child(4n)) {
         .grid__card-overlay {
-          padding: 10px;
-          gap: 4px;
+          padding: 12px; // Aumentado
+          gap: 6px; // Aumentado
         }
 
         .grid__card-title {
-          font-size: 0.95rem !important;
-          margin-bottom: 4px;
+          font-size: 1rem !important; // Aumentado
+          margin-bottom: 6px; // Aumentado
         }
 
         .grid__card-subtitle {
-          font-size: 0.75rem;
+          font-size: 0.8rem; // Aumentado
           -webkit-line-clamp: 2;
-          max-height: 2.2em;
+          max-height: 2.4em; // Aumentado
         }
 
         .grid__card-meta {
-          font-size: 0.7rem;
-          gap: 4px;
-          margin-bottom: 4px;
+          font-size: 0.75rem; // Aumentado
+          gap: 6px; // Aumentado
+          margin-bottom: 6px; // Aumentado
         }
 
         .grid__card-avatar {
-          width: 18px;
-          height: 18px;
-          font-size: 0.6rem;
+          width: 20px; // Aumentado
+          height: 20px; // Aumentado
+          font-size: 0.65rem; // Aumentado
         }
 
         .grid__card-buttons {
-          margin: 6px;
-          gap: 4px;
+          margin: 8px; // Aumentado
+          gap: 6px; // Aumentado
         }
 
         .grid__card-button-main {
-          padding: 5px 10px;
-          font-size: 0.7rem;
-          min-width: 60px;
+          padding: 6px 12px; // Aumentado
+          font-size: 0.75rem; // Aumentado
+          min-width: 70px; // Aumentado
         }
 
         .grid__card-button-info {
-          padding: 4px 8px;
-          font-size: 0.7rem;
+          padding: 5px 10px; // Aumentado
+          font-size: 0.75rem; // Aumentado
         }
       }
     }
@@ -645,7 +725,7 @@ $breakpoint-sm: 480px;
 
     &__container {
       grid-template-columns: 1fr;
-      grid-auto-rows: 200px;
+      grid-auto-rows: 220px; // Aumentado
       gap: 12px;
       max-width: 100%;
     }
@@ -663,66 +743,66 @@ $breakpoint-sm: 480px;
       }
 
       .grid__card-overlay {
-        padding: 16px;
-        gap: 8px;
+        padding: 18px; // Aumentado
+        gap: 10px; // Aumentado
       }
 
       .grid__card-title {
-        font-size: 1.15rem !important;
-        margin-bottom: 8px;
+        font-size: 1.25rem !important; // Aumentado
+        margin-bottom: 10px; // Aumentado
       }
 
       .grid__card-subtitle {
-        font-size: 0.85rem;
+        font-size: 0.9rem; // Aumentado
         -webkit-line-clamp: 3;
-        max-height: 3.6em;
+        max-height: 3.8em; // Aumentado
       }
 
       .grid__card:hover & {
-        margin-bottom: 10px;
+        margin-bottom: 12px; // Aumentado
       }
 
       .grid__card-meta {
-        font-size: 0.8rem;
-        gap: 6px;
-        margin-bottom: 8px;
+        font-size: 0.85rem; // Aumentado
+        gap: 8px; // Aumentado
+        margin-bottom: 10px; // Aumentado
       }
 
       .grid__card-avatar {
-        width: 22px;
-        height: 22px;
-        font-size: 0.65rem;
+        width: 24px; // Aumentado
+        height: 24px; // Aumentado
+        font-size: 0.7rem; // Aumentado
       }
 
       .grid__card-badge {
-        top: 10px;
-        right: 10px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
+        top: 12px; // Aumentado
+        right: 12px; // Aumentado
+        padding: 8px 12px; // Aumentado
+        font-size: 0.8rem; // Aumentado
       }
 
       .grid__card-buttons {
-        margin: 10px;
-        gap: 8px;
+        margin: 12px; // Aumentado
+        gap: 10px; // Aumentado
         flex-direction: row;
         justify-content: space-between;
       }
 
       .grid__card-button-main {
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        min-width: 90px;
+        padding: 10px 18px; // Aumentado
+        font-size: 0.85rem; // Aumentado
+        min-width: 100px; // Aumentado
       }
 
       .grid__card-button-info {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+        padding: 8px 14px; // Aumentado
+        font-size: 0.85rem; // Aumentado
       }
 
       .grid__card-extra-info {
-        font-size: 0.75rem;
-        max-height: 2em;
-        padding: 6px 10px;
+        font-size: 0.8rem; // Aumentado
+        max-height: 2.2em; // Aumentado
+        padding: 8px 12px; // Aumentado
       }
     }
 

@@ -1,0 +1,806 @@
+// Variables
+$primary-color: #2c5f4f;
+$secondary-color: #a08660;
+$text-light: #ffffff;
+$text-dark: #4a4a4a;
+$background-beige: #f4f1e8;
+$shadow: rgba(0, 0, 0, 0.15);
+$leaf-green: #7fb069;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 8px 32px $shadow;
+}
+
+@mixin smooth-transition {
+  transition: all 0.3s ease;
+}
+
+// Main container
+.product-showcase {
+  //   max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem;
+  background: transparent;
+  min-height: 100vh;
+  position: relative;
+}
+
+// Header section
+.showcase-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: $primary-color;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+}
+
+// Product card
+.product-card {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  border-radius: 20px;
+  overflow: hidden;
+  @include card-shadow;
+  background: transparent;
+  position: relative;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+// Image section
+.product-image-section {
+  width: 50%;
+  position: relative;
+  background: linear-gradient(45deg, rgba(44, 95, 79, 0.1), rgba(44, 95, 79, 0.05));
+  @include flex-center;
+  min-height: 400px;
+  overflow: hidden;
+  border-radius: 20px 0 0 20px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    min-height: 250px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .product-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: scale(1.02);
+        
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(0, 0, 0, .5);
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+}
+
+.product-name-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.product-name {
+  font-size: 2rem;
+  font-weight: normal;
+  color: $text-light;
+  margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  letter-spacing: 3px;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
+}
+
+// Info section
+.product-info-section {
+  width: 50%;
+  height: 500px;
+  padding: 3rem;
+  background: rgb(142, 117, 75);
+  color: $text-light;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-radius: 0 20px 20px 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+// Rating stars
+.rating {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+  }
+}
+
+.star {
+  font-size: 1.8rem;
+  @include smooth-transition;
+
+  &--filled {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+
+  &--empty {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+// Product info text
+.product-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 1px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    font-size: 1.2rem;
+  }
+}
+
+.product-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.9;
+
+  @media (max-width: 768px) {
+    text-align: left;
+  }
+}
+
+.author-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  color: $primary-color;
+  padding: 0.5rem 1rem;
+  letter-spacing: 1px;
+  align-self: center;
+
+  @media (max-width: 768px) {
+    align-self: flex-start;
+  }
+}
+
+// Carousel dots
+.carousel-dots {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+  }
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  @include smooth-transition;
+
+  &--active {
+    background: $text-light;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.2);
+  }
+}
+
+// Carousel controls - Posicionados a los lados
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+
+  background-color: transparent;
+  border: none;
+  color: $primary-color;
+  font-size: 1.8rem;
+  cursor: pointer;
+  @include smooth-transition;
+  @include flex-center;
+  z-index: 5;
+
+  &--prev {
+    left: -0px;
+  }
+
+  &--next {
+    right: 0px;
+  }
+
+  &:hover {
+    background: transparent;
+    color: white;
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    &--prev {
+      left: 10px;
+    }
+
+    &--next {
+      right: 10px;
+    }
+  }
+}
+
+// Decorative leaves con iconos
+.decorative-leaf {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  @include flex-center;
+  @include smooth-transition;
+  z-index: 4;
+  opacity: 0.8;
+
+  .leaf-icon {
+    font-size: 2rem;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    @include smooth-transition;
+  }
+
+  &--top {
+    top: 1rem;
+    right: 2rem;
+    transform: rotate(45deg);
+    
+    .leaf-icon {
+      color: #7fb069;
+    }
+  }
+
+  &--image {
+    top: 1rem;
+    left: 1rem;
+    transform: rotate(-30deg);
+    
+    .leaf-icon {
+      color: #6fa055;
+    }
+  }
+
+  &--bottom {
+    bottom: 1rem;
+    right: 1rem;
+    transform: rotate(135deg);
+    
+    .leaf-icon {
+      color: #8fc073;
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    
+    .leaf-icon {
+      filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.4));
+    }
+  }
+}
+
+// Hover effects and animations
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--rotation, 0deg)); }
+}
+
+.product-showcase:hover .decorative-leaf {
+  animation: float 3s ease-in-out infinite;
+  
+  &--top {
+    --rotation: 45deg;
+  }
+  
+  &--image {
+    --rotation: -30deg;
+  }
+  
+  &--bottom {
+    --rotation: 135deg;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .product-showcase {
+    padding: 1rem;
+  }
+
+  .product-info-section {
+    padding: 1.5rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .product-name {
+    font-size: 1.5rem;
+  }
+
+  .decorative-leaf {
+    width: 40px;
+    height: 40px;
+    
+    .leaf-icon {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// ========== MEJORAS RESPONSIVE ADICIONALES ==========
+
+// Tablets y dispositivos medianos (1024px)
+@media (max-width: 1024px) {
+  .product-showcase {
+    width: 95%;
+  }
+
+  .product-card {
+    max-width: 100%;
+  }
+
+  .product-info-section {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .product-image-section {
+    min-height: 350px;
+  }
+
+  .carousel-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.6rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+}
+
+// Dispositivos pequeños (600px)
+@media (max-width: 600px) {
+  .showcase-header {
+    margin-bottom: 2rem;
+  }
+
+  .main-title {
+    font-size: 1.6rem;
+    padding: 0 1rem;
+    line-height: 1.3;
+  }
+
+  .product-info-section {
+    height: auto;
+    min-height: auto;
+    padding: 1.5rem;
+  }
+
+  .product-image-section {
+    min-height: 200px;
+    max-height: 300px;
+  }
+
+  .product-name {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .product-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .author-name {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .rating {
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    font-size: 1.5rem;
+  }
+
+  .carousel-dots {
+    gap: 0.6rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+    
+    &--prev {
+      left: 5px;
+    }
+
+    &--next {
+      right: 5px;
+    }
+  }
+
+  .decorative-leaf {
+    &--top {
+      top: 0.5rem;
+      right: 1rem;
+    }
+
+    &--bottom {
+      bottom: 0.5rem;
+      right: 0.5rem;
+    }
+  }
+}
+
+// Dispositivos muy pequeños (400px)
+@media (max-width: 400px) {
+  .product-showcase {
+    padding: 0.5rem;
+    min-height: auto;
+  }
+
+  .main-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-card {
+    border-radius: 15px;
+  }
+
+  .product-image-section {
+    border-radius: 15px 15px 0 0;
+    min-height: 180px;
+    max-height: 250px;
+  }
+
+  .product-info-section {
+    border-radius: 0 0 15px 15px;
+    padding: 1.2rem;
+  }
+
+  .product-name {
+    font-size: 1.2rem;
+  }
+
+  .product-title {
+    font-size: 1rem;
+  }
+
+  .product-description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .author-name {
+    font-size: 0.8rem;
+  }
+
+  .star {
+    font-size: 1.3rem;
+  }
+
+  .carousel-dots {
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .decorative-leaf {
+    width: 35px;
+    height: 35px;
+    
+    .leaf-icon {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+// Orientación horizontal en móviles
+@media (max-width: 768px) and (orientation: landscape) {
+  .product-showcase {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .showcase-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .product-card {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .product-image-section {
+    width: 40%;
+    min-height: 280px;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .product-info-section {
+    width: 60%;
+    height: auto;
+    min-height: 280px;
+    padding: 1.5rem;
+    border-radius: 0 20px 20px 0;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .product-name {
+    font-size: 1.4rem;
+  }
+
+  .product-title {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .product-description {
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .rating {
+    justify-content: flex-start;
+  }
+
+  .carousel-dots {
+    justify-content: flex-start;
+  }
+
+  .author-name {
+    align-self: flex-start;
+    font-size: 0.8rem;
+  }
+}
+
+// Pantallas muy grandes (1440px+)
+@media (min-width: 1440px) {
+  .product-showcase {
+    max-width: 1200px;
+  }
+
+  .product-image-section {
+    min-height: 500px;
+  }
+
+  .product-info-section {
+    height: 600px;
+    padding: 4rem;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .product-name {
+    font-size: 2.5rem;
+  }
+
+  .product-title {
+    font-size: 1.6rem;
+  }
+
+  .product-description {
+    font-size: 1.1rem;
+  }
+
+  .star {
+    font-size: 2rem;
+  }
+}
+
+// Ajustes para texto largo
+@media (max-width: 768px) {
+  .product-name,
+  .product-title,
+  .product-description {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .product-description {
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+  }
+}
+
+// Ajustes de accesibilidad para botones táctiles
+@media (hover: none) and (pointer: coarse) {
+  .carousel-btn {
+    width: 55px;
+    height: 55px;
+    
+    @media (max-width: 600px) {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  .dot {
+    width: 14px;
+    height: 14px;
+    
+    @media (max-width: 600px) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .star:hover {
+    transform: none;
+  }
+
+  .decorative-leaf:hover {
+    transform: scale(1);
+  }
+}
+
+// Fix para altura dinámica en móviles
+@media (max-width: 768px) {
+  .product-info-section {
+    min-height: 350px;
+    height: auto;
+    
+    @media (max-width: 480px) {
+      min-height: 300px;
+    }
+  }
+}
+
+// Mejoras de rendimiento para animaciones en móviles
+@media (max-width: 768px) {
+  .product-showcase:hover .decorative-leaf {
+    animation: none;
+  }
+
+  .product-image:hover {
+    transform: none;
+  }
+}
+
+// Soporte para notch en iPhone
+@supports (padding-top: env(safe-area-inset-top)) {
+  .product-showcase {
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+    
+    @media (max-width: 768px) {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+  }
+}

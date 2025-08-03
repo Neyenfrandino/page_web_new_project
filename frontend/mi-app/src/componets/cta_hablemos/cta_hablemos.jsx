@@ -8,7 +8,7 @@ const CtaHablemos = () => {
         nombre: '',
         correo: '',
         mensaje: ''
-    });
+    }); 
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const { nombre, correo, mensaje } = formState;
