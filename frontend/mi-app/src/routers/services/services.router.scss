@@ -40,171 +40,19 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // Main Services Container
 .services__container {
-  // min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   height: auto;
   position: relative;
+  // NO poner overflow:hidden aquí si queremos sticky
   opacity: 0;
   transform: translateY(30px);
   transition: $transition;
-  background-color: rgb(3 67 53);
-  // margin-top: 6.5%;
-
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
-
-
-  // Services Content (para la página principal de servicios)
-  .services--content {
-    position: relative;
-    z-index: 1;
-    // max-width: 1200px;
-    
-    margin: 0 auto;
-    // padding: 6rem 2rem 4rem;
-    text-align: center;
-
-    @media (max-width: 768px) {
-      padding: 4rem 1rem 3rem;
-    }
-
-    @media (max-width: 480px) {
-      padding: 3rem 1rem 2rem;
-    }
-
-    .services--content--filters{
-        margin-top: 2rem;
-        position: relative; // para que el ::before se posicione relativo a este contenedor
-        z-index: 1;
-
-        &::before {
-          content: '';
-          position: absolute;
-          inset: 0; // equivale a top:0; right:0; bottom:0; left:0;
-          background-image: url('/img/fondopapel2.png');
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: bottom;
-          transform: rotate(180deg); // para que el fondo se vea correctamente
-          opacity: 1; // opcional para que no tape el contenido
-          z-index: -1; // se queda detrás del contenido
-        }
-      
-    }
-
-    .services--content--grid {
-      position: relative; // para que el ::before se posicione relativo a este contenedor
-      z-index: 1;
-      background-color: #bfc19e;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0; // equivale a top:0; right:0; bottom:0; left:0;
-        background-image: url('/img/fondopapel2.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: top;
-        transform: rotate(180deg); // para que el fondo se vea correctamente
-        opacity: 1; // opcional para que no tape el contenido
-        z-index: -1; // se queda detrás del contenido
-      }
-    }
-
-    .services--content--testimonials{
-      position: relative; // para que el ::before se posicione relativo a este contenedor
-      z-index: 1;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0; // equivale a top:0; right:0; bottom:0; left:0;
-        background-image: url('/img/fondopapel2.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom;
-        transform: rotate(0deg); // para que el fondo se vea correctamente
-        opacity: 1; // opcional para que no tape el contenido
-        z-index: -1; // se queda detrás del contenido
-      }
-    }
-
-  }
-}
-
-
-
-// Responsive Design
-@media (max-width: 1200px) {
-  .services__container {
-    .services__content {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .services__container {
-    margin-top: 4%;
-
-    .services__content {
-      .services__grid {
-        .service-card {
-          padding: 1.5rem;
-
-          .card-icon {
-            width: 50px;
-            height: 50px;
-            font-size: 1.25rem;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .services__container {
-    .services__content {
-      .services__grid {
-        .service-card {
-          padding: 1.25rem;
-
-          .card-title {
-            font-size: 1.125rem;
-          }
-
-          .card-description {
-            font-size: 0.8rem;
-          }
-        }
-      }
-    }
-  }
-}
-
-// Print Styles
-@media print {
-  .services__container {
-    .services__background {
-      display: none;
-    }
-
-    .services__content {
-      background: $white;
-      box-shadow: none;
-    }
-  }
-}
-.services__container {
-  width: 100%;
-  min-height: auto;
-  height: auto;
-  position: relative;
-  overflow: hidden;
 
   .services--header__container {
     width: 100%;
@@ -269,7 +117,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center; // centrado
+      align-items: center;
       padding: 0 10%;
       max-width: 1400px;
       margin: 0 auto;
@@ -358,7 +206,6 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    // Indicador de scroll opcional
     .scroll-indicator {
       position: absolute;
       bottom: 2rem;
@@ -387,6 +234,147 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           animation: scroll 2s infinite;
         }
       }
+    }
+  }
+
+  // Contenido de la sección servicios
+  .services--content {
+    position: relative;
+    z-index: 1;
+    background:  rgb(3 67 53);
+    margin: 0 auto;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      padding: 4rem 1rem 3rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 3rem 1rem 2rem;
+    }
+
+    // Filtros con sticky
+    .services--content--filters {
+      backdrop-filter: blur(6px);
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        transform: rotate(180deg);
+        opacity: 1;
+        z-index: -1;
+      }
+    }
+
+    .services--content--grid {
+      position: relative;
+      z-index: 1;
+      background-color: #bfc19e;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top;
+        transform: rotate(180deg);
+        opacity: 1;
+        z-index: -1;
+      }
+    }
+
+    .services--content--testimonials {
+      position: relative;
+      z-index: 1;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        transform: rotate(0deg);
+        opacity: 1;
+        z-index: -1;
+      }
+    }
+
+    .services--content--message_final {
+      padding: 2rem;
+      padding-bottom: 4rem;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .services__container {
+    .services__content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services__container {
+    margin-top: 4%;
+
+    .services__content {
+      .services__grid {
+        .service-card {
+          padding: 1.5rem;
+
+          .card-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .services__container {
+    .services__content {
+      .services__grid {
+        .service-card {
+          padding: 1.25rem;
+
+          .card-title {
+            font-size: 1.125rem;
+          }
+
+          .card-description {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  .services__container {
+    .services__background {
+      display: none;
+    }
+
+    .services__content {
+      background: $white;
+      box-shadow: none;
     }
   }
 }

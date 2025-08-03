@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { Outlet, useParams, useLocation } from "react-router-dom";
+import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
 
 import SEOHelmet from "../../componets/SEOHelmet/SEOHelmet";
 import Header from "../../componets/header/header";
@@ -7,47 +7,70 @@ import Grid from "../../componets/grid/grid";
 import TestimonialCard from "../../componets/testimonial_card/testimonial_card";
 import CatalogFilter from "../../componets/catalog_filter/catalog_filter";
 import FAQ from "../../componets/FAQ/FAQ";
-
+import CtaImgCuentaRgresiva from "../../componets/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva";
+import MessageFinal from "../../componets/message_final/message_final";
+import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
 import { ContextJsonLoadContext } from "../../context/context_json_load/context_json_load";
 
 import "./services.router.scss";
 
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const fadeInProps = {
+  direction: "up",
+  duration: prefersReducedMotion ? 0 : 800,
+  delay: prefersReducedMotion ? 0 : 200,
+  distance: prefersReducedMotion ? 0 : 30,
+  easing: prefersReducedMotion ? 'linear' : "bounce",
+  speed: prefersReducedMotion ? 'fast' : "slow"
+};
+const timerProps = {
+  img: "/img/3.png",
+  titles: {
+    main: "",
+    subtitle: "Festival Eco de la Tierra",
+  },
+  text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+  buttonText: "Inscríbete ahora",
+  timer: {
+    targetDate: "2025-09-23T18:59:59",
+  },
+  link: "/servicios/laboratorios-alimentacion-viva",
+};
+
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [filteredServices, setFilteredServices] = useState([]);
-  const { id } = useParams();
 
+
+  const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
+
   const { servicios, FAQ: faqData } = useContext(ContextJsonLoadContext);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [triggerElement, setTriggerElement] = useState(null);
-
-  const handleOpenModal = useCallback((status, e, item) => {
-    if (!item || !item.id) return;
-    setTriggerElement(e.currentTarget);
-    setIsModalOpen({ isOpen: status, item });
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setTriggerElement(null);
-  }, []);
+  const handleOpenModal = useCallback(
+    (status, e, item) => {
+      if (!item || !item.id) return;
+      navigate(`/servicios/${item.id}`);
+    },
+    [navigate]
+  );
 
   const isExactServicesRoute =
-    location.pathname === "/servicios" || location.pathname === "/servicios/";
+    location.pathname === "/servicios" ||
+    location.pathname === "/servicios/";
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 300);
-
     return () => clearTimeout(timer);
   }, []);
 
-  // Inicializar filteredServices cuando servicios cambie
   useEffect(() => {
-    if (servicios && servicios.length > 0) {
+    if (servicios?.length > 0) {
       setFilteredServices(servicios);
     }
   }, [servicios]);
@@ -63,7 +86,6 @@ const Services = () => {
         image="/img/7.png"
       />
 
-      {/* Mostrar contenido solo si estamos en la ruta exacta /servicios */}
       {isExactServicesRoute && !id && (
         <>
           <Header>
@@ -87,7 +109,6 @@ const Services = () => {
                 </div>
               </div>
 
-              {/* Opcional: indicador de scroll */}
               <div className="scroll-indicator">
                 <div className="mouse"></div>
               </div>
@@ -95,36 +116,54 @@ const Services = () => {
           </Header>
 
           <div className="services--content">
-            <div className="services--content--filters">
-              <CatalogFilter 
-                items={servicios} 
-                onFilteredItems={setFilteredServices}
-              />
-            </div>
+            <FadeInOnView {...fadeInProps}>
+
+              <div className="services--content--filters">
+                <CatalogFilter
+                  items={servicios}
+                  onFilteredItems={setFilteredServices}
+                />
+              </div>
+
+              <div className="services--content--grid">
+                <Grid
+                  items={filteredServices}
+                  gridType="services"
+                  slice={10}
+                  setIsOpen={handleOpenModal}
+                  variant="minimal"
+                />
+              </div>
+
+              <div className="services--content--testimonials">
+                <TestimonialCard typeTestimonial="servicio" />
+              </div>
+            </FadeInOnView>
+
+            <FadeInOnView {...fadeInProps}>
+
+              <div className="services--content--CTA-cuenta-rgresiva">
+                <CtaImgCuentaRgresiva {...timerProps} />
+              </div>
+            </FadeInOnView>
+
+            <FadeInOnView {...fadeInProps}>
+
+              <div className="services--content--faq">
+                <FAQ faqs={faqData} defaultCategory="servicios" />
+              </div>
+            </FadeInOnView>
             
-            <div className="services--content--grid">
-              <Grid
-                items={filteredServices}
-                gridType="services"
-                slice={10}
-                setIsOpen={handleOpenModal}
-                variant="minimal"
-              />
-            </div>
+            <FadeInOnView {...fadeInProps}>
 
-            <div className="services--content--testimonials">
-              <TestimonialCard typeTestimonial="servicio" />
-            </div>
-
-            <div className="services--content--faq">
-<FAQ faqs={faqData} defaultCategory="servicios" />
-
-            </div>
+              <div className="services--content--message_final">
+                <MessageFinal indexMessage={3} />
+              </div>
+            </FadeInOnView>
           </div>
         </>
       )}
 
-      {/* El Outlet renderizará ServicesDetail cuando haya un id en la ruta */}
       <Outlet />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import {
   Calendar,
@@ -62,7 +62,6 @@ const ServiceDetail = () => {
   }, []);
 
 
-  console.log('Servicio actual:', currentService);
   const formatPrice = (price) => {
     if (!price) return '$0';
     return new Intl.NumberFormat('en-US', {
@@ -274,12 +273,23 @@ const ServiceDetail = () => {
         </aside>
         
         <div className="cta-card">
+          <div>
             <h3>¿Tienes preguntas?</h3>
             <p>Nuestro equipo está aquí para ayudarte</p>
             <button className="contact-btn" onClick={handleContact}>
               Contactar soporte
             </button>
+          </div>
         </div>
+
+        <div className='redirect-btn'>
+          <h3>Ver todos los servicios</h3>
+          <p>Todos los servicios disponibles</p>
+          <Link className="contact-btn" to="/servicios">
+            Ir a servicios
+          </Link>
+        </div>
+
       </div>
     </div>
   );

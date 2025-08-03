@@ -28,6 +28,7 @@ import Bitacora from '../../componets/bitacora/bitacora';
 import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
 import MessageFinal from '../../componets/message_final/message_final';
 import PaymentMethodSelector from '../../componets/payment_method/payment_method_selector';
+import TestimonialCard from '../../componets/testimonial_card/testimonial_card';
 
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import { MethodStatePaymentContext } from '../../context/method_state_payment/method_state_payment.context';
@@ -260,12 +261,12 @@ const Home = () => {
                 Dirigimos nuestras actividades a personas comprometidas con un cambio auténtico, con la esperanza de generar una transformación social y económica significativa en familias, proyectos y territorios, construyendo juntos un futuro más sostenible y equitativo.
                 </span>
               </div>
-<div className='content--servicios__grid'>
-  <div className="grid-wrapper">
-    <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
-  </div>
-  {modalContent}
-</div>
+              <div className='content--servicios__grid'>
+                <div className="grid-wrapper">
+                  <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+                </div>
+                {modalContent}
+              </div>
             </div>
             <CtaImgCuentaRgresiva {...timerProps} />
 
@@ -293,7 +294,7 @@ const Home = () => {
 
         <div className='home__content--testimonios'>
           <FadeInOnView {...fadeInProps}>
-            <Testimonios testimonios={testimonios} />
+              <TestimonialCard typeTestimonial="testimonios_movimiento" />
           </FadeInOnView>
         </div>
 
@@ -326,7 +327,7 @@ const Home = () => {
 
         <div className='home__content--boletin' id='boletin'>
           <FadeInOnView {...fadeInProps}>
-            <CtaHablemos />
+            <CtaHablemos showSocialMedia={false} />
           </FadeInOnView>
         </div>
 
