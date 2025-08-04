@@ -2,38 +2,20 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #063B2C;
-  color: #D0DE85;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: #48514A;
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-  .icon {
-    color: #D0DE85;
-    transition: transform 0.3s ease;
-  }
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #48514A;
-    color: #ffffff;
-
-    .icon {
-      transform: translateX(-4px);
-      color: #ffffff;
-    }
+    background-color: #7B7A70;
   }
 
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:focus {
-    outline: 2px solid #D5CEA9;
-    outline-offset: 2px;
+  .icon {
+    stroke-width: 2;
   }
 }

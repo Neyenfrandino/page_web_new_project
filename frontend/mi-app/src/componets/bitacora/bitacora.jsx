@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import './bitacora.scss';
-
+ 
 const bitacora = [
     {
         id: 1,

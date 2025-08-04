@@ -49,7 +49,7 @@ const Services = () => {
   const location = useLocation();
 
   const { servicios, FAQ: faqData } = useContext(ContextJsonLoadContext);
-
+ 
   const handleOpenModal = useCallback(
     (status, e, item) => {
       if (!item || !item.id) return;
@@ -116,7 +116,6 @@ const Services = () => {
           </Header>
 
           <div className="services--content">
-            <FadeInOnView {...fadeInProps}>
 
               <div className="services--content--filters">
                 <CatalogFilter
@@ -124,7 +123,7 @@ const Services = () => {
                   onFilteredItems={setFilteredServices}
                 />
               </div>
-
+            
               <div className="services--content--grid">
                 <Grid
                   items={filteredServices}
@@ -138,24 +137,20 @@ const Services = () => {
               <div className="services--content--testimonials">
                 <TestimonialCard typeTestimonial="servicio" />
               </div>
-            </FadeInOnView>
-
+        
             <FadeInOnView {...fadeInProps}>
-
               <div className="services--content--CTA-cuenta-rgresiva">
                 <CtaImgCuentaRgresiva {...timerProps} />
               </div>
             </FadeInOnView>
-
+     
             <FadeInOnView {...fadeInProps}>
-
               <div className="services--content--faq">
                 <FAQ faqs={faqData} defaultCategory="servicios" />
               </div>
             </FadeInOnView>
             
             <FadeInOnView {...fadeInProps}>
-
               <div className="services--content--message_final">
                 <MessageFinal indexMessage={3} />
               </div>
@@ -163,7 +158,6 @@ const Services = () => {
           </div>
         </>
       )}
-
       <Outlet />
     </div>
   );

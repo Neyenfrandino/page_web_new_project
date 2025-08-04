@@ -6,13 +6,10 @@ const TestimonialCard = ({ typeTestimonial = 'servicio' }) => {
   const { testimonios } = useContext(ContextJsonLoadContext);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  console.log(testimonios);
   const testimonialType = testimonios?.[typeTestimonial] || [];   
   
   // Si no hay testimonios, no renderizar nada
   if (!testimonialType || testimonialType.length === 0) return null;
-
-  console.log(testimonialType);
 
   // Función de navegación corregida para usar testimonialType
   const nextSlide = () => {

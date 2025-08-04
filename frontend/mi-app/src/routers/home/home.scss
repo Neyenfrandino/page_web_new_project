@@ -150,13 +150,13 @@ $desktop-lg: 1280px;
   // CONTENEDOR DEL HEADER (LOGO + TEXTO)
   // ============================================
   .home__header-container {
+    display: flex;
     position: relative;
     z-index: 10;
-    display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 100%;
     align-items: center;
+    width: 100%;
     min-height: 100vh;
     // border: 1px solid red;
     padding: 5%;
@@ -192,7 +192,7 @@ $desktop-lg: 1280px;
     align-items: center;
     gap: 1rem;
     text-align: center;
-    width: 40%;
+    width: 30%;
     backdrop-filter: blur(2px);
     animation: fadeInDelayed .5s cubic-bezier(0.4, 0, 0.2, 1) both;
     // border: 1px solid red;
@@ -212,10 +212,7 @@ $desktop-lg: 1280px;
         width: auto;
         filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        // animation: fadeInSlow 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
         animation: fadeInSlow .8s cubic-bezier(0.4, 0, 0.2, 1) both;
-          filter: grayscale(100%) brightness(0) invert(1);
-
 
         // Ajustes de tamaño responsive
         @include mobile-xs { height: 8rem; }
@@ -317,9 +314,14 @@ $desktop-lg: 1280px;
     // Botones
     .home__content-titile-buttons {
       display: flex;
+      justify-content: center;
+      // align-items: center;
+      // flex-wrap: wrap;
+      margin: 0 auto;
       position: relative;
       z-index: 15;
       height: 40px;
+      width: 50%;
       // animation: fadeInSlow 2.8s cubic-bezier(0.4, 0, 0.2, 1) both;
       animation: fadeInSlow .8s cubic-bezier(0.4, 0, 0.2, 1) both;
       gap: 1rem;
@@ -379,299 +381,283 @@ $desktop-lg: 1280px;
     // ============================================
     // SECCIÓN DE MISIÓN
     // ============================================
+// Contenedor principal de la sección
 .home__content--mision__container {
   width: 100%;
-
-  // margin-bottom: 5%;
-  
-  @include mobile { 
-    margin-bottom: 8%;
-    padding: 0 1rem; // Padding horizontal en móvil
-  }
-  
-  @include tablet {
-    margin-bottom: 6%;
-    padding: 0 1.5rem;
-  }
+  padding: 0;
+  margin: 5% 0% 5% auto;
   
   @include desktop {
-    margin-bottom: 5%;
-    padding: 0 2rem;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    // max-width: 1200px;
+  }
+}
+
+// Contenedor principal de misión - SIEMPRE EN COLUMNA
+.home__content--mision {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column; // Siempre columna
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  // gap: 2.5rem;
+
+  // Ajustes responsive Mobile
+  @include mobile {
+    padding: 2rem 1.5rem;
+    min-height: auto;
+    border-radius: 1rem;
+    gap: 2rem;
+  }
+  
+  // Ajustes responsive Tablet
+  @include tablet {
+    padding: 3rem 2rem;
+    min-height: 600px;
+    border-radius: 1.2rem;
+    gap: 2.5rem;
+  }
+  
+  // Ajustes responsive Desktop
+  @include desktop {
+    padding: 4rem 3rem;
+    min-height: 700px;
+    gap: 3rem;
   }
 
-  // Contenedor principal de misión
-  .home__content--mision {
-    width: 100%;
-    min-height: 450px; // Altura mínima para evitar colapsos
-    height: 450px; // Altura automática por defecto
+  // Efecto de fondo decorativo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(110, 133, 73, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(110, 133, 73, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  // Contenedor de títulos y texto - SIEMPRE CENTRADO
+  .content--mision--titiles {
     display: flex;
-    // align-items: center;
-    position: relative;
-    // background-color: rgba(17, 17, 17, 0.95);
-    border-radius: 1.5rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    // border: 1px solid rgba(255, 255, 255, 0.1);
-    // backdrop-filter: blur(10px);
-    overflow: hidden; // Prevenir desbordamientos
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    // gap: 1.5rem;
+    width: 100%;
+    max-width: 800px;
+    z-index: 2;
 
-    // Ajustes responsive Mobile
     @include mobile {
-      flex-direction: column;
-      padding: 1.5rem 1rem;
-      gap: 1.5rem;
-      margin: 0;
-      border-radius: 1rem;
-      min-height: auto; // Altura flexible en móvil
-      height: auto;
+      gap: 1rem;
     }
     
-    // Ajustes responsive Tablet
     @include tablet {
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem 1.5rem;
-      margin: 0;
-      border-radius: 1.2rem;
-      min-height: 600px;
-      height: auto;
+      gap: 1.5rem;
+      max-width: 700px;
     }
     
-    // Ajustes responsive Desktop
     @include desktop {
-      flex-direction: row;
-      gap: 3rem;
-      padding: 3rem 2rem;
-      // height: 80vh;
-      // max-height: 800px; // Límite máximo de altura
-      // min-height: 600px;
+      gap: 2rem;
+      max-width: 800px;
     }
 
-    // Títulos y texto de misión
-    .content--mision--titiles {
-      display: flex;
-      flex-direction: column;
-      // gap: 1rem;
-      overflow: hidden;
-      box-sizing: border-box;
-      width: 100%; // Ancho completo por defecto
-      // border: 1px solid rgba(255, 255, 255, 1);
+    // Título de sección
+    .mision--titile h1 {
+      font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+      font-weight: 600;
+      color: #8fa55f;
+      margin: 0;
+      line-height: 1.2;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 1rem;
+      // display: inline-block;
 
-      // Ajustes responsive Mobile
-      @include mobile {
-        align-items: center;
-        gap: 0.8rem;
-        margin-bottom: 0; // Eliminar margen inferior
-        text-align: center;
-        order: 1;
-      }
-      
-      // Ajustes responsive Tablet
-      @include tablet {
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 0;
-        text-align: center;
-        order: 1;
-        max-width: 90%; // Limitar ancho en tablet
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
-      // Ajustes responsive Desktop
-      @include desktop {
-        width: 50%; // 50% en lugar de 70%
-        flex: 0 0 50%; // Flex basis fijo
-        align-items: flex-start;
-        text-align: left;
-        order: 0;
-        padding-right: 2rem;
-      }
-
-      // Título de sección
-      .mision--titile h1 {
-        font-size: clamp(0.875rem, 1.5vw, 1rem); // Tamaño fluido
-        font-weight: 500;
-        color: rgba(110, 133, 73, 0.85);
-        margin: 0;
-        line-height: 1.2;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        letter-spacing: 0.05em;
-        position: relative;
-        text-transform: uppercase;
-        padding-bottom: 0.75rem; // Espacio para la línea
-
-        // Línea decorativa
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          width: 60px;
-          height: 3px;
-          background: linear-gradient(90deg, rgba(110, 133, 73, 0.8), transparent);
-          border-radius: 2px;
-
-          @include mobile { 
-            left: 50%; 
-            transform: translateX(-50%); 
-          }
-          @include tablet { 
-            left: 50%; 
-            transform: translateX(-50%); 
-          }
-          @include desktop { 
-            left: 0; 
-            transform: none; 
-          }
-        }
-      }
-
-      // Subtítulo
-      .mision--subTitle h2 {
-        font-size: clamp(1.5rem, 4vw, 2.25rem); // Tamaño responsivo mejorado
-        font-weight: 600;
-        color: #f5f5f5;
-        margin: 0.5rem 0 1rem; // Márgenes ajustados
-        line-height: 1.3;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-        opacity: 0.95;
-        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        
-        @include mobile {
-          font-size: clamp(1.25rem, 5vw, 1.75rem);
-          line-height: 1.25;
-        }
-      }
-
-      // Párrafo descriptivo
-      .mision--parrafo {
-        font-size: clamp(0.875rem, 2vw, 1.1rem); // Ajuste de tamaño mínimo
-        font-weight: 400;
-        color: #e8e8e8;
-        margin: 0;
-        line-height: 1.7;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        opacity: 0.9;
-        width: 100%;
-
-        @include mobile { 
-          text-align: center;
-          line-height: 1.6;
-          font-size: clamp(0.85rem, 2.5vw, 1rem);
-        }
-        @include tablet { 
-          text-align: center;
-          max-width: 600px; // Limitar ancho para mejor lectura
-          margin: 0 auto;
-        }
-        @include desktop { 
-          text-align: left;
-          max-width: none;
-        }
-
-        p { 
-          margin: 0 0 1rem 0;
-          
-          @include mobile {
-            margin-bottom: 0.75rem;
-          }
-        }
-
-        // Texto destacado
-        span {
-          display: block;
-          margin-top: 1rem;
-          font-weight: 500;
-          color: #efea21;
-          // font-style: italic;
-          font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-          opacity: 0.95;
-          position: relative;
-          padding-bottom: 1rem;
-          
-          @include mobile {
-            margin-top: 0.75rem;
-            font-size: clamp(0.8rem, 2vw, 0.95rem);
-          }
-
-          // Línea decorativa
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 80%;
-            height: 2px;
-            background: linear-gradient(90deg, #6e8549 0%, rgba(110, 133, 73, 0.3) 100%);
-            border-radius: 2px;
-
-            @include mobile { 
-              left: 50%; 
-              transform: translateX(-50%); 
-              width: 60%; 
-            }
-            @include tablet { 
-              left: 50%; 
-              transform: translateX(-50%); 
-              width: 70%; 
-            }
-            @include desktop { 
-              left: 0; 
-              transform: none; 
-              width: 80%;
-            }
-          }
-        }
-      }
-    }
-
-    // Carrusel de misiones
-    .content--mision--carousel-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%; // Ancho completo en móvil/tablet
-
-      @include mobile { 
-        min-height: 280px; // Altura mínima aumentada
-        order: 2;
-        margin-top: 1.5rem; // Espacio superior
-      }
-      @include tablet { 
-        min-height: 350px;
-        order: 2;
-        margin-top: 2rem;
-      }
-      @include desktop { 
-        flex: 1;
-        width: auto;
-        // min-height: 400px;
-        order: 1;
-        margin-top: 0;
-      }
-    }
-    // Elemento decorativo lateral - solo desktop
-    @include desktop {
+      // Línea decorativa centrada
       &::after {
         content: '';
         position: absolute;
-        right: 2rem;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 4px;
-        height: 30px;
-        background: linear-gradient(180deg, rgba(110, 133, 73, 0.6), transparent);
-        border-radius: 2px;
-        opacity: 0.7;
+        bottom: 0;
+        left: -30%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #8fa55f, transparent);
+        border-radius: 3px;
+        animation: pulse 3s ease-in-out infinite;
       }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+    }
+
+    // Subtítulo principal
+    .mision--subTitle h2 {
+      font-size: clamp(1.75rem, 3vw, 3rem);
+      font-weight: 700;
+      color: #ffffff;
+      // margin: 0.5rem 0 0;
+      line-height: 1.3;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(135deg, #ffffff 0%, #e8e8e8 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      // padding: 0 1rem;
+      
+      @include mobile {
+        font-size: clamp(1.5rem, 6vw, 2.25rem);
+        line-height: 1.25;
+      }
+    }
+
+    // Párrafo descriptivo
+    .mision--parrafo {
+      width: 100%;
+      max-width: 900px;
+      // margin-top: 1rem;
+
+      p {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        line-height: 1.8;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        // padding: 0 1rem;
+        
+        @include mobile { 
+          font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+          line-height: 1.7;
+          padding: 0;
+        }
+      }
+
+      // Texto destacado (cuando lo uses)
+      span {
+        display: block;
+        // margin-top: 1.5rem;
+        font-weight: 500;
+        color: #f0e85d;
+        font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+        opacity: 0.95;
+        position: relative;
+        padding: 1.5rem 0 0;
+        
+        // Decoración superior
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #6e8549, transparent);
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  // Contenedor del carrusel - CENTRADO EN COLUMNA
+  .content--mision--carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    
+    @include mobile { 
+      min-height: 300px;
+      padding: 0 1rem;
+    }
+    
+    @include tablet { 
+      min-height: 400px;
+      max-width: 90%;
+    }
+    
+    @include desktop { 
+      min-height: 450px;
+      max-width: 1000px;
+    }
+
+    // Marco decorativo sutil
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      // border: 1px solid rgba(110, 133, 73, 0.2);
+      border-radius: 1rem;
+      pointer-events: none;
+      
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
+  // Elementos decorativos
+  &::after {
+    content: '';
+    position: absolute;
+    // bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(110, 133, 73, 0.3), transparent);
+    
+    @include mobile {
+      bottom: 1rem;
+      width: 100px;
     }
   }
 }
 
+// Animaciones de entrada
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Aplicar animaciones cuando entra en vista
+.home__content--mision {
+  &.in-view {
+    .mision--titile,
+    .mision--subTitle,
+    .mision--parrafo,
+    .content--mision--carousel-wrapper {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .mision--titile { animation-delay: 0.1s; }
+    .mision--subTitle { animation-delay: 0.2s; }
+    .mision--parrafo { animation-delay: 0.3s; }
+    .content--mision--carousel-wrapper { animation-delay: 0.4s; }
+  }
+}
     // ============================================
     // SECCIÓN DE SERVICIOS
 // ============================================

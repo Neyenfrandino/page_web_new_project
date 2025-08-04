@@ -79,7 +79,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: transform 10s ease-out;
       }
 
-      // Gradiente oscuro superior e inferior
+      // Gradiente oscuro superior e inferior - MODIFICADO para transición más suave
       &::before {
         content: '';
         position: absolute;
@@ -91,7 +91,9 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           to bottom,
           rgba(0, 0, 0, 0.3) 0%,
           rgba(0, 0, 0, 0.1) 50%,
-          rgba(0, 0, 0, 0.8) 100%
+          rgba(0, 0, 0, 0.6) 85%,
+          rgba(0, 0, 0, 0.9) 95%,
+          rgba(0, 0, 0, 1) 100%
         );
         z-index: 2;
       }
@@ -208,11 +210,12 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .scroll-indicator {
       position: absolute;
-      bottom: 2rem;
+      bottom: 6rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       animation: fadeIn 2s ease-out 1s both;
+      
 
       .mouse {
         width: 25px;
@@ -220,6 +223,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 2px solid rgba(255, 255, 255, 0.5);
         border-radius: 20px;
         position: relative;
+       
 
         &::before {
           content: '';
@@ -232,31 +236,39 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           background: rgba(255, 255, 255, 0.7);
           border-radius: 2px;
           animation: scroll 2s infinite;
+          z-index: 10;
         }
       }
     }
   }
 
-  // Contenido de la sección servicios
+  // Contenido de la sección servicios - MODIFICADO
   .services--content {
     position: relative;
     z-index: 1;
-    background:  rgb(3 67 53);
+    background: rgb(3 67 53);
     margin: 0 auto;
     text-align: center;
+    // Agregamos margin-top negativo para superponer con la imagen
+    margin-top: -0px;
 
     @media (max-width: 768px) {
       padding: 4rem 1rem 3rem;
+      margin-top: -80px;
     }
 
     @media (max-width: 480px) {
       padding: 3rem 1rem 2rem;
+      margin-top: -60px;
     }
 
-    // Filtros con sticky
+    // Filtros con transición suave - NUEVO
     .services--content--filters {
+      position: relative;
+      z-index: 10;
       backdrop-filter: blur(6px);
 
+      // Transición superior suave
       &::before {
         content: '';
         position: absolute;
@@ -269,12 +281,45 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         opacity: 1;
         z-index: -1;
       }
+
+      // Efecto de gradiente para suavizar la transición
+      &::after {
+        content: '';
+        position: absolute;
+        top: -120px;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(3, 67, 53, 0.3) 20%,
+          rgba(3, 67, 53, 0.6) 40%,
+          rgba(3, 67, 53, 0.8) 60%,
+          rgba(3, 67, 53, 0.95) 80%,
+          rgb(3, 67, 53) 100%
+        );
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      // Aplicar border-radius solo arriba para efecto de curva
+      .catalog-filter-simple {
+        .filter-container {
+          // border-radius: 40px 40px 0 0;
+          overflow: hidden;
+          // box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+        }
+      }
     }
 
     .services--content--grid {
       position: relative;
       z-index: 1;
-      background-color: #bfc19e;
+      background-image: url('/img/fondopapel2.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
 
       &::before {
         content: '';
@@ -311,7 +356,64 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     .services--content--message_final {
       padding: 2rem;
       padding-bottom: 4rem;
+
+            // Efecto de gradiente para suavizar la transición
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -80px;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: linear-gradient(
+          to top,
+          transparent 0%,
+          rgba(3, 67, 53, 0.3) 20%,
+          rgba(3, 67, 53, 0.6) 40%,
+          rgba(3, 67, 53, 0.8) 60%,
+          rgba(3, 67, 53, 0.95) 80%,
+          #034335 100%
+        );
+        z-index: -1;
+        pointer-events: none;
+      }
     }
+  }
+}
+
+// Animaciones
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
   }
 }
 

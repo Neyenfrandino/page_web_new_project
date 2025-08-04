@@ -200,14 +200,9 @@ const Home = () => {
             </div>
             <div className='home__content-titile-buttons'>
               <Button text="Sobre el movimiento naluum" link="/sobre-nosotros" style="primary" />
-              <Button text="Explorar" link="/proyectos" style="outline" />
             </div>
 
-            <a href="#boletin" className="button-CTA">
-              <button>
-                Sumate a nuestra comunidad
-              </button>
-            </a>
+
           </div>
         </div>
       </Header>

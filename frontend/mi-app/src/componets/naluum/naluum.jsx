@@ -1,3 +1,4 @@
+import './naluum.scss';
 
 const Naluum = () => {
     return (

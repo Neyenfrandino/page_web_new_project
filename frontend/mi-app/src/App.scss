@@ -41,7 +41,46 @@
   height: auto;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 
+  .app__back-button{
+    position: fixed;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    z-index: 100;
+    transition: top 0.3s ease;
+
+    @include mobile-xs {
+      top: 50%;
+      left: 0.5rem;
+    }
+
+    @include mobile-sm {
+      top: 50%;
+      left: 0.5rem;
+    }
+
+    @include mobile {
+      top: 50%;
+      left: 0.5rem;
+    }
+
+    @include tablet {
+      top: 50%;
+      left: 0.7rem;
+    }
+
+    @include desktop {
+      top: 50%;
+      left: 1rem;
+    }
+
+    @include desktop-lg {
+      top: 50%;
+      left: 1rem;
+    }
+  }
   .App__nav {
     position: fixed ;
     width: 100%;

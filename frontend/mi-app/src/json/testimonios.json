@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "YERBA MATE",
-      "image": "https://images.unsplash.com/photo-1594631661960-7ac9372c2d2d?w=400&h=300&fit=crop",
+      "image": "./img/mate.jpg",
       "rating": 5,
       "title": "DELICIOSO Y NATURAL",
       "description": "Me encanta este mate porque permite que mi cuerpo se sienta mejor",

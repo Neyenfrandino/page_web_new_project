@@ -20,6 +20,7 @@ import ServiceDetail from './routers/services/services_detail';
 
 import Footer from './componets/footer/footer';
 import ScrollToTop from './componets/scrollToTop/ScrollToTop';
+import ButtonBack from './componets/button_back/button_back';
 import UserTracker from './componets/userTracker/userTracker';
 
 
@@ -56,6 +57,11 @@ const App = () => {
       <div className='App__nav'>
         <Nav listRouters={listRouters} projects={projects} />
       </div>
+
+      <div className='app__back-button'>
+        <ButtonBack />
+      </div>
+
       <ScrollToTop />
 
       <main id="view-root">
