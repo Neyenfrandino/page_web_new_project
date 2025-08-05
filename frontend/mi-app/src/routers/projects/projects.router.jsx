@@ -15,7 +15,7 @@ const routesMadreSelva = [
 ];
 
 const routesNaluum = [
-  { id: 1, name: "Inicio", path: "", icon: Home },
+  { id: 1, name: "Inicio", path: "#inicio", icon: Home },
   { id: 2, name: "Productos", path: "productos", icon: User },
   { id: 3, name: "Servicios", path: "servicios", icon: Clock },
 ]; 
@@ -24,7 +24,7 @@ const Projects = () => {
   const { pathname } = useLocation();
   const isMadreSelva = pathname.includes('/proyectos/madre-selva');
 
-  console.log(isMadreSelva);
+  
 
   return (
     <div className='projects__container'>
@@ -37,7 +37,7 @@ const Projects = () => {
         image='https://miempresa.com/default-image.jpg' 
       />
 
-      <TimelineNav routes={isMadreSelva ? routesMadreSelva : routesNaluum} />
+      <TimelineNav sections={isMadreSelva ? routesMadreSelva : routesNaluum} />
 
       <Routes>
         {/* Madre Selva */}

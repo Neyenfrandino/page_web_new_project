@@ -1,230 +1,459 @@
-// TimelineNav.scss
+// Variables de colores proporcionados
+$primary-dark: #063B2c;
+$accent-green: #D0DE85;
+$accent-brown: #8F764C;
+$neutral-gray: #7B7A70;
+$dark-gray: #48514A;
+$light-beige: #D5CEA9;
+
+// Variables adicionales
+$mobile-breakpoint: 768px;
+$timeline-width: 1px;
+$dot-size: 10px;
+$dot-active-size: 16px;
+$transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
 .timeline-nav {
-    position: fixed;
-    right: 0;
-    top: 0;
-    height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  z-index: 100;
+
+  .timeline-container {
+    position: relative;
+    height: 75%;
     display: flex;
-    align-items: center;
-    padding-right: 1rem;
-    z-index: 100;
-  
-    .timeline-container {
-      position: relative;
-      height: 75%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  
-      .timeline-line {
+    flex-direction: column;
+    justify-content: space-between;
+
+    // Línea de fondo
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 9px;
+      width: $timeline-width;
+      background-color: rgba($neutral-gray, 0.2);
+      z-index: 1;
+    }
+
+    // Línea de progreso
+    .timeline-progress {
+      position: absolute;
+      top: 0;
+      right: 9px;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        $accent-green,
+        $accent-brown
+      );
+      z-index: 2;
+      transition: height 0.5s $transition-smooth;
+      box-shadow: 0 0 8px rgba($accent-green, 0.4);
+      
+      &::after {
+        content: '';
         position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 9px;
-        width: 1px;
-        background-color: #e2e8f0;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background: $accent-green;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba($accent-green, 0.6);
       }
-  
-      .timeline-item {
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      z-index: 3;
+
+      .item-content {
+        padding-right: 1.5rem;
+        text-align: right;
         display: flex;
         align-items: center;
-        cursor: pointer;
-        position: relative;
+        justify-content: flex-end;
+        width: 100%;
         transition: all 0.3s ease;
-  
-        .item-content {
-          padding-right: 1.5rem;
+
+        .item-label {
+          font-weight: 500;
+          color: $dark-gray;
+          margin-right: 0.75rem;
+          transition: all 0.3s ease;
           text-align: right;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          width: 100%;
-          opacity: 0.7;
+          opacity: 0;
+          transform: translateX(10px);
+          white-space: nowrap;
+          padding: 0.25rem 0.75rem;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba($primary-dark, 0.05)
+          );
+          border-radius: 4px;
+
+          &.visible {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .item-icon {
+          opacity: 0.6;
           transition: all 0.3s ease;
-  
+          color: $neutral-gray;
+          flex-shrink: 0;
+        }
+      }
+
+      .item-dot {
+        position: absolute;
+        right: 9px;
+        width: $dot-size;
+        height: $dot-size;
+        border-radius: 50%;
+        background-color: white;
+        border: 2px solid $neutral-gray;
+        transform: translateX(50%);
+        transition: all 0.3s ease;
+        z-index: 4;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      // Estados hover
+      &:hover {
+        .item-content {
           .item-label {
-            font-weight: 500;
-            color: #4a5568;
-            margin-right: 0.75rem;
-            transition: all 0.3s ease;
-            text-align: right;
+            color: $primary-dark;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba($accent-green, 0.1)
+            );
           }
-  
+
           .item-icon {
-            opacity: 0.6;
-            transition: all 0.3s ease;
+            opacity: 1;
+            color: $accent-brown;
+            transform: scale(1.1);
           }
         }
-  
+
         .item-dot {
-          position: absolute;
-          right: 9px;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background-color: #fff;
-          border: 2px solid #a0aec0;
-          transform: translateX(50%);
-          transition: all 0.3s ease;
+          border-color: $accent-brown;
+          transform: translateX(50%) scale(1.2);
+          background-color: $light-beige;
         }
-  
-        &:hover {
-          .item-content {
-            opacity: 1;
-  
-            .item-label {
-              color: #2d3748;
-            }
-  
-            .item-icon {
-              opacity: 1;
-              color: #4299e1;
-            }
+      }
+
+      // Estado activo
+      &.active {
+        .item-content {
+          .item-label {
+            color: $primary-dark;
+            font-weight: 600;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba($accent-green, 0.15)
+            );
           }
-  
-          .item-dot {
-            border-color: #4299e1;
-            transform: translateX(50%) scale(1.2);
+
+          .item-icon {
+            opacity: 1;
+            color: $primary-dark;
+            transform: scale(1.15);
           }
         }
-  
-        &.active {
-          .item-content {
-            opacity: 1;
-  
-            .item-label {
-              color: #2b6cb0;
-              font-weight: 600;
-            }
-  
-            .item-icon {
-              opacity: 1;
-              color: #3182ce;
-            }
-          }
-  
-          .item-dot {
-            width: 16px;
-            height: 16px;
-            background-color: #3182ce;
-            border: 2px solid #ebf4ff;
-            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
+
+        .item-dot {
+          width: $dot-active-size;
+          height: $dot-active-size;
+          background: linear-gradient(
+            135deg,
+            $accent-green,
+            $light-beige
+          );
+          border: 2px solid rgba($primary-dark, 0.2);
+          box-shadow: 
+            0 0 0 4px rgba($accent-green, 0.2),
+            0 4px 8px rgba($accent-green, 0.3);
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: $primary-dark;
+            border-radius: 50%;
           }
         }
       }
-    }
-  
-    // Responsive: colapsa verticalmente en pantallas pequeñas
-    @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: flex-end;
-        margin-top: 8%;
-        padding-right: 0.5rem;
-        padding-top: 1rem;
-        height: auto;
-        bottom: 0;
-        right: 0;
-        // border: 1px solid #e2e8f0;
-        height: fit-content;
-        width: fit-content;
-        backdrop-filter: blur(5px);
-        background-color: #e2e8f011;
-        z-index: 1;
-  
-      .timeline-container {
-        flex-direction: row;
-        height: auto;
-        width: 100vw;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-  
-        .timeline-line {
-          display: none;
-        }
-  
-        .timeline-item {
-          flex-direction: column;
-  
-          .item-content {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-right: 0;
-            margin-bottom: 0.5rem;
-  
-            .item-label {
-              margin: 0;
-            }
-          }
-  
-          .item-dot {
-            position: static;
-            transform: none;
-            margin-bottom: 0.25rem;
+
+      // Estado pasado
+      &.passed {
+        .item-content {
+          .item-icon {
+            opacity: 0.5;
+            color: $accent-brown;
           }
         }
-      }
-    }
-  
-    // Modo oscuro
-    .dark & {
-      .timeline-container {
-        .timeline-line {
-          background-color: #4a5568;
-        }
-  
-        .timeline-item {
-          .item-content {
-            .item-label {
-              color: #cbd5e0;
-            }
-  
-            .item-icon {
-              color: #a0aec0;
-            }
-          }
-  
-          .item-dot {
-            background-color: #1a202c;
-            border-color: #718096;
-          }
-  
-          &:hover {
-            .item-content {
-              .item-label {
-                color: #e2e8f0;
-              }
-  
-              .item-icon {
-                color: #63b3ed;
-              }
-            }
-  
-            .item-dot {
-              border-color: #63b3ed;
-            }
-          }
-  
-          &.active {
-            .item-content {
-              .item-label {
-                color: #63b3ed;
-              }
-  
-              .item-icon {
-                color: #63b3ed;
-              }
-            }
-  
-            .item-dot {
-              background-color: #63b3ed;
-              border-color: #2a4365;
-              box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.3);
-            }
-          }
+
+        .item-dot {
+          background-color: $accent-brown;
+          border-color: rgba($accent-brown, 0.5);
+          width: 8px;
+          height: 8px;
         }
       }
     }
   }
-  
+
+  // Indicador móvil (oculto por defecto)
+  .mobile-indicator {
+    display: none;
+  }
+
+  // Responsive: Vista móvil
+  @media (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    align-items: flex-end;
+    top: auto;
+    bottom: 0;
+    height: auto;
+    padding: 1rem 0.5rem;
+    background: linear-gradient(
+      to top,
+      rgba($primary-dark, 0.95),
+      rgba($primary-dark, 0.85),
+      transparent
+    );
+    backdrop-filter: blur(10px);
+
+    .timeline-container {
+      flex-direction: row;
+      height: auto;
+      width: 100vw;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.5rem 0;
+
+      .timeline-line,
+      .timeline-progress {
+        display: none;
+      }
+
+      .timeline-item {
+        flex-direction: column;
+
+        .item-content {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          padding-right: 0;
+
+          .item-label {
+            display: none; // Ocultar labels en móvil
+          }
+
+          .item-icon {
+            opacity: 0.8;
+            color: $light-beige;
+          }
+        }
+
+        .item-dot {
+          position: static;
+          transform: none;
+          margin-top: 0.5rem;
+          background: rgba($light-beige, 0.2);
+          border-color: rgba($light-beige, 0.4);
+        }
+
+        &:hover {
+          .item-dot {
+            transform: scale(1.2);
+          }
+        }
+
+        &.active {
+          .item-content {
+            .item-icon {
+              color: $accent-green;
+              transform: scale(1.2);
+            }
+          }
+
+          .item-dot {
+            background: $accent-green;
+            border-color: $accent-green;
+            box-shadow: 0 0 10px rgba($accent-green, 0.5);
+          }
+        }
+
+        &.passed {
+          .item-dot {
+            background: $accent-brown;
+            border-color: $accent-brown;
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+
+    // Mostrar indicador móvil
+    .mobile-indicator {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba($primary-dark, 0.1);
+      border-radius: 20px;
+
+      .indicator-content {
+        display: flex;
+        gap: 0.5rem;
+
+        .indicator-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba($light-beige, 0.3);
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &.active {
+            background: $accent-green;
+            width: 20px;
+            border-radius: 3px;
+          }
+
+          &:hover:not(.active) {
+            background: rgba($light-beige, 0.6);
+          }
+        }
+      }
+
+      .current-section {
+        font-size: 0.875rem;
+        color: $light-beige;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Tema oscuro
+  .dark & {
+    .timeline-container {
+      .timeline-line {
+        background-color: rgba($dark-gray, 0.3);
+      }
+
+      .timeline-progress {
+        background: linear-gradient(
+          to bottom,
+          $accent-green,
+          $light-beige
+        );
+      }
+
+      .timeline-item {
+        .item-content {
+          .item-label {
+            color: $light-beige;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba($dark-gray, 0.2)
+            );
+          }
+
+          .item-icon {
+            color: rgba($light-beige, 0.7);
+          }
+        }
+
+        .item-dot {
+          background-color: $dark-gray;
+          border-color: rgba($neutral-gray, 0.5);
+        }
+
+        &:hover {
+          .item-content {
+            .item-label {
+              color: $accent-green;
+            }
+
+            .item-icon {
+              color: $accent-green;
+            }
+          }
+
+          .item-dot {
+            border-color: $accent-green;
+            background-color: rgba($accent-green, 0.2);
+          }
+        }
+
+        &.active {
+          .item-content {
+            .item-label {
+              color: $accent-green;
+            }
+
+            .item-icon {
+              color: $accent-green;
+            }
+          }
+
+          .item-dot {
+            background: $accent-green;
+            border-color: rgba($accent-green, 0.3);
+            box-shadow: 
+              0 0 0 4px rgba($accent-green, 0.2),
+              0 0 20px rgba($accent-green, 0.4);
+          }
+        }
+      }
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      background: linear-gradient(
+        to top,
+        rgba($dark-gray, 0.98),
+        rgba($dark-gray, 0.9),
+        transparent
+      );
+    }
+  }
+}
+
+// Animación de pulso
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($accent-green, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($accent-green, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($accent-green, 0);
+  }
+}

@@ -2,15 +2,16 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './time_line_history.scss';
  
-const TimeLineHistory = () => {
+const TimeLineHistory = ({ index }) => {
   const { time_line_history } = useContext(ContextJsonLoadContext);
   const [activeChapter, setActiveChapter] = useState(0);
   const [moreInfo, setMoreInfo] = useState(false);
   const [isVisible, setIsVisible] = useState({});
   const chapterRefs = useRef([]);
 
-  const chapters = time_line_history || [];
-
+  const chapters = time_line_history[index]?.items|| [];
+  
+  if(!chapters) return null;
 
   useEffect(() => {
     const handleScroll = () => {

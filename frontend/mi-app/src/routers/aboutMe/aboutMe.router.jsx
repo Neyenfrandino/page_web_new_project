@@ -59,7 +59,7 @@ const AboutMe = () => {
             <div className='aboutMe__content'>
                 <div className='aboutMe__content-history'>
                     <FadeInOnView {...fadeInProps}>
-                        <TimeLineHistory />
+                        <TimeLineHistory index={0}/>
                     </FadeInOnView>
                 </div>
 
