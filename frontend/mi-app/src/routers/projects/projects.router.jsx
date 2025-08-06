@@ -4,7 +4,7 @@ import HomeMadreSelva from '../../componets/madre_selva/madre_selva';
 import Naluum from '../../componets/naluum/naluum';
 import TimelineNav from '../../componets/timeLineNav/timelineNav';
 import Header from '../../componets/header/header';
-import { Clock, Home, User } from 'lucide-react';
+import { Home, User, Clock, Mail, HelpCircle } from 'lucide-react';
 
 import './projects.router.scss';
 
@@ -14,12 +14,14 @@ const routesMadreSelva = [
   { id: 3, name: "Servicios", path: "servicios", icon: Clock },
 ];
 
+// En projects.router.jsx
 const routesNaluum = [
-  { id: 1, name: "Inicio", path: "#inicio", icon: Home },
-  { id: 2, name: "Productos", path: "productos", icon: User },
-  { id: 3, name: "Servicios", path: "servicios", icon: Clock },
-]; 
-
+  { id: "inicio", name: "Inicio", path: "#inicio", icon: Home },
+  { id: "sobre-naluum", name: "Sobre Naluum", path: "#sobre-naluum", icon: User },
+  { id: "productos", name: "Productos", path: "#productos", icon: Clock },
+  { id: "servicios", name: "Servicios", path: "#servicios", icon: User },
+  { id: "contacto", name: "Contacto", path: "#contacto", icon: Mail },
+];
 const Projects = () => {
   const { pathname } = useLocation();
   const isMadreSelva = pathname.includes('/proyectos/madre-selva');

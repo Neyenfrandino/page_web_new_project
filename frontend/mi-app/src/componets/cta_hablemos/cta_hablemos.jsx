@@ -1,7 +1,5 @@
 import { useState, useCallback } from 'react';
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import { FaLeaf } from 'react-icons/fa';
-
+import { Mail, MessageCircle, Instagram, Leaf, Send, User, AtSign } from 'lucide-react';
 import './cta_hablemos.scss';
 
 const CtaHablemos = ({ showSocialMedia = true }) => {
@@ -11,7 +9,8 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         mensaje: ''
     }); 
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
+    const [focusedField, setFocusedField] = useState('');
+ 
     const { nombre, correo, mensaje } = formState;
 
     const handleInputChange = useCallback((field, value) => {
@@ -39,124 +38,198 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
     }, [nombre, correo, mensaje]);
  
     return (
-        <div className="cta-hablemos">
-            <SEOHelmet 
-                title="Hablemos | Movimiento Naluum"
-                description="Hablemos con Naluum, para conocer más sobre nuestro movimiento y sus misiones."
-                keywords="movimiento naluum, naluum, movimiento, naluum movimiento"
-                author="Neyen Frandino"
-                url="https://miempresa.com"
-                image="https://miempresa.com/img/logo_naluum_og.jpg"    
-            />
+        <div className="modern-contact">
+            {/* Elementos decorativos de fondo */}
+            <div className="modern-contact__bg-decoration modern-contact__bg-decoration--1"></div>
+            <div className="modern-contact__bg-decoration modern-contact__bg-decoration--2"></div>
+            <div className="modern-contact__bg-decoration modern-contact__bg-decoration--3"></div>
 
-            <div className="cta-hablemos__container">
-                {/* Elementos decorativos */}
-                <div className="cta-hablemos__decoration cta-hablemos__decoration--top-left"><FaLeaf style={{ color: '#4CAF50', fontSize: '104px' }} /></div>
-                <div className="cta-hablemos__decoration cta-hablemos__decoration--bottom-left"><FaLeaf style={{ color: '#4CAF50', fontSize: '104px' }} /></div>
-                <div className="cta-hablemos__decoration cta-hablemos__decoration--top-right"><FaLeaf style={{ color: '#4CAF50', fontSize: '104px' }} /></div>
+            {/* Iconos flotantes */}
+            <div className="modern-contact__floating-icon modern-contact__floating-icon--1">
+                <Leaf size={48} />
+            </div>
+            <div className="modern-contact__floating-icon modern-contact__floating-icon--2">
+                <Leaf size={36} />
+            </div>
+            <div className="modern-contact__floating-icon modern-contact__floating-icon--3">
+                <Leaf size={24} />
+            </div>
 
-                <div className="cta-hablemos__content">
-                    {/* Sección izquierda con imagen */}
-                    <div className="cta-hablemos__left">
-                        <div className="image-wrapper">
-                            <div className="image-container">
-                                <img src="/img/tierra_martinez.jpg" alt="Foto de perfil" className="image" />
-                            </div>
-                        </div>
+            <div className="modern-contact__container">
+                {/* Header */}
+                <div className="modern-contact__header">
+                    <div className="modern-contact__header-icon">
+                        <Leaf size={32} />
                     </div>
+                    <h1 className="modern-contact__title">Hablemos</h1>
+                    <p className="modern-contact__subtitle">
+                        Conectemos ideas, creemos soluciones sostenibles y construyamos juntos un futuro más verde
+                    </p>
+                </div>
 
-                    {/* Sección derecha con formulario */}
-                    <div className="cta-hablemos__right">
-                        <h1 className="cta-hablemos__title">Hablemos</h1>
-                        <p className="cta-hablemos__subtitle">
-                            Contanos en qué te podemos ayudar.
-                        </p>
+                {/* Formulario principal */}
+                <div className="modern-contact__form-section">
+                    <div className="modern-contact__form-card">
+                        <div className="modern-contact__form-grid">
+                            {/* Sección izquierda - Imagen */}
+                            <div className="modern-contact__image-section">
+                                <div className="modern-contact__image-bg"></div>
+                                <div className="modern-contact__image-decoration modern-contact__image-decoration--top">
+                                    <Leaf size={120} />
+                                </div>
+                                <div className="modern-contact__image-decoration modern-contact__image-decoration--bottom">
+                                    <Leaf size={80} />
+                                </div>
+                                
+                                <div className="modern-contact__image-content">
+                                    <div className="modern-contact__profile-image">
+                                        <img 
+                                            src="/img/tierra_martinez.jpg" 
+                                            alt="Foto de perfil"
+                                        />
+                                    </div>
+                                    <div className="modern-contact__profile-info">
+                                        <h3>Naluum</h3>
+                                        <p>Movimiento de Permacultura</p>
+                                        <div className="modern-contact__profile-tagline">
+                                            <Leaf size={16} />
+                                            <span>Construyendo un futuro sostenible</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div className="cta-hablemos__form">
-                            <input
-                                type="text"
-                                placeholder="NAME"
-                                value={nombre}
-                                onChange={(e) => handleInputChange('nombre', e.target.value)}
-                                className="cta-hablemos__input"
-                            />
+                            {/* Sección derecha - Formulario */}
+                            <div className="modern-contact__form-content">
+                                <h2>Contanos en qué te podemos ayudar</h2>
+                                <p>Tu mensaje es importante para nosotros</p>
 
-                            <input
-                                type="email"
-                                placeholder="EMAIL"
-                                value={correo}
-                                onChange={(e) => handleInputChange('correo', e.target.value)}
-                                className="cta-hablemos__input"
-                            />
+                                <div className="modern-contact__form">
+                                    {/* Campo Nombre */}
+                                    <div className="modern-contact__field">
+                                        <div className={`modern-contact__field-icon ${focusedField === 'nombre' ? 'modern-contact__field-icon--focused' : ''}`}>
+                                            <User size={20} />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            placeholder="Tu nombre"
+                                            value={nombre}
+                                            onChange={(e) => handleInputChange('nombre', e.target.value)}
+                                            onFocus={() => setFocusedField('nombre')}
+                                            onBlur={() => setFocusedField('')}
+                                            className={`modern-contact__input ${focusedField === 'nombre' ? 'modern-contact__input--focused' : ''}`}
+                                        />
+                                    </div>
 
-                            <textarea
-                                placeholder="MESSAGE"
-                                value={mensaje}
-                                onChange={(e) => handleInputChange('mensaje', e.target.value)}
-                                className="cta-hablemos__textarea"
-                                rows="4"
-                            />
+                                    {/* Campo Email */}
+                                    <div className="modern-contact__field">
+                                        <div className={`modern-contact__field-icon ${focusedField === 'correo' ? 'modern-contact__field-icon--focused' : ''}`}>
+                                            <AtSign size={20} />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            placeholder="tu@email.com"
+                                            value={correo}
+                                            onChange={(e) => handleInputChange('correo', e.target.value)}
+                                            onFocus={() => setFocusedField('correo')}
+                                            onBlur={() => setFocusedField('')}
+                                            className={`modern-contact__input ${focusedField === 'correo' ? 'modern-contact__input--focused' : ''}`}
+                                        />
+                                    </div>
 
-                            <button 
-                                onClick={handleSubmit}
-                                className="cta-hablemos__submit"
-                                disabled={isFormSubmitted}
-                            >
-                                {isFormSubmitted ? 'Enviando...' : 'Sembrar mensaje'}
-                            </button>
+                                    {/* Campo Mensaje */}
+                                    <div className="modern-contact__field">
+                                        <textarea
+                                            placeholder="Escribe tu mensaje aquí..."
+                                            value={mensaje}
+                                            onChange={(e) => handleInputChange('mensaje', e.target.value)}
+                                            onFocus={() => setFocusedField('mensaje')}
+                                            onBlur={() => setFocusedField('')}
+                                            rows="5"
+                                            className={`modern-contact__textarea ${focusedField === 'mensaje' ? 'modern-contact__textarea--focused' : ''}`}
+                                        />
+                                    </div>
+
+                                    {/* Botón Submit */}
+                                    <button 
+                                        type="button"
+                                        onClick={handleSubmit}
+                                        disabled={isFormSubmitted}
+                                        className="modern-contact__submit"
+                                    >
+                                        {isFormSubmitted ? (
+                                            <>
+                                                <div className="modern-contact__spinner"></div>
+                                                <span>Enviando...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Send size={20} />
+                                                <span>Sembrar mensaje</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                {/* Sección de redes sociales */}
                 {showSocialMedia && (
-                    <div className="cta-hablemos__alternative">
-                        <h2 className="cta-hablemos__alternative-title">
-                            También podés encontrarnos por otros medios:
-                        </h2>
+                    <div className="modern-contact__social-section">
+                        <div className="modern-contact__social-header">
+                            <h2>También podés encontrarnos por otros medios</h2>
+                            <p>Elige la forma que más te guste para conectar con nosotros</p>
+                        </div>
 
-                        <div className="cta-hablemos__cards">
+                        <div className="modern-contact__social-grid">
                             {/* Email Card */}
-                            <div className="cta-hablemos__card">
-                                <div className="cta-hablemos__card-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        <path d="M22 6L12 13L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
+                            <div className="modern-contact__social-card modern-contact__social-card--email">
+                                <div className="modern-contact__social-icon modern-contact__social-icon--email">
+                                    <Mail size={28} />
                                 </div>
-                                <p className="cta-hablemos__card-title">Escribinos por email:</p>
-                                <p className="cta-hablemos__card-info">[Naluum@ejemplo.com]</p>
-                                <a href="mailto:Naluum@ejemplo.com" className="cta-hablemos__card-button">
-                                    Enviar mensaje
+                                <h3>Escribinos por email</h3>
+                                <p>Naluum@ejemplo.com</p>
+                                <a href="mailto:Naluum@ejemplo.com" className="modern-contact__social-button modern-contact__social-button--email">
+                                    <Mail size={18} />
+                                    <span>Enviar mensaje</span>
                                 </a>
                             </div>
 
                             {/* WhatsApp Card */}
-                            <div className="cta-hablemos__card">
-                                <div className="cta-hablemos__card-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
+                            <div className="modern-contact__social-card modern-contact__social-card--whatsapp">
+                                <div className="modern-contact__social-icon modern-contact__social-icon--whatsapp">
+                                    <MessageCircle size={28} />
                                 </div>
-                                <p className="cta-hablemos__card-title">Habla por WhatsApp</p>
-                                <p className="cta-hablemos__card-info">+57 3456082190</p>
-                                <a href="https://wa.me/573456082190" className="cta-hablemos__card-button" target="_blank" rel="noopener noreferrer">
-                                    Conversemos
+                                <h3>Habla por WhatsApp</h3>
+                                <p>+57 3456082190</p>
+                                <a 
+                                    href="https://wa.me/573456082190" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="modern-contact__social-button modern-contact__social-button--whatsapp"
+                                >
+                                    <MessageCircle size={18} />
+                                    <span>Conversemos</span>
                                 </a>
                             </div>
 
                             {/* Instagram Card */}
-                            <div className="cta-hablemos__card">
-                                <div className="cta-hablemos__card-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="2"/>
-                                        <path d="M16 11.37C16.1234 12.2022 15.9813 13.0522 15.5938 13.799C15.2063 14.5458 14.5932 15.1514 13.8416 15.5297C13.0901 15.9079 12.2385 16.0396 11.4078 15.9059C10.5771 15.7723 9.80977 15.3801 9.21485 14.7852C8.61993 14.1902 8.22774 13.4229 8.09408 12.5922C7.96042 11.7615 8.09208 10.9099 8.47034 10.1584C8.8486 9.40685 9.4542 8.79374 10.201 8.40624C10.9478 8.01874 11.7978 7.87658 12.63 8C13.4789 8.12588 14.2649 8.52146 14.8717 9.1283C15.4785 9.73515 15.8741 10.5211 16 11.37Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        <path d="M17.5 6.5H17.51" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
+                            <div className="modern-contact__social-card modern-contact__social-card--instagram">
+                                <div className="modern-contact__social-icon modern-contact__social-icon--instagram">
+                                    <Instagram size={28} />
                                 </div>
-                                <p className="cta-hablemos__card-title">Seguinos en redes</p>
-                                <p className="cta-hablemos__card-info">@naluum.permacultura</p>
-                                <a href="https://www.instagram.com/naluum.permacultura" className="cta-hablemos__card-button" target="_blank" rel="noopener noreferrer">
-                                    Haz parte de la red
+                                <h3>Seguinos en redes</h3>
+                                <p>@naluum.permacultura</p>
+                                <a 
+                                    href="https://www.instagram.com/naluum.permacultura" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="modern-contact__social-button modern-contact__social-button--instagram"
+                                >
+                                    <Instagram size={18} />
+                                    <span>Haz parte de la red</span>
                                 </a>
                             </div>
                         </div>

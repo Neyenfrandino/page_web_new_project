@@ -1,50 +1,84 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './timelineNav.scss';
 
 const TimelineNav = ({ sections }) => {
-  const [activeSection, setActiveSection] = useState(sections[0]?.id || '');
+  const [activeSection, setActiveSection] = useState('');
   const [hoveredSection, setHoveredSection] = useState(null);
   const [isScrolling, setIsScrolling] = useState(false);
   const observerRef = useRef(null);
   const scrollTimeoutRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Intersection Observer para detectar qué sección está visible
-    const observerOptions = {
-      root: null,
-      rootMargin: '-30% 0px -60% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    };
+    // Configurar el observer solo para secciones con hash
+    const hashSections = sections.filter(section => section.path?.startsWith('#'));
+    
+    if (hashSections.length > 0) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -60% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1]
+      };
+   
+      observerRef.current = new IntersectionObserver((entries) => {
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (visibleEntries.length > 0) {
+          const mostVisible = visibleEntries.reduce((prev, current) => {
+            return current.intersectionRatio > prev.intersectionRatio ? current : prev;
+          });
+          
+          // Encontrar la sección que corresponde a este elemento
+          const matchingSection = sections.find(s => {
+            if (s.path?.startsWith('#')) {
+              return s.path.substring(1) === mostVisible.target.id;
+            }
+            return false;
+          });
+          
+          if (matchingSection) {
+            setActiveSection(matchingSection.id);
+          }
+        }
+      }, observerOptions);
 
-    observerRef.current = new IntersectionObserver((entries) => {
-      const visibleEntries = entries.filter(entry => entry.isIntersecting);
-      if (visibleEntries.length > 0) {
-        // Obtener la entrada más visible
-        const mostVisible = visibleEntries.reduce((prev, current) => {
-          return current.intersectionRatio > prev.intersectionRatio ? current : prev;
-        });
-        setActiveSection(mostVisible.target.id);
-      }
-    }, observerOptions);
+      // Observar todas las secciones con hash
+      hashSections.forEach((section) => {
+        // Remover el # del path para obtener el ID del elemento
+        const elementId = section.path.substring(1);
+        const element = document.getElementById(elementId);
+        if (element) {
+          observerRef.current.observe(element);
+        }
+      });
+    }
 
-    // Observar todas las secciones
-    sections.forEach((section) => {
-      const element = document.getElementById(section.id);
-      if (element) {
-        observerRef.current.observe(element);
+    // Para rutas normales, actualizar activeSection basado en la ruta actual
+    const currentPath = location.pathname + location.hash;
+    const matchingRoute = sections.find(section => {
+      if (section.path?.startsWith('#')) {
+        return location.hash === section.path;
+      } else if (section.path === '') {
+        // Para la ruta raíz
+        return location.pathname.endsWith('/naluum') || location.pathname.endsWith('/madre-selva');
+      } else {
+        return currentPath.includes(section.path);
       }
     });
+    
+    if (matchingRoute && !activeSection) {
+      setActiveSection(matchingRoute.id);
+    }
 
     // Detectar scroll para mostrar nombres
     const handleScroll = () => {
       setIsScrolling(true);
       
-      // Limpiar timeout anterior
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
       
-      // Ocultar nombres después de dejar de scrollear
       scrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false);
       }, 1500);
@@ -61,28 +95,55 @@ const TimelineNav = ({ sections }) => {
       }
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [sections]);
+  }, [sections, location, activeSection]);
 
-  const handleNavClick = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 60; // Offset para headers fijos
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+  const handleNavClick = (section) => {
+    console.log('Navigating to:', section.path);
+    
+    // Si el path empieza con #, es una navegación por hash (scroll)
+    if (section.path?.startsWith('#')) {
+      // Remover el # para obtener el ID del elemento
+      const elementId = section.path.substring(1);
+      const element = document.getElementById(elementId);
+      
+      if (element) {
+        const offset = 60; // Offset para headers fijos
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Actualizar la URL con el hash
+        window.history.pushState(null, '', section.path);
+      } else {
+        console.warn(`Element with id "${elementId}" not found`);
+      }
+    } else {
+      // Es una ruta normal, usar navigate
+      if (section.path === '') {
+        // Para la ruta raíz del proyecto
+        navigate('.');
+      } else {
+        navigate(section.path);
+      }
     }
+    
+    // Actualizar la sección activa inmediatamente
+    setActiveSection(section.id);
   };
 
   const getActiveIndex = () => {
     return sections.findIndex(section => section.id === activeSection);
   };
 
+  // Agregar clase 'scrolling' al nav cuando está en ese estado
+  const navClassName = `timeline-nav ${isScrolling ? 'scrolling' : ''}`;
+
   return (
-    <nav className="timeline-nav">
+    <nav className={navClassName}>
       <div className="timeline-container">
         {/* Línea de fondo */}
         <div className="timeline-line" />
@@ -107,7 +168,7 @@ const TimelineNav = ({ sections }) => {
             <div
               key={section.id}
               className={`timeline-item ${isActive ? 'active' : ''} ${isPassed ? 'passed' : ''}`}
-              onClick={() => handleNavClick(section.id)}
+              onClick={() => handleNavClick(section)}
               onMouseEnter={() => setHoveredSection(section.id)}
               onMouseLeave={() => setHoveredSection(null)}
             >
@@ -130,7 +191,7 @@ const TimelineNav = ({ sections }) => {
             <div
               key={section.id}
               className={`indicator-dot ${activeSection === section.id ? 'active' : ''}`}
-              onClick={() => handleNavClick(section.id)}
+              onClick={() => handleNavClick(section)}
             />
           ))}
         </div>

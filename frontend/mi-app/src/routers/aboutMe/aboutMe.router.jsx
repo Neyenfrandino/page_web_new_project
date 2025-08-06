@@ -24,7 +24,11 @@ const fadeInProps = {
   speed: prefersReducedMotion ? 'fast' : "slow"
 };
 
-
+const titles = {
+  titulo: "Movimiento",
+  subTitle: "Naluum",
+  description: "Una historia de regeneración planetaria que comenzó con un descubrimiento y se convirtió en la esperanza de millones",
+}
 
 const AboutMe = () => {
     const [logrosRef, logrosVisible] = useOnScreen({
@@ -59,7 +63,7 @@ const AboutMe = () => {
             <div className='aboutMe__content'>
                 <div className='aboutMe__content-history'>
                     <FadeInOnView {...fadeInProps}>
-                        <TimeLineHistory index={0}/>
+                        <TimeLineHistory index={0} titles={titles} />
                     </FadeInOnView>
                 </div>
 

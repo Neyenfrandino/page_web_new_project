@@ -1,52 +1,69 @@
-// Variables de colores proporcionados
-$primary-dark: #063B2c;
-$accent-green: #D0DE85;
-$accent-brown: #8F764C;
-$neutral-gray: #7B7A70;
-$dark-gray: #48514A;
-$light-beige: #D5CEA9;
+// Variables de colores mejorados para mejor contraste
+$primary-dark: #ffffff;
+$accent-green: #7FB069; // Verde más suave y visible
+$accent-brown: #A68B5B; // Marrón más claro
+$neutral-gray: #9B9A8F; // Gris más claro
+$dark-gray: #5A635C; // Gris oscuro más suave
+$light-beige: #E8E2C3; // Beige más claro
+$white: #FFFFFF;
+$shadow-color: rgba(0, 0, 0, 0.15);
 
 // Variables adicionales
 $mobile-breakpoint: 768px;
-$timeline-width: 1px;
-$dot-size: 10px;
-$dot-active-size: 16px;
+$timeline-width: 2px; // Línea más visible
+$dot-size: 8px; // Puntos más pequeños
+$dot-active-size: 12px; // Punto activo más pequeño
 $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
 .timeline-nav {
   position: fixed;
   right: 0;
-  top: 0;
-  height: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
   display: flex;
   align-items: center;
-  padding-right: 1rem;
+  padding-right: 0.75rem; // Menos padding
   z-index: 100;
+  
+  // Estado para mostrar labels durante scroll
+  &.scrolling {
+    .timeline-item {
+      .item-content {
+        .item-label {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    }
+  }
 
   .timeline-container {
     position: relative;
-    height: 75%;
+    height: 320px; // Altura fija más pequeña
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 1rem 0;
 
-    // Línea de fondo
+    // Línea de fondo con mejor contraste
     .timeline-line {
       position: absolute;
       top: 0;
       bottom: 0;
-      right: 9px;
+      right: 7px;
       width: $timeline-width;
-      background-color: rgba($neutral-gray, 0.2);
+      background-color: rgba($neutral-gray, 0.4); // Más visible
       z-index: 1;
+      border-radius: 1px;
     }
 
-    // Línea de progreso
+    // Línea de progreso más visible
     .timeline-progress {
       position: absolute;
       top: 0;
-      right: 9px;
-      width: 2px;
+      right: 7px;
+      width: 3px; // Más gruesa para mejor visibilidad
       background: linear-gradient(
         to bottom,
         $accent-green,
@@ -54,19 +71,20 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       );
       z-index: 2;
       transition: height 0.5s $transition-smooth;
-      box-shadow: 0 0 8px rgba($accent-green, 0.4);
+      box-shadow: 0 0 6px rgba($accent-green, 0.5);
+      border-radius: 1.5px;
       
       &::after {
         content: '';
         position: absolute;
-        bottom: -2px;
+        bottom: -3px;
         left: 50%;
         transform: translateX(-50%);
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         background: $accent-green;
         border-radius: 50%;
-        box-shadow: 0 0 10px rgba($accent-green, 0.6);
+        box-shadow: 0 0 8px rgba($accent-green, 0.7);
       }
     }
 
@@ -79,7 +97,7 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 3;
 
       .item-content {
-        padding-right: 1.5rem;
+        padding-right: 1rem; // Menos padding
         text-align: right;
         display: flex;
         align-items: center;
@@ -88,60 +106,54 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s ease;
 
         .item-label {
-          font-weight: 500;
+          font-size: 0.75rem; // Texto más pequeño
+          font-weight: 600; // Más bold para mejor legibilidad
           color: $dark-gray;
-          margin-right: 0.75rem;
+          margin-right: 0.5rem;
           transition: all 0.3s ease;
           text-align: right;
-          opacity: 0;
+          opacity: 0; // Oculto por defecto
           transform: translateX(10px);
           white-space: nowrap;
-          padding: 0.25rem 0.75rem;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba($primary-dark, 0.05)
-          );
+          padding: 0.2rem 0.6rem;
+          background: rgba($white, 0.95); // Fondo más sólido
+          border: 1px solid rgba($neutral-gray, 0.2);
           border-radius: 4px;
-
-          &.visible {
-            opacity: 1;
-            transform: translateX(0);
-          }
+          box-shadow: 0 2px 4px $shadow-color;
         }
 
         .item-icon {
-          opacity: 0.6;
+          opacity: 0.7;
           transition: all 0.3s ease;
-          color: $neutral-gray;
+          color: $dark-gray; // Color más visible
           flex-shrink: 0;
+          font-size: 1rem; // Iconos más pequeños
         }
       }
 
       .item-dot {
         position: absolute;
-        right: 9px;
+        right: 7px;
         width: $dot-size;
         height: $dot-size;
         border-radius: 50%;
-        background-color: white;
+        background-color: $white;
         border: 2px solid $neutral-gray;
         transform: translateX(50%);
         transition: all 0.3s ease;
         z-index: 4;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px $shadow-color;
       }
 
-      // Estados hover
+      // Estados hover - Mostrar labels solo en hover
       &:hover {
         .item-content {
           .item-label {
+            opacity: 1; // Mostrar label en hover
+            transform: translateX(0);
             color: $primary-dark;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba($accent-green, 0.1)
-            );
+            background: rgba($accent-green, 0.15);
+            border-color: rgba($accent-green, 0.3);
           }
 
           .item-icon {
@@ -153,8 +165,9 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
         .item-dot {
           border-color: $accent-brown;
-          transform: translateX(50%) scale(1.2);
-          background-color: $light-beige;
+          transform: translateX(50%) scale(1.3);
+          background-color: rgba($accent-green, 0.2);
+          box-shadow: 0 2px 6px rgba($accent-brown, 0.3);
         }
       }
 
@@ -163,33 +176,29 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         .item-content {
           .item-label {
             color: $primary-dark;
-            font-weight: 600;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba($accent-green, 0.15)
-            );
+            font-weight: 700;
+            // Label del activo se muestra siempre
+            opacity: 1;
+            transform: translateX(0);
+            background: rgba($accent-green, 0.2);
+            border-color: rgba($accent-green, 0.4);
           }
 
           .item-icon {
             opacity: 1;
-            color: $primary-dark;
-            transform: scale(1.15);
+            color: $accent-green;
+            transform: scale(1.1);
           }
         }
 
         .item-dot {
           width: $dot-active-size;
           height: $dot-active-size;
-          background: linear-gradient(
-            135deg,
-            $accent-green,
-            $light-beige
-          );
-          border: 2px solid rgba($primary-dark, 0.2);
+          background: $accent-green;
+          border: 2px solid rgba($white, 0.8);
           box-shadow: 
-            0 0 0 4px rgba($accent-green, 0.2),
-            0 4px 8px rgba($accent-green, 0.3);
+            0 0 0 3px rgba($accent-green, 0.3),
+            0 3px 6px rgba($accent-green, 0.4);
           
           &::before {
             content: '';
@@ -197,9 +206,9 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            background: $primary-dark;
+            width: 4px;
+            height: 4px;
+            background: $white;
             border-radius: 50%;
           }
         }
@@ -208,6 +217,10 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       // Estado pasado
       &.passed {
         .item-content {
+          .item-label {
+            opacity: 0; // Ocultar labels de secciones pasadas
+          }
+          
           .item-icon {
             opacity: 0.5;
             color: $accent-brown;
@@ -215,10 +228,20 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .item-dot {
-          background-color: $accent-brown;
-          border-color: rgba($accent-brown, 0.5);
-          width: 8px;
-          height: 8px;
+          background-color: rgba($accent-brown, 0.7);
+          border-color: rgba($accent-brown, 0.4);
+          width: 6px;
+          height: 6px;
+        }
+        
+        // Mostrar label en hover incluso para items pasados
+        &:hover {
+          .item-content {
+            .item-label {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
         }
       }
     }
@@ -235,8 +258,9 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     align-items: flex-end;
     top: auto;
     bottom: 0;
+    transform: none;
     height: auto;
-    padding: 1rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     background: linear-gradient(
       to top,
       rgba($primary-dark, 0.95),
@@ -251,7 +275,7 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       width: 100vw;
       justify-content: center;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
       padding: 0.5rem 0;
 
       .timeline-line,
@@ -275,20 +299,22 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
           .item-icon {
             opacity: 0.8;
             color: $light-beige;
+            font-size: 1.25rem;
           }
         }
 
         .item-dot {
           position: static;
           transform: none;
-          margin-top: 0.5rem;
-          background: rgba($light-beige, 0.2);
-          border-color: rgba($light-beige, 0.4);
+          margin-top: 0.4rem;
+          background: rgba($light-beige, 0.3);
+          border-color: rgba($light-beige, 0.5);
         }
 
         &:hover {
           .item-dot {
-            transform: scale(1.2);
+            transform: scale(1.3);
+            background: rgba($accent-green, 0.3);
           }
         }
 
@@ -302,16 +328,16 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
           .item-dot {
             background: $accent-green;
-            border-color: $accent-green;
-            box-shadow: 0 0 10px rgba($accent-green, 0.5);
+            border-color: rgba($white, 0.8);
+            box-shadow: 0 0 8px rgba($accent-green, 0.6);
           }
         }
 
         &.passed {
           .item-dot {
-            background: $accent-brown;
-            border-color: $accent-brown;
-            opacity: 0.6;
+            background: rgba($accent-brown, 0.6);
+            border-color: rgba($accent-brown, 0.4);
+            opacity: 0.7;
           }
         }
       }
@@ -321,38 +347,38 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     .mobile-indicator {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba($primary-dark, 0.1);
-      border-radius: 20px;
+      gap: 0.75rem;
+      margin-top: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba($primary-dark, 0.15);
+      border-radius: 16px;
 
       .indicator-content {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
 
         .indicator-dot {
-          width: 6px;
-          height: 6px;
+          width: 5px;
+          height: 5px;
           border-radius: 50%;
-          background: rgba($light-beige, 0.3);
+          background: rgba($light-beige, 0.4);
           cursor: pointer;
           transition: all 0.3s ease;
 
           &.active {
             background: $accent-green;
-            width: 20px;
-            border-radius: 3px;
+            width: 16px;
+            border-radius: 2.5px;
           }
 
           &:hover:not(.active) {
-            background: rgba($light-beige, 0.6);
+            background: rgba($light-beige, 0.7);
           }
         }
       }
 
       .current-section {
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         color: $light-beige;
         font-weight: 500;
       }
@@ -363,7 +389,7 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   .dark & {
     .timeline-container {
       .timeline-line {
-        background-color: rgba($dark-gray, 0.3);
+        background-color: rgba($light-beige, 0.2);
       }
 
       .timeline-progress {
@@ -372,33 +398,33 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
           $accent-green,
           $light-beige
         );
+        box-shadow: 0 0 8px rgba($accent-green, 0.6);
       }
 
       .timeline-item {
         .item-content {
           .item-label {
             color: $light-beige;
-            background: linear-gradient(
-              90deg,
-              transparent,
-              rgba($dark-gray, 0.2)
-            );
+            background: rgba($dark-gray, 0.95);
+            border-color: rgba($light-beige, 0.15);
           }
 
           .item-icon {
-            color: rgba($light-beige, 0.7);
+            color: rgba($light-beige, 0.8);
           }
         }
 
         .item-dot {
           background-color: $dark-gray;
-          border-color: rgba($neutral-gray, 0.5);
+          border-color: rgba($light-beige, 0.3);
         }
 
         &:hover {
           .item-content {
             .item-label {
-              color: $accent-green;
+              color: $white;
+              background: rgba($accent-green, 0.2);
+              border-color: rgba($accent-green, 0.3);
             }
 
             .item-icon {
@@ -408,14 +434,16 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
           .item-dot {
             border-color: $accent-green;
-            background-color: rgba($accent-green, 0.2);
+            background-color: rgba($accent-green, 0.3);
           }
         }
 
         &.active {
           .item-content {
             .item-label {
-              color: $accent-green;
+              color: $white;
+              background: rgba($accent-green, 0.25);
+              border-color: rgba($accent-green, 0.4);
             }
 
             .item-icon {
@@ -425,10 +453,17 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
           .item-dot {
             background: $accent-green;
-            border-color: rgba($accent-green, 0.3);
+            border-color: rgba($white, 0.5);
             box-shadow: 
-              0 0 0 4px rgba($accent-green, 0.2),
-              0 0 20px rgba($accent-green, 0.4);
+              0 0 0 3px rgba($accent-green, 0.3),
+              0 0 16px rgba($accent-green, 0.5);
+          }
+        }
+
+        &.passed {
+          .item-dot {
+            background: rgba($accent-brown, 0.5);
+            border-color: rgba($accent-brown, 0.3);
           }
         }
       }
@@ -445,13 +480,13 @@ $transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Animación de pulso
+// Animación de pulso más suave
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba($accent-green, 0.4);
+    box-shadow: 0 0 0 0 rgba($accent-green, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba($accent-green, 0);
+    box-shadow: 0 0 0 8px rgba($accent-green, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba($accent-green, 0);

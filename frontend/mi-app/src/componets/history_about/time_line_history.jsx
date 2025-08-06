@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './time_line_history.scss';
  
-const TimeLineHistory = ({ index }) => {
+
+const TimeLineHistory = ({ index, titles }) => {
   const { time_line_history } = useContext(ContextJsonLoadContext);
   const [activeChapter, setActiveChapter] = useState(0);
   const [moreInfo, setMoreInfo] = useState(false);
@@ -11,7 +12,7 @@ const TimeLineHistory = ({ index }) => {
 
   const chapters = time_line_history[index]?.items|| [];
   
-  if(!chapters) return null;
+  if(!chapters || !titles) return null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,12 +56,11 @@ const TimeLineHistory = ({ index }) => {
         
         <div className="hero-content">
           <h1 className="hero-title">
-            <span className="title-line">Movimiento</span>
-            <span className="title-highlight">Naluum</span>
+            <span className="title-line">{titles.titulo}</span>
+            <span className="title-highlight">{titles.subTitle}</span>
           </h1>
           <p className="hero-subtitle">
-            Una historia de regeneración planetaria que comenzó con un descubrimiento 
-            y se convirtió en la esperanza de millones
+            {titles.description}
           </p>
         </div>
 
