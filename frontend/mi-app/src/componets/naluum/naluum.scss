@@ -156,7 +156,7 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         rgba(0, 0, 8, 0.6) 70%, 
         rgba(0, 0, 8, 0.5) 80%, 
         rgba(0, 0, 8, 0.4) 90%,
-        rgba(0, 0, 0, 0.3) 100%);
+        rgba(0, 0, 0, 0.2) 100%);
       z-index: 0;
       
       // Fade in del gradiente un poco después
@@ -178,6 +178,7 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       height: auto;
       position: relative;
       z-index: 1;
+      margin-top: 5%;
 
       &::before {
         content: '';
@@ -271,6 +272,29 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         opacity: 1;
         z-index: 0;
       }
+    }
+
+    .naluum__content--testimonial{
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    .naluum__content--menssage_final{
+      padding: 5rem;
+      position: relative;
+
+       &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        transform: rotate(0);
+        opacity: 1;
+        z-index: 0;
+    }
     }
 
   }

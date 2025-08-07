@@ -4,7 +4,7 @@ import HomeMadreSelva from '../../componets/madre_selva/madre_selva';
 import Naluum from '../../componets/naluum/naluum';
 import TimelineNav from '../../componets/timeLineNav/timelineNav';
 import Header from '../../componets/header/header';
-import { Home, User, Clock, Mail, HelpCircle } from 'lucide-react';
+import { Home, User, Clock, Mail, HelpCircle, MessageCircle  } from 'lucide-react';
 
 import './projects.router.scss';
 
@@ -18,9 +18,10 @@ const routesMadreSelva = [
 const routesNaluum = [
   { id: "inicio", name: "Inicio", path: "#inicio", icon: Home },
   { id: "sobre-naluum", name: "Sobre Naluum", path: "#sobre-naluum", icon: User },
-  { id: "productos", name: "Productos", path: "#productos", icon: Clock },
   { id: "servicios", name: "Servicios", path: "#servicios", icon: User },
   { id: "contacto", name: "Contacto", path: "#contacto", icon: Mail },
+  { id: "newsletter", name: "Newsletter", path: "#newsletter", icon: MessageCircle },
+  { id: "FAQ", name: "Preguntas Frecuentes", path: "#FAQ", icon: HelpCircle },
 ];
 const Projects = () => {
   const { pathname } = useLocation();

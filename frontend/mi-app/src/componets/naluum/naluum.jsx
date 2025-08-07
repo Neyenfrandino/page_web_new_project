@@ -15,7 +15,10 @@ import Grid from '../../componets/grid/grid';
 import Button from '../button/button';
 import CtaImgCuentaRgresiva from '../cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
 import CtaHablemos from '../cta_hablemos/cta_hablemos';
-
+import TestimonialCard from '../testimonial_card/testimonial_card';
+import Newsletter from '../newsletter/newsletter';
+import FAQ from '../FAQ/FAQ';
+import MessageFinal  from '../../componets/message_final/message_final' 
 import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
 import './naluum.scss';
 
@@ -60,7 +63,7 @@ const titles = {
 }
 
 const Naluum = () => {
-    const { servicios } = useContext(ContextJsonLoadContext);
+    const { servicios, FAQ: faqData } = useContext(ContextJsonLoadContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [triggerElement, setTriggerElement] = useState(null);
@@ -164,7 +167,7 @@ const Naluum = () => {
                         {modalContent}
 
                         <div className='naluum__services-button'>
-                            <Button text={"Ver todos los servicios"} link="/servicios" style="primary" />
+                            <Button text={"Ver todos los servicios"} link="/servicios" style="secondary" />
                         </div>
                     </FadeInOnView>
                 </div>
@@ -175,9 +178,32 @@ const Naluum = () => {
                     </FadeInOnView>
                 </div>
 
+                <div className='naluum__content--testimonial'>
+                    <FadeInOnView {...fadeInProps}>
+                        <TestimonialCard typeTestimonial='testimonios_naluum'  />
+                    </FadeInOnView>
+                </div>
+
                 <div className='naluum__content--contact' id='contacto'>
                     <FadeInOnView {...fadeInProps}>
                         <CtaHablemos showSocialMedia={true} />
+                    </FadeInOnView>
+                </div>
+
+                <div className='naluum__content--menssage_final' id='menssage_final'>   
+                    <FadeInOnView {...fadeInProps}>
+                        <MessageFinal indexMessage={2} />
+                    </FadeInOnView>
+                </div>
+
+
+                <div className='naluum__content--newsletter' id='newsletter'>
+                    <Newsletter />
+                </div>
+
+                <div className='naluum__content--FAQ' id='FAQ'>
+                    <FadeInOnView {...fadeInProps}>
+                        <FAQ faqs={faqData} defaultCategory="servicios" />
                     </FadeInOnView>
                 </div>
             </div>

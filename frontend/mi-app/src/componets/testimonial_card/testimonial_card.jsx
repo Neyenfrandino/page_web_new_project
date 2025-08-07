@@ -30,7 +30,7 @@ const TestimonialCard = ({ typeTestimonial = 'servicio' }) => {
     <div className="product-showcase">
       <div className="showcase-header">
         <h1 className="main-title">
-          CADA {typeTestimonial.toUpperCase()} TIENE UNA HISTORIA
+          CADA HISTORIA ES UN TESTIMONIO
         </h1>
         <div className="decorative-leaf decorative-leaf--top">
           <span className="leaf-icon">🍃</span>
