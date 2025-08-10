@@ -124,7 +124,7 @@ const MissionCarousel = ({ cards = [], autoPlay = true, autoPlayInterval = 5000 
           </svg>
         </button>
       </div>
-
+ 
       <div className="carousel-dots">{dots}</div>
 
       <div className="carousel-progress">

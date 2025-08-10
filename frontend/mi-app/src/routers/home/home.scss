@@ -385,27 +385,27 @@ $desktop-lg: 1280px;
 .home__content--mision__container {
   width: 100%;
   padding: 0;
-  margin: 5% 0% 5% auto;
+  // margin: 5% 0% 5% auto;
   
   @include desktop {
     // max-width: 1200px;
   }
 }
 
-// Contenedor principal de misión - SIEMPRE EN COLUMNA
-.home__content--mision {
-  width: 100%;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column; // Siempre columna
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  border-radius: 1.5rem;
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  // gap: 2.5rem;
+  // Contenedor principal de misión - SIEMPRE EN COLUMNA
+  .home__content--mision {
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column; // Siempre columna
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    // border-radius: 1.5rem;
+    // background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+    // box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    // gap: 2.5rem;
 
   // Ajustes responsive Mobile
   @include mobile {
@@ -428,20 +428,6 @@ $desktop-lg: 1280px;
     padding: 4rem 3rem;
     min-height: 700px;
     gap: 3rem;
-  }
-
-  // Efecto de fondo decorativo
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(110, 133, 73, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(110, 133, 73, 0.1) 0%, transparent 50%);
-    pointer-events: none;
   }
 
   // Contenedor de títulos y texto - SIEMPRE CENTRADO
@@ -483,23 +469,21 @@ $desktop-lg: 1280px;
       padding-bottom: 1rem;
       // display: inline-block;
 
-      // Línea decorativa centrada
+      // Elementos decorativos
       &::after {
         content: '';
         position: absolute;
-        bottom: 0;
-        left: -30%;
+        bottom: 0rem;
+        left: 50%;
         transform: translateX(-50%);
-        width: 400px;
+        width: 450px;
         height: 2px;
-        background: linear-gradient(90deg, transparent, #8fa55f, transparent);
-        border-radius: 3px;
-        animation: pulse 3s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 0.6; }
-        50% { opacity: 1; }
+        background: linear-gradient(90deg, transparent, rgba(110, 133, 73, 0.3), transparent);
+        
+        @include mobile {
+          bottom: 1rem;
+          width: 100px;
+        }
       }
     }
 
@@ -544,31 +528,6 @@ $desktop-lg: 1280px;
           padding: 0;
         }
       }
-
-      // Texto destacado (cuando lo uses)
-      span {
-        display: block;
-        // margin-top: 1.5rem;
-        font-weight: 500;
-        color: #f0e85d;
-        font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-        opacity: 0.95;
-        position: relative;
-        padding: 1.5rem 0 0;
-        
-        // Decoración superior
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #6e8549, transparent);
-          border-radius: 2px;
-        }
-      }
     }
   }
 
@@ -592,7 +551,7 @@ $desktop-lg: 1280px;
     }
     
     @include desktop { 
-      min-height: 450px;
+      // min-height: 450px;
       max-width: 1000px;
     }
 
@@ -601,7 +560,7 @@ $desktop-lg: 1280px;
       content: '';
       position: absolute;
       inset: -20px;
-      // border: 1px solid rgba(110, 133, 73, 0.2);
+      border: 1px solid rgba(110, 133, 73, 0.2);
       border-radius: 1rem;
       pointer-events: none;
       
@@ -611,22 +570,7 @@ $desktop-lg: 1280px;
     }
   }
 
-  // Elementos decorativos
-  &::after {
-    content: '';
-    position: absolute;
-    // bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 450px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(110, 133, 73, 0.3), transparent);
-    
-    @include mobile {
-      bottom: 1rem;
-      width: 100px;
-    }
-  }
+
 }
 
 // Animaciones de entrada

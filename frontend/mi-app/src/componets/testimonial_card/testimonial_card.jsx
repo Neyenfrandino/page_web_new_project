@@ -23,7 +23,7 @@ const TestimonialCard = ({ typeTestimonial = 'servicio' }) => {
   const goToSlide = (index) => {
     setCurrentSlide(index);  
   };
-
+ 
   const currentProduct = testimonialType[currentSlide];
 
   return (

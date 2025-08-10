@@ -2,6 +2,8 @@
   {
     "id": "curso-certificado-diseno-permacultura",
     "type": "service",
+    "category": "curso",
+    "project": "Naluum",
     "title": "Curso Certificado de Diseño en Permacultura (10 días)",
     "subtitle": "Curso intensivo para aprender diseño regenerativo y sus bases éticas.",
     "description": "Aprende la importancia del diseño regenerativo, sus bases éticas y principios, áreas de aplicación y herramientas como permacultura social, diseño del ser, bioconstrucción, diseño de agua, agricultura regenerativa, energías alternativas y diseño social.",
@@ -27,6 +29,8 @@
   {
     "id": "cursos-bioconstruccion",
     "type": "service",
+    "category": "curso",
+    "project": "Naluum",
     "title": "Cursos de Bioconstrucción",
     "subtitle": "Formación práctica en técnicas de construcción natural.",
     "description": "Aprende técnicas y principios de construcción natural aplicados a proyectos arquitectónicos sostenibles, utilizando materiales y métodos ancestrales adaptados a contextos actuales.",
@@ -51,6 +55,8 @@
   {
     "id": "master-diseno-regenerativo",
     "type": "service",
+    "category": "curso",
+    "project": "Naluum",
     "title": "Máster en Diseño Regenerativo",
     "subtitle": "Formación online de un año en diseño de permacultura profesional.",
     "description": "Curso avanzado que profundiza en el diseño regenerativo como herramienta profesional, integrando principios éticos, sostenibilidad y aplicación práctica en diversos contextos.",
@@ -75,6 +81,8 @@
   {
     "id": "consultorias-personalizadas",
     "type": "service",
+    "category": "programa",
+    "project": "Naluum",
     "title": "Consultorías Personalizadas",
     "subtitle": "Acompañamiento integral para iniciar proyectos regenerativos.",
     "description": "Guiamos y apoyamos a personas que desean comenzar un proyecto regenerativo, ayudándolos a definir objetivos claros, estrategias y pasos concretos para su implementación exitosa.",
@@ -98,6 +106,8 @@
   {
     "id": "creacion-redes-locales",
     "type": "service",
+    "category": "programa",
+    "project": "Naluum",
     "title": "Creación de Redes Locales con Procesos Educativos",
     "subtitle": "Fortalecemos comunidades mediante cursos y talleres en alianza con anfitriones locales.",
     "description": "Brindamos herramientas y procesos educativos para crear redes comunitarias autosustentables que impulsen el desarrollo local y la cooperación solidaria.",
@@ -121,6 +131,8 @@
   {
     "id": "diseno-implementacion-proyectos-sustentables",
     "type": "service",
+    "category": "programa",
+    "project": "Naluum",
     "title": "Diseño e Implementación de Proyectos Sustentables",
     "subtitle": "Acompañamiento educativo para crear proyectos regenerativos exitosos.",
     "description": "Ofrecemos acompañamiento integral para diseñar e implementar proyectos sustentables que generen impacto positivo en el entorno, integrando educación, participación comunitaria y sostenibilidad.",
@@ -140,5 +152,105 @@
     "students": 35,
     "date": "2025-09-10",
     "router": "/servicios/diseno-implementacion-proyectos-sustentables"
+  },
+  {
+    "id": "hospedaje-cabanas-selva",
+    "type": "service",
+    "category": "hospedaje",
+    "project": "Madre Selva",
+    "title": "Hospedaje en Cabañas en Medio de la Selva",
+    "subtitle": "Vive una experiencia única en cabañas ecológicas rodeadas de naturaleza.",
+    "description": "Hospédate en nuestras cabañas construidas con materiales naturales, ubicadas en un entorno selvático, ideales para descansar y reconectar con la naturaleza.",
+    "image": "https://cdn.pixabay.com/photo/2017/01/20/00/30/cabin-1992567_1280.jpg",
+    "price": 59.99,
+    "currency": "USD",
+    "badge": "Experiencia natural",
+    "duration": "Por noche",
+    "format": "Presencial",
+    "instructor": "Equipo Madre Selva",
+    "highlights": [
+      "Cabañas ecológicas",
+      "Entorno selvático",
+      "Experiencia inmersiva"
+    ],
+    "rating": 4.85,
+    "students": 200,
+    "date": "2025-08-15",
+    "router": "/servicios/hospedaje-cabanas-selva"
+  },
+  {
+    "id": "camping-selva",
+    "type": "service",
+    "category": "hospedaje",
+    "project": "Madre Selva",
+    "title": "Camping en Medio de la Selva",
+    "subtitle": "Acampa bajo las estrellas rodeado de fauna y flora nativa.",
+    "description": "Zona de camping con acceso a servicios básicos y áreas comunes, perfecta para aventureros que buscan una experiencia más cercana a la naturaleza.",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/04/49/adventure-1867028_1280.jpg",
+    "price": 15.99,
+    "currency": "USD",
+    "badge": "Aventura",
+    "duration": "Por noche",
+    "format": "Presencial",
+    "instructor": "Equipo Madre Selva",
+    "highlights": [
+      "Zona segura",
+      "Acceso a duchas y baños",
+      "Entorno natural único"
+    ],
+    "rating": 4.7,
+    "students": 150,
+    "date": "2025-08-15",
+    "router": "/servicios/camping-selva"
+  },
+  {
+    "id": "programa-aprendices",
+    "type": "service",
+    "category": "programa",
+    "project": "Madre Selva",
+    "title": "Programa de Aprendices",
+    "subtitle": "Formación práctica en sostenibilidad y vida en la selva.",
+    "description": "Programa para aprender y participar en actividades de cuidado ambiental, agricultura regenerativa, bioconstrucción y manejo sostenible de recursos.",
+    "image": "https://cdn.pixabay.com/photo/2016/11/18/15/54/learning-1839650_1280.jpg",
+    "price": 199.99,
+    "currency": "USD",
+    "badge": "Todos los niveles",
+    "duration": "1 mes",
+    "format": "Presencial",
+    "instructor": "Equipo Madre Selva",
+    "highlights": [
+      "Aprendizaje práctico",
+      "Trabajo en comunidad",
+      "Conexión con la naturaleza"
+    ],
+    "rating": 4.9,
+    "students": 30,
+    "date": "2025-09-01",
+    "router": "/servicios/programa-aprendices"
+  },
+  {
+    "id": "programa-voluntariado",
+    "type": "service",
+    "category": "programa",
+    "project": "Madre Selva",
+    "title": "Programa de Voluntariado",
+    "subtitle": "Contribuye al cuidado del ecosistema y vive una experiencia transformadora.",
+    "description": "Únete como voluntario para apoyar proyectos de conservación, educación ambiental y desarrollo comunitario en la selva.",
+    "image": "https://cdn.pixabay.com/photo/2015/07/10/17/26/volunteer-839075_1280.jpg",
+    "price": 0,
+    "currency": "USD",
+    "badge": "Voluntariado",
+    "duration": "Variable",
+    "format": "Presencial",
+    "instructor": "Equipo Madre Selva",
+    "highlights": [
+      "Impacto positivo",
+      "Aprendizaje significativo",
+      "Experiencia cultural"
+    ],
+    "rating": 4.95,
+    "students": 50,
+    "date": "2025-08-20",
+    "router": "/servicios/programa-voluntariado"
   }
 ]

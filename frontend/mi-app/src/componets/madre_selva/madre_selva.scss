@@ -1,43 +1,361 @@
-.home-madre-selva {
-    padding: 2rem;
-    // background-color: #f5f9f5;
-    color: #333;
-  
-    &__content {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
+// Variables de tiempo y easing
+$animation-duration: 1.8s;
+$easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+// Animaciones simples y elegantes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+// Componente con animaciones suaves
+.madreSelva__container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+//   align-items: center;
+
+  .madreSelva__header {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url('../../../public/img/madreSelva.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    // Fade in suave del fondo
+    opacity: 0;
+    animation: fadeIn $animation-duration $easing-smooth forwards;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.9) 10%,
+        rgba(0, 0, 0, 0.8) 20%,
+        rgba(0, 0, 0, 0.7) 30%,
+        rgba(0, 0, 0, 0.6) 40%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0.4) 60%,
+        rgba(0, 0, 8, 0.3) 70%,
+        rgba(0, 0, 8, 0.2) 80%,
+        rgba(0, 0, 8, 0.1) 90%,
+        rgba(0, 0, 0, 0) 100%);
+      z-index: 0;
+      
+      // Fade in del gradiente un poco después
+      opacity: 0;
+      animation: fadeIn ($animation-duration * 0.8) $easing-smooth 0.3s forwards;
     }
-  
-    h2 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      color: #2e7d32;
-    }
-  
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-    }
-  
-    &__highlights {
+
+    .madreSelva__header__content {
+      width: 100%;
+      height: 100%;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center;
-      gap: 1.5rem;
-  
-      .highlight {
-        flex: 1 1 250px;
-        background: white;
-        padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  
-        h3 {
-          color: #388e3c;
-          margin-bottom: 0.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+
+      .madreSelva__header__content__logo {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 3;
+
+        img {
+          width: 100%;
+          height: auto;
+          max-width: 500px;
+          max-height: 500px;
+          
+          // Entrada con scale sutil
+          opacity: 0;
+          animation: 
+            fadeInScale 1.4s $easing-smooth 0.8s forwards,
+            subtleFloat 4s ease-in-out 2.5s infinite;
         }
       }
     }
   }
-  
+
+  .madreSelva__content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 1) 0%, 
+        rgba(0, 0, 0, 0.9) 10%, 
+        rgba(0, 0, 0, 0.9) 20%, 
+        rgba(0, 0, 0, 0.9) 30%, 
+        rgba(0, 0, 0, 0.9) 40%, 
+        rgba(0, 0, 0, 0.8) 50%, 
+        rgba(0, 0, 0, 0.7) 60%, 
+        rgba(0, 0, 8, 0.6) 70%, 
+        rgba(0, 0, 8, 0.5) 80%, 
+        rgba(0, 0, 8, 0.4) 90%,
+        rgba(0, 0, 0, 0.2) 100%);
+      z-index: 0;
+      
+      // Fade in del gradiente un poco después
+      opacity: 0;
+      animation: fadeIn ($animation-duration * 0.8) $easing-smooth 0.3s forwards;
+    }
+
+    .madreSelva__content--question {
+      margin-top: 5%;
+      padding: 0% 0 5% 0;
+    }
+
+    .madreSelva__grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      margin-top: 5%;
+
+      .madreSelva__services{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+        margin-top: 5%;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: url('/img/fondopapel2.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: bottom;
+          transform: rotate(180deg);
+          opacity: 1;
+          z-index: 0;
+        }
+      }
+
+      .madreSelva__products{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: url('/img/fondopapel2.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          transform: rotate(180deg);
+          opacity: 1;
+          z-index: 0;
+        }
+      }
+
+      .madreSelva__button{
+        padding: 3%;
+        margin: 0 auto;
+        width: 50%;
+      }
+
+      .madreSelva__services-titile {
+        width: 80%;
+        margin: 0% auto;
+        margin-bottom: 4%;
+        height: 100%;
+        position: relative;
+        border-radius: 10px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem 1rem;
+        background: linear-gradient(to top,
+          rgba(0, 0, 0, .8) 0%,
+          rgba(0, 0, 0, 0.7) 10%,
+          rgba(0, 0, 0, 0.6) 20%,
+          rgba(0, 0, 0, 0.5) 30%,
+          rgba(0, 0, 0, 0.4) 40%,
+          rgba(0, 0, 0, 0.3) 50%,
+          rgba(0, 0, 0, 0) 60%,
+          rgba(0, 0, 8, 0) 70%,
+          rgba(0, 0, 8, 0) 80%,
+          rgba(0, 0, 8, 0) 90%,
+          rgba(0, 0, 0, 0) 100%);
+
+        h2 {
+          font-size: clamp(2rem, 5vw, 3.5rem);
+          font-weight: 600 !important;
+          margin-bottom: 0.5rem;
+          line-height: 1;
+          color: white;
+        }
+
+        p {
+          font-size: clamp(1rem, 1.8vw, 1.2rem);
+          color: rgba(255, 255, 255, 0.85);
+          line-height: 1.7;
+          font-weight: 300;
+          letter-spacing: 0.3px;
+          margin: 0;
+        }
+      }
+    }
+
+    .madreSelva__content--CTA {
+      // margin-top: -.1%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // align-items: center;
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 1;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        transform: rotate(0);
+        opacity: 1;
+        z-index: 0;
+      }
+    }
+
+    .madreSelva__content--testimonial{
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    .madreSelva__content--menssage_final{
+      padding: 5rem;
+      position: relative;
+
+       &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/img/fondopapel2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        transform: rotate(0);
+        opacity: 1;
+        z-index: 0;
+    }
+    }
+
+    .madreSelva__content--newsletter {
+      position: relative;
+    }
+
+  }
+}
+
+// Media queries para móviles
+@media (max-width: 768px) {
+  .madreSelva__container {
+    .madreSelva__header {
+      .madreSelva__header__content {
+        .madreSelva__header__content__logo {
+          img {
+            max-width: 200px;
+            max-height: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Modo reducido de movimiento
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

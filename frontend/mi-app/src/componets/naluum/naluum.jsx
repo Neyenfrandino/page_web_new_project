@@ -192,7 +192,7 @@ const Naluum = () => {
 
                 <div className='naluum__content--menssage_final' id='menssage_final'>   
                     <FadeInOnView {...fadeInProps}>
-                        <MessageFinal indexMessage={2} />
+                        <MessageFinal indexMessage={0} />
                     </FadeInOnView>
                 </div>
 

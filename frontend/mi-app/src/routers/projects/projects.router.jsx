@@ -4,31 +4,34 @@ import HomeMadreSelva from '../../componets/madre_selva/madre_selva';
 import Naluum from '../../componets/naluum/naluum';
 import TimelineNav from '../../componets/timeLineNav/timelineNav';
 import Header from '../../componets/header/header';
-import { Home, User, Clock, Mail, HelpCircle, MessageCircle  } from 'lucide-react';
+import { Home, User, Clock, Mail, HelpCircle, MessageCircle, ShoppingBag   } from 'lucide-react';
 
 import './projects.router.scss';
 
 const routesMadreSelva = [
-  { id: 1, name: "Inicio", path: "", icon: Home }, // nota: "" para que sea la raíz del proyecto
-  { id: 2, name: "Productos", path: "productos", icon: User },
-  { id: 3, name: "Servicios", path: "servicios", icon: Clock },
+  { id: "inicioMadreSelva", name: "Inicio", path: "#inicio", icon: Home }, // nota: "" para que sea la raíz del proyecto
+  { id: "sobre-madreSelva", name: "Sobre Madre Selva", path: "#sobre-madreSelva", icon: User },
+  { id: "serviciosYProductos-madreSelva", name: "Servicios y Productos", path: "#serviciosYProductos-madreSelva", icon: ShoppingBag },
+  { id: "contacto-madreSelva", name: "Contacto", path: "#contacto-madreSelva", icon: Mail },
+  { id: "newsletter-madreSelva", name: "Newsletter", path: "#newsletter-madreSelva", icon: MessageCircle },
+  { id: "FAQ-madreSelva", name: "Preguntas Frecuentes", path: "#FAQ-madreSelva", icon: HelpCircle },
 ];
 
 // En projects.router.jsx
 const routesNaluum = [
   { id: "inicio", name: "Inicio", path: "#inicio", icon: Home },
   { id: "sobre-naluum", name: "Sobre Naluum", path: "#sobre-naluum", icon: User },
-  { id: "servicios", name: "Servicios", path: "#servicios", icon: User },
+  { id: "servicios", name: "Servicios", path: "#servicios", icon: ShoppingBag },
   { id: "contacto", name: "Contacto", path: "#contacto", icon: Mail },
   { id: "newsletter", name: "Newsletter", path: "#newsletter", icon: MessageCircle },
   { id: "FAQ", name: "Preguntas Frecuentes", path: "#FAQ", icon: HelpCircle },
 ];
+
 const Projects = () => {
   const { pathname } = useLocation();
   const isMadreSelva = pathname.includes('/proyectos/madre-selva');
 
-  
-
+   
   return (
     <div className='projects__container'>
       <SEOHelmet 

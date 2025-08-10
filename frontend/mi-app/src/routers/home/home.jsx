@@ -204,7 +204,7 @@ const Home = () => {
             </div>
             <div className='home__content-titile-subtitle'>
               <h2>
-               Un movimiento vivo que aprende, crea y conecta para transformar el mundo desde el diseño consciente hacia una vida sustentable y colaborativa.a
+               Un movimiento vivo que aprende, crea y conecta para transformar el mundo desde el diseño consciente hacia una vida sustentable y colaborativa
               </h2>
             </div>
             <div className='home__content-titile-buttons'>
@@ -241,11 +241,10 @@ const Home = () => {
                   <p>
                     Apoyamos proyectos y personas mediante capacitaciones efectivas para impulsar iniciativas regenerativas, guiados por el compromiso de regenerar el planeta y alcanzar un equilibrio social, económico y ecológico, sustentado en valores como el respeto, la integridad, la diversidad, la colaboración, el compromiso y el amor
                   </p>
-                  {/* <span>Cada acción —por pequeña que parezca— es una semilla de transformación.</span> */}
                 </div>
               </div>
               <div className='content--mision--carousel-wrapper'>
-                <MissionCarousel cards={memoizedCards} autoPlay autoPlayInterval={5000} />
+                <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
               </div>
             </div>
           </FadeInOnView>

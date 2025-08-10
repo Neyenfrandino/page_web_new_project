@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './grid.scss';
 
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {

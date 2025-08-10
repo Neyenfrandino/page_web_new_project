@@ -96,5 +96,42 @@
         "highlight": "El saber al alcance de todos"
       }
     ]
+  },
+  {
+    "name": "madreSelva",
+    "items": [
+      {
+        "id": 1,
+        "year": "2015",
+        "title": "Raíces que Brotan",
+        "content": "En un rincón fértil del planeta, nació madreSelva como un centro de investigación y aprendizaje dedicado a la observación y experimentación de los procesos naturales. Su visión: imitar la inteligencia de los ecosistemas para regenerar la tierra.",
+        "image": "🌱",
+        "highlight": "Nacimiento del centro de investigación"
+      },
+      {
+        "id": 2,
+        "year": "2022",
+        "title": "El IPC en madreSelva",
+        "content": "Ese año, madreSelva fue sede del IPC, un encuentro internacional donde expertos, comunidades y soñadores compartieron saberes sobre permacultura, regeneración y convivencia armónica con la naturaleza. La selva se convirtió en aula y hogar para quienes buscan un mundo vivo.",
+        "image": "🌿",
+        "highlight": "Encuentro internacional de permacultura"
+      },
+      {
+        "id": 3,
+        "year": "2023",
+        "title": "Escuela Viva",
+        "content": "Con el IPC como punto de inflexión, madreSelva abrió sus puertas a programas de formación continua, residencias de investigación y experiencias inmersivas. Personas de todo el mundo llegaron para aprender de la selva, con la selva y para la selva.",
+        "image": "🏕️",
+        "highlight": "Formación en la naturaleza"
+      },
+      {
+        "id": 4,
+        "year": "2025",
+        "title": "Guardianes del Conocimiento",
+        "content": "Hoy, madreSelva es un nodo clave del Movimiento Naluum, compartiendo sus aprendizajes con comunidades, universidades y redes internacionales. Cada visitante se convierte en guardián del equilibrio natural.",
+        "image": "🌎",
+        "highlight": "Conocimiento para la regeneración global"
+      }
+    ]
   }
 ]

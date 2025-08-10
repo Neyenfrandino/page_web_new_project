@@ -96,6 +96,8 @@ body {
   body {
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
     /* Asegura que el fondo se vea bien en pantallas pequeñas */
   }
   
@@ -136,7 +138,7 @@ body {
 /* Soporte para dispositivos de alta densidad de píxeles */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body {
-    background-image: url('/img/fondo_1.jpg'); /* Considera tener una versión 2x si es necesario */
+    background-image: url('/img/fondo_1.jpg'); 
   }
 }
 

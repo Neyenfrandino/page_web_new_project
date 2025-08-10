@@ -38,22 +38,7 @@ $font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica 
   min-height: 100vh;
   position: relative;
   @include flex-center;
-//   background: linear-gradient(135deg, $primary-dark 0%, $dark-gray 100%);
-  padding: 2rem;
-//   font-family: $font-family;
 
-    // &::before {
-    //     content: '';
-    //     position: absolute;
-    //     inset: 0;
-    //     background-image: url('/img/fondopapel2.png');
-    //     background-repeat: no-repeat;
-    //     background-size: cover;
-    //     background-position: bottom;
-    //     transform: rotate(0);
-    //     opacity: 1;
-    //     z-index: 0;
-    // }
 }
 
 .newsletter-wrapper {
