@@ -1,13 +1,63 @@
 
 import { useContext } from 'react';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import Header from '../../componets/header/header';
-import Button from '../../componets/button/button';
-import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
-import MessageFinal from '../../componets/message_final/message_final';
-import MapLocations from '../../componets/map_location/map_location';
-import LineLogoSeparacion from '../../componets/line_logo_separacion/line_logo_separacion';
+
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
+
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import Header from '../../components/layout/header/header';
+
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+import Button from '../../components/ui/button/button';
+import LineLogoSeparacion from '../../components/ui/line_logo_separacion/line_logo_separacion';
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+import CtaHablemos from '../../components/seccion/cta_hablemos/cta_hablemos';
+import MessageFinal from '../../components/seccion/message_final/message_final';
+
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+import MapLocations from '../../components/maps/map_location/map_location';
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import './contact.router.scss';
 
 const Contact = () => {

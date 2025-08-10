@@ -1,31 +1,36 @@
 import { useState, useEffect, useRef } from 'react';
-import { Routes, Route, useLocation, useSearchParams, useNavigate  } from "react-router-dom";
+import { Routes, Route, useLocation  } from "react-router-dom";
 
 import listRouters from './json/listRouters.json';
 import projects from './json/projects.json';
-// import products from './json/products.json';
 
-import Nav from './componets/nav/nav';
-import Home from './routers/home/home'
-import Services from './routers/services/services.router'
-import AboutMe from './routers/aboutMe/aboutMe.router'
-import Blog from './routers/blog/blog.router'
-import Contact from './routers/contact/contact.router'
-import Projects from './routers/projects/projects.router'
-import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalendar.router'
-import Products from './routers/products/products.router'
-import ShoppingCart from './routers/shoppingCart/shoppingCart'
+// 📂 Layout
+import Nav from './components/layout/nav/nav';
+import Footer from './components/layout/footer/footer';
+
+// 📂 UI / utilitarios
+import ScrollToTop from './components/ui/scrollToTop/ScrollToTop';
+import ButtonBack from './components/ui/button_back/button_back';
+
+// 📂 Tracking y métricas
+import UserTracker from './components/tracking/userTracker/userTracker';
+
+// 📂 Páginas principales (Routers)
+import Home from './routers/home/home';
+import Services from './routers/services/services.router';
+import AboutMe from './routers/aboutMe/aboutMe.router';
+import Blog from './routers/blog/blog.router';
+import Contact from './routers/contact/contact.router';
+import Projects from './routers/projects/projects.router';
+import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalendar.router';
+import Products from './routers/products/products.router';
+import ShoppingCart from './routers/shoppingCart/shoppingCart';
+import Payment from './routers/payment/payment';
+
+// 📂 Detalles (subpáginas de routers)
 import ProductDetail from './routers/products/products_detail';
 import ServiceDetail from './routers/services/services_detail';
 
-import Footer from './componets/footer/footer';
-import ScrollToTop from './componets/scrollToTop/ScrollToTop';
-import ButtonBack from './componets/button_back/button_back';
-import UserTracker from './componets/userTracker/userTracker';
-
-
-
-import Payment from './routers/payment/payment';
 
 import './App.scss';
 

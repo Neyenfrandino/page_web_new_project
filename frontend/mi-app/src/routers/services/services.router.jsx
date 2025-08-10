@@ -1,17 +1,66 @@
 import { useEffect, useState, useContext, useCallback } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
 
-import SEOHelmet from "../../componets/SEOHelmet/SEOHelmet";
-import Header from "../../componets/header/header";
-import Grid from "../../componets/grid/grid";
-import TestimonialCard from "../../componets/testimonial_card/testimonial_card";
-import CatalogFilter from "../../componets/catalog_filter/catalog_filter";
-import FAQ from "../../componets/FAQ/FAQ";
-import CtaImgCuentaRgresiva from "../../componets/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva";
-import MessageFinal from "../../componets/message_final/message_final";
-import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
+
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+import SEOHelmet from "../../components/seo/SEOHelmet/SEOHelmet";
+
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import Header from "../../components/layout/header/header";
+
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+import Grid from "../../components/seccion/grid/grid";
+import TestimonialCard from "../../components/seccion/testimonial_card/testimonial_card";
+import CatalogFilter from "../../components/seccion/catalog_filter/catalog_filter";
+import FAQ from "../../components/seccion/FAQ/FAQ";
+import CtaImgCuentaRgresiva from "../../components/seccion/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva";
+import MessageFinal from "../../components/seccion/message_final/message_final";
+import FadeInOnView from '../../components/seccion/fadeInOnView/fadeInOnView';
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
 import { ContextJsonLoadContext } from "../../context/context_json_load/context_json_load";
 
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import "./services.router.scss";
 
 

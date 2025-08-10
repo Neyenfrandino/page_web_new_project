@@ -1,16 +1,65 @@
-import Header from '../../componets/header/header';
-import Button from '../../componets/button/button';
-import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import CTAServicios from '../../componets/cta_servicios/cta_servicios';
-import Founders from '../../componets/founders/founders';
-import Valores from '../../componets/valores/valores';
-import CtaLogrosReconocimientos from '../../componets/cta_logros_reconocimientos/cta_logros_reconocimientos';
 
-import TimeLineHistory from '../../componets/history_about/time_line_history';
 
-import useOnScreen from '../../hocks/useOnScreen'; // ajustá la ruta si es necesario
+import useOnScreen from '../../hooks/useOnScreen'; // ajustá la ruta si es necesario
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
 
+
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import Header from '../../components/layout/header/header';
+
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+import FadeInOnView from '../../components/seccion/fadeInOnView/fadeInOnView';
+import CTAServicios from '../../components/seccion/cta_servicios/cta_servicios';
+import Founders from '../../components/seccion/founders/founders';
+import Valores from '../../components/seccion/valores/valores';
+import CtaLogrosReconocimientos from '../../components/seccion/cta_logros_reconocimientos/cta_logros_reconocimientos';
+import TimeLineHistory from '../../components/seccion/history_about/time_line_history';
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+import Button from '../../components/ui/button/button';
+
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import './aboutMe.router.scss';
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

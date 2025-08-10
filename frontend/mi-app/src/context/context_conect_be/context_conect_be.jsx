@@ -123,8 +123,10 @@
 import React, { createContext, useReducer, useCallback } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 
-import conect_mercado_pago_BE from '../../utils/mercado_pago/conect_mercago_pago_BE';
-import stripeConnectBE from '../../utils/stripe/stripe_connect_BE';
+// 📂 Servicios / API
+import conect_mercado_pago_BE from '../../services/mercado_pago/conect_mercago_pago_BE';
+import stripeConnectBE from '../../services/stripe/stripe_connect_BE';
+
 
 export const ConectContext = createContext({
     handlePayment: () => {},

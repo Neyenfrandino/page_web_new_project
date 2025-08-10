@@ -1,11 +1,61 @@
 import { Routes, Route, useLocation } from 'react-router-dom'; 
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import HomeMadreSelva from '../../componets/madre_selva/madre_selva';
-import Naluum from '../../componets/naluum/naluum';
-import TimelineNav from '../../componets/timeLineNav/timelineNav';
-import Header from '../../componets/header/header';
-import { Home, User, Clock, Mail, HelpCircle, MessageCircle, ShoppingBag   } from 'lucide-react';
 
+import { Home, User, Clock, Mail, HelpCircle, MessageCircle, ShoppingBag   } from 'lucide-react';
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+import SEOHelmet from "../../components/seo/SEOHelmet/SEOHelmet";
+
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import TimelineNav from '../../components/layout/timeLineNav/timelineNav';
+import Header from '../../components/layout/header/header';
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 projects_base
+import MadreSelva from '../../components/proyects_base/madre_selva/madre_selva';
+import Naluum from '../../components/proyects_base/naluum/naluum';
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import './projects.router.scss';
 
 const routesMadreSelva = [
@@ -47,7 +97,7 @@ const Projects = () => {
 
       <Routes>
         {/* Madre Selva */}
-        <Route path="madre-selva" element={<HomeMadreSelva />}/>
+        <Route path="madre-selva" element={<MadreSelva />}/>
   
         {/* Naluum */}
         <Route path="naluum" element={<Naluum />}/>

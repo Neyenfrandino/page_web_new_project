@@ -1,6 +1,56 @@
 import React, { useState } from 'react';
-import Header from '../../componets/header/header';
+
 import { Plus, Minus, Trash2 } from 'lucide-react';
+
+
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import Header from '../../components/layout/header/header';
+
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import './shoppingCart.scss';
 
 const ShoppingCart = () => {

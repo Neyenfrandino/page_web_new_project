@@ -1,39 +1,83 @@
-import {
-  useState,
-  useRef,
-  useCallback,
-  useMemo,
-  useContext,
-  useEffect
-} from 'react';
+import { useState, useRef, useCallback, useMemo, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import SEOHelmet from '../../componets/SEOHelmet/SEOHelmet';
-import PaymentForm from '../../componets/payment-form/payment-form';
-import MercadoPagoCard from '../../componets/mercado_pago_card/mercado_pago_card';
-import Header from '../../componets/header/header';
-import CardV2Img from '../../componets/card/cardV2_Img/cardV2_img';
-import Button from '../../componets/button/button';
-import FadeInOnView from '../../componets/fadeInOnView/fadeInOnView';
-import MissionCarousel from '../../componets/carrusel_imagenes/carrusel_imagenes';
-import Grid from '../../componets/grid/grid';
-import CtaImgCuentaRgresiva from '../../componets/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
-import CardDataImpacto from '../../componets/card_data_impacto/card_data_impacto';
-import LineLogoSeparacion from '../../componets/line_logo_separacion/line_logo_separacion';
-import BeforeAndAfter from '../../componets/before_and_after/before_and_after';
-import Testimonios from '../../componets/testimonios/testimonios';
-import Modal from '../../componets/modal/modal';
-import ModalCard from '../../componets/card/modal_card/modal_card';
-import Bitacora from '../../componets/bitacora/bitacora';
-import CtaHablemos from '../../componets/cta_hablemos/cta_hablemos';
-import MessageFinal from '../../componets/message_final/message_final';
-import PaymentMethodSelector from '../../componets/payment_method/payment_method_selector';
-import TestimonialCard from '../../componets/testimonial_card/testimonial_card';
 
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import { MethodStatePaymentContext } from '../../context/method_state_payment/method_state_payment.context';
-import { useQueryParam } from '../../hocks/useQueryParams';
+import { useQueryParam } from '../../hooks/useQueryParams';
 
+
+// ------------------------------
+// 📂 SEO y Meta
+// Importaciones de componentes relacionados con SEO y metadata
+import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
+
+
+// ------------------------------
+// 📂 Layout
+// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import CardV2Img from '../../components/layout/card/cardV2_Img/cardV2_img';
+import ModalCard from '../../components/layout/card/modal_card/modal_card';
+import Header from '../../components/layout/header/header';
+
+
+// ------------------------------
+// 📂 Secciones
+// Bloques grandes o secciones completas que conforman las páginas
+import MissionCarousel from '../../components/seccion/carrusel_imagenes/carrusel_imagenes';
+import Grid from '../../components/seccion/grid/grid';
+import CtaImgCuentaRgresiva from '../../components/seccion/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
+import CardDataImpacto from '../../components/seccion/card_data_impacto/card_data_impacto';
+import BeforeAndAfter from '../../components/seccion/before_and_after/before_and_after';
+import Testimonios from '../../components/seccion/testimonios/testimonios';
+import Bitacora from '../../components/seccion/bitacora/bitacora';
+import CtaHablemos from '../../components/seccion/cta_hablemos/cta_hablemos';
+import MessageFinal from '../../components/seccion/message_final/message_final';
+import TestimonialCard from '../../components/seccion/testimonial_card/testimonial_card';
+import FadeInOnView from '../../components/seccion/fadeInOnView/fadeInOnView';
+
+
+// ------------------------------
+// 📂 UI / Componentes visuales pequeños y reutilizables
+import Button from '../../components/ui/button/button';
+import LineLogoSeparacion from '../../components/ui/line_logo_separacion/line_logo_separacion';
+import Modal from '../../components/ui/modal/modal';
+
+
+// ------------------------------
+// 📂 Integrations
+// Servicios externos, pasarelas de pago, APIs de terceros
+import PaymentForm from '../../components/integrations/payment-form/payment-form';
+import MercadoPagoCard from '../../components/integrations/mercado_pago_card/mercado_pago_card';
+import PaymentMethodSelector from '../../components/integrations/payment_method/payment_method_selector';
+
+
+// ------------------------------
+// 📂 Maps
+// Componentes relacionados con mapas y geolocalización
+
+// ------------------------------
+// 📂 Tracking
+// Funciones y componentes para seguimiento de usuario y analytics
+
+// ------------------------------
+// 📂 Context
+// Archivos relacionados con Context API para manejo global de estados
+
+// ------------------------------
+// 📂 Hooks
+// Hooks personalizados para reutilización de lógica
+
+// ------------------------------
+// 📂 Services
+// Funciones para llamadas a APIs y lógica de negocio
+
+// ------------------------------
+// 📂 Utils
+// Funciones auxiliares y helpers
+
+// ------------------------------
+// 📂 Styles
+// Estilos globales, variables SCSS y temas
 import './home.scss';
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
