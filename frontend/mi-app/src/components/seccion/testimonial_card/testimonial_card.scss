@@ -1,77 +1,200 @@
-// Variables
+// === VARIABLES ===
 $primary-color: #2c5f4f;
 $secondary-color: #a08660;
+$accent-brown: #8e754b;
 $text-light: #ffffff;
 $text-dark: #4a4a4a;
 $background-beige: #f4f1e8;
-$shadow: rgba(0, 0, 0, 0.15);
+$shadow-light: rgba(0, 0, 0, 0.15);
+$shadow-medium: rgba(0, 0, 0, 0.25);
+$shadow-strong: rgba(0, 0, 0, 0.35);
 $leaf-green: #7fb069;
+$leaf-dark: #6fa055;
+$leaf-light: #8fc073;
+$golden: #ffd700;
 
-// Mixins
+// === BREAKPOINTS ===
+$breakpoint-xs: 400px;
+$breakpoint-sm: 600px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1920px;
+$breakpoint-ultra: 2560px;
+$breakpoint-4k: 3840px;
+
+// === MIXINS ===
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@mixin card-shadow {
-  box-shadow: 0 8px 32px $shadow;
+@mixin card-shadow($intensity: 1) {
+  box-shadow: 0 #{8px * $intensity} #{32px * $intensity} rgba(0, 0, 0, 0.15 * $intensity);
 }
 
-@mixin smooth-transition {
-  transition: all 0.3s ease;
+@mixin smooth-transition($duration: 0.3s) {
+  transition: all $duration cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Main container
+@mixin responsive-padding($base: 2rem) {
+  padding: $base;
+  
+  @media (max-width: $breakpoint-xs) {
+    padding: $base * 0.5;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: $base * 0.75;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    padding: $base * 1.25;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    padding: $base * 1.5;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    padding: $base * 1.75;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    padding: $base * 2;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    padding: $base * 2.5;
+  }
+}
+
+// === CONTENEDOR PRINCIPAL ===
 .product-showcase {
-  //   max-width: 900px;
   width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  @include responsive-padding(2rem);
   background: transparent;
   min-height: 100vh;
   position: relative;
+  
+  // === RESPONSIVE WIDTH ===
+  @media (max-width: $breakpoint-sm) {
+    width: 95%;
+  }
+  
+  @media (max-width: $breakpoint-xs) {
+    width: 98%;
+    min-height: auto;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    width: 85%;
+    max-width: 1100px;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    max-width: 1300px;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    max-width: 1600px;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    max-width: 2000px;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    max-width: 2800px;
+  }
 }
 
-// Header section
+// === HEADER SECTION ===
 .showcase-header {
   text-align: center;
   margin-bottom: 3rem;
   position: relative;
+  
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    margin-bottom: 4rem;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    margin-bottom: 5rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    margin-bottom: 6rem;
+  }
 }
 
 .main-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 300;
   color: white;
   letter-spacing: 2px;
   margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
+  line-height: 1.2;
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 3rem;
+    letter-spacing: 3px;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 4rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 5rem;
+    letter-spacing: 5px;
   }
 }
 
-// Product card
+// === PRODUCT CARD ===
 .product-card {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 0;
   border-radius: 20px;
   overflow: hidden;
-  @include card-shadow;
+  @include card-shadow(1);
   background: transparent;
   position: relative;
-
-  @media (max-width: 768px) {
+  
+  @media (max-width: $breakpoint-md) {
     flex-direction: column;
-    gap: 0;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    border-radius: 25px;
+    @include card-shadow(1.2);
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    border-radius: 30px;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    border-radius: 40px;
+    @include card-shadow(1.5);
   }
 }
 
-// Image section
+// === IMAGE SECTION ===
 .product-image-section {
   width: 50%;
   position: relative;
@@ -82,10 +205,45 @@ $leaf-green: #7fb069;
   overflow: hidden;
   border-radius: 20px 0 0 20px;
   
-  @media (max-width: 768px) {
+  // === RESPONSIVE DIMENSIONS ===
+  @media (max-width: $breakpoint-md) {
     width: 100%;
     min-height: 250px;
+    height: auto;
     border-radius: 20px 20px 0 0;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    min-height: 200px;
+    max-height: 300px;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    min-height: 450px;
+    height: 550px;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    min-height: 500px;
+    height: 600px;
+    border-radius: 25px 0 0 25px;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    min-height: 600px;
+    height: 700px;
+    border-radius: 30px 0 0 30px;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    min-height: 700px;
+    height: 800px;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    min-height: 900px;
+    height: 1000px;
+    border-radius: 40px 0 0 40px;
   }
 
   .product-image-wrapper {
@@ -98,11 +256,14 @@ $leaf-green: #7fb069;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      @include smooth-transition(0.4s);
 
       &:hover {
-        transform: scale(1.02);
+        transform: scale(1.05);
         
+        @media (max-width: $breakpoint-md) {
+          transform: none;
+        }
       }
     }
 
@@ -113,7 +274,10 @@ $leaf-green: #7fb069;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgb(0, 0, 0, .5);
+      background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+      );
       pointer-events: none;
       z-index: 1;
     }
@@ -121,9 +285,7 @@ $leaf-green: #7fb069;
 }
 
 .product-name-overlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -131,60 +293,116 @@ $leaf-green: #7fb069;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
+  padding: 2rem;
 }
 
 .product-name {
-  font-size: 1rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: normal;
   color: $text-light;
   margin: 0;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
   letter-spacing: 3px;
-
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-    letter-spacing: 2px;
+  text-align: center;
+  line-height: 1.3;
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 3rem;
+    letter-spacing: 5px;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 3.5rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 4.5rem;
+    letter-spacing: 6px;
   }
 }
 
-// Info section
+// === INFO SECTION ===
 .product-info-section {
   width: 50%;
-  height: 500px;
-  padding: 3rem;
-  background: rgb(142, 117, 75);
+  min-height: 500px;
+  height: auto;
+  @include responsive-padding(3rem);
+  background: $accent-brown;
   color: $text-light;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   border-radius: 0 20px 20px 0;
-
-  @media (max-width: 768px) {
+  
+  // === RESPONSIVE LAYOUT ===
+  @media (max-width: $breakpoint-md) {
     width: 100%;
+    min-height: auto;
     padding: 2rem;
     border-radius: 0 0 20px 20px;
   }
+  
+  @media (min-width: $breakpoint-lg) {
+    min-height: 550px;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    min-height: 600px;
+    border-radius: 0 25px 25px 0;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    min-height: 700px;
+    padding: 4rem;
+    border-radius: 0 30px 30px 0;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    min-height: 800px;
+    padding: 5rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    min-height: 1000px;
+    padding: 6rem;
+    border-radius: 0 40px 40px 0;
+  }
 }
 
-// Rating stars
+// === RATING STARS ===
 .rating {
   display: flex;
   gap: 0.3rem;
   margin-bottom: 1.5rem;
   justify-content: center;
-
-  @media (max-width: 768px) {
+  
+  @media (max-width: $breakpoint-md) {
     justify-content: flex-start;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    gap: 0.8rem;
+    margin-bottom: 3rem;
   }
 }
 
 .star {
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
   @include smooth-transition;
 
   &--filled {
-    color: #ffd700;
+    color: $golden;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   }
 
@@ -195,37 +413,92 @@ $leaf-green: #7fb069;
   &:hover {
     transform: scale(1.2);
   }
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 2.3rem;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 2.5rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 3rem;
+  }
 }
 
-// Product info text
+// === PRODUCT INFO TEXT ===
 .product-title {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 600;
   margin: 0 0 1.5rem 0;
   letter-spacing: 1px;
   text-align: center;
-
-  @media (max-width: 768px) {
+  line-height: 1.3;
+  
+  @media (max-width: $breakpoint-md) {
     text-align: left;
-    font-size: 1.2rem;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 1.8rem;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 2px;
   }
 }
 
 .product-description {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
   line-height: 1.6;
   margin: 0 0 2rem 0;
   text-align: center;
   font-style: italic;
   opacity: 0.9;
-
-  @media (max-width: 768px) {
+  
+  @media (max-width: $breakpoint-md) {
     text-align: left;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 1.3rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 1.6rem;
+    line-height: 1.9;
+    margin-bottom: 3rem;
   }
 }
 
 .author-name {
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 1.3vw, 0.9rem);
   font-weight: 800;
   margin: 0 0 2rem 0;
   text-align: center;
@@ -233,21 +506,53 @@ $leaf-green: #7fb069;
   padding: 0.5rem 1rem;
   letter-spacing: 1px;
   align-self: center;
-
-  @media (max-width: 768px) {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  
+  @media (max-width: $breakpoint-md) {
     align-self: flex-start;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    font-size: 1.1rem;
+    padding: 0.7rem 1.4rem;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    margin-bottom: 3rem;
+    border-radius: 30px;
   }
 }
 
-// Carousel dots
+// === CAROUSEL DOTS ===
 .carousel-dots {
   display: flex;
   gap: 0.8rem;
   justify-content: center;
   margin-bottom: 1rem;
-
-  @media (max-width: 768px) {
+  
+  @media (max-width: $breakpoint-md) {
     justify-content: flex-start;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    gap: 1rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -259,64 +564,117 @@ $leaf-green: #7fb069;
   background: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   @include smooth-transition;
-
+  
   &--active {
     background: $text-light;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
-
+  
   &:hover {
     background: rgba(255, 255, 255, 0.7);
     transform: scale(1.2);
   }
+  
+  @media (min-width: $breakpoint-xl) {
+    width: 14px;
+    height: 14px;
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    width: 16px;
+    height: 16px;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    width: 20px;
+    height: 20px;
+  }
 }
 
-// Carousel controls - Posicionados a los lados
+// === CAROUSEL CONTROLS ===
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-
   background-color: transparent;
   border: none;
-  color: $primary-color;
+  // backdrop-filter: blur(10px);
+  // border: 1px solid rgba(255, 255, 255, 0.2);
+  // border-radius: 50%;
+  color: $text-light;
   font-size: 1.8rem;
   cursor: pointer;
   @include smooth-transition;
   @include flex-center;
   z-index: 5;
-
+  
   &--prev {
-    left: -0px;
+    left: 10px;
   }
-
+  
   &--next {
-    right: 0px;
+    right: 10px;
   }
-
+  
   &:hover {
-    background: transparent;
-    color: white;
+    color: rgba(44, 95, 79, 0.8);;
+    transform: translateY(-50%) scale(1.1);
   }
-
+  
   &:active {
     transform: translateY(-50%) scale(0.95);
   }
-
-  @media (max-width: 768px) {
-    &--prev {
-      left: 10px;
-    }
-
-    &--next {
-      right: 10px;
-    }
+  
+  // === RESPONSIVE SIZING ===
+  @media (max-width: $breakpoint-sm) {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+    
+    &--prev { left: 5px; }
+    &--next { right: 5px; }
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    width: 55px;
+    height: 55px;
+    font-size: 2rem;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    width: 60px;
+    height: 60px;
+    font-size: 2.2rem;
+    
+    &--prev { left: 20px; }
+    &--next { right: 20px; }
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+  
+  @media (min-width: $breakpoint-ultra) {
+    width: 80px;
+    height: 80px;
+    font-size: 2.8rem;
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    width: 100px;
+    height: 100px;
+    font-size: 3.5rem;
+    
+    &--prev { left: 30px; }
+    &--next { right: 30px; }
   }
 }
 
-// Decorative leaves con iconos
+// === DECORATIVE LEAVES ===
 .decorative-leaf {
   position: absolute;
   width: 50px;
@@ -325,94 +683,54 @@ $leaf-green: #7fb069;
   @include smooth-transition;
   z-index: 4;
   opacity: 0.8;
-
+  
   .leaf-icon {
     font-size: 2rem;
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
     @include smooth-transition;
   }
-
+  
   &--top {
     top: 1rem;
     right: 2rem;
     transform: rotate(45deg);
     
     .leaf-icon {
-      color: #7fb069;
+      color: $leaf-green;
     }
   }
-
+  
   &--image {
     top: 1rem;
     left: 1rem;
     transform: rotate(-30deg);
     
     .leaf-icon {
-      color: #6fa055;
+      color: $leaf-dark;
     }
   }
-
+  
   &--bottom {
     bottom: 1rem;
     right: 1rem;
     transform: rotate(135deg);
     
     .leaf-icon {
-      color: #8fc073;
+      color: $leaf-light;
     }
   }
-
+  
   &:hover {
     opacity: 1;
-    transform: scale(1.2);
+    transform: scale(1.2) rotate(var(--rotation, 0deg));
     
     .leaf-icon {
       filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.4));
     }
   }
-}
-
-// Hover effects and animations
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
-  50% { transform: translateY(-10px) rotate(var(--rotation, 0deg)); }
-}
-
-.product-showcase:hover .decorative-leaf {
-  animation: float 3s ease-in-out infinite;
   
-  &--top {
-    --rotation: 45deg;
-  }
-  
-  &--image {
-    --rotation: -30deg;
-  }
-  
-  &--bottom {
-    --rotation: 135deg;
-  }
-}
-
-// Responsive adjustments
-@media (max-width: 480px) {
-  .product-showcase {
-    padding: 1rem;
-  }
-
-  .product-info-section {
-    padding: 1.5rem;
-  }
-
-  .main-title {
-    font-size: 1.5rem;
-  }
-
-  .product-name {
-    font-size: 1.5rem;
-  }
-
-  .decorative-leaf {
+  // === RESPONSIVE LEAF SIZES ===
+  @media (max-width: $breakpoint-sm) {
     width: 40px;
     height: 40px;
     
@@ -420,309 +738,96 @@ $leaf-green: #7fb069;
       font-size: 1.5rem;
     }
   }
-}
-
-// ========== MEJORAS RESPONSIVE ADICIONALES ==========
-
-// Tablets y dispositivos medianos (1024px)
-@media (max-width: 1024px) {
-  .product-showcase {
-    width: 95%;
-  }
-
-  .product-card {
-    max-width: 100%;
-  }
-
-  .product-info-section {
-    height: auto;
-    min-height: 400px;
-  }
-
-  .product-image-section {
-    min-height: 350px;
-  }
-
-  .carousel-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1.6rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    
-    &:hover {
-      background-color: $primary-color;
-    }
-  }
-}
-
-// Dispositivos pequeños (600px)
-@media (max-width: 600px) {
-  .showcase-header {
-    margin-bottom: 2rem;
-  }
-
-  .main-title {
-    font-size: 1.6rem;
-    padding: 0 1rem;
-    line-height: 1.3;
-  }
-
-  .product-info-section {
-    height: auto;
-    min-height: auto;
-    padding: 1.5rem;
-  }
-
-  .product-image-section {
-    min-height: 200px;
-    max-height: 300px;
-  }
-
-  .product-name {
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-    padding: 0 1rem;
-    text-align: center;
-  }
-
-  .product-title {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .product-description {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-  }
-
-  .author-name {
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-    padding: 0.3rem 0.8rem;
-  }
-
-  .rating {
-    margin-bottom: 1rem;
-  }
-
-  .star {
-    font-size: 1.5rem;
-  }
-
-  .carousel-dots {
-    gap: 0.6rem;
-  }
-
-  .dot {
-    width: 10px;
-    height: 10px;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.4rem;
-    
-    &--prev {
-      left: 5px;
-    }
-
-    &--next {
-      right: 5px;
-    }
-  }
-
-  .decorative-leaf {
-    &--top {
-      top: 0.5rem;
-      right: 1rem;
-    }
-
-    &--bottom {
-      bottom: 0.5rem;
-      right: 0.5rem;
-    }
-  }
-}
-
-// Dispositivos muy pequeños (400px)
-@media (max-width: 400px) {
-  .product-showcase {
-    padding: 0.5rem;
-    min-height: auto;
-  }
-
-  .main-title {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .product-card {
-    border-radius: 15px;
-  }
-
-  .product-image-section {
-    border-radius: 15px 15px 0 0;
-    min-height: 180px;
-    max-height: 250px;
-  }
-
-  .product-info-section {
-    border-radius: 0 0 15px 15px;
-    padding: 1.2rem;
-  }
-
-  .product-name {
-    font-size: 1.2rem;
-  }
-
-  .product-title {
-    font-size: 1rem;
-  }
-
-  .product-description {
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-  }
-
-  .author-name {
-    font-size: 0.8rem;
-  }
-
-  .star {
-    font-size: 1.3rem;
-  }
-
-  .carousel-dots {
-    gap: 0.5rem;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-  }
-
-  .decorative-leaf {
-    width: 35px;
-    height: 35px;
+  
+  @media (min-width: $breakpoint-xl) {
+    width: 60px;
+    height: 60px;
     
     .leaf-icon {
-      font-size: 1.3rem;
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (min-width: $breakpoint-xxl) {
+    width: 70px;
+    height: 70px;
+    
+    .leaf-icon {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (min-width: $breakpoint-4k) {
+    width: 90px;
+    height: 90px;
+    
+    .leaf-icon {
+      font-size: 4rem;
     }
   }
 }
 
-// Orientación horizontal en móviles
-@media (max-width: 768px) and (orientation: landscape) {
+// === ANIMATIONS ===
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(var(--rotation, 0deg)); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(var(--rotation, 0deg)); 
+  }
+}
+
+.product-showcase:hover .decorative-leaf {
+  animation: float 3s ease-in-out infinite;
+  
+  &--top { --rotation: 45deg; }
+  &--image { --rotation: -30deg; }
+  &--bottom { --rotation: 135deg; }
+  
+  @media (max-width: $breakpoint-md) {
+    animation: none;
+  }
+}
+
+// === LANDSCAPE ORIENTATION ===
+@media (max-width: $breakpoint-md) and (orientation: landscape) {
   .product-showcase {
     min-height: auto;
     padding: 1rem;
   }
-
-  .showcase-header {
-    margin-bottom: 1.5rem;
-  }
-
+  
   .product-card {
     flex-direction: row;
-    gap: 0;
   }
-
+  
   .product-image-section {
     width: 40%;
     min-height: 280px;
     border-radius: 20px 0 0 20px;
   }
-
+  
   .product-info-section {
     width: 60%;
-    height: auto;
     min-height: 280px;
     padding: 1.5rem;
     border-radius: 0 20px 20px 0;
   }
-
-  .main-title {
-    font-size: 1.5rem;
-  }
-
-  .product-name {
-    font-size: 1.4rem;
-  }
-
-  .product-title {
-    font-size: 1rem;
-    text-align: left;
-  }
-
-  .product-description {
-    font-size: 0.85rem;
-    text-align: left;
-  }
-
-  .rating {
-    justify-content: flex-start;
-  }
-
-  .carousel-dots {
-    justify-content: flex-start;
-  }
-
-  .author-name {
-    align-self: flex-start;
-    font-size: 0.8rem;
-  }
 }
 
-// Pantallas muy grandes (1440px+)
-@media (min-width: 1440px) {
+// === ULTRA WIDE MONITORS (21:9) ===
+@media (min-aspect-ratio: 21/9) {
   .product-showcase {
-    max-width: 1200px;
+    max-width: 2200px;
   }
-
-  .product-image-section {
-    min-height: 500px;
-  }
-
-  .product-info-section {
-    height: 600px;
-    padding: 4rem;
-  }
-
-  .main-title {
-    font-size: 3rem;
-  }
-
-  .product-name {
-    font-size: 2.5rem;
-  }
-
-  .product-title {
-    font-size: 1.6rem;
-  }
-
-  .product-description {
-    font-size: 1.1rem;
-  }
-
-  .star {
-    font-size: 2rem;
+  
+  .product-card {
+    max-width: 1800px;
+    margin: 0 auto;
   }
 }
 
-// Ajustes para texto largo
-@media (max-width: 768px) {
-  .product-name,
-  .product-title,
-  .product-description {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
-
+// === SCROLLBAR STYLING ===
+@media (max-width: $breakpoint-md) {
   .product-description {
     max-height: 120px;
     overflow-y: auto;
@@ -740,73 +845,123 @@ $leaf-green: #7fb069;
     &::-webkit-scrollbar-thumb {
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 2px;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
     }
   }
 }
 
-// Ajustes de accesibilidad para botones táctiles
+// === TOUCH DEVICES ===
 @media (hover: none) and (pointer: coarse) {
   .carousel-btn {
     width: 55px;
     height: 55px;
     
-    @media (max-width: 600px) {
+    @media (max-width: $breakpoint-sm) {
       width: 45px;
       height: 45px;
     }
+    
+    @media (min-width: $breakpoint-xl) {
+      width: 65px;
+      height: 65px;
+    }
   }
-
+  
   .dot {
     width: 14px;
     height: 14px;
     
-    @media (max-width: 600px) {
+    @media (max-width: $breakpoint-sm) {
       width: 12px;
       height: 12px;
     }
-  }
-
-  .star:hover {
-    transform: none;
-  }
-
-  .decorative-leaf:hover {
-    transform: scale(1);
-  }
-}
-
-// Fix para altura dinámica en móviles
-@media (max-width: 768px) {
-  .product-info-section {
-    min-height: 350px;
-    height: auto;
     
-    @media (max-width: 480px) {
-      min-height: 300px;
+    @media (min-width: $breakpoint-xl) {
+      width: 16px;
+      height: 16px;
     }
   }
-}
-
-// Mejoras de rendimiento para animaciones en móviles
-@media (max-width: 768px) {
-  .product-showcase:hover .decorative-leaf {
-    animation: none;
-  }
-
-  .product-image:hover {
+  
+  .star:hover,
+  .decorative-leaf:hover {
     transform: none;
   }
 }
 
-// Soporte para notch en iPhone
+// === PERFORMANCE OPTIMIZATIONS ===
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// === HIGH CONTRAST MODE ===
+@media (prefers-contrast: high) {
+  .product-card {
+    border: 2px solid $text-light;
+  }
+  
+  .product-name,
+  .product-title,
+  .product-description {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+  
+  .carousel-btn {
+    border: 2px solid $text-light;
+  }
+}
+
+// === SAFE AREA SUPPORT (iPhone Notch) ===
 @supports (padding-top: env(safe-area-inset-top)) {
   .product-showcase {
     padding-left: max(2rem, env(safe-area-inset-left));
     padding-right: max(2rem, env(safe-area-inset-right));
     
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-md) {
       padding-left: max(1rem, env(safe-area-inset-left));
       padding-right: max(1rem, env(safe-area-inset-right));
     }
+    
+    @media (min-width: $breakpoint-xl) {
+      padding-left: max(3rem, env(safe-area-inset-left));
+      padding-right: max(3rem, env(safe-area-inset-right));
+    }
+  }
+}
+
+// === PRINT STYLES ===
+@media print {
+  .product-showcase {
+    background: white;
+    box-shadow: none;
+  }
+  
+  .product-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .carousel-btn,
+  .carousel-dots,
+  .decorative-leaf {
+    display: none;
+  }
+  
+  .product-info-section {
+    background: white;
+    color: black;
+  }
+  
+  .product-name,
+  .product-title,
+  .product-description {
+    color: black;
+    text-shadow: none;
   }
 }

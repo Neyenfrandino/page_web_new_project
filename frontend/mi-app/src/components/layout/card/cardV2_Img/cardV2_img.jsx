@@ -48,7 +48,7 @@ import Button from "../../../ui/button/button";
 // Estilos globales, variables SCSS y temas
 import "./cardV2_img.scss"
 
-const CardV2Img = ({ objectContentCard }) => {
+const CardV2Img = ({ objectContentCard, buttonTrue = true }) => {
 
     // const objectContentCard = {
     //     question: "¿Qué es Movimiento Naluum?",
@@ -73,10 +73,11 @@ const CardV2Img = ({ objectContentCard }) => {
                     <span className="cardV2__content-title">{objectContentCard.question}</span>
                     <h2 className="cardV2__content-subtitle">{objectContentCard.title}</h2>
                     <p className="cardV2__content-description">{objectContentCard.text}</p>
-
-                    <div className="button-card">
-                        <Button text={objectContentCard.buttonPrimary[0]} link={objectContentCard.buttonPrimary[1]} style="primary" />
-                    </div>
+                    {buttonTrue && 
+                        <div className="button-card">
+                            <Button text={objectContentCard.buttonPrimary[0]} link={objectContentCard.buttonPrimary[1]} style="primary" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>

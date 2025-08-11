@@ -31,7 +31,7 @@ import Newsletter from '../../seccion/newsletter/newsletter';
 import FAQ from '../../seccion/FAQ/FAQ';
 import MessageFinal  from '../../seccion/message_final/message_final' 
 import FadeInOnView from '../../seccion/fadeInOnView/fadeInOnView';
-
+import MissionCarousel from '../../seccion/carrusel_imagenes/carrusel_imagenes';
 
 // ------------------------------
 // 📂 UI / Componentes visuales pequeños y reutilizables
@@ -102,17 +102,62 @@ const timerProps = {
 
 const objectContentCard = {
     question: "¿Qué es Madre Selva?",
-    title: "Centro de investigación y aprendizaje",
-    text: "Madre Selva es un espacio dedicado a la investigación, experimentación y aprendizaje de los procesos naturales, aplicados a sistemas que buscan imitar la inteligencia de la naturaleza. Es un laboratorio vivo donde la ciencia, la observación y la práctica se unen para crear soluciones inspiradas en los ecosistemas, fomentando la regeneración, la sostenibilidad y el conocimiento compartido.",
-    buttonPrimary: ["Explorar el universo de madreSelva", "/madreSelva"],
+    title: "Centro de investigación en agricultura sintrópica y diseño regenerativo.",
+    text: "22 hectareas de preservación, cultivo e interación saludable entre humanos y naturaleza.",
+    buttonPrimary: ["Explorar el universo de Madre Selva", "/madreSelva"],
     image: "/img/message_final.jpg",
 };
 
 const titles = {
-    titulo: "Madre Selva",
-    subTitle: "La selva como maestra",
-    description: "Madre Selva es una propuesta para generar una comunidad educativa consciente y profesional que inspire a más personas. Está inspirado en los sistemas vivos que se autorregulan y se sostienen gracias a la colaboración efectiva y amorosa. Se basa en crear un sistema vivo, sustentable en el tiempo",
+    titulo: "Filosofía / Propósito ",
+    subTitle: "Madre Selva",
+    description: "Nos inspira una filosofía arraigada en la conexión profunda con la naturaleza y el compromiso inquebrantable con la sostenibilidad. Nuestra misión va más allá de ser un espacio; es un llamado a la acción para mejorar la salud tanto de las personas como de la tierra que habitamos.",
 }
+
+const missionCards = [
+ {
+   id: 1,
+   title: '🌱 Regeneramos la tierra, pero también el espíritu.',
+   description: 'En Madre Selva trabajamos con agricultura sintrópica para sanar los suelos mientras reconectamos con nuestra esencia natural.',
+   image: '/img/4.png',
+ },
+ {
+   id: 2,
+   title: '🌿 Investigamos la naturaleza, pero también nos dejamos enseñar por ella.',
+   description: 'Como centro de investigación en diseño regenerativo, aprendemos de los patrones naturales para crear soluciones sostenibles.',
+   image: '/img/5.png',
+ },
+ {
+   id: 3,
+   title: '🏡 Construimos con materiales naturales, pero edificamos comunidad.',
+   description: 'Cada estructura en Madre Selva es un testimonio de nuestro compromiso con prácticas eco-amigables y vida armoniosa.',
+   image: '/img/7.png',
+ },
+ {
+   id: 4,
+   title: '💧 Escuchamos el susurro del arroyo, pero también el llamado de la tierra.',
+   description: 'En nuestros bosques vírgenes, cada visitante encuentra un espacio para reconectar con el ecosistema que nos sostiene.',
+   image: '/img/personas_trabajando.jpg',
+ },
+ {
+   id: 5,
+   title: '🌾 Practicamos agricultura sintrópica, pero cultivamos esperanza.',
+   description: 'Nuestros métodos regenerativos no solo producen alimentos, sino que restauran el equilibrio entre humanidad y naturaleza.',
+   image: '/img/brote_mano.jpg',
+ },
+ {
+   id: 6,
+   title: '🔬 Somos un centro de investigación, pero también un santuario de sabiduría.',
+   description: 'En Madre Selva, la ciencia y la filosofía ancestral se entrelazan para crear un futuro más sostenible.',
+   image: '/img/4.png',
+ },
+ {
+   id: 7,
+   title: '🌟 Ofrecemos una experiencia, pero inspiramos una transformación.',
+   description: 'Cada paso en Madre Selva es un eco de nuestro compromiso con la regeneración de la salud de las personas y la tierra.',
+   image: '/img/3.png',
+ }
+];
 
 const MadreSelva = () => {
     const { servicios, FAQ: faqData, products } = useContext(ContextJsonLoadContext);
@@ -183,13 +228,14 @@ const MadreSelva = () => {
         
     }, [servicios]);
 
-    console.log(products)
+     const memoizedCards = useMemo(() => missionCards, []);
+   
 
 
     return (
         <div className='madreSelva__container'>
             <SEOHelmet 
-                title='madreSelva' 
+                title='Madre Selva' 
                 description='Simplify Your Focus' 
                 keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
                 author='Neyen Frandino' 
@@ -202,15 +248,19 @@ const MadreSelva = () => {
                         <div className='madreSelva__header__content__logo'>
                             <img src="/img/madre_selva_logo_asd.svg" alt="Logo madreSelva" />
                         </div>
+
+                        <div className='madreSelva__header__content__title'>
+                            <p>Bienvenidos al Eco-Centro Madre Selva, un santuario de regeneración en el corazón de la naturaleza. En nuestro compromiso con la salud de las personas y la tierra.</p>
+                        </div>
                     </div>
                 </Header>
             </div>
 
             <div className='madreSelva__content'>
 
-                <div className='madreSelva__content--question' id='sobre-madreSelva'>
+                <div className='madreSelva__content--question' id='sobre-mi'>
                     <FadeInOnView {...fadeInProps}>
-                        <CardV2Img objectContentCard={objectContentCard} />
+                        <CardV2Img objectContentCard={objectContentCard} buttonTrue={false} />
                     </FadeInOnView>
                 </div>
 
@@ -221,11 +271,11 @@ const MadreSelva = () => {
                 </div>
 
 
-                <div className='madreSelva__grid' id='serviciosYProductos-madreSelva'>
+                <div className='madreSelva__grid' id='servicios'>
                     <FadeInOnView {...fadeInProps}>
                         <div className='madreSelva__services-titile'>
-                            <h2>Servicios Y Productos</h2>
-                            <p>Conoce los servicios y productos que nos ayudan a cumplir con nuestras metas</p>
+                            <h2 className='title'>Servicios y productos</h2>
+                            <p className='subtitle'>Destacamos no solo por nuestras construcciones realizadas con materiales naturales, sino por la pasión que impulsa cada rincón de nuestro centro. Aquí, las prácticas eco-amigables son la base de nuestro diario vivir, guiándonos hacia un equilibrio armonioso con el entorno.</p>
                         </div>
                         
                         <div className='madreSelva__services'>
@@ -261,7 +311,7 @@ const MadreSelva = () => {
                     </FadeInOnView>
                 </div>
 
-                <div className='madreSelva__content--contact' id='contacto-madreSelva'>
+                <div className='madreSelva__content--contact' id='contacto'>
                     <FadeInOnView {...fadeInProps}>
                         <CtaHablemos showSocialMedia={true} />
                     </FadeInOnView>
@@ -273,12 +323,17 @@ const MadreSelva = () => {
                     </FadeInOnView>
                 </div>
 
+                <div className='madreSelva__content--carrousel' id='carrousel'>
+                    <FadeInOnView {...fadeInProps}>
+                        <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
+                    </FadeInOnView>
+                </div>
 
-                <div className='madreSelva__content--newsletter' id='newsletter-madreSelva'>
+                <div className='madreSelva__content--newsletter' id='newsletter'>
                     <Newsletter />
                 </div>
 
-                <div className='madreSelva__content--FAQ' id='FAQ-madreSelva'>
+                <div className='madreSelva__content--FAQ' id='FAQ'>
                     <FadeInOnView {...fadeInProps}>
                         <FAQ faqs={faqData} defaultCategory="servicios" />
                     </FadeInOnView>

@@ -104,34 +104,42 @@
         "id": 1,
         "year": "2015",
         "title": "Raíces que Brotan",
-        "content": "En un rincón fértil del planeta, nació madreSelva como un centro de investigación y aprendizaje dedicado a la observación y experimentación de los procesos naturales. Su visión: imitar la inteligencia de los ecosistemas para regenerar la tierra.",
+        "content": "En un rincón fértil del planeta, abrazado por ríos claros y bosques ancestrales, nació Madre Selva. Su origen fue humilde pero lleno de propósito: ser un santuario de regeneración, un lugar donde la ciencia y la sabiduría ancestral pudieran encontrarse. Desde el principio, se dedicó a investigar y aprender de los procesos naturales, imitando la inteligencia de los ecosistemas para sanar la tierra. Cada construcción fue levantada con materiales naturales, cada sendero trazado respetando la vida que lo rodeaba. Aquí, la filosofía se convirtió en acción, y cada semilla plantada fue un compromiso silencioso pero firme con la vida.",
         "image": "🌱",
-        "highlight": "Nacimiento del centro de investigación"
+        "highlight": "Nacimiento del santuario y centro de investigación"
       },
       {
         "id": 2,
         "year": "2022",
-        "title": "El IPC en madreSelva",
-        "content": "Ese año, madreSelva fue sede del IPC, un encuentro internacional donde expertos, comunidades y soñadores compartieron saberes sobre permacultura, regeneración y convivencia armónica con la naturaleza. La selva se convirtió en aula y hogar para quienes buscan un mundo vivo.",
+        "title": "El IPC en Madre Selva",
+        "content": "El año 2022 marcó un punto de inflexión. Madre Selva se convirtió en anfitriona del IPC, un encuentro internacional donde expertos, comunidades indígenas, campesinos, diseñadores y soñadores llegaron de distintos rincones del mundo. Durante semanas, la selva se transformó en un gran aula viva. Los días estaban llenos de talleres, recorridos por huertos sintrópicos y debates bajo la sombra de los árboles; las noches, de fogatas y cantos que cruzaban idiomas y culturas. Fue un tiempo de intercambio profundo, donde cada conversación era una semilla y cada experiencia, un puente entre mundos.",
         "image": "🌿",
-        "highlight": "Encuentro internacional de permacultura"
+        "highlight": "Encuentro internacional que convirtió la selva en un aula viva"
       },
       {
         "id": 3,
         "year": "2023",
         "title": "Escuela Viva",
-        "content": "Con el IPC como punto de inflexión, madreSelva abrió sus puertas a programas de formación continua, residencias de investigación y experiencias inmersivas. Personas de todo el mundo llegaron para aprender de la selva, con la selva y para la selva.",
+        "content": "Inspirados por la energía del IPC, Madre Selva abrió las puertas a la Escuela Viva, un espacio de formación y transformación. Programas de aprendizaje continuo, residencias de investigación y experiencias inmersivas comenzaron a tomar forma. Personas de todos los continentes llegaron a convivir con la selva, aprendiendo no solo técnicas regenerativas, sino una manera distinta de habitar el mundo. En la Escuela Viva, se cocina con el fuego que ofrece la tierra, se cultiva siguiendo el ritmo de las estaciones y se estudia escuchando tanto a los maestros humanos como a los bosques y arroyos. No se aprende sobre la naturaleza, sino con ella y para ella.",
         "image": "🏕️",
-        "highlight": "Formación en la naturaleza"
+        "highlight": "Formación y aprendizaje en armonía con la naturaleza"
       },
       {
         "id": 4,
         "year": "2025",
         "title": "Guardianes del Conocimiento",
-        "content": "Hoy, madreSelva es un nodo clave del Movimiento Naluum, compartiendo sus aprendizajes con comunidades, universidades y redes internacionales. Cada visitante se convierte en guardián del equilibrio natural.",
+        "content": "Hoy, Madre Selva es un nodo clave dentro del Movimiento Naluum. Desde aquí, el conocimiento fluye hacia comunidades, universidades y redes internacionales. Lo que alguna vez fue un sueño local, ahora es una corriente que atraviesa fronteras. Cada visitante que recorre sus senderos, que bebe de sus fuentes y que siembra en su tierra, se convierte en guardián de la regeneración, llevando consigo semillas —físicas y simbólicas— que germinan en cualquier lugar del planeta. Madre Selva ya no es solo un lugar: es un tejido de historias vivas que crecen y se multiplican.",
         "image": "🌎",
-        "highlight": "Conocimiento para la regeneración global"
+        "highlight": "Difusión global del conocimiento para la regeneración"
       }
-    ]
+    ],
+    "fragments": {
+      "welcome": "Madre Selva es un santuario de regeneración en el corazón de la naturaleza, dedicado a la investigación en agricultura sintrópica, diseño regenerativo y experiencias que conectan a las personas con la salud de la tierra.",
+      "inspiration": "Cada paso que damos es un eco de nuestro compromiso con un futuro más sostenible y saludable para todos.",
+      "callToAction": "Únete a nosotros y sé parte de un movimiento que regenera la tierra, inspira comunidades y siembra esperanza.",
+      "philosophy": "Creemos que la verdadera sostenibilidad nace de la conexión profunda con la naturaleza y del compromiso con su cuidado. Aquí, la filosofía y la acción se entrelazan en cada proyecto.",
+      "experience": "Visitar Madre Selva es sumergirse en un ecosistema vivo: caminar entre bosques, escuchar el susurro de los arroyos y aprender que regenerar la tierra es también regenerar el espíritu."
+    }
   }
+
 ]

@@ -11,7 +11,7 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
   const chapterRefs = useRef([]);
 
   const chapters = time_line_history[index]?.items || [];
-
+ 
   if (!chapters || !titles) return null;
 
   useEffect(() => {

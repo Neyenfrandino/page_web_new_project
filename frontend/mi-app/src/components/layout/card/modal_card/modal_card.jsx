@@ -12,7 +12,7 @@ import './modal_card.scss';
 
 const ModalCard = ({ course, children }) => {
 
-  console.log(course, 'course')
+
   if (!course) return null;
 
   const [isVisible, setIsVisible] = useState(false);

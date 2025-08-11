@@ -52,30 +52,40 @@ import Header from '../../components/layout/header/header';
 // 📂 projects_base
 import MadreSelva from '../../components/proyects_base/madre_selva/madre_selva';
 import Naluum from '../../components/proyects_base/naluum/naluum';
+import Global from '../../components/proyects_base/global/global';
 
 // ------------------------------
 // 📂 Styles
 // Estilos globales, variables SCSS y temas
 import './projects.router.scss';
 
-const routesMadreSelva = [
-  { id: "inicioMadreSelva", name: "Inicio", path: "#inicio", icon: Home }, // nota: "" para que sea la raíz del proyecto
-  { id: "sobre-madreSelva", name: "Sobre Madre Selva", path: "#sobre-madreSelva", icon: User },
-  { id: "serviciosYProductos-madreSelva", name: "Servicios y Productos", path: "#serviciosYProductos-madreSelva", icon: ShoppingBag },
-  { id: "contacto-madreSelva", name: "Contacto", path: "#contacto-madreSelva", icon: Mail },
-  { id: "newsletter-madreSelva", name: "Newsletter", path: "#newsletter-madreSelva", icon: MessageCircle },
-  { id: "FAQ-madreSelva", name: "Preguntas Frecuentes", path: "#FAQ-madreSelva", icon: HelpCircle },
-];
+// const routesMadreSelva = [
+//   { id: "inicioMadreSelva", name: "Inicio", path: "#inicio", icon: Home }, // nota: "" para que sea la raíz del proyecto
+//   { id: "sobre-madreSelva", name: "Sobre Madre Selva", path: "#sobre-madreSelva", icon: User },
+//   { id: "serviciosYProductos-madreSelva", name: "Servicios y Productos", path: "#serviciosYProductos-madreSelva", icon: ShoppingBag },
+//   { id: "contacto-madreSelva", name: "Contacto", path: "#contacto-madreSelva", icon: Mail },
+//   { id: "newsletter-madreSelva", name: "Newsletter", path: "#newsletter-madreSelva", icon: MessageCircle },
+//   { id: "FAQ-madreSelva", name: "Preguntas Frecuentes", path: "#FAQ-madreSelva", icon: HelpCircle },
+// ];
 
 // En projects.router.jsx
-const routesNaluum = [
+const routes_subpage = [
   { id: "inicio", name: "Inicio", path: "#inicio", icon: Home },
-  { id: "sobre-naluum", name: "Sobre Naluum", path: "#sobre-naluum", icon: User },
+  { id: "sobre-naluum", name: "Sobre mi", path: "#sobre-mi", icon: User },
   { id: "servicios", name: "Servicios", path: "#servicios", icon: ShoppingBag },
   { id: "contacto", name: "Contacto", path: "#contacto", icon: Mail },
   { id: "newsletter", name: "Newsletter", path: "#newsletter", icon: MessageCircle },
   { id: "FAQ", name: "Preguntas Frecuentes", path: "#FAQ", icon: HelpCircle },
 ];
+// // En projects.router.jsx
+// const routesGlobal = [
+//   { id: "inicio", name: "Inicio", path: "#inicio", icon: Home },
+//   { id: "sobre-naluum", name: "Sobre Naluum", path: "#sobre-naluum", icon: User },
+//   { id: "servicios", name: "Servicios", path: "#servicios", icon: ShoppingBag },
+//   { id: "contacto", name: "Contacto", path: "#contacto", icon: Mail },
+//   { id: "newsletter", name: "Newsletter", path: "#newsletter", icon: MessageCircle },
+//   { id: "FAQ", name: "Preguntas Frecuentes", path: "#FAQ", icon: HelpCircle },
+// ];
 
 const Projects = () => {
   const { pathname } = useLocation();
@@ -93,7 +103,7 @@ const Projects = () => {
         image='https://miempresa.com/default-image.jpg' 
       />
 
-      <TimelineNav sections={isMadreSelva ? routesMadreSelva : routesNaluum} />
+      <TimelineNav sections={routes_subpage} />
 
       <Routes>
         {/* Madre Selva */}
@@ -102,7 +112,7 @@ const Projects = () => {
         {/* Naluum */}
         <Route path="naluum" element={<Naluum />}/>
 
-        <Route path='global' element={<div>Global</div>} />
+        <Route path='global' element={<Global />}/>
       </Routes>
     </div>
   );
