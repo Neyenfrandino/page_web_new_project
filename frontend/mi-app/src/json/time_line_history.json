@@ -140,6 +140,65 @@
       "philosophy": "Creemos que la verdadera sostenibilidad nace de la conexión profunda con la naturaleza y del compromiso con su cuidado. Aquí, la filosofía y la acción se entrelazan en cada proyecto.",
       "experience": "Visitar Madre Selva es sumergirse en un ecosistema vivo: caminar entre bosques, escuchar el susurro de los arroyos y aprender que regenerar la tierra es también regenerar el espíritu."
     }
+  },
+  {
+    "name": "Global",
+    "items": [
+      {
+        "id": 1,
+        "year": "2020",
+        "title": "El Llamado de la Tierra",
+        "content": "Global nació del escuchar profundo. No surgimos en una oficina con aire acondicionado planeando el futuro del mundo. Nacimos con las manos en la tierra, en el Movimiento Na Lu'um, donde durante décadas aprendimos que regenerar no es un concepto técnico, es un acto de amor. Na Lu'um nos enseñó que cada territorio tiene su propia inteligencia, su propio ritmo, su propia medicina.",
+        "image": "🌎",
+        "highlight": "Nacimiento desde Na Lu'um"
+      },
+      {
+        "id": 2,
+        "year": "2021",
+        "title": "La Red Viva",
+        "content": "Global evolucionó para convertirse en más que una consultora: una red viva. Como las micorrizas que conectan los bosques bajo tierra, comenzamos a conectar saberes, territorios y sueños. Permacultores en Argentina, arquitectos naturales en Colombia, facilitadores en México, educadores en Francia, innovadores en Nueva Zelanda. Personas que se atrevieron a imaginar que otro mundo no solo es posible, sino que ya está emergiendo.",
+        "image": "🕸️",
+        "highlight": "Red internacional de regeneradores"
+      },
+      {
+        "id": 3,
+        "year": "2022",
+        "title": "El Cambio desde Adentro",
+        "content": "Desarrollamos nuestra metodología única: no llegamos a los territorios con manuales prediseñados ni powerpoints genéricos. Llegamos con una pregunta: '¿Qué quiere nacer aquí?' Trabajamos como trabaja la naturaleza: en ciclos, en redes, en reciprocidad. Cada proyecto es un ecosistema, con su propia complejidad, su propia belleza, sus propios desafíos.",
+        "image": "🌿",
+        "highlight": "Metodología regenerativa propia"
+      },
+      {
+        "id": 4,
+        "year": "2023",
+        "title": "Puente entre Mundos",
+        "content": "En tiempos de colapso y renacimiento, Global se consolidó como puente entre mundos. Nos volvimos traductores entre la sabiduría ancestral y la innovación contemporánea. Entre la urgencia del hacer y la paciencia del proceso. Entre el sueño individual y la transformación colectiva. No vendemos esperanza, la cultivamos. No prometemos cambios, los acompañamos.",
+        "image": "🌉",
+        "highlight": "Integración de saberes"
+      },
+      {
+        "id": 5,
+        "year": "2024",
+        "title": "Transformación Territorial",
+        "content": "Cuando una comunidad en los Andes nos llamó para diseñar su transición hacia la soberanía alimentaria, co-creamos desde su cosmovisión, sus semillas nativas, su calendario lunar. Cuando una empresa en Buenos Aires quiso transformar su cultura organizacional, facilitamos que emergiera su propia forma de organizarse. La transformación real no viene de arriba ni de afuera. Nace de adentro, crece en comunidad y florece cuando encuentra su propósito.",
+        "image": "🏔️",
+        "highlight": "Proyectos emblemáticos territoriales"
+      },
+      {
+        "id": 6,
+        "year": "2025",
+        "title": "La Invitación Abierta",
+        "content": "Hoy, Global está aquí para caminar contigo. No como consultores externos, sino como compañeros de viaje. No para decirte qué hacer, sino para co-crear contigo lo que necesita emerger. En cada semilla vive un bosque entero. En cada proyecto, un mundo posible. En cada encuentro, una oportunidad de regenerar la vida. Donde los sueños se vuelven diseño, y el diseño se vuelve vida.",
+        "image": "✨",
+        "highlight": "Co-creación regenerativa global"
+      }
+    ],
+    "fragments": {
+      "welcome": "Global es una red viva de consultoría regenerativa internacional, nacida del Movimiento Na Lu'um. Somos traductores entre la sabiduría ancestral y la innovación contemporánea, acompañando territorios en su transformación regenerativa.",
+      "inspiration": "No vendemos esperanza. La cultivamos. No prometemos cambios. Los acompañamos. No hablamos de sustentabilidad. Vivimos la regeneración.",
+      "callToAction": "Si escuchaste el llamado de la tierra y sientes que es tiempo de pasar del discurso a la acción, de la teoría a la práctica, del miedo a la creación, Global está aquí para caminar contigo.",
+      "philosophy": "Trabajamos como trabaja la naturaleza: en ciclos, en redes, en reciprocidad. Nuestros procesos son vivos porque entienden que cada proyecto es un ecosistema, con su propia complejidad, su propia belleza, sus propios desafíos.",
+      "experience": "No llegamos con manuales prediseñados. Llegamos con una pregunta: '¿Qué quiere nacer aquí?' Co-creamos desde la cosmovisión local, porque la transformación real nace de adentro, crece en comunidad y florece cuando encuentra su propósito."
+    }
   }
-
 ]

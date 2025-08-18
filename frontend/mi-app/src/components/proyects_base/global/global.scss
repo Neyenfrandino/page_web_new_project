@@ -1,6 +1,25 @@
-// Variables de tiempo y easing
-$animation-duration: 1.8s;
-$easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+// Variables
+$primary-gold: #bba324;
+$primary-gold-light: #d4bc3d;
+$primary-gold-dark: #9a8a1d;
+$bg-dark: #030304;
+$bg-dark-gradient: #0a0a0b;
+$text-light: #f5f5f5;
+$animation-duration: 1.2s;
+$easing-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin absolute-full {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
 // Animaciones simples y elegantes
 @keyframes fadeIn {
@@ -44,92 +63,199 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Componente con animaciones suaves
-.madreSelva__container {
+.global__container {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-//   align-items: center;
+  overflow: hidden;
+  position: relative;
+  background-color: #0b0a09;
 
-  .madreSelva__header {
+          // Efecto de brillo diagonal blanco
+        &::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent 45%,
+            rgba(255, 255, 255, 0.03) 50%,
+            transparent 55%
+          );
+          animation: shineEffect 6s ease-in-out infinite;
+          animation-delay: 3s;
+          transform: rotate(25deg);
+          pointer-events: none;
+          z-index: 4;
+        }
+
+
+  // Main Header Styles
+  .global__header {
     width: 100%;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     position: relative;
-    background-image: url('../../../public/img/madreSelva.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    // Fade in suave del fondo
+    background: #0b0a09;
     opacity: 0;
     animation: fadeIn $animation-duration $easing-smooth forwards;
+    overflow: hidden;
+    margin-bottom: 5%;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.9) 10%,
-        rgba(0, 0, 0, 0.8) 20%,
-        rgba(0, 0, 0, 0.7) 30%,
-        rgba(0, 0, 0, 0.6) 40%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 0.4) 60%,
-        rgba(0, 0, 8, 0.3) 70%,
-        rgba(0, 0, 8, 0.2) 80%,
-        rgba(0, 0, 8, 0.1) 90%,
-        rgba(0, 0, 0, 0) 100%);
-      z-index: 0;
-      
-      // Fade in del gradiente un poco después
-      opacity: 0;
-      animation: fadeIn ($animation-duration * 0.8) $easing-smooth 0.3s forwards;
-    }
-
-    .madreSelva__header__content {
+    .global__header__content {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      @include flex-center;
       position: relative;
       z-index: 2;
+      padding: 2rem;
 
-      .madreSelva__header__content__logo {
-        width: 100%;
+      .global__header__content__logo {
+        width: 35%;
         height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+        @include flex-center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
         z-index: 3;
+        // 🎯 Removimos las transiciones automáticas, ahora se manejan con React
+
+        // Efecto de brillo diagonal blanco
+        // &::before {
+        //   content: '';
+        //   position: absolute;
+        //   top: -50%;
+        //   left: -50%;
+        //   width: 200%;
+        //   height: 1400%;
+        //   background: linear-gradient(
+        //     105deg,
+        //     transparent 45%,
+        //     rgba(255, 255, 255, 0.03) 50%,
+        //     transparent 55%
+        //   );
+        //   animation: shineEffect 6s ease-in-out infinite;
+        //   animation-delay: 3s;
+        //   transform: rotate(25deg);
+        //   pointer-events: none;
+        //   z-index: 4;
+        // }
 
         img {
           width: 100%;
           height: auto;
-          max-width: 500px;
+          max-width: 400px;
           max-height: 500px;
-          
-          // Entrada con scale sutil
           opacity: 0;
           animation: 
             fadeInScale 1.4s $easing-smooth 0.8s forwards,
-            subtleFloat 4s ease-in-out 2.5s infinite;
+            subtleFloat 4s ease-in-out 4s infinite;
+          filter: drop-shadow(0 0 30px rgba($primary-gold, 0.3));
+        }
+
+        // Logo placeholder (cuando no hay imagen)
+        .logo-placeholder {
+          width: 350px;
+          height: 350px;
+          @include flex-center;
+          flex-direction: column;
+          background: radial-gradient(
+            circle at center, 
+            rgba($primary-gold, 0.1) 0%, 
+            transparent 70%
+          );
+          border: 2px solid $primary-gold;
+          border-radius: 50%;
+          position: relative;
+          opacity: 0;
+          animation: 
+            fadeInScale 1.4s $easing-smooth 0.8s forwards,
+            subtleFloat 4s ease-in-out 4s infinite;
+
+          &::before {
+            content: '';
+            @include absolute-full;
+            border-radius: 50%;
+            border: 1px solid $primary-gold;
+            opacity: 0.3;
+            animation: pulseRing 3s ease-in-out infinite;
+          }
+
+          span {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.5rem;
+            color: $primary-gold;
+            text-shadow: 0 0 20px rgba($primary-gold, 0.5);
+          }
+        }
+      }
+
+      .global__header__content__titles {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 900px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        // 🎯 Removimos las animaciones automáticas y transiciones, ahora se manejan con React
+
+        h1 {
+          font-size: clamp(2rem, 5vw, 2rem);
+          font-weight: 300;
+          letter-spacing: 0.15em;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(
+            90deg, 
+            $primary-gold 0%, 
+            $primary-gold-light 50%, 
+            $primary-gold 100%
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: gradientShift 8s ease infinite;
+          line-height: 1.2;
+          // 🎯 Removimos las animaciones automáticas, ahora se manejan con React
+        }
+
+        .subtitle {
+          font-size: clamp(1rem, 2.5vw, 1rem);
+          font-weight: 400;
+          color: $primary-gold;
+          margin-bottom: 1rem;
+          letter-spacing: 0.05em;
+          // 🎯 Removimos las animaciones automáticas, ahora se manejan con React
+        }
+
+        p {
+          font-size: clamp(0.9rem, 2vw, 1.1rem);
+          font-weight: 300;
+          line-height: 1.8;
+          color: $text-light;
+          letter-spacing: 0.02em;
+          // 🎯 Removimos las animaciones automáticas, ahora se manejan con React
+
+          .highlight {
+            color: $primary-gold;
+            font-weight: 400;
+          }
         }
       }
     }
   }
 
-  .madreSelva__content {
+  .global__content {
     width: 100%;
     height: auto;
     display: flex;
@@ -137,39 +263,244 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     justify-content: center;
     position: relative;
     z-index: 1;
+    background: #0b0a09;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    .global__content--question {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom,
-        rgba(0, 0, 0, 1) 0%, 
-        rgba(0, 0, 0, 0.9) 10%, 
-        rgba(0, 0, 0, 0.9) 20%, 
-        rgba(0, 0, 0, 0.9) 30%, 
-        rgba(0, 0, 0, 0.9) 40%, 
-        rgba(0, 0, 0, 0.8) 50%, 
-        rgba(0, 0, 0, 0.7) 60%, 
-        rgba(0, 0, 8, 0.6) 70%, 
-        rgba(0, 0, 8, 0.5) 80%, 
-        rgba(0, 0, 8, 0.4) 90%,
-        rgba(0, 0, 0, 0.2) 100%);
-      z-index: 0;
-      
-      // Fade in del gradiente un poco después
-      opacity: 0;
-      animation: fadeIn ($animation-duration * 0.8) $easing-smooth 0.3s forwards;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding: 5% 0;
+      margin-bottom: 5%;
+
+      .global__content--question__card {
+        width: 100%;
+        height: 100%;
+        min-height: 600px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        
+        // Imagen de fondo
+        &__img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
+          
+          // Gradiente oscuro desde la izquierda
+          &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+              90deg,
+              rgba($bg-dark, 0.95) 0%,
+              rgba($bg-dark, 0.9) 15%,
+              rgba($bg-dark, 0.85) 25%,
+              rgba($bg-dark, 0.75) 35%,
+              rgba($bg-dark, 0.5) 45%,
+              rgba($bg-dark, 0.2) 60%,
+              transparent 80%
+            );
+            z-index: 2;
+          }
+        }
+        
+        // Contenedor de texto posicionado a la izquierda
+        &__text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          width: 60%;
+          padding: 5% 5% 5% 8%;
+          z-index: 3;
+          
+          // Línea decorativa dorada a la izquierda
+          &::before {
+            content: '';
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 40%;
+            background: linear-gradient(
+              180deg,
+              transparent 0%,
+              $primary-gold 20%,
+              $primary-gold-light 50%,
+              $primary-gold 80%,
+              transparent 100%
+            );
+            opacity: 0.8;
+            animation: pulseHeight 4s ease-in-out infinite;
+          }
+          
+          h2 {
+            font-size: clamp(2.5rem, 6vw, 1rem);
+            font-weight: 300;
+            // margin-bottom: 1.5rem;
+            line-height: 1.1;
+            color: $primary-gold;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            position: relative;
+            
+            // Efecto de brillo en el texto
+            background: linear-gradient(
+              90deg, 
+              $primary-gold 0%, 
+              $primary-gold-light 50%, 
+              $primary-gold 100%
+            );
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 8s ease infinite;
+          }
+          
+          // Subtítulo
+          p:first-of-type {
+            font-size: clamp(1.2rem, 2.5vw, 1rem);
+            color: $primary-gold-light;
+            line-height: 1.4;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            // margin-bottom: 2rem;
+            opacity: 0.9;
+          }
+          
+          // Descripción
+          p:last-of-type {
+            font-size: clamp(1rem, 1.8vw, 0.8rem);
+            color: $text-light;
+            line-height: 1.8;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin: 0;
+            opacity: 0.95;
+            
+            // Resaltar frases importantes
+            strong {
+              color: $primary-gold-light;
+              font-weight: 400;
+            }
+          }
+        }
+      }
     }
 
-    .madreSelva__content--question {
-      margin-top: 5%;
-      padding: 0% 0 5% 0;
+    // Animaciones
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
     }
 
-    .madreSelva__grid {
+    @keyframes pulseHeight {
+      0%, 100% {
+        height: 40%;
+        opacity: 0.8;
+      }
+      50% {
+        height: 50%;
+        opacity: 1;
+      }
+    }
+
+    // Responsive
+    @media (max-width: 1024px) {
+      .global__content--question {
+        .global__content--question__card {
+          &__text {
+            width: 65%;
+            padding: 4% 4% 4% 6%;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .global__content--question {
+        .global__content--question__card {
+          height: 80vh;
+          min-height: 500px;
+          
+          &__img {
+            &::after {
+              background: linear-gradient(
+                90deg,
+                rgba($bg-dark, 0.98) 0%,
+                rgba($bg-dark, 0.95) 30%,
+                rgba($bg-dark, 0.85) 50%,
+                rgba($bg-dark, 0.6) 70%,
+                transparent 90%
+              );
+            }
+          }
+          
+          &__text {
+            width: 80%;
+            padding: 5%;
+            
+            &::before {
+              left: 3%;
+              width: 3px;
+            }
+            
+            h2 {
+              font-size: clamp(2rem, 8vw, 3rem);
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      .global__content--question {
+        .global__content--question__card {
+          &__text {
+            width: 90%;
+            
+            h2 {
+              margin-bottom: 1rem;
+            }
+            
+            p:first-of-type {
+              margin-bottom: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+    .global__content--history{
+      margin-top: 15%;
+    }
+
+    .global__grid {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -180,7 +511,7 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1;
       margin-top: 5%;
 
-      .madreSelva__services{
+      .global__services{
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -205,7 +536,7 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
 
-      .madreSelva__products{
+      .global__products{
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -229,13 +560,13 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
 
-      .madreSelva__button{
+      .global__button{
         padding: 3%;
         margin: 0 auto;
         width: 50%;
       }
 
-      .madreSelva__services-titile {
+      .global__services-titile {
         width: 80%;
         margin: 0% auto;
         margin-bottom: 4%;
@@ -280,12 +611,10 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    .madreSelva__content--CTA {
-      // margin-top: -.1%;
+    .global__content--CTA {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // align-items: center;
       width: 100%;
       height: auto;
       position: relative;
@@ -305,12 +634,12 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    .madreSelva__content--testimonial{
+    .global__content--testimonial{
       margin-top: 5%;
       margin-bottom: 5%;
     }
 
-    .madreSelva__content--menssage_final{
+    .global__content--menssage_final{
       padding: 5rem;
       position: relative;
 
@@ -325,25 +654,134 @@ $easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         transform: rotate(0);
         opacity: 1;
         z-index: 0;
-    }
+      }
     }
 
-    .madreSelva__content--newsletter {
+    .global__content--newsletter {
       position: relative;
     }
-
   }
 }
 
-// Media queries para móviles
+// Keyframes necesarios
+@keyframes shineEffect {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(25deg);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+// Media Queries
 @media (max-width: 768px) {
-  .madreSelva__container {
-    .madreSelva__header {
-      .madreSelva__header__content {
-        .madreSelva__header__content__logo {
+  .global__container {
+    .global__header {
+      .global__header__content {
+        padding: 1rem;
+
+        .global__header__content__logo {
+          margin-bottom: 2rem;
+
+          .logo-placeholder {
+            width: 250px;
+            height: 250px;
+
+            span {
+              font-size: 3rem;
+              letter-spacing: 0.3rem;
+            }
+          }
+
           img {
-            max-width: 200px;
-            max-height: 200px;
+            max-width: 280px;
+            max-height: 350px;
+          }
+        }
+
+        .global__header__content__titles {
+          padding: 0 1rem;
+
+          h1 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 1rem;
+          }
+
+          .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+          }
+
+          p {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .global__container {
+    .global__header {
+      .global__header__content {
+        .global__header__content__logo {
+          .logo-placeholder {
+            width: 200px;
+            height: 200px;
+
+            span {
+              font-size: 2.5rem;
+            }
+          }
+        }
+
+        .global__header__content__titles {
+          h1 {
+            letter-spacing: 0.08em;
           }
         }
       }

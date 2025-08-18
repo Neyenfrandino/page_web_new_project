@@ -141,5 +141,52 @@
     "category": "pagos",
     "question": "¿Tienen política de devoluciones?",
     "answer": "Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra para productos físicos en su estado original. Para cursos online, ofrecemos garantía de satisfacción de 7 días. Los cursos presenciales no son reembolsables, pero pueden reprogramarse con 48 horas de anticipación."
+  },
+  {
+    "id": "faq-16",
+    "category": "madre-selva",
+    "question": "¿Qué es el Eco-Centro Madre Selva?",
+    "answer": "El Eco-Centro Madre Selva es un santuario de regeneración y un centro de investigación en agricultura sintrópica y diseño regenerativo. Su propósito es mejorar la salud de las personas y de la tierra, ofreciendo un espacio de conexión profunda con la naturaleza y la sostenibilidad.",
+    "additionalInfo": "Más que un lugar, es una experiencia inmersiva donde cada actividad está guiada por principios eco-amigables."
+  },
+  {
+    "id": "faq-17",
+    "category": "madre-selva",
+    "question": "¿Qué puedo encontrar en una visita a Madre Selva?",
+    "answer": "Podrás recorrer bosques nativos, explorar senderos, escuchar el arroyo, conocer nuestras construcciones con materiales naturales y aprender sobre prácticas regenerativas. También podrás interactuar con el equipo y participar en talleres prácticos.",
+    "links": [
+      {
+        "text": "Agendar una visita",
+        "url": "/contacto",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-18",
+    "category": "madre-selva",
+    "question": "¿Ofrecen talleres o programas de voluntariado?",
+    "answer": "Sí, contamos con programas de voluntariado y de aprendices donde los participantes viven una experiencia práctica en agricultura sintrópica, bioconstrucción y vida sostenible, contribuyendo activamente al mantenimiento y desarrollo del Eco-Centro.",
+    "links": [
+      {
+        "text": "Conocer programas de voluntariado",
+        "url": "/servicios/voluntariado",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-19",
+    "category": "madre-selva",
+    "question": "¿Los productos de Madre Selva provienen de prácticas sostenibles?",
+    "answer": "Sí. Todos nuestros productos se elaboran siguiendo principios de agricultura regenerativa y prácticas sostenibles que respetan el ciclo natural de la tierra. Además, buscamos que los empaques sean biodegradables o reutilizables.",
+    "additionalInfo": "Cada compra contribuye al mantenimiento y expansión de nuestros proyectos regenerativos."
+  },
+  {
+    "id": "faq-20",
+    "category": "madre-selva",
+    "question": "¿Cuál es la filosofía de Madre Selva?",
+    "answer": "Nuestra filosofía se basa en la conexión profunda con la naturaleza y el compromiso inquebrantable con la sostenibilidad. Creemos que cada acción debe regenerar, no solo mantener, buscando un equilibrio saludable entre las personas y el entorno.",
+    "additionalInfo": "Cada paso en Madre Selva es un eco de nuestro compromiso con un futuro más sostenible."
   }
 ]

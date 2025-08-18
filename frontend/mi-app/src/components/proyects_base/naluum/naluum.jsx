@@ -200,7 +200,8 @@ const Naluum = () => {
 
                 <div className='naluum__content--history'>
                     <FadeInOnView {...fadeInProps}>
-                        <TimeLineHistory index={1} titles={titles} />
+                        <TimeLineHistory index={1} titles={titles} showHeroBg={true} heroBgImage={'/img/logo_naluum_trasparente.svg'} theme={'naluum'} />
+
                     </FadeInOnView>
                 </div>
 

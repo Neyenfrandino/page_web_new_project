@@ -114,50 +114,51 @@ const titles = {
     description: "Nos inspira una filosofía arraigada en la conexión profunda con la naturaleza y el compromiso inquebrantable con la sostenibilidad. Nuestra misión va más allá de ser un espacio; es un llamado a la acción para mejorar la salud tanto de las personas como de la tierra que habitamos.",
 }
 
-const missionCards = [
- {
-   id: 1,
-   title: '🌱 Regeneramos la tierra, pero también el espíritu.',
-   description: 'En Madre Selva trabajamos con agricultura sintrópica para sanar los suelos mientras reconectamos con nuestra esencia natural.',
-   image: '/img/4.png',
- },
- {
-   id: 2,
-   title: '🌿 Investigamos la naturaleza, pero también nos dejamos enseñar por ella.',
-   description: 'Como centro de investigación en diseño regenerativo, aprendemos de los patrones naturales para crear soluciones sostenibles.',
-   image: '/img/5.png',
- },
- {
-   id: 3,
-   title: '🏡 Construimos con materiales naturales, pero edificamos comunidad.',
-   description: 'Cada estructura en Madre Selva es un testimonio de nuestro compromiso con prácticas eco-amigables y vida armoniosa.',
-   image: '/img/7.png',
- },
- {
-   id: 4,
-   title: '💧 Escuchamos el susurro del arroyo, pero también el llamado de la tierra.',
-   description: 'En nuestros bosques vírgenes, cada visitante encuentra un espacio para reconectar con el ecosistema que nos sostiene.',
-   image: '/img/personas_trabajando.jpg',
- },
- {
-   id: 5,
-   title: '🌾 Practicamos agricultura sintrópica, pero cultivamos esperanza.',
-   description: 'Nuestros métodos regenerativos no solo producen alimentos, sino que restauran el equilibrio entre humanidad y naturaleza.',
-   image: '/img/brote_mano.jpg',
- },
- {
-   id: 6,
-   title: '🔬 Somos un centro de investigación, pero también un santuario de sabiduría.',
-   description: 'En Madre Selva, la ciencia y la filosofía ancestral se entrelazan para crear un futuro más sostenible.',
-   image: '/img/4.png',
- },
- {
-   id: 7,
-   title: '🌟 Ofrecemos una experiencia, pero inspiramos una transformación.',
-   description: 'Cada paso en Madre Selva es un eco de nuestro compromiso con la regeneración de la salud de las personas y la tierra.',
-   image: '/img/3.png',
- }
+const actividadesMadreSelva = [
+  {
+    id: 1,
+    title: '🌳 Caminatas guiadas por la selva',
+    description: 'Explora senderos vivos, conoce especies nativas y descubre cómo cada rincón del bosque participa en la regeneración.',
+    image: '/img/caminata.jpg',
+  },
+  {
+    id: 2,
+    title: '🪵 Talleres de construcción natural',
+    description: 'Aprende a levantar estructuras con materiales locales y técnicas sostenibles que respetan el equilibrio del entorno.',
+    image: '/img/construccion.jpg',
+  },
+  {
+    id: 3,
+    title: '🌾 Agricultura sintrópica en acción',
+    description: 'Participa en nuestras huertas regenerativas, desde la siembra hasta la cosecha, cultivando alimentos y esperanza.',
+    image: '/img/agricultura.jpg',
+  },
+  {
+    id: 4,
+    title: '💧 Rutas del agua',
+    description: 'Descubre cómo cuidamos y gestionamos el agua, desde manantiales y arroyos hasta sistemas de captación y filtrado.',
+    image: '/img/agua.jpg',
+  },
+  {
+    id: 5,
+    title: '🔥 Encuentros alrededor del fuego',
+    description: 'Comparte historias, cantos y saberes en veladas que fortalecen los lazos entre personas y culturas.',
+    image: '/img/fuego.jpg',
+  },
+  {
+    id: 6,
+    title: '🔬 Experiencias de investigación',
+    description: 'Participa en proyectos de observación y estudio sobre biodiversidad, suelos y diseño regenerativo.',
+    image: '/img/investigacion.jpg',
+  },
+  {
+    id: 7,
+    title: '🛖 Vivencias inmersivas',
+    description: 'Convive en el Eco-Centro, aprende de la vida diaria y sumérgete en la filosofía de sostenibilidad de Madre Selva.',
+    image: '/img/immersiva.jpg',
+  }
 ];
+
 
 const MadreSelva = () => {
     const { servicios, FAQ: faqData, products } = useContext(ContextJsonLoadContext);
@@ -228,7 +229,7 @@ const MadreSelva = () => {
         
     }, [servicios]);
 
-     const memoizedCards = useMemo(() => missionCards, []);
+     const memoizedCards = useMemo(() => actividadesMadreSelva, []);
    
 
 
@@ -325,7 +326,13 @@ const MadreSelva = () => {
 
                 <div className='madreSelva__content--carrousel' id='carrousel'>
                     <FadeInOnView {...fadeInProps}>
-                        <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
+                        <div className='content__carrousel--titiles'>
+                            <h2>Madre Selva no es solo un lugar, es una experiencia.</h2>
+                            <p>Invitamos a cada visitante a sumergirse en la naturaleza virgen, a explorar nuestros bosques, a escuchar el susurro del arroyo y a ser parte de un ecosistema que fomenta la regeneración.</p>
+                        </div>
+                        <div className='content__carrousel--cards'>
+                            <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
+                        </div>
                     </FadeInOnView>
                 </div>
 
@@ -335,7 +342,7 @@ const MadreSelva = () => {
 
                 <div className='madreSelva__content--FAQ' id='FAQ'>
                     <FadeInOnView {...fadeInProps}>
-                        <FAQ faqs={faqData} defaultCategory="servicios" />
+                        <FAQ faqs={faqData} defaultCategory="madre-selva" />
                     </FadeInOnView>
                 </div>
             </div>

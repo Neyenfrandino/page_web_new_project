@@ -1,20 +1,46 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import './time_line_history.scss';
- 
 
-const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => {
+/**
+ * TimeLineHistory Component
+ * 
+ * @param {Object} props
+ * @param {number} props.index - Índice para obtener los datos del contexto
+ * @param {Object} props.titles - Objeto con titulo, subTitle y description
+ * @param {boolean} props.showHeroBg - Mostrar imagen de fondo en el hero
+ * @param {string} props.heroBgImage - URL de la imagen de fondo
+ * @param {string} props.theme - Tema a aplicar: 'naluum', 'global', 'madreselva'
+ * @param {string} props.className - Clases adicionales personalizadas
+ * @param {number} props.initialItemsToShow - Número inicial de items a mostrar (default: 3)
+ * @param {boolean} props.showMoreButton - Mostrar botón de "más info" (default: true)
+ * @param {Function} props.onChapterChange - Callback cuando cambia el capítulo activo
+ */
+const TimeLineHistory = ({ 
+  index, 
+  titles, 
+  showHeroBg = false, 
+  heroBgImage,
+  theme = 'naluum', // Por defecto usa el tema naluum
+  className = '',
+  initialItemsToShow = 3,
+  showMoreButton = true,
+  onChapterChange
+}) => {
+  // TODOS los hooks DEBEN ejecutarse ANTES de cualquier return condicional
   const { time_line_history } = useContext(ContextJsonLoadContext);
   const [activeChapter, setActiveChapter] = useState(0);
   const [moreInfo, setMoreInfo] = useState(false);
   const [isVisible, setIsVisible] = useState({});
   const chapterRefs = useRef([]);
 
-  const chapters = time_line_history[index]?.items || [];
- 
-  if (!chapters || !titles) return null;
+  const chapters = time_line_history?.[index]?.items || [];
 
+  // Efecto para detectar scroll y activar animaciones
   useEffect(() => {
+    // Si no hay capítulos, no ejecutar el efecto
+    if (!chapters || chapters.length === 0) return;
+
     const handleScroll = () => {
       chapterRefs.current.forEach((ref, index) => {
         if (ref) {
@@ -23,8 +49,16 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
 
           if (isInView) {
             setIsVisible((prev) => ({ ...prev, [index]: true }));
+            
+            // Actualizar capítulo activo basado en la posición del scroll
             if (rect.top < window.innerHeight * 0.5 && rect.top > -rect.height * 0.5) {
-              setActiveChapter(index);
+              if (activeChapter !== index) {
+                setActiveChapter(index);
+                // Llamar callback si existe
+                if (onChapterChange) {
+                  onChapterChange(index, chapters[index]);
+                }
+              }
             }
           }
         }
@@ -32,12 +66,52 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    handleScroll(); // Ejecutar al montar
+    
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [activeChapter, chapters, onChapterChange]);
+
+  // Validación de datos - DESPUÉS de los hooks
+  if (!chapters || chapters.length === 0) {
+    console.warn('TimeLineHistory: No se encontraron capítulos para el índice', index);
+    return null;
+  }
+
+  if (!titles) {
+    console.warn('TimeLineHistory: No se proporcionaron títulos');
+    return null;
+  }
+
+  // Determinar la clase del tema
+  const getThemeClass = () => {
+    const validThemes = ['naluum', 'global', 'madreselva'];
+    if (validThemes.includes(theme)) {
+      return `theme-${theme}`;
+    }
+    console.warn(`TimeLineHistory: Tema '${theme}' no válido. Usando tema por defecto 'naluum'`);
+    return 'theme-naluum';
+  };
+
+  // Función para manejar el click en "más info"
+  const handleMoreInfo = () => {
+    setMoreInfo(true);
+    // Opcional: hacer scroll suave al siguiente capítulo
+    if (chapterRefs.current[initialItemsToShow]) {
+      setTimeout(() => {
+        chapterRefs.current[initialItemsToShow].scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }, 100);
+    }
+  };
+
+  // Determinar cuántos capítulos mostrar
+  const chaptersToShow = moreInfo ? chapters : chapters.slice(0, initialItemsToShow);
 
   return (
-    <div className="about-naluum">
+    <div className={`timeline-wrapper ${getThemeClass()} ${className}`}>
+      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-background">
           <div className="particle particle-1">✧</div>
@@ -46,7 +120,6 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
           <div className="particle particle-4">✧</div>
         </div>
 
-        {/* Aplicamos estilos en línea solo si hay logo */}
         <div
           className={`hero-content ${showHeroBg ? "with-bg" : ""}`}
           style={
@@ -56,10 +129,16 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
           }
         >
           <h1 className="hero-title">
-            <span className="title-line">{titles.titulo}</span>
-            <span className="title-highlight">{titles.subTitle}</span>
+            {titles.titulo && (
+              <span className="title-line">{titles.titulo}</span>
+            )}
+            {titles.subTitle && (
+              <span className="title-highlight">{titles.subTitle}</span>
+            )}
           </h1>
-          <p className="hero-subtitle">{titles.description}</p>
+          {titles.description && (
+            <p className="hero-subtitle">{titles.description}</p>
+          )}
         </div>
 
         <div className="scroll-indicator">
@@ -68,12 +147,13 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
         </div>
       </section>
 
+      {/* Timeline Section */}
       <section className="timeline-section">
         <div className="timeline-line" />
 
-        {chapters.slice(0, moreInfo ? chapters.length : 3).map((chapter, index) => (
+        {chaptersToShow.map((chapter, index) => (
           <div
-            key={chapter.id}
+            key={chapter.id || index}
             ref={(el) => (chapterRefs.current[index] = el)}
             className={`chapter ${isVisible[index] ? "visible" : ""} ${
               index % 2 === 0 ? "left" : "right"
@@ -81,28 +161,47 @@ const TimeLineHistory = ({ index, titles, showHeroBg = false, heroBgImage }) => 
           >
             <div className="chapter-content">
               <div className="chapter-content-icon-year">
-                <div className="chapter-year">{chapter.year}</div>
-                <div className="chapter-icon">{chapter.image}</div>
+                {chapter.year && (
+                  <div className="chapter-year">{chapter.year}</div>
+                )}
+                {chapter.image && (
+                  <div className="chapter-icon">{chapter.image}</div>
+                )}
               </div>
 
-              <h2 className="chapter-title">{chapter.title}</h2>
-              <p className="chapter-text">{chapter.content}</p>
-              <div className="chapter-highlight">
-                <span className="highlight-icon">⚡</span>
-                {chapter.highlight}
-              </div>
+              {chapter.title && (
+                <h2 className="chapter-title">{chapter.title}</h2>
+              )}
+              {chapter.content && (
+                <p className="chapter-text">{chapter.content}</p>
+              )}
+              {chapter.highlight && (
+                <div className="chapter-highlight">
+                  <span className="highlight-icon">⚡</span>
+                  {chapter.highlight}
+                </div>
+              )}
             </div>
+            
             <div className="chapter-marker">
               <div className={`marker-dot ${activeChapter === index ? "active" : ""}`} />
             </div>
           </div>
         ))}
 
-        <div className="timeline-buttons">
-          <button className="more-info" disabled={moreInfo} onClick={() => setMoreInfo(!moreInfo)}>
-            mas info
-          </button>
-        </div>
+        {/* Botón más info */}
+        {showMoreButton && chapters.length > initialItemsToShow && (
+          <div className="timeline-buttons">
+            <button 
+              className="more-info" 
+              disabled={moreInfo} 
+              onClick={handleMoreInfo}
+              aria-label="Ver más información"
+            >
+              {moreInfo ? 'Mostrando todo' : 'Ver más'}
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );
