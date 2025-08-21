@@ -22,7 +22,8 @@ import AboutMe from './routers/aboutMe/aboutMe.router';
 import Blog from './routers/blog/blog.router';
 import Contact from './routers/contact/contact.router';
 import Projects from './routers/projects/projects.router';
-import LandingPageCalendar from './routers/landingPageCalendar/landingPageCalendar.router';
+import LandingPage from './routers/landingPage/landingPage';
+import EventCalendar from './routers/calendar/calendar';
 import Products from './routers/products/products.router';
 import ShoppingCart from './routers/shoppingCart/shoppingCart';
 import Payment from './routers/payment/payment';
@@ -59,14 +60,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className='App__nav'>
-        <Nav listRouters={listRouters} projects={projects} />
-      </div>
+      {/* <UserTracker /> */}
+      
+      {
+        currentPath === 'calendario' || currentPath === '/calendario' || currentPath.includes('/calendario') ?
+        null :       
+          <>
+          <div className='App__nav'>
+          
+            <Nav listRouters={listRouters} projects={projects} />
 
-      <div className='app__back-button'>
-        <ButtonBack />
-      </div>
+          </div>
 
+          <div className='app__back-button'>
+            <ButtonBack />
+          </div>
+          </>
+
+      }
+  
       <ScrollToTop />
 
       <main id="view-root">
@@ -77,7 +89,9 @@ const App = () => {
           <Route path="/sobre-nosotros" element={<AboutMe />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/carrito-de-compras" element={<ShoppingCart />} />
-          <Route path="/calendario" element={<LandingPageCalendar />} />
+
+          <Route path="/landingPage" element={<LandingPage />} />
+          <Route path="/calendario" element={<EventCalendar />} />
           <Route path="/payment" element={<Payment />} />
 
           <Route path="/productos/*" element={<Products />}>

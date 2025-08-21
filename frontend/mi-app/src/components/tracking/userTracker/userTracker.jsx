@@ -7,6 +7,8 @@ const UserTracker = () => {
     localStorage.getItem("cookiesAccepted") === "true"
   );
 
+  console.log("cookiesAccepted:", cookiesAccepted);
+
   useEffect(() => {
     if (!cookiesAccepted) return;
 

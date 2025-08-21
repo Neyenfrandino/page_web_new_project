@@ -10,7 +10,11 @@ const TimelineNav = ({ sections }) => {
   const scrollTimeoutRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
- 
+  
+  if (!sections || sections.length === 0) {
+    return null; // No sections to display
+  }
+
   useEffect(() => {
     // Configurar el observer solo para secciones con hash
     const hashSections = sections.filter(section => section.path?.startsWith('#'));

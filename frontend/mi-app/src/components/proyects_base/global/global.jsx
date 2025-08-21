@@ -442,7 +442,7 @@ const Global = () => {
 
             <div className='global__content'>
 
-                <div className='global__content--question' id='sobre-global'>
+                <div className='global__content--question' id='sobre-mi'>
                     <FadeInOnView {...fadeInProps}>
                         <div className='global__content--question__card'>
                             <div className='global__content--question__card__img'>
@@ -465,7 +465,7 @@ const Global = () => {
                 </div>
 
 
-                <div className='global__grid' id='serviciosYProductos-global'>
+                <div className='global__grid' id='servicios'>
                     <FadeInOnView {...fadeInProps}>
                         <div className='global__services-titile'>
                             <h2>Servicios Y Productos</h2>
@@ -505,7 +505,7 @@ const Global = () => {
                     </FadeInOnView>
                 </div>
 
-                <div className='global__content--contact' id='contacto-global'>
+                <div className='global__content--contact' id='contacto'>
                     <FadeInOnView {...fadeInProps}>
                         <CtaHablemos showSocialMedia={true} />
                     </FadeInOnView>
@@ -518,11 +518,11 @@ const Global = () => {
                 </div>
 
 
-                <div className='global__content--newsletter' id='newsletter-global'>
+                <div className='global__content--newsletter' id='newsletter'>
                     <Newsletter />
                 </div>
 
-                <div className='global__content--FAQ' id='FAQ-global'>
+                <div className='global__content--FAQ' id='FAQ'>
                     <FadeInOnView {...fadeInProps}>
                         <FAQ faqs={faqData} defaultCategory="servicios" />
                     </FadeInOnView>
