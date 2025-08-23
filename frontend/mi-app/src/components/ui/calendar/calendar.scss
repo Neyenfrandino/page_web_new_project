@@ -1,0 +1,1273 @@
+// calendar-view.scss
+
+// =============================================
+// VARIABLES Y CONFIGURACIÓN
+// =============================================
+
+// Colores principales
+$color-primary-dark: #063B2C;    // Verde oscuro
+$color-primary-light: #D0DE85;   // Verde claro
+$color-secondary: #8F764C;       // Marrón dorado
+$color-neutral-dark: #48514A;    // Gris oscuro
+$color-neutral: #7B7A70;         // Gris medio
+$color-background: #D5CEA9;      // Beige
+
+// Colores adicionales para UI
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-gray-light: #F5F5F5;
+$color-gray-lighter: #FAFAFA;
+$color-border: #E5E5E5;
+$color-text: #333333;
+$color-text-light: #666666;
+
+// Colores para tipos de eventos
+$color-course: $color-primary-dark;
+$color-meeting: $color-secondary;
+$color-event: $color-neutral-dark;
+
+// Colores de estado
+$color-urgent: #DC2626;
+$color-warning: #F59E0B;
+$color-success: $color-primary-light;
+
+// Variables de diseño
+$border-radius: 12px;
+$border-radius-sm: 8px;
+$border-radius-xs: 4px;
+$transition: all 0.3s ease;
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$wide: 1280px;
+$ultrawide: 1920px;
+
+// =============================================
+// MIXINS
+// =============================================
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card {
+  background: $color-white;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  padding: 1rem;
+  
+  @include responsive(tablet) {
+    padding: 1.25rem;
+  }
+  
+  @include responsive(desktop) {
+    padding: 1.5rem;
+  }
+}
+
+@mixin button-base {
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow;
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $mobile) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (max-width: $tablet) { @content; }
+  } @else if $breakpoint == desktop {
+    @media (max-width: $desktop) { @content; }
+  } @else if $breakpoint == wide {
+    @media (min-width: $wide) { @content; }
+  } @else if $breakpoint == ultrawide {
+    @media (min-width: $ultrawide) { @content; }
+  }
+}
+
+// =============================================
+// ESTILOS BASE
+// =============================================
+
+.calendar-view {
+  width: 100%;
+  height: 100%;
+  // background: linear-gradient(135deg, $color-background 0%, lighten($color-background, 10%) 100%);
+  padding: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  @include responsive(tablet) {
+    padding: 0.75rem;
+  }
+  
+  @include responsive(desktop) {
+    padding: 1rem;
+  }
+  
+  @include responsive(wide) {
+    padding: 1.5rem;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  &__container {
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
+    @include responsive(wide) {
+      max-width: 1400px;
+    }
+    
+    @include responsive(ultrawide) {
+      max-width: 1800px;
+    }
+  }
+
+  // =============================================
+  // HEADER
+  // =============================================
+  
+  &__header {
+    @include card;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, $color-white 0%, lighten($color-primary-light, 35%) 100%);
+    padding: 1rem;
+    flex-shrink: 0;
+    
+    @include responsive(tablet) {
+      padding: 1.25rem;
+    }
+    
+    @include responsive(desktop) {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    &-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      
+      @include responsive(tablet) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+    
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      
+      svg {
+        color: $color-primary-dark;
+      }
+      
+      h1 {
+        margin: 0;
+        font-size: 1.75rem;
+        color: $color-primary-dark;
+        font-weight: 700;
+      }
+      
+      p {
+        margin: 0.25rem 0 0 0;
+        color: $color-text-light;
+        font-size: 0.875rem;
+      }
+    }
+    
+    &-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      
+      @include responsive(mobile) {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+    
+    &-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      
+      @include responsive(mobile) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  // =============================================
+  // CONTROLES
+  // =============================================
+  
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $color-white;
+    border: 2px solid $color-border;
+    border-radius: $border-radius-sm;
+    padding: 0.5rem 0.75rem;
+    min-width: 200px;
+    
+    &:focus-within {
+      border-color: $color-primary-light;
+      box-shadow: 0 0 0 3px rgba($color-primary-light, 0.2);
+    }
+    
+    svg {
+      color: $color-neutral;
+      flex-shrink: 0;
+    }
+    
+    input {
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      font-size: 0.875rem;
+      color: $color-text;
+      
+      &::placeholder {
+        color: $color-text-light;
+      }
+    }
+    
+    @include responsive(mobile) {
+      width: 100%;
+    }
+  }
+  
+  &__filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $color-white;
+    border: 2px solid $color-border;
+    border-radius: $border-radius-sm;
+    padding: 0.5rem 0.75rem;
+    
+    &:focus-within {
+      border-color: $color-primary-light;
+      box-shadow: 0 0 0 3px rgba($color-primary-light, 0.2);
+    }
+    
+    svg {
+      color: $color-neutral;
+    }
+    
+    select {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.875rem;
+      color: $color-text;
+      cursor: pointer;
+    }
+    
+    @include responsive(mobile) {
+      width: 100%;
+    }
+  }
+  
+  &__view-toggle {
+    display: flex;
+    background: $color-gray-light;
+    border-radius: $border-radius-sm;
+    padding: 0.25rem;
+    
+    button {
+      @include button-base;
+      background: transparent;
+      color: $color-text-light;
+      padding: 0.5rem 1rem;
+      
+      &.active {
+        background: $color-white;
+        color: $color-primary-dark;
+        box-shadow: $shadow-sm;
+      }
+      
+      &:hover:not(.active) {
+        background: rgba($color-white, 0.5);
+        transform: none;
+      }
+    }
+    
+    @include responsive(mobile) {
+      width: 100%;
+      
+      button {
+        flex: 1;
+      }
+    }
+  }
+  
+  &__today-btn {
+    @include button-base;
+    background: $color-primary-light;
+    color: $color-primary-dark;
+    font-weight: 600;
+    
+    &:hover {
+      background: darken($color-primary-light, 10%);
+    }
+  }
+  
+  &__month-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: $color-primary-dark;
+      font-weight: 600;
+      min-width: 200px;
+      text-align: center;
+      
+      @include responsive(mobile) {
+        min-width: 150px;
+        font-size: 1rem;
+      }
+    }
+    
+    button {
+      @include flex-center;
+      background: $color-white;
+      border: 2px solid $color-border;
+      border-radius: $border-radius-sm;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: $transition;
+      
+      &:hover {
+        background: $color-primary-light;
+        border-color: $color-primary-light;
+        
+        svg {
+          color: $color-primary-dark;
+        }
+      }
+      
+      svg {
+        color: $color-neutral;
+      }
+    }
+  }
+  
+  &__stats-mini {
+    background: rgba($color-primary-dark, 0.1);
+    border-radius: $border-radius-sm;
+    padding: 0.5rem 1rem;
+    
+    span {
+      font-size: 0.875rem;
+      color: $color-primary-dark;
+      font-weight: 500;
+    }
+  }
+
+  // =============================================
+  // CONTENIDO PRINCIPAL
+  // =============================================
+  
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    
+    @include responsive(tablet) {
+      gap: 1.25rem;
+    }
+    
+    @include responsive(desktop) {
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+    }
+    
+    @include responsive(wide) {
+      grid-template-columns: 1fr 350px;
+    }
+    
+    @include responsive(ultrawide) {
+      grid-template-columns: 1fr 400px;
+    }
+  }
+  
+  &__main {
+    @include card;
+    overflow: auto;
+    min-height: 400px;
+    // max-height: calc(100vh - 250px);
+    padding: 1rem;
+    
+    @include responsive(tablet) {
+      padding: 1.25rem;
+    }
+    
+    @include responsive(desktop) {
+      padding: 1.5rem;
+      // max-height: calc(100vh - 280px);
+    }
+    
+    @include responsive(wide) {
+      // max-height: calc(100vh - 300px);
+    }
+  }
+
+  // =============================================
+  // CALENDARIO
+  // =============================================
+  
+  &__calendar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  &__weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid $color-border;
+    
+  }
+  
+  &__weekday {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: $color-primary-dark;
+    
+    
+    .mobile {
+      display: none;
+      
+    }
+    
+    @include responsive(mobile) {
+      .desktop {
+        display: none;
+      }
+      
+      .mobile {
+        display: block;
+      }
+    }
+  }
+  
+  &__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    flex: 1;
+    overflow-y: auto;
+    // max-height: calc(100vh - 400px);
+  
+    
+    @include responsive(wide) {
+      gap: 3px;
+    }
+    
+    @include responsive(ultrawide) {
+      gap: 4px;
+    }
+  }
+  
+  &__day {
+    min-height: 80px;
+    max-height: 150px;
+    padding: 0.375rem;
+    background: $color-white;
+    border: 2px solid $color-border;
+    border-radius: $border-radius-sm;
+    transition: $transition;
+    overflow: hidden;
+    
+    
+    @include responsive(tablet) {
+      min-height: 100px;
+      padding: 0.5rem;
+    }
+    
+    @include responsive(desktop) {
+      min-height: 110px;
+    }
+    
+    @include responsive(wide) {
+      min-height: 120px;
+      padding: 0.625rem;
+    }
+    
+    @include responsive(ultrawide) {
+      min-height: 130px;
+      padding: 0.75rem;
+    }
+    
+    &.inactive {
+      background: $color-gray-lighter;
+      opacity: 0.4;
+      
+      .calendar-view__day-number {
+        color: $color-text-light;
+      }
+    }
+    
+    &.today {
+      background: linear-gradient(135deg, $color-white 0%, rgba($color-primary-light, 0.1) 100%);
+      border-color: $color-primary-dark;
+      
+      .calendar-view__day-number {
+        color: $color-primary-dark;
+        font-weight: 700;
+      }
+    }
+    
+    &.has-events {
+      cursor: pointer;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow;
+        border-color: $color-primary-light;
+        z-index: 10;
+      }
+    }
+    
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+      
+    }
+    
+    &-number {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $color-text;
+    }
+    
+    &-badge {
+      background: $color-primary-dark;
+      color: $color-white;
+      font-size: 0.625rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: $border-radius-xs;
+      font-weight: 600;
+    }
+    
+    &-events {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      overflow: hidden;
+      max-height: calc(100% - 25px);
+      
+      @include responsive(tablet) {
+        gap: 0.25rem;
+      }
+    }
+    
+    @include responsive(mobile) {
+      min-height: 70px;
+      padding: 0.25rem;
+    }
+  }
+  
+  &__event {
+    padding: 0.25rem 0.375rem;
+    border-radius: $border-radius-xs;
+    font-size: 0.625rem;
+    cursor: pointer;
+    transition: $transition;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    
+    
+    &--course {
+      background: rgba($color-course, 0.1);
+      border-left: 3px solid $color-course;
+      
+      &:hover {
+        background: rgba($color-course, 0.2);
+      }
+    }
+    
+    &--meeting {
+      background: rgba($color-meeting, 0.1);
+      border-left: 3px solid $color-meeting;
+      
+      &:hover {
+        background: rgba($color-meeting, 0.2);
+      }
+    }
+    
+    &--event {
+      background: rgba($color-event, 0.1);
+      border-left: 3px solid $color-event;
+      
+      &:hover {
+        background: rgba($color-event, 0.2);
+      }
+    }
+    
+    &-time {
+      font-weight: 600;
+      color: $color-primary-dark;
+      flex-shrink: 0;
+      
+    }
+    
+    &-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $color-text;
+    }
+    
+    @include responsive(mobile) {
+      &-time {
+        display: none;
+      }
+    }
+  }
+  
+  &__more {
+    text-align: center;
+    font-size: 0.625rem;
+    color: $color-text-light;
+    padding: 0.125rem;
+    background: $color-gray-light;
+    border-radius: $border-radius-xs;
+    
+  }
+
+  // =============================================
+  // VISTA DE LISTA
+  // =============================================
+  
+  &__list {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: $color-gray-light;
+      border-radius: $border-radius-xs;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $color-neutral;
+      border-radius: $border-radius-xs;
+      
+      &:hover {
+        background: $color-neutral-dark;
+      }
+    }
+    
+    h3 {
+      margin: 0 0 1rem 0;
+      color: $color-primary-dark;
+      font-size: 1.125rem;
+      position: sticky;
+      top: 0;
+      background: $color-white;
+      padding-bottom: 0.5rem;
+      z-index: 10;
+      
+      @include responsive(wide) {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    &-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+    }
+    
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: $color-gray-lighter;
+      border-radius: $border-radius-sm;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: $transition;
+      
+      &:hover {
+        background: $color-white;
+        border-color: $color-primary-light;
+        transform: translateX(4px);
+      }
+      
+      &-date {
+        @include flex-center;
+        flex-direction: column;
+        background: $color-primary-dark;
+        color: $color-white;
+        padding: 0.75rem;
+        border-radius: $border-radius-sm;
+        min-width: 60px;
+        
+        
+        .day {
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1;
+        }
+        
+        .month {
+          font-size: 0.625rem;
+          text-transform: uppercase;
+          margin-top: 0.25rem;
+        }
+      }
+      
+      &-content {
+        flex: 1;
+        
+        h4 {
+          margin: 0 0 0.5rem 0;
+          color: $color-primary-dark;
+          font-size: 1rem;
+        }
+      }
+      
+      &-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.75rem;
+        color: $color-text-light;
+        
+        span {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          
+          svg {
+            color: $color-neutral;
+          }
+        }
+      }
+      
+      &-type {
+        padding: 0.375rem 0.75rem;
+        border-radius: $border-radius-sm;
+        font-size: 0.75rem;
+        font-weight: 600;
+        
+        &--course {
+          background: rgba($color-course, 0.1);
+          color: $color-course;
+        }
+        
+        &--meeting {
+          background: rgba($color-meeting, 0.1);
+          color: $color-meeting;
+        }
+        
+        &--event {
+          background: rgba($color-event, 0.1);
+          color: $color-event;
+        }
+      }
+      
+      @include responsive(mobile) {
+        flex-direction: column;
+        align-items: stretch;
+        
+        &-date {
+          flex-direction: row;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+        
+        &-type {
+          align-self: flex-start;
+        }
+      }
+    }
+  }
+  
+  &__empty {
+    @include flex-center;
+    flex-direction: column;
+    padding: 3rem;
+    
+    svg {
+      color: $color-neutral;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: $color-text-light;
+      font-size: 1rem;
+    }
+  }
+
+  // =============================================
+  // SIDEBAR
+  // =============================================
+  
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    height: 100%;
+    // max-height: 100vh;
+
+    @include responsive(tablet) {
+      flex-direction: row;
+      max-height: none;
+      overflow: visible;
+    }
+    
+    @include responsive(desktop) {
+      flex-direction: column;
+      // max-height: calc(100vh - 280px);
+    }
+    
+    @include responsive(wide) {
+      gap: 1.25rem;
+      // max-height: calc(100vh - 300px);
+    }
+    
+    @include responsive(mobile) {
+      max-height: none;
+    }
+  }
+  
+  &__upcoming {
+    @include card;
+    padding: 1rem;
+    flex-shrink: 0;
+    
+    @include responsive(tablet) {
+      flex: 1;
+      padding: 1.25rem;
+    }
+    
+    @include responsive(desktop) {
+      padding: 1.5rem;
+    }
+    
+    h3 {
+      margin: 0 0 0.75rem 0;
+      color: $color-primary-dark;
+      font-size: 1rem;
+      font-weight: 600;
+      
+      @include responsive(wide) {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+      }
+    }
+    
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 250px;
+      overflow-y: auto;
+      
+      @include responsive(tablet) {
+        max-height: 300px;
+      }
+      
+      @include responsive(wide) {
+        gap: 0.75rem;
+        max-height: 350px;
+      }
+      
+      @include responsive(ultrawide) {
+        max-height: 400px;
+      }
+    }
+    
+    &-item {
+      padding: 0.75rem;
+      background: $color-gray-lighter;
+      border-radius: $border-radius-sm;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: $transition;
+      
+      &:hover {
+        background: rgba($color-primary-light, 0.1);
+        border-color: $color-primary-light;
+      }
+    }
+    
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+      
+      h4 {
+        margin: 0;
+        font-size: 0.875rem;
+        color: $color-primary-dark;
+        font-weight: 600;
+      }
+      
+      .badge {
+        padding: 0.125rem 0.5rem;
+        border-radius: $border-radius-xs;
+        font-size: 0.625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        
+        &.urgent {
+          background: $color-urgent;
+          color: $color-white;
+        }
+        
+        &.soon {
+          background: $color-warning;
+          color: $color-white;
+        }
+      }
+    }
+    
+    &-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      color: $color-text-light;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        
+        svg {
+          color: $color-neutral;
+        }
+      }
+    }
+    
+    &-empty {
+      text-align: center;
+      color: $color-text-light;
+      font-size: 0.875rem;
+      padding: 1rem;
+    }
+  }
+  
+  &__summary {
+    @include card;
+    background: linear-gradient(135deg, $color-primary-dark 0%, darken($color-primary-dark, 10%) 100%);
+    color: $color-white;
+    padding: 1rem;
+    flex-shrink: 0;
+    
+    @include responsive(tablet) {
+      flex: 1;
+      padding: 1.25rem;
+    }
+    
+    @include responsive(desktop) {
+      padding: 1.5rem;
+    }
+    
+    h3 {
+      margin: 0 0 0.75rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      
+      @include responsive(wide) {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+      }
+    }
+    
+    &-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    
+    &-item {
+      background: rgba($color-white, 0.1);
+      padding: 0.75rem;
+      border-radius: $border-radius-sm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .label {
+        font-size: 0.75rem;
+        opacity: 0.9;
+      }
+      
+      .value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        
+        &.primary {
+          color: $color-primary-light;
+        }
+        
+        &.secondary {
+          color: lighten($color-secondary, 20%);
+        }
+        
+        &.accent {
+          color: lighten($color-neutral, 30%);
+        }
+      }
+    }
+  }
+
+  // =============================================
+  // MODAL
+  // =============================================
+  
+  &__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color-black, 0.5);
+    backdrop-filter: blur(4px);
+    @include flex-center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease;
+    
+    &-content {
+      background: $color-white;
+      border-radius: $border-radius;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: $shadow-lg;
+      animation: slideUp 0.3s ease;
+    }
+    
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 1.5rem 0 1.5rem;
+    }
+    
+    &-type {
+      padding: 0.375rem 0.75rem;
+      border-radius: $border-radius-sm;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      
+      &--course {
+        background: $color-course;
+        color: $color-white;
+      }
+      
+      &--meeting {
+        background: $color-meeting;
+        color: $color-white;
+      }
+      
+      &--event {
+        background: $color-event;
+        color: $color-white;
+      }
+    }
+    
+    &-close {
+      @include flex-center;
+      background: $color-gray-light;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: $transition;
+      
+      &:hover {
+        background: $color-primary-light;
+        
+        svg {
+          color: $color-primary-dark;
+        }
+      }
+      
+      svg {
+        color: $color-neutral;
+      }
+    }
+    
+    &-body {
+      padding: 1.5rem;
+      
+      h3 {
+        margin: 0 0 0.5rem 0;
+        color: $color-primary-dark;
+        font-size: 1.5rem;
+      }
+    }
+    
+    &-date {
+      color: $color-text-light;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    
+    &-description {
+      background: $color-gray-lighter;
+      padding: 1rem;
+      border-radius: $border-radius-sm;
+      color: $color-text;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    &-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    &-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: $color-text;
+      font-size: 0.875rem;
+      
+      svg {
+        color: $color-neutral;
+        flex-shrink: 0;
+      }
+    }
+    
+    &-actions {
+      display: flex;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid $color-border;
+    }
+    
+    &-btn {
+      @include button-base;
+      flex: 1;
+      justify-content: center;
+      
+      &.primary {
+        background: $color-primary-dark;
+        color: $color-white;
+        
+        &:hover {
+          background: darken($color-primary-dark, 10%);
+        }
+      }
+    }
+  }
+}
+
+// Estilos para scrollbar general
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-neutral $color-gray-light;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $color-gray-light;
+  border-radius: $border-radius-xs;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: $color-neutral;
+  border-radius: $border-radius-xs;
+  
+  &:hover {
+    background: $color-neutral-dark;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

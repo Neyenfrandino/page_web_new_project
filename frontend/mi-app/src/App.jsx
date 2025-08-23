@@ -23,15 +23,17 @@ import Blog from './routers/blog/blog.router';
 import Contact from './routers/contact/contact.router';
 import Projects from './routers/projects/projects.router';
 import LandingPage from './routers/landingPage/landingPage';
-import EventCalendar from './routers/calendar/calendar';
+import CalendarRouter from './routers/calendar.router/calendar.router';
 import Products from './routers/products/products.router';
 import ShoppingCart from './routers/shoppingCart/shoppingCart';
 import Payment from './routers/payment/payment';
 
+
+
 // 📂 Detalles (subpáginas de routers)
 import ProductDetail from './routers/products/products_detail';
 import ServiceDetail from './routers/services/services_detail';
-
+import BlogDetail from './routers/blog/blog_detail';
 
 import './App.scss';
 
@@ -63,7 +65,7 @@ const App = () => {
       {/* <UserTracker /> */}
       
       {
-        currentPath === 'calendario' || currentPath === '/calendario' || currentPath.includes('/calendario') ?
+        currentPath === 'landingPage' || currentPath === '/landingPage' || currentPath.includes('/landingPage') ?
         null :       
           <>
           <div className='App__nav'>
@@ -91,7 +93,7 @@ const App = () => {
           <Route path="/carrito-de-compras" element={<ShoppingCart />} />
 
           <Route path="/landingPage" element={<LandingPage />} />
-          <Route path="/calendario" element={<EventCalendar />} />
+          <Route path="/calendario" element={<CalendarRouter />} />
           <Route path="/payment" element={<Payment />} />
 
           <Route path="/productos/*" element={<Products />}>
@@ -100,6 +102,10 @@ const App = () => {
          
           <Route path="/servicios/*" element={<Services />}>
             <Route path=":id" element={<ServiceDetail />} />
+          </Route>
+
+          <Route path="/blog" element={<Blog />}>
+            <Route path="/blog/:id" element={<BlogDetail />} />
           </Route>
 
         </Routes>

@@ -6,12 +6,10 @@ import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
 // Importaciones de componentes relacionados con SEO y metadata
 import SEOHelmet from "../../components/seo/SEOHelmet/SEOHelmet";
 
-
 // ------------------------------
 // 📂 Layout
 // Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
 import Header from "../../components/layout/header/header";
-
 
 // ------------------------------
 // 📂 Secciones

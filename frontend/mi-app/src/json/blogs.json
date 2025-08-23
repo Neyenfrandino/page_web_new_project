@@ -1,0 +1,39 @@
+{
+  "blogs": [
+    {
+      "id": "como-sembrar-en-misiones-argentina",
+      "title": "Cómo sembrar en Misiones, Argentina",
+      "subtitle": "Guía práctica para aprovechar el clima y la tierra roja misionera",
+      "date": "2025-08-20",
+      "category": "Agricultura",
+      "card": {
+        "description": "Consejos básicos para sembrar en la tierra roja de Misiones y aprovechar al máximo el clima subtropical.",
+        "image": "https://example.com/images/sembrar-misiones.jpg"
+      },
+      "content": {
+        "introduction": "Sembrar en Misiones, Argentina, requiere conocer el clima subtropical húmedo de la región y las características de la tierra roja, rica en minerales pero exigente en el manejo del agua.",
+        "sections": [
+          {
+            "heading": "Cultivos comunes en Misiones",
+            "text": "Los cultivos más comunes en Misiones son la yerba mate, el té, el maíz y la mandioca. Sin embargo, también se pueden cultivar hortalizas como tomate, lechuga y zapallo con buenos resultados."
+          },
+          {
+            "heading": "Preparación del suelo",
+            "text": "El primer paso es preparar bien el suelo: se recomienda arar o remover para airear la tierra y aplicar materia orgánica, ya que la tierra roja suele endurecerse fácilmente."
+          },
+          {
+            "heading": "Pasos para comenzar a sembrar",
+            "list": [
+              "Elegir la época adecuada según el cultivo.",
+              "Preparar la tierra con abono orgánico.",
+              "Seleccionar semillas adaptadas al clima local.",
+              "Mantener un riego constante, especialmente en épocas secas.",
+              "Controlar plagas con métodos naturales siempre que sea posible."
+            ]
+          }
+        ],
+        "conclusion": "Si se aplican buenas prácticas, la tierra misionera puede ser muy fértil y productiva. Además, la abundancia de lluvias favorece un crecimiento saludable, aunque también exige un buen drenaje."
+      }
+    }
+  ]
+}
