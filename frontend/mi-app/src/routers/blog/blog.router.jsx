@@ -9,6 +9,7 @@ import SEOHelmet from "../../components/seo/SEOHelmet/SEOHelmet";
 // ------------------------------
 // 📂 Layout
 import Header from "../../components/layout/header/header";
+import ComingSoonCard from "../../components/layout/coming_soon_card/coming_soon_card";
 
 // ------------------------------
 // 📂 Styles
@@ -19,7 +20,6 @@ const Blog = () => {
   const navigate = useNavigate();
   const { blogs } = useContext(ContextJsonLoadContext);
 
-  console.log("Blogs cargados:", blogs);
   const handleOpenBlog = useCallback(
     (e, item) => {
       e.preventDefault();
@@ -79,10 +79,10 @@ const Blog = () => {
             </div>
           </Header>
 
-          <div className="blog__content">
-            <div className="blog__content--grid">
-              {blogs?.blogs && blogs.blogs.length > 0 ? (
-                blogs.blogs.map((item) => (
+          {blogs?.blogs && blogs.blogs.length > 1 ? (
+            <div className="blog__content">
+              <div className="blog__content--grid">
+                {blogs.blogs.map((item) => (
                   <article
                     key={item.id}
                     className="blog__content--card"
@@ -118,16 +118,20 @@ const Blog = () => {
                       </div>
                     </div>
                   </article>
-                ))
-              ) : (
-                <div className="blog__content--empty">
-                  <div className="empty-icon">📝</div>
-                  <p>No hay blogs disponibles en este momento.</p>
-                  <p>¡Vuelve pronto para nuevas publicaciones!</p>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <ComingSoonCard
+              sectionName="Nueva Sección"
+              estimatedDate="Primer trimestre 2025"
+              alternativeAction={{
+                text: "Mientras tanto, explora nuestro catálogo",
+                link: "/productos",
+                buttonText: "Ver productos disponibles"
+              }}
+            />
+          )}
         </>
       ) : (
         // Si hay id => estoy en /blog/:id => muestro detalle

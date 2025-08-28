@@ -1,3 +1,4 @@
+
 .cta-servicios__container {
    width: 100%;
   //  height: auto;
@@ -11,7 +12,6 @@
 
 // Sección principal
 .cta-section {
-   background-image: url('../../../public/img/cta_sobre_nosotros.jpg');
    background-size: cover;
    background-position: center;
   //  padding: 4rem 2rem;
@@ -59,8 +59,29 @@
        margin: 0 auto;
        text-align: center;
        padding: 3rem 1.5rem;
-       backdrop-filter: blur(2px);
-       max-width: 800px;
+    //    backdrop-filter: blur(2px);
+    //    max-width: 800px;
+
+       // Efecto degradado sobre la imagen
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 65) 0%,
+        rgba(0, 0, 0, 0.55) 20%,
+        rgba(0, 0, 0, 0.45) 25%,
+        rgba(0, 0, 0, 0.35) 50%,
+        rgba(0, 0, 0, 0.25) 70%,
+        rgba(0, 0, 0, 0.15) 85%,
+        rgba(0, 0, 0, 0.0) 100%
+      );
+      z-index: -1;
+    }
 
        @media (max-width: 768px) {
            padding: 2rem 1rem;
@@ -109,7 +130,7 @@
            justify-content: center;
            align-items: center;
           //  border: 1px solid red;
-           gap: 3rem;
+           gap: 0rem;
           //  margin-bottom: 3rem;
            flex-wrap: wrap;
            width: 100%;

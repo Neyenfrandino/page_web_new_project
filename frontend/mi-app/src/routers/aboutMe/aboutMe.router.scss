@@ -13,568 +13,768 @@ $neutral-light: #D5CEA9;     // Beige claro
     position: relative;
     overflow: hidden;
 
-    // Header section
-    .aboutMe__header-img-container {
-        height: 100vh;
+// ============================================
+// ANIMACIONES HERMOSAS
+// ============================================
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(208, 222, 133, 0.3),
+                    0 0 40px rgba(208, 222, 133, 0.1);
+    }
+    50% { 
+        box-shadow: 0 0 30px rgba(208, 222, 133, 0.5),
+                    0 0 60px rgba(208, 222, 133, 0.2);
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes revealText {
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0);
+    }
+}
+
+@keyframes parallaxImage {
+    0% { transform: scale(1.1) translateY(0); }
+    100% { transform: scale(1.1) translateY(-20px); }
+}
+
+// Header section
+.aboutMe__header-img-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden; // Para el efecto parallax
+
+    .aboutMe__header-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 110%; // Un poco más grande para el efecto
+        height: 110vh;
+        object-fit: cover;
+        z-index: 1;
+        // Efecto parallax sutil
+        // animation: parallaxImage 20s ease-in-out infinite alternate;
+        will-change: transform;
+    }
+
+    // Efecto degradado mejorado con partículas
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.8) 20%,
+            rgba(0, 0, 0, 0.6) 25%,
+            rgba(0, 0, 0, 0) 30%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 2;
+    }
+    
+    // // Efecto de partículas flotantes
+    // &::after {
+    //     content: '';
+    //     position: absolute;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-image: 
+    //         radial-gradient(2px 2px at 20% 30%, rgba(208, 222, 133, 0.3), transparent),
+    //         radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 255, 0.2), transparent),
+    //         radial-gradient(1px 1px at 90% 10%, rgba(208, 222, 133, 0.2), transparent),
+    //         radial-gradient(1px 1px at 15% 80%, rgba(255, 255, 255, 0.1), transparent);
+    //     background-size: 200% 200%;
+    //     animation: floatAnimation 15s ease-in-out infinite;
+    //     z-index: 3;
+    //     pointer-events: none;
+    // }
+}
+
+.aboutMe__header-content-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    // Contenido del header - MOBILE FIRST
+    .aboutMe__header-content {
+        // Base styles (móvil - 320px+)
+        width: 95%;
+        padding: 1.5rem;
+        margin: 0 auto;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.2rem;
         position: relative;
+        backdrop-filter: blur(8px) saturate(150%);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        // animation: fadeInSlide 1s ease-out;
+        border: 1px solid rgba(208, 222, 133, 0.2);
+        
+        // Efecto de brillo en los bordes
+        background: 
+            linear-gradient(135deg, 
+                rgba(208, 222, 133, 0.05) 0%, 
+                transparent 40%, 
+                transparent 60%, 
+                rgba(208, 222, 133, 0.05) 100%),
+            rgba(0, 0, 0, 0.3);
 
-        .aboutMe__header-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        // Efecto degradado sobre la imagen con colores de la paleta
-        &::before {
+        &::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 1) 0%,
-                rgba(0, 0, 0, 0.55) 20%,
-                rgba(0, 0, 0, 0.45) 25%
-            );
-            z-index: 2;
+            border-radius: 10px;
+            background: linear-gradient(to bottom,
+                rgba(0, 0, 0, .5) 0%,
+                rgba(0, 0, 0, 0.4) 25%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.2) 70%,
+                rgba(0, 0, 8, 0.1) 85%,
+                rgba(0, 0, 0, 0) 100%);
+            z-index: -10;
         }
-    }
+        
+        // Efecto de líneas de luz animadas
+        &::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(208, 222, 133, 0.4), 
+                transparent
+            );
+            background-size: 400% 400%;
+            // animation: shimmer 3s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-    .aboutMe__header-content-container {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
- 
-        // Contenido del header - MOBILE FIRST
-        .aboutMe__header-content {
-            // Base styles (móvil - 320px+)
-            width: 95%;
-            padding: 1.5rem;
-            margin: 0 auto;
-            max-width: 1200px;
+        &:hover {
+            box-shadow: 0 10px 40px rgba(208, 222, 133, 0.2);
+            transform: translateY(-3px);
+            
+            &::before {
+                opacity: 1;
+            }
+            
+            .aboutMe__header-content-title h1 {
+                text-shadow: 0 4px 20px rgba(208, 222, 133, 0.5);
+            }
+        }
+
+        .aboutMe__header-content-title {
+            text-align: center;
+            width: 100%;
+            animation: revealText 1s ease-out 0.3s both;
+
+            h1 {
+                font-size: clamp(1.5rem, 8vw, 2.2rem);
+                font-weight: 500;
+                color: white;
+                margin: 0 0 0.8rem 0;
+                line-height: 1.1;
+                text-shadow: 
+                    0 4px 10px rgba(0, 0, 0, 0.8),
+                    0 0 40px rgba(208, 222, 133, 0.2);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                
+                // Subrayado animado
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, 
+                        transparent, 
+                        rgba(208, 222, 133, 0.8), 
+                        transparent
+                    );
+                    transition: width 0.5s ease-out;
+                }
+            }
+
+            p {
+                font-size: clamp(0.85rem, 4vw, 1rem);
+                color: rgba(255, 255, 255, 1);
+                line-height: 1.3;
+                text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+                margin: 0;
+                font-weight: 300;
+                letter-spacing: 0.5px;
+                animation: fadeInSlide 1s ease-out 0.5s both;
+            }
+        }
+        
+        &:hover .aboutMe__header-content-title h1::after {
+            width: 500px;
+        }
+
+        .aboutMe__header-content-button {
+            width: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 1.2rem;
-            position: relative;
-            backdrop-filter: blur(2px);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease-in-out;
+            animation: fadeInSlide 1s ease-out 0.7s both;
 
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
+            a {
+                text-decoration: none;
+                
+                .button-CTA {
+                    background: linear-gradient(135deg, 
+                        rgba(208, 222, 133, .7),
+                        rgba(208, 222, 133, .5)
+                    );
+                    color: black;
+                    border: 1px solid rgba(208, 222, 133, 0.5);
+                    padding: .5rem 1rem;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: all 0.3s ease-in-out;
+                    letter-spacing: 1px;
+                    position: relative;
+                    overflow: hidden;
+                    text-transform: uppercase;
+                    box-shadow: 
+                        0 4px 15px rgba(208, 222, 133, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                    animation: floatAnimation 3s ease-in-out infinite;
+                    
+                    // Efecto de onda
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 0;
+                        height: 0;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.5);
+                        transform: translate(-50%, -50%);
+                        transition: width 0.6s, height 0.6s;
+                    }
+                    
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(45deg, 
+                            transparent 30%, 
+                            rgba(255, 255, 255, 0.3) 50%, 
+                            transparent 70%
+                        );
+                        transform: translateX(-100%);
+                        transition: transform 0.6s;
+                    }
+
+                    &:hover {
+                        box-shadow: 
+                            0 6px 20px rgba(208, 222, 133, 0.5),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+                        background: linear-gradient(135deg, 
+                            rgba(255, 255, 255, 0.9),
+                            rgba(208, 222, 133, 0.9)
+                        );
+                        color: black;
+                        border-color: rgba(255, 255, 255, 0.5);
+                        transform: translateY(-2px);
+                        animation-play-state: paused;
+                        
+                        &::before {
+                            width: 500px;
+                            height: 300px;
+                        }
+                        
+                        &::after {
+                            transform: translateX(100%);
+                        }
+                    }
+                    
+                    &:active {
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
+
+        // Móvil pequeño (360px+) - TU CÓDIGO ORIGINAL CONTINÚA AQUÍ
+        @media (min-width: 360px) {
+            width: 92%;
+            gap: 1.3rem;
+            padding: 1.8rem;
+
+            .aboutMe__header-content-title {
+                h1 {
+                    font-size: clamp(1.6rem, 7.5vw, 2.3rem);
+                    margin-bottom: 0.9rem;
+                }
+
+                p {
+                    font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+                    letter-spacing: 0.3px;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                a .button-CTA {
+                    padding: .6rem 1.2rem;
+                    font-size: 0.82rem;
+                }
+            }
+        }
+
+        // Móvil (480px+)
+        @media (min-width: 480px) {
+            width: 88%;
+            gap: 1.5rem;
+            padding: 2rem 2.2rem;
+
+            .aboutMe__header-content-title {
+                h1 {
+                    font-size: clamp(1.8rem, 6.5vw, 2.5rem);
+                    margin-bottom: 1rem;
+                    line-height: 1.05;
+                }
+
+                p {
+                    font-size: clamp(0.95rem, 3.2vw, 1.1rem);
+                    line-height: 1.35;
+                    max-width: 90%;
+                    margin: 0 auto;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                a .button-CTA {
+                    padding: .65rem 1.8rem;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        // Tablet pequeña (576px+)
+        @media (min-width: 576px) {
+            width: 85%;
+            gap: 1.8rem;
+            padding: 2.5rem 2.8rem;
+
+            .aboutMe__header-content-title {
+                h1 {
+                    font-size: clamp(2rem, 6vw, 2.8rem);
+                    margin-bottom: 1.2rem;
+                    line-height: 1.02;
+                }
+
+                p {
+                    font-size: clamp(1rem, 2.8vw, 1.2rem);
+                    line-height: 1.4;
+                    max-width: 85%;
+                    margin: 0 auto;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                a .button-CTA {
+                    padding: .7rem 2.2rem;
+                    font-size: 0.87rem;
+                }
+            }
+        }
+
+        // Tablet (768px+)
+        @media (min-width: 768px) {
+            width: 80%;
+            align-items: center;
+            gap: 2.2rem;
+            padding: 3rem 3.5rem;
+
+            .aboutMe__header-content-title {
                 width: 100%;
-                height: 100%;
-                border-radius: 10px;
-                background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, .5) 0%,
-                    rgba(0, 0, 0, 0.4) 25%,
-                    rgba(0, 0, 0, 0.3) 50%,
-                    rgba(0, 0, 0, 0.2) 70%,
-                    rgba(0, 0, 8, 0.1) 85%,
-                    rgba(0, 0, 0, 0) 100%);
-                z-index: -10;
+                text-align: center;
+
+                h1 {
+                    font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+                    margin-bottom: 1.4rem;
+                    line-height: 1;
+                }
+
+                p {
+                    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+                    line-height: 1.45;
+                    max-width: 80%;
+                    margin: 0 auto;
+                }
             }
 
-            &:hover {
-                transition: all 0.3s ease-in-out;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-                transform: scale(.99);
+            .aboutMe__header-content-button {
+                width: 100%;
+                justify-content: center;
+
+                a .button-CTA {
+                    padding: .75rem 3.2rem;
+                    font-size: 0.92rem;
+                }
             }
+        }
+
+        // Desktop pequeño (1024px+)
+        @media (min-width: 1024px) {
+            width: 75%;
+            align-items: flex-start;
+            margin-left: 5%;
+            margin-right: auto;
+            gap: 2.5rem;
+            padding: 3.8rem 4rem;
+
+            .aboutMe__header-content-title {
+                width: 90%;
+                text-align: left;
+
+                h1 {
+                    font-size: clamp(2.5rem, 4.8vw, 3.5rem);
+                    margin-bottom: 1.5rem;
+                    line-height: 0.95;
+                    
+                    &::after {
+                        left: 0;
+                        transform: translateX(0);
+                    }
+                }
+
+                p {
+                    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+                    line-height: 1.5;
+                    max-width: 95%;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                width: 90%;
+                justify-content: flex-start;
+
+                a .button-CTA {
+                    padding: .85rem 4.5rem;
+                    font-size: 0.98rem;
+                }
+            }
+        }
+
+        // Desktop (1200px+)
+        @media (min-width: 1200px) {
+            width: 65%;
+            margin-left: 6%;
+            gap: 2.8rem;
+            padding: 4.5rem 5rem;
+            max-width: 800px;
+
+            .aboutMe__header-content-title {
+                width: 100%;
+                text-align: left;
+
+                h1 {
+                    font-size: clamp(2.8rem, 4.2vw, 3.8rem);
+                    margin-bottom: 1.6rem;
+                    line-height: 0.92;
+                }
+
+                p {
+                    font-size: clamp(1.2rem, 2vw, 1.5rem);
+                    line-height: 1.5;
+                    max-width: 92%;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                width: 85%;
+                justify-content: flex-start;
+
+                a .button-CTA {
+                    padding: .9rem 5.5rem;
+                    font-size: 1.02rem;
+                }
+            }
+        }
+
+        // Desktop grande (1440px+)
+        @media (min-width: 1440px) {
+            width: 60%;
+            margin-left: 7%;
+            gap: 3.2rem;
+            max-width: 900px;
+
+            .aboutMe__header-content-title {
+                width: 95%;
+
+                h1 {
+                    font-size: clamp(3.2rem, 3.8vw, 4.2rem);
+                    margin-bottom: 1.8rem;
+                    line-height: 0.9;
+                }
+
+                p {
+                    font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+                    line-height: 1.52;
+                    max-width: 90%;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                width: 80%;
+
+                a .button-CTA {
+                    padding: .95rem 6.5rem;
+                    font-size: 1.08rem;
+                }
+            }
+        }
+
+        // Desktop muy grande (1600px+)
+        @media (min-width: 1600px) {
+            width: 55%;
+            margin-left: 8%;
+            max-width: 1000px;
+            gap: 3.5rem;
 
             .aboutMe__header-content-title {
                 text-align: center;
                 width: 100%;
 
                 h1 {
-                    font-size: clamp(1.5rem, 8vw, 2.2rem);
-                    font-weight: 500;
-                    color: white;
-                    margin: 0 0 0.8rem 0;
-                    line-height: 1.1;
-                    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    font-size: clamp(3.5rem, 3.5vw, 4.5rem);
+                    margin-bottom: 2rem;
+                    line-height: 0.88;
+                    
+                    &::after {
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
                 }
 
                 p {
-                    font-size: clamp(0.85rem, 4vw, 1rem);
-                    color: rgba(255, 255, 255, 1);
-                    line-height: 1.3;
-                    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-                    margin: 0;
-                    font-weight: 300;
-                    letter-spacing: 0.5px;
+                    font-size: clamp(1.4rem, 1.6vw, 1.7rem);
+                    line-height: 1.55;
+                    max-width: 88%;
                 }
             }
 
             .aboutMe__header-content-button {
                 width: 100%;
-                display: flex;
                 justify-content: center;
-                align-items: center;
 
-                a {
-                    text-decoration: none;
-                    
-                    .button-CTA {
-                        background: rgba(208, 222, 133, .7);
-                        color: black;
-                        border: 1px solid black;
-                        padding: .5rem 1rem;
-                        font-size: 0.8rem;
-                        font-weight: 600;
-                        border-radius: 10px;
-                        cursor: pointer;
-                        transition: all 0.3s ease-in-out;
-                        letter-spacing: 1px;
-                        position: relative;
-                        overflow: hidden;
-                        text-transform: uppercase;
-                        box-shadow: 0 4px 27px rgba(255, 255, 255, 0.2);
-
-                        &:hover {
-                            box-shadow: 0 2px 4px rgba(161, 159, 159, 0.2);
-                            background: rgb(255, 255, 255, 0.3);
-                            color: black;
-                            border-color: black;
-                        }
-                    }
+                a .button-CTA {
+                    padding: 1rem 7.5rem;
+                    font-size: 1.12rem;
                 }
             }
+        }
 
-            // Móvil pequeño (360px+)
-            @media (min-width: 360px) {
-                width: 92%;
-                gap: 1.3rem;
-                padding: 1.8rem;
+        // Ultra wide (1920px+)
+        @media (min-width: 1920px) {
+            width: 50%;
+            margin-left: 8%;
+            padding: 6.5rem 7rem;
+            max-width: 1100px;
+            gap: 4rem;
 
-                .aboutMe__header-content-title {
-                    h1 {
-                        font-size: clamp(1.6rem, 7.5vw, 2.3rem);
-                        margin-bottom: 0.9rem;
-                    }
-
-                    p {
-                        font-size: clamp(0.9rem, 3.8vw, 1.05rem);
-                        letter-spacing: 0.3px;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    a .button-CTA {
-                        padding: .6rem 1.2rem;
-                        font-size: 0.82rem;
-                    }
-                }
-            }
-
-            // Móvil (480px+)
-            @media (min-width: 480px) {
-                width: 88%;
-                gap: 1.5rem;
-                padding: 2rem 2.2rem;
-
-                .aboutMe__header-content-title {
-                    h1 {
-                        font-size: clamp(1.8rem, 6.5vw, 2.5rem);
-                        margin-bottom: 1rem;
-                        line-height: 1.05;
-                    }
-
-                    p {
-                        font-size: clamp(0.95rem, 3.2vw, 1.1rem);
-                        line-height: 1.35;
-                        max-width: 90%;
-                        margin: 0 auto;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    a .button-CTA {
-                        padding: .65rem 1.8rem;
-                        font-size: 0.85rem;
-                    }
-                }
-            }
-
-            // Tablet pequeña (576px+)
-            @media (min-width: 576px) {
+            .aboutMe__header-content-title {
                 width: 85%;
-                gap: 1.8rem;
-                padding: 2.5rem 2.8rem;
 
-                .aboutMe__header-content-title {
-                    h1 {
-                        font-size: clamp(2rem, 6vw, 2.8rem);
-                        margin-bottom: 1.2rem;
-                        line-height: 1.02;
-                    }
-
-                    p {
-                        font-size: clamp(1rem, 2.8vw, 1.2rem);
-                        line-height: 1.4;
-                        max-width: 85%;
-                        margin: 0 auto;
-                    }
+                h1 {
+                    font-size: clamp(3.8rem, 3.2vw, 5rem);
+                    margin-bottom: 2.2rem;
+                    line-height: 0.85;
                 }
 
-                .aboutMe__header-content-button {
-                    a .button-CTA {
-                        padding: .7rem 2.2rem;
-                        font-size: 0.87rem;
-                    }
+                p {
+                    font-size: clamp(1.5rem, 1.4vw, 1.8rem);
+                    line-height: 1.58;
+                    max-width: 85%;
                 }
             }
 
-            // Tablet (768px+)
-            @media (min-width: 768px) {
-                width: 80%;
-                align-items: center;
-                gap: 2.2rem;
-                padding: 3rem 3.5rem;
-
-                .aboutMe__header-content-title {
-                    width: 100%;
-                    text-align: center;
-
-                    h1 {
-                        font-size: clamp(2.2rem, 5.5vw, 3.2rem);
-                        margin-bottom: 1.4rem;
-                        line-height: 1;
-                    }
-
-                    p {
-                        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-                        line-height: 1.45;
-                        max-width: 80%;
-                        margin: 0 auto;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 100%;
-                    justify-content: center;
-
-                    a .button-CTA {
-                        padding: .75rem 3.2rem;
-                        font-size: 0.92rem;
-                    }
-                }
-            }
-
-            // Desktop pequeño (1024px+)
-            @media (min-width: 1024px) {
-                width: 75%;
-                align-items: flex-start;
-                margin-left: 5%;
-                margin-right: auto;
-                gap: 2.5rem;
-                padding: 3.8rem 4rem;
-
-                .aboutMe__header-content-title {
-                    width: 90%;
-                    text-align: left;
-
-                    h1 {
-                        font-size: clamp(2.5rem, 4.8vw, 3.5rem);
-                        margin-bottom: 1.5rem;
-                        line-height: 0.95;
-                    }
-
-                    p {
-                        font-size: clamp(1.15rem, 2.2vw, 1.4rem);
-                        line-height: 1.5;
-                        max-width: 95%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 90%;
-                    justify-content: flex-start;
-
-                    a .button-CTA {
-                        padding: .85rem 4.5rem;
-                        font-size: 0.98rem;
-                    }
-                }
-            }
-
-            // Desktop (1200px+)
-            @media (min-width: 1200px) {
-                width: 65%;
-                margin-left: 6%;
-                gap: 2.8rem;
-                padding: 4.5rem 5rem;
-                max-width: 800px;
-
-                .aboutMe__header-content-title {
-                    width: 100%;
-                    text-align: left;
-
-                    h1 {
-                        font-size: clamp(2.8rem, 4.2vw, 3.8rem);
-                        margin-bottom: 1.6rem;
-                        line-height: 0.92;
-                    }
-
-                    p {
-                        font-size: clamp(1.2rem, 2vw, 1.5rem);
-                        line-height: 1.5;
-                        max-width: 92%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 85%;
-                    justify-content: flex-start;
-
-                    a .button-CTA {
-                        padding: .9rem 5.5rem;
-                        font-size: 1.02rem;
-                    }
-                }
-            }
-
-            // Desktop grande (1440px+)
-            @media (min-width: 1440px) {
-                width: 60%;
-                margin-left: 7%;
-                gap: 3.2rem;
-                // padding: 5.2rem 5.8rem;
-                max-width: 900px;
-                
-
-                .aboutMe__header-content-title {
-                    width: 95%;
-
-                    h1 {
-                        font-size: clamp(3.2rem, 3.8vw, 4.2rem);
-                        margin-bottom: 1.8rem;
-                        line-height: 0.9;
-                    }
-
-                    p {
-                        font-size: clamp(1.3rem, 1.8vw, 1.6rem);
-                        line-height: 1.52;
-                        max-width: 90%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 80%;
-
-                    a .button-CTA {
-                        padding: .95rem 6.5rem;
-                        font-size: 1.08rem;
-                    }
-                }
-            }
-
-            // Desktop muy grande (1600px+)
-            @media (min-width: 1600px) {
-                width: 55%;
-                margin-left: 8%;
-                // padding: 6rem 6.5rem;
-                max-width: 1000px;
-                gap: 3.5rem;
-                                
-
-
-                .aboutMe__header-content-title {
-                    text-align: center;
-                    width: 100%;
-
-                    h1 {
-                        font-size: clamp(3.5rem, 3.5vw, 4.5rem);
-                        margin-bottom: 2rem;
-                        line-height: 0.88;
-                    }
-
-                    p {
-                        font-size: clamp(1.4rem, 1.6vw, 1.7rem);
-                        line-height: 1.55;
-                        max-width: 88%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 100%;
-                    justify-content: center;
-
-                    a .button-CTA {
-                        padding: 1rem 7.5rem;
-                        font-size: 1.12rem;
-                    }
-                }
-            }
-
-            // Ultra wide (1920px+)
-            @media (min-width: 1920px) {
-                width: 50%;
-                margin-left: 8%;
-                padding: 6.5rem 7rem;
-                max-width: 1100px;
-                gap: 4rem;
-
-                .aboutMe__header-content-title {
-                    width: 85%;
-
-                    h1 {
-                        font-size: clamp(3.8rem, 3.2vw, 5rem);
-                        margin-bottom: 2.2rem;
-                        line-height: 0.85;
-                    }
-
-                    p {
-                        font-size: clamp(1.5rem, 1.4vw, 1.8rem);
-                        line-height: 1.58;
-                        max-width: 85%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 70%;
-
-                    a .button-CTA {
-                        padding: 1.1rem 8.5rem;
-                        font-size: 1.18rem;
-                    }
-                }
-            }
-
-            // 4K y superiores (2560px+)
-            @media (min-width: 2560px) {
-                width: 45%;
-                margin-left: 10%;
-                padding: 8rem 9rem;
-                max-width: 1200px;
-                gap: 5rem;
-
-                .aboutMe__header-content-title {
-                    width: 80%;
-
-                    h1 {
-                        font-size: clamp(4.5rem, 2.8vw, 6rem);
-                        margin-bottom: 2.5rem;
-                        line-height: 0.82;
-                    }
-
-                    p {
-                        font-size: clamp(1.7rem, 1.2vw, 2.2rem);
-                        line-height: 1.6;
-                        max-width: 80%;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    width: 65%;
-
-                    a .button-CTA {
-                        padding: 1.3rem 10rem;
-                        font-size: 1.4rem;
-                    }
-                }
-            }
-
-            // Landscape orientation para móviles y tablets
-            @media (max-height: 600px) and (orientation: landscape) and (max-width: 1023px) {
-                gap: 1rem;
-                padding: 1.5rem 2rem;
+            .aboutMe__header-content-button {
                 width: 70%;
-                
+
+                a .button-CTA {
+                    padding: 1.1rem 8.5rem;
+                    font-size: 1.18rem;
+                }
+            }
+        }
+
+        // 4K y superiores (2560px+)
+        @media (min-width: 2560px) {
+            width: 45%;
+            margin-left: 10%;
+            padding: 8rem 9rem;
+            max-width: 1200px;
+            gap: 5rem;
+
+            .aboutMe__header-content-title {
+                width: 80%;
+
+                h1 {
+                    font-size: clamp(4.5rem, 2.8vw, 6rem);
+                    margin-bottom: 2.5rem;
+                    line-height: 0.82;
+                }
+
+                p {
+                    font-size: clamp(1.7rem, 1.2vw, 2.2rem);
+                    line-height: 1.6;
+                    max-width: 80%;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                width: 65%;
+
+                a .button-CTA {
+                    padding: 1.3rem 10rem;
+                    font-size: 1.4rem;
+                }
+            }
+        }
+
+        // Landscape orientation para móviles y tablets
+        @media (max-height: 600px) and (orientation: landscape) and (max-width: 1023px) {
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            width: 70%;
+            
+            .aboutMe__header-content-title {
+                h1 {
+                    font-size: clamp(1.4rem, 4vw, 2rem);
+                    margin-bottom: 0.7rem;
+                }
+
+                p {
+                    font-size: clamp(0.8rem, 2vw, 1rem);
+                    line-height: 1.25;
+                    max-width: 95%;
+                    margin: 0 auto;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                a .button-CTA {
+                    padding: .4rem 1.8rem;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        // Landscape para tablets grandes y desktop en landscape
+        @media (min-width: 768px) and (max-height: 600px) and (orientation: landscape) {
+            width: 60%;
+            padding: 2rem 3rem;
+            gap: 1.5rem;
+
+            .aboutMe__header-content-title {
+                h1 {
+                    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+                    margin-bottom: 1rem;
+                }
+
+                p {
+                    font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+                    line-height: 1.3;
+                }
+            }
+
+            .aboutMe__header-content-button {
+                a .button-CTA {
+                    padding: .6rem 2.5rem;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        // Ajustes para pantallas muy altas (retrato)
+        @media (min-height: 900px) and (orientation: portrait) {
+            @media (max-width: 767px) {
+                gap: 2rem;
+                padding: 2.5rem 2rem;
+
                 .aboutMe__header-content-title {
                     h1 {
-                        font-size: clamp(1.4rem, 4vw, 2rem);
-                        margin-bottom: 0.7rem;
+                        margin-bottom: 1.5rem;
                     }
 
                     p {
-                        font-size: clamp(0.8rem, 2vw, 1rem);
-                        line-height: 1.25;
-                        max-width: 95%;
-                        margin: 0 auto;
+                        line-height: 1.45;
                     }
                 }
 
                 .aboutMe__header-content-button {
                     a .button-CTA {
-                        padding: .4rem 1.8rem;
-                        font-size: 0.75rem;
-                    }
-                }
-            }
-
-            // Landscape para tablets grandes y desktop en landscape
-            @media (min-width: 768px) and (max-height: 600px) and (orientation: landscape) {
-                width: 60%;
-                padding: 2rem 3rem;
-                gap: 1.5rem;
-
-                .aboutMe__header-content-title {
-                    h1 {
-                        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-                        margin-bottom: 1rem;
-                    }
-
-                    p {
-                        font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-                        line-height: 1.3;
-                    }
-                }
-
-                .aboutMe__header-content-button {
-                    a .button-CTA {
-                        padding: .6rem 2.5rem;
-                        font-size: 0.85rem;
-                    }
-                }
-            }
-
-            // Ajustes para pantallas muy altas (retrato)
-            @media (min-height: 900px) and (orientation: portrait) {
-                @media (max-width: 767px) {
-                    gap: 2rem;
-                    padding: 2.5rem 2rem;
-
-                    .aboutMe__header-content-title {
-                        h1 {
-                            margin-bottom: 1.5rem;
-                        }
-
-                        p {
-                            line-height: 1.45;
-                        }
-                    }
-
-                    .aboutMe__header-content-button {
-                        a .button-CTA {
-                            padding: .8rem 2rem;
-                            font-size: 0.9rem;
-                        }
+                        padding: .8rem 2rem;
+                        font-size: 0.9rem;
                     }
                 }
             }
         }
     }
+}
 
     // Contenido del body (sección)
     .aboutMe__content {

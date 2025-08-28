@@ -84,7 +84,7 @@
     },
     {
       "name": "",
-      "path": "/carrito",
+      "path": "/carrito-de-compras",
       "icon": "ShoppingCartIcon",
       "type": "cart",
       "showBadge": true

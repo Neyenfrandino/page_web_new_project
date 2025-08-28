@@ -8,6 +8,7 @@ const TestimonialCard = ({ typeTestimonial = 'servicio' }) => {
 
   const testimonialType = testimonios?.[typeTestimonial] || [];   
   
+  console.log(testimonialType)
   // Si no hay testimonios, no renderizar nada
   if (!testimonialType || testimonialType.length === 0) return null;
 
@@ -23,7 +24,7 @@ const TestimonialCard = ({ typeTestimonial = 'servicio' }) => {
   const goToSlide = (index) => {
     setCurrentSlide(index);  
   };
-  
+   
   const currentProduct = testimonialType[currentSlide];
 
   return (

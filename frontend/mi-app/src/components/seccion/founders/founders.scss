@@ -1,12 +1,28 @@
 // =============================
-// Variables
+// Variables de Color
 // =============================
 $primary-gold: #D0DE85;
 $secondary-gold: #8F764C;
 $dark-green: #063B2C;
+$dark-green-hover: #1a4d3a;
 $light-gray: #7B7A70;
 $mid-gray: #48514A;
 $cream: #D5CEA9;
+
+// =============================
+// Variables de Espaciado y Tamaño
+// =============================
+$spacing-xs: 8px;
+$spacing-sm: 15px;
+$spacing-md: 20px;
+$spacing-lg: 30px;
+$spacing-xl: 40px;
+$spacing-xxl: 80px;
+
+$border-radius: 20px;
+$border-radius-sm: 15px;
+$transition-time: 0.5s;
+$transition-cubic: cubic-bezier(0.4, 0, 0.2, 1);
 
 // =============================
 // Breakpoints
@@ -23,13 +39,6 @@ $breakpoints: (
 // =============================
 // Mixins
 // =============================
-@mixin gradient-text {
-  background: linear-gradient(135deg, $primary-gold, $secondary-gold);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     @media (max-width: #{map-get($breakpoints, $breakpoint)}) {
@@ -38,28 +47,91 @@ $breakpoints: (
   }
 }
 
-@mixin respond-above($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: #{map-get($breakpoints, $breakpoint) + 1px}) {
-      @content;
-    }
+@mixin glass-effect {
+  background: rgba($dark-green, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@mixin glow-effect($color: $primary-gold, $size: 20px) {
+  box-shadow: 0 $size ($size * 2) rgba($color, 0.2);
+}
+
+@mixin gradient-line {
+  background: linear-gradient(90deg, transparent, $primary-gold, transparent);
+}
+
+@mixin gradient-line-gold {
+  background: linear-gradient(90deg, transparent, $secondary-gold, transparent);
+}
+
+@mixin transition-smooth {
+  transition: all $transition-time $transition-cubic;
+}
+
+// =============================
+// Animaciones
+// =============================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes expandHeight {
+  from {
+    max-height: 420px;
+  }
+  to {
+    max-height: 600px;
   }
 }
 
 // =============================
-// Estilos principales
+// Estilos Base
 // =============================
 .founders-section {
-  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+  min-height: 100vh;
+  padding: $spacing-xxl $spacing-md;
   position: relative;
-  background-image: url('../../../public/img/fodoPapelMadera.png');
-  background-size: cover;
-  background-position: center;
-  backdrop-filter: blur(10px);
-  overflow-x: hidden;
-  width: 90%;
-  margin: 0 auto;
-  border: 1px solid red;
+  overflow: hidden;
+
+  // Patrón de fondo sutil
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background-image: 
+  //     radial-gradient(circle at 20% 50%, rgba($primary-gold, 0.05) 0%, transparent 50%),
+  //     radial-gradient(circle at 80% 80%, rgba($secondary-gold, 0.05) 0%, transparent 50%);
+  //   pointer-events: none;
+  // }
 
   &::before {
     content: '';
@@ -67,206 +139,278 @@ $breakpoints: (
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, $primary-gold, transparent);
+    bottom: 0;
+    background: linear-gradient(
+      transparent 0%,
+      darken($dark-green, 10%) 15%,
+      rgba($dark-green, .9) 50%,
+      darken($dark-green, 10%) 85%,
+      transparent 100%
+    );    pointer-events: none;
+    z-index: -1;
   }
 
   @include respond-to('md') {
-    padding: clamp(1.5rem, 4vw, 3rem) clamp(0.75rem, 3vw, 1.5rem);
+    padding: $spacing-xl $spacing-sm;
   }
 }
 
+// =============================
+// Container
+// =============================
 .founders-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
+  position: relative;
+  z-index: 1;
 
   @include respond-to('xl') {
-    max-width: 1200px;
+    max-width: 1000px;
   }
 
   @include respond-to('lg') {
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 $spacing-sm;
   }
 }
 
+// =============================
+// Header
+// =============================
 .founders-header {
   text-align: center;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-  padding: 0 1rem;
+  margin-bottom: $spacing-xxl;
+  animation: fadeInUp 0.8s ease-out;
+
+  .accent-line {
+    width: 60px;
+    height: 2px;
+    @include gradient-line;
+    margin: 0 auto $spacing-lg;
+    animation: pulse 3s ease-in-out infinite;
+  }
 
   .founders-title {
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: clamp(0.5rem, 2vw, 1rem);
-    color: $dark-green;
-    text-shadow: 2px 2px 4px rgba($dark-green, 0.5);
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-weight: 200;
+    color: $primary-gold;
+    margin-bottom: $spacing-sm;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 20px rgba($primary-gold, 0.3);
     line-height: 1.2;
 
     @include respond-to('sm') {
-      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      font-size: 2rem;
+      letter-spacing: 2px;
     }
   }
 
   .founders-subtitle {
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    color: $mid-gray;
+    font-size: clamp(1rem, 2vw, 1rem);
+    color: $cream;
     font-weight: 300;
-    letter-spacing: clamp(0.5px, 0.2vw, 1px);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.5;
+    letter-spacing: 1px;
+    opacity: 0.8;
 
     @include respond-to('sm') {
-      font-size: clamp(0.85rem, 3vw, 1rem);
+      font-size: 0.9rem;
     }
   }
 }
 
-.founders-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.5rem, 3vw, 3rem);
-  justify-content: center;
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
-
-  // Los primeros dos cards
-  .founder-card:nth-child(1),
-  .founder-card:nth-child(2) {
-    flex: 1 1 calc(50% - 1.5rem);
-    max-width: 400px;
-  }
-
-  // El tercer card centrado
-  .founder-card:nth-child(3) {
-    flex: 1 1 100%;
-    max-width: 400px;
-  }
-
-  @include respond-to('lg') {
-    .founder-card:nth-child(1),
-    .founder-card:nth-child(2) {
-      flex: 1 1 calc(50% - 1rem);
-    }
-  }
-
-  @include respond-to('md') {
-    flex-direction: column;
-    align-items: center;
-    
-    .founder-card:nth-child(1),
-    .founder-card:nth-child(2),
-    .founder-card:nth-child(3) {
-      flex: 1 1 100%;
-      max-width: 400px;
-    }
-  }
-}
-
-.founder-card {
-  position: relative;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  padding-bottom: clamp(2rem, 4vw, 3rem);
-  background: rgba($dark-green, 0.9);
-  border: 2px solid $secondary-gold;
-  border-radius: 8px;
-  transition: all 0.4s ease;
-  cursor: pointer;
-  height: auto;
-  min-height: clamp(400px, 45vh, 500px);
+// =============================
+// Layout de dos niveles
+// =============================
+.founders-layout {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  overflow: hidden;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-xxl;
+}
 
-  @include respond-to('lg') {
-    min-height: clamp(350px, 40vh, 450px);
+// Primera fila - dos fundadores
+.founders-row-top {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-xl;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+
+  @include respond-to('md') {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    max-width: 400px;
+  }
+}
+
+// Segunda fila - familia centrada
+.founders-row-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+// =============================
+// Founder Card
+// =============================
+.founder-card {
+  position: relative;
+  @include glass-effect;
+  border-radius: $border-radius;
+  padding: $spacing-xl $spacing-lg;
+  border: 1px solid rgba($primary-gold, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 420px;
+  max-height: 420px;
+  transition: max-height $transition-time $transition-cubic,
+              transform $transition-time $transition-cubic,
+              background $transition-time ease,
+              border-color $transition-time ease,
+              box-shadow $transition-time ease;
+  display: flex;
+  flex-direction: column;
+
+  // Estados hover y expanded
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba($dark-green, 0.5);
+    border-color: rgba($primary-gold, 0.3);
+    @include glow-effect($primary-gold, 15px);
+
+    .number-decoration {
+      opacity: 0.08;
+    }
+
+    .founder-image-container {
+      transform: scale(1.02);
+    }
+
+    .image-overlay {
+      opacity: 0.2;
+    }
+
+    .glow-effect {
+      opacity: 0.4;
+    }
+  }
+
+  // Estado expandido
+  &.expanded {
+    max-height: 700px;
+    transform: translateY(-8px);
+    background: rgba($dark-green, 0.6);
+    border-color: rgba($primary-gold, 0.5);
+    @include glow-effect($primary-gold, 20px);
+    z-index: 10;
+
+    .number-decoration {
+      opacity: 0.1;
+    }
+
+    .divider {
+      width: 60px;
+    }
+
+    .bio-container {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: $spacing-md;
+    }
+
+    .hover-indicator {
+      opacity: 1;
+    }
+
+    .expand-icon {
+      transform: rotate(180deg);
+    }
   }
 
   @include respond-to('md') {
-    min-height: clamp(300px, 35vh, 400px);
-    padding: clamp(1rem, 2.5vw, 1.5rem);
+    padding: $spacing-lg $spacing-md;
+    min-height: 380px;
+    max-height: 380px;
+
+    &.expanded {
+      max-height: 550px;
+    }
   }
 
   @include respond-to('sm') {
-    min-height: clamp(350px, 50vh, 450px);
-    padding: clamp(1.25rem, 3vw, 1.75rem);
-  }
+    min-height: 400px;
+    max-height: 400px;
 
-  &:hover {
-    background: rgba($mid-gray, 0.9);
-    transform: translateY(-5px);
-    border-color: $primary-gold;
-    box-shadow: 0 10px 30px rgba($primary-gold, 0.3);
-
-    .founder-silhouette {
-      transform: scale(1.05);
-    }
-
-    .founder-glow {
-      opacity: 1;
-    }
-
-    .founder-details {
-      max-height: 300px;
-      opacity: 1;
-      padding: clamp(1rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 1rem);
-      overflow-y: auto;
-    }
-
-    .founder-number {
-      opacity: 0.3;
-    }
-
-    @include respond-to('sm') {
-      transform: translateY(-2px);
+    &.expanded {
+      max-height: 580px;
     }
   }
 
-  // Desactivar hover en dispositivos táctiles
+  // Desactivar hover en touch devices
   @media (hover: none) {
     &:hover {
       transform: none;
       box-shadow: none;
     }
-
-    &:active {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba($primary-gold, 0.2);
-    }
   }
 }
 
-.founder-silhouette {
+// Botón de expansión
+.expand-icon {
+  position: absolute;
+  bottom: $spacing-sm;
+  right: $spacing-sm;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba($primary-gold, 0.1);
+  border: 1px solid rgba($primary-gold, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-time ease;
+  z-index: 5;
+
+  &::after {
+    content: '↓';
+    color: $primary-gold;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  &:hover {
+    background: rgba($primary-gold, 0.2);
+    border-color: $primary-gold;
+  }
+}
+
+// =============================
+// Imagen y efectos
+// =============================
+.founder-image-wrapper {
   position: relative;
-  width: clamp(150px, 25vw, 200px);
-  height: clamp(180px, 30vw, 240px);
-  margin: 0 auto clamp(1rem, 3vw, 2rem);
-  transition: transform 0.4s ease;
+  margin-bottom: $spacing-lg;
+  flex-shrink: 0;
+}
 
-  @include respond-to('lg') {
-    width: clamp(140px, 22vw, 180px);
-    height: clamp(170px, 28vw, 220px);
-  }
-
-  @include respond-to('md') {
-    width: clamp(120px, 20vw, 160px);
-    height: clamp(150px, 25vw, 200px);
-  }
+.founder-image-container {
+  position: relative;
+  width: 180px;
+  height: 220px;
+  margin: 0 auto;
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  @include transition-smooth;
 
   @include respond-to('sm') {
-    width: clamp(140px, 30vw, 180px);
-    height: clamp(170px, 35vw, 220px);
-  }
-
-  .founder-image-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    border: 3px solid $secondary-gold;
+    width: 150px;
+    height: 190px;
   }
 
   .founder-image {
@@ -274,257 +418,214 @@ $breakpoints: (
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: all 0.4s ease;
   }
 
-  .founder-outline-overlay {
+  .image-overlay {
     position: absolute;
     inset: 0;
-    background: $dark-green;
-    opacity: 0.2;
-    transition: opacity 0.4s ease;
+    background: linear-gradient(180deg, transparent, rgba($dark-green, 0.8));
+    transition: opacity $transition-time ease;
+    pointer-events: none;
   }
 
-  .founder-glow {
+  // Borde dorado elegante
+  &::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(100px, 20vw, 150px);
-    height: clamp(100px, 20vw, 150px);
-    filter: blur(40px);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-
-    @include respond-to('sm') {
-      filter: blur(30px);
-    }
+    inset: -2px;
+    background: linear-gradient(135deg, $primary-gold, $secondary-gold);
+    border-radius: $border-radius-sm;
+    opacity: 0.3;
+    z-index: -1;
   }
 }
 
+.glow-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba($primary-gold, 0.4), transparent);
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity $transition-time ease;
+  pointer-events: none;
+}
+
+// =============================
+// Información del Fundador
+// =============================
 .founder-info {
   text-align: center;
   position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 0 clamp(0.5rem, 2vw, 1rem);
-  z-index: 1;
-  
-  
+
   .founder-name {
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-size: clamp(1.3rem, 2.5vw, 1.6rem);
     color: $cream;
-    margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
-    font-weight: 600;
+    margin-bottom: $spacing-xs;
+    font-weight: 400;
+    letter-spacing: 1px;
     line-height: 1.3;
-    text-shadow: 1px 1px 2px rgba($dark-green, 0.3);
 
     @include respond-to('sm') {
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      font-size: 1.2rem;
     }
   }
 
   .founder-role {
-    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
     color: $secondary-gold;
     text-transform: uppercase;
-    letter-spacing: clamp(1px, 0.3vw, 2px);
-    margin-bottom: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 400;
-    line-height: 1.4;
-    text-shadow: 1px 1px 2px rgba($dark-green, 0.3);
+    letter-spacing: 2px;
+    font-weight: 300;
+    margin-bottom: $spacing-sm;
 
     @include respond-to('sm') {
-      font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-      letter-spacing: 0.5px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
     }
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    @include gradient-line-gold;
+    margin: 0 auto;
+    @include transition-smooth;
   }
 }
 
-.founder-details {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba($dark-green, 0.98);
-  padding: 0;
-  border-radius: 0 0 8px 8px;
+// =============================
+// Bio Container (Expandible)
+// =============================
+.bio-container {
   max-height: 0;
-  overflow: hidden;
   opacity: 0;
-  transition: all 0.4s ease;
-  z-index: 2;
-  box-shadow: 0 -5px 15px rgba($dark-green, 0.3);
-
-  // Scrollbar personalizado
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba($dark-green, 0.3);
-    border-radius: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $secondary-gold;
-    border-radius: 3px;
-    
-    &:hover {
-      background: $primary-gold;
-    }
-  }
+  overflow: hidden;
+  transition: max-height $transition-time $transition-cubic,
+              opacity $transition-time ease,
+              padding-top $transition-time ease;
+  padding-top: 0;
 
   .founder-bio {
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    font-size: 0.95rem;
     color: $light-gray;
     line-height: 1.6;
-    margin-bottom: clamp(0.75rem, 2vw, 1rem);
+    margin-bottom: $spacing-sm;
+    padding: 0 $spacing-sm;
 
     @include respond-to('sm') {
-      font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+      font-size: 0.9rem;
     }
   }
 
   .founder-quote {
-    font-size: clamp(0.75rem, 2vw, 0.9rem);
-    color: $cream;
+    font-size: 0.9rem;
+    color: $primary-gold;
     font-style: italic;
-    padding: clamp(0.75rem, 2vw, 1rem);
+    padding: $spacing-sm;
     border-left: 2px solid $secondary-gold;
-    margin: 0;
+    margin: 0 $spacing-sm;
     opacity: 0.9;
-    line-height: 1.5;
+    text-align: left;
+    background: rgba($dark-green, 0.3);
+    border-radius: 0 $spacing-xs $spacing-xs 0;
 
     @include respond-to('sm') {
-      font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+      font-size: 0.85rem;
+      padding: $spacing-xs;
     }
   }
 }
 
+// =============================
+// Hover Indicator
+// =============================
+.hover-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  @include gradient-line;
+  opacity: 0;
+  transition: opacity $transition-time ease;
+}
+
+// =============================
+// Footer
+// =============================
 .founders-footer {
   text-align: center;
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding: 0 1rem;
+  padding-top: $spacing-xl;
+  animation: fadeInUp 1s ease-out 0.3s both;
 
-  .decorative-line {
-    width: clamp(60px, 15vw, 100px);
+  .footer-line {
+    width: 100px;
     height: 1px;
-    background: $mid-gray;
-    margin: 0 auto clamp(1.5rem, 3vw, 2rem);
+    @include gradient-line-gold;
+    margin: 0 auto $spacing-lg;
   }
 
-  .founders-message {
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    color: $mid-gray;
+  .footer-message {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: $cream;
     font-weight: 300;
-    letter-spacing: clamp(0.5px, 0.2vw, 1px);
+    letter-spacing: 2px;
     opacity: 0.9;
-    text-shadow: 1px 1px 2px rgba($dark-green, 0.5);
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
+    margin-bottom: $spacing-lg;
 
     @include respond-to('sm') {
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  .footer-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $secondary-gold;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+
+      &.active {
+        opacity: 1;
+        background: $primary-gold;
+        animation: pulse 2s ease-in-out infinite;
+      }
     }
   }
 }
 
 // =============================
-// Responsive Específico
+// Accesibilidad
 // =============================
-
-// Extra large screens
-@include respond-above('xxl') {
-  .founders-grid {
-    .founder-card:nth-child(1),
-    .founder-card:nth-child(2) {
-      flex: 1 1 calc(50% - 2rem);
-    }
-  }
-}
-
-// Large screens
-@include respond-to('lg') {
-  .founders-section {
-    background-attachment: scroll; // Mejor performance en móviles
-  }
-}
-
-// Medium screens
-@include respond-to('md') {
-  .founders-section::before {
-    height: 2px; // Línea más visible en pantallas medianas
-  }
-}
-
-// Small screens
-@include respond-to('sm') {
-  .founders-section {
-    background-attachment: scroll;
-    
-    &::before {
-      height: 1px;
-    }
-  }
-  
-  .founder-card {
-    // Mejor spacing en móviles
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-}
-
-// Extra small screens
-@include respond-to('xs') {
-  .founders-header {
-    .founders-title {
-      font-size: 1.5rem;
-    }
-    
-    .founders-subtitle {
-      font-size: 0.85rem;
-    }
-  }
-  
-  .founder-card {
-    min-height: 300px;
-    padding: 1rem;
-  }
-  
-  .founder-silhouette {
-    width: 120px;
-    height: 150px;
-  }
-}
-
-// =============================
-// Mejoras para accesibilidad
-// =============================
-
-// Reducir movimiento para usuarios que lo prefieren
 @media (prefers-reduced-motion: reduce) {
-  .founder-card,
-  .founder-silhouette,
-  .founder-glow,
-  .founder-details {
-    transition: none;
-  }
-  
-  .founder-card:hover {
-    transform: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-// Mejor contraste en modo high contrast
 @media (prefers-contrast: high) {
   .founder-card {
-    border-width: 3px;
+    border-width: 2px;
+    border-color: $primary-gold;
   }
   
   .founders-title {
@@ -532,18 +633,3 @@ $breakpoints: (
   }
 }
 
-// Orientación landscape en móviles
-@media (max-width: 768px) and (orientation: landscape) {
-  .founders-section {
-    padding: 2rem 1rem;
-  }
-  
-  .founder-card {
-    min-height: 280px;
-  }
-  
-  .founder-silhouette {
-    width: 100px;
-    height: 130px;
-  }
-}

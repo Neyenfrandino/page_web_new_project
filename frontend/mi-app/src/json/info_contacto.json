@@ -1,0 +1,19 @@
+{
+  "contacto": {
+    "nombre": "Mi Empresa",
+    "direccion": "Av. Siempre Viva 742, Springfield",
+    "telefono": "+54 9 11 1234-5678",
+    "email": "contacto@miempresa.com",
+    "sitio_web": "https://www.miempresa.com",
+    "redes_sociales": {
+      "facebook": "https://www.facebook.com/miempresa",
+      "instagram": "https://www.instagram.com/miempresa",
+      "linkedin": "https://www.linkedin.com/company/miempresa"
+    },
+    "horarios": {
+      "lunes_a_viernes": "09:00 - 18:00",
+      "sabados": "10:00 - 14:00",
+      "domingos": "Cerrado"
+    }
+  }
+}

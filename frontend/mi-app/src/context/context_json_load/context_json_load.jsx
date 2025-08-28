@@ -12,6 +12,10 @@ import time_line_history from '../../json/time_line_history.json';
 import message from '../../json/messge.json';
 import FAQ from '../../json/FAQ.json';
 import blogs from '../../json/blogs.json';
+import timerProps from '../../json/timerProps.json';
+
+
+let DOMAIN = import.meta.env.VITE_API_URL;
 
 // Crear el contexto
 export const ContextJsonLoadContext = createContext();
@@ -28,6 +32,8 @@ const initialState = {
   time_line_history: [],
   FAQ: [],
   blogs: [],
+  timerProps: timerProps,
+  DOMAIN: DOMAIN
 };
 
 // Tipos de acciones
@@ -75,6 +81,8 @@ export const ContextJsonLoadProvider = ({ children }) => {
           message: message,
           FAQ: FAQ,
           blogs: blogs,
+          // timerProps: timerProps,
+          DOMAIN: DOMAIN
         },
       });
     };
@@ -89,11 +97,16 @@ export const ContextJsonLoadProvider = ({ children }) => {
     });
   };
 
-  console.log(blogs)
+  const dataTimerProps = {
+    ...timerProps,
+    img: timerProps.img.replace("{DOMAIN}", DOMAIN)
+  };
+  console.log(DOMAIN)
 
   const value = {
     ...state,
     setJsonLoad,
+    dataTimerProps
   };
 
 

@@ -2,30 +2,66 @@
   "productos_madreSelva": [
     {
       "id": 1,
-      "name": "YERBA MATE",
-      "image": "./img/mate.jpg",
+      "name": "YERBA MATE ORGÁNICA",
+      "image": "https://cdn.pixabay.com/photo/2017/01/20/00/30/mate-1992577_1280.jpg",
       "rating": 5,
-      "title": "DELICIOSO Y NATURAL",
-      "description": "Me encanta este mate porque permite que mi cuerpo se sienta mejor",
-      "author": "Tomas Chammard"
+      "title": "PURA ENERGÍA NATURAL",
+      "description": "Esta yerba mate orgánica es increíble. El sabor es auténtico y me da la energía que necesito sin químicos. Se nota la diferencia con la producción agroforestal.",
+      "author": "Ana Martínez"
     },
     {
       "id": 2,
-      "name": "CAFÉ PREMIUM",
-      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop",
+      "name": "YERBA MATE ORGÁNICA",
+      "image": "https://cdn.pixabay.com/photo/2017/01/20/00/30/mate-1992577_1280.jpg",
       "rating": 5,
-      "title": "AROMÁTICO Y FUERTE",
-      "description": "El mejor café que he probado, con un aroma inigualable y sabor intenso",
-      "author": "María González"
+      "title": "SABOR AUTÉNTICO DE MISIONES",
+      "description": "Como misionero, puedo decir que esta yerba mate mantiene el sabor tradicional de nuestra tierra. 100% recomendable para quienes buscan calidad sin agroquímicos.",
+      "author": "Roberto Silva"
     },
     {
       "id": 3,
-      "name": "TÉ VERDE",
-      "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "name": "CÚRCUMA ORGÁNICA",
+      "image": "https://cdn.pixabay.com/photo/2016/11/19/16/48/turmeric-1839504_1280.jpg",
+      "rating": 5,
+      "title": "MEDICINA NATURAL EN CASA",
+      "description": "Uso la cúrcuma tanto en polvo como fresca. Sus propiedades antiinflamatorias son notables y le da un sabor espectacular a mis comidas. Excelente calidad orgánica.",
+      "author": "Lucía Fernández"
+    },
+    {
+      "id": 4,
+      "name": "CÚRCUMA ORGÁNICA",
+      "image": "https://cdn.pixabay.com/photo/2016/11/19/16/48/turmeric-1839504_1280.jpg",
       "rating": 4,
-      "title": "REFRESCANTE Y SALUDABLE",
-      "description": "Perfecto para relajarse después de un día largo, muy saludable",
-      "author": "Carlos Rivera"
+      "title": "VERSÁTIL Y MEDICINAL",
+      "description": "Me encanta tener ambas presentaciones. El polvo para condimentar y el tubérculo fresco para preparar infusiones. Mi sistema inmune se siente fortalecido.",
+      "author": "Diego Morales"
+    },
+    {
+      "id": 5,
+      "name": "E-BOOK AGRICULTURA SINTRÓPICA",
+      "image": "https://cdn.pixabay.com/photo/2015/01/08/18/27/ebook-593201_1280.jpg",
+      "rating": 5,
+      "title": "CONOCIMIENTO TRANSFORMADOR",
+      "description": "Este e-book cambió mi perspectiva sobre la agricultura. Los principios y ejemplos son muy claros, perfecto para comenzar a regenerar mi huerta familiar.",
+      "author": "Patricia Ruiz"
+    },
+    {
+      "id": 6,
+      "name": "E-BOOK AGRICULTURA SINTRÓPICA",
+      "image": "https://cdn.pixabay.com/photo/2015/01/08/18/27/ebook-593201_1280.jpg",
+      "rating": 5,
+      "title": "GUÍA PRÁCTICA Y COMPLETA",
+      "description": "Como estudiante de agronomía, este material me ha sido invaluable. La información es actualizada y los enfoques regenerativos son el futuro de la agricultura.",
+      "author": "Marcos Jiménez"
+    },
+    {
+      "id": 7,
+      "name": "E-BOOK AGRICULTURA SINTRÓPICA",
+      "image": "https://cdn.pixabay.com/photo/2015/01/08/18/27/ebook-593201_1280.jpg",
+      "rating": 4,
+      "title": "IDEAL PARA PRINCIPIANTES",
+      "description": "Descarga inmediata y contenido muy bien explicado. Perfecto para quienes queremos aprender sobre suelos y ecosistemas de manera práctica y accesible.",
+      "author": "Carmen López"
     }
   ],
   "servicios_madreSelva": [

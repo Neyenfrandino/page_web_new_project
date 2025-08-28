@@ -51,6 +51,10 @@ import { ContextJsonLoadContext } from '../../../context/context_json_load/conte
 // 📂 Styles
 // Estilos globales, variables SCSS y temas
 import './cta_servicios.scss';
+// En tu archivo JS/React
+let DOMAIN = import.meta.env.VITE_API_URL;
+// document.documentElement.style.setProperty('--dominio', DOMAIN);
+// console.log("Dominio desde variable de entorno:", DOMAIN);
  
 const CTAServicios = () => {
     const { dataImpactoReal } = useContext(ContextJsonLoadContext);
@@ -60,7 +64,8 @@ const CTAServicios = () => {
     }
     return(
         <div className="cta-servicios__container">
-            <div className="cta-section">
+            <div className="cta-section" style={{ backgroundImage: `url(${DOMAIN}/img/cta_sobre_nosotros.jpg)` }}
+>
                 <div className="cta-content">
                     <h2 className="cta-title">Quieres ser parte del cambio?</h2>
                     <p className="cta-text">

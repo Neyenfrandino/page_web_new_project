@@ -29,12 +29,13 @@
   {
     "id": "faq-4",
     "category": "productos",
-    "question": "¿Cómo funcionan las composteras de cocina?",
-    "answer": "Nuestras composteras están diseñadas para uso doméstico diario. Incluyen filtros de carbón activado para eliminar olores, tapas herméticas y sistemas de drenaje. Simplemente agrega tus residuos orgánicos diariamente y en pocas semanas tendrás compost rico en nutrientes para tus plantas.",
+    "question": "¿Cómo se cultiva la Yerba Mate Orgánica?",
+    "answer": "Nuestra yerba mate se cultiva en sistemas agroforestales en Misiones, sin usar agroquímicos. Las plantas crecen bajo la sombra de árboles nativos de la selva misionera, lo que le da un sabor más suave y complejo. El proceso de secado es artesanal, preservando todos los nutrientes y el sabor auténtico.",
+    "additionalInfo": "Cada paquete incluye información sobre el productor y la fecha de cosecha. La yerba se envasa al vacío para mantener su frescura.",
     "links": [
       {
-        "text": "Ver guía de compostaje",
-        "url": "/guias/compostaje-domestico",
+        "text": "Ver producto",
+        "url": "/productos/yerba-mate-organica",
         "external": false
       }
     ]
@@ -42,9 +43,16 @@
   {
     "id": "faq-5",
     "category": "productos",
-    "question": "¿Las semillas orgánicas vienen con instrucciones de siembra?",
-    "answer": "Sí, cada paquete de semillas incluye instrucciones detalladas sobre época de siembra, profundidad, distancia entre plantas y cuidados específicos. Además, proporcionamos acceso a videos tutoriales y soporte técnico para asegurar el éxito de tu huerto.",
-    "additionalInfo": "Nuestras semillas son 100% orgánicas, no transgénicas y de polinización abierta, lo que significa que puedes guardar semillas de tu cosecha."
+    "question": "¿Cuál es la diferencia entre la cúrcuma en polvo y el tubérculo fresco?",
+    "answer": "La cúrcuma fresca tiene un sabor más vibrante y contiene mayor humedad, ideal para jugos, smoothies y preparaciones frescas. La cúrcuma en polvo es más concentrada, perfecta para cocinar, tés y aplicaciones medicinales. Ambas mantienen sus propiedades antiinflamatorias y antioxidantes.",
+    "additionalInfo": "La cúrcuma fresca debe conservarse refrigerada y dura hasta 3 semanas. El polvo se conserva hasta 2 años en lugar fresco y seco.",
+    "links": [
+      {
+        "text": "Ver producto",
+        "url": "/productos/curcuma-organica",
+        "external": false
+      }
+    ]
   },
   {
     "id": "faq-6",
@@ -88,9 +96,16 @@
   {
     "id": "faq-10",
     "category": "productos",
-    "question": "¿Los productos de higiene natural son aptos para todo tipo de piel?",
-    "answer": "Nuestros productos están formulados con ingredientes naturales suaves, libres de químicos agresivos. Son aptos para la mayoría de tipos de piel, incluyendo pieles sensibles. Sin embargo, recomendamos hacer una prueba en una pequeña área antes del uso completo.",
-    "additionalInfo": "Todos nuestros productos son veganos, cruelty-free y vienen en empaques biodegradables o reutilizables."
+    "question": "¿Cómo accedo al E-book de Agricultura Sintrópica después de comprarlo?",
+    "answer": "Inmediatamente después de confirmar tu pago, recibirás un correo con el enlace de descarga. El E-book viene en formato PDF interactivo con videos insertados, gráficos y enlaces a recursos adicionales. Puedes descargarlo en cualquier dispositivo y tendrás acceso de por vida, incluyendo futuras actualizaciones.",
+    "additionalInfo": "El E-book incluye 150+ páginas con casos de estudio, diagramas de diseño y lista de especies recomendadas para diferentes climas.",
+    "links": [
+      {
+        "text": "Ver contenido",
+        "url": "/productos/ebook-agricultura-sintropica",
+        "external": false
+      }
+    ]
   },
   {
     "id": "faq-11",
@@ -114,15 +129,15 @@
   {
     "id": "faq-13",
     "category": "productos",
-    "question": "¿Cuál es la vida útil de los filtros de agua de cerámica?",
-    "answer": "Los filtros de cerámica tienen una vida útil de 2-3 años con mantenimiento adecuado. Incluimos instrucciones de limpieza y mantenimiento, además de un filtro de repuesto. La cerámica puede limpiarse mensualmente para mantener su eficiencia.",
-    "additionalInfo": "Cada filtro puede procesar hasta 5,000 litros de agua antes de necesitar reemplazo."
+    "question": "¿La Yerba Mate Orgánica tiene certificación oficial?",
+    "answer": "Sí, nuestra yerba mate cuenta con certificación orgánica oficial. Esto garantiza que no se utilizan pesticidas, herbicidas ni fertilizantes sintéticos en ninguna etapa de producción. Además, los productores siguen prácticas de comercio justo y regeneración del suelo.",
+    "additionalInfo": "Trabajamos directamente con pequeños productores misioneros, garantizando trazabilidad completa desde la cosecha hasta tu mesa."
   },
   {
     "id": "faq-14",
     "category": "general",
     "question": "¿Cómo puedo unirme a la comunidad Naluum?",
-    "answer": "Puedes unirte participando en nuestros cursos, comprando productos o simplemente suscribiéndote a nuestro boletín. También tenemos grupos locales en diferentes ciudades donde realizamos actividades mensuales, intercambio de semillas y proyectos comunitarios.", 
+    "answer": "Puedes unirte participando en nuestros cursos, comprando productos o simplemente suscribiéndote a nuestro boletín. También tenemos grupos locales en diferentes ciudades donde realizamos actividades mensuales, intercambio de semillas y proyectos comunitarios.",
     "links": [
       {
         "text": "Unirse a la comunidad",
@@ -188,5 +203,32 @@
     "question": "¿Cuál es la filosofía de Madre Selva?",
     "answer": "Nuestra filosofía se basa en la conexión profunda con la naturaleza y el compromiso inquebrantable con la sostenibilidad. Creemos que cada acción debe regenerar, no solo mantener, buscando un equilibrio saludable entre las personas y el entorno.",
     "additionalInfo": "Cada paso en Madre Selva es un eco de nuestro compromiso con un futuro más sostenible."
+  },
+  {
+    "id": "faq-21",
+    "category": "productos",
+    "question": "¿Cuáles son las propiedades medicinales de la cúrcuma orgánica?",
+    "answer": "La cúrcuma es reconocida por sus potentes propiedades antiinflamatorias gracias a la curcumina. Ayuda a fortalecer el sistema inmune, mejora la digestión, tiene efectos antioxidantes y puede contribuir a reducir el dolor articular. Se recomienda consumirla con pimienta negra para aumentar su absorción.",
+    "additionalInfo": "Dosis recomendada: 1-2 cucharaditas diarias en infusiones, comidas o golden milk. Consulta con un profesional de salud si tomas medicamentos anticoagulantes."
+  },
+  {
+    "id": "faq-22",
+    "category": "productos",
+    "question": "¿El E-book incluye soporte o consultas posteriores?",
+    "answer": "Sí, con la compra del E-book tienes acceso a nuestro grupo privado de Facebook donde puedes hacer preguntas, compartir experiencias y recibir apoyo de la comunidad y nuestros expertos. Además, organizamos webinars mensuales gratuitos para profundizar en temas específicos del libro.",
+    "links": [
+      {
+        "text": "Ver contenido del E-book",
+        "url": "/productos/ebook-agricultura-sintropica",
+        "external": false
+      }
+    ]
+  },
+  {
+    "id": "faq-23",
+    "category": "productos",
+    "question": "¿Cómo debo almacenar la Yerba Mate para mantener su frescura?",
+    "answer": "Guarda la yerba mate en su envase original o en un recipiente hermético, en un lugar fresco y seco, alejado de la luz directa. Evita la humedad para prevenir la formación de hongos. Una vez abierto el paquete, consúmelo dentro de 6 meses para disfrutar de su máximo sabor y propiedades.",
+    "additionalInfo": "Tip: Puedes dividir el contenido en porciones más pequeñas y congelar lo que no uses inmediatamente para preservar mejor su frescura."
   }
 ]

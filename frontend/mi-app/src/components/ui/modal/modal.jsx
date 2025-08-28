@@ -3,8 +3,9 @@ import { createPortal } from 'react-dom';
 import './Modal.scss';
 
 const Modal = ({ isOpenModal, onClose, children }) => {
-  const { isOpen } = isOpenModal;
-
+  const isOpen = isOpenModal;
+  if (!isOpen) return null;
+  
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
@@ -23,7 +24,7 @@ const Modal = ({ isOpenModal, onClose, children }) => {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+
 
   const modalContent = (
       <div className="modal__backdrop">

@@ -43,6 +43,13 @@ const App = () => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   const transitioningRef = useRef(false);
+
+  useEffect(() => {
+    const DOMAIN = import.meta.env.VITE_API_URL;
+    document.documentElement.style.setProperty('--dominio', DOMAIN);
+    console.log("Dominio desde variable de entorno:", DOMAIN);
+  }, []);
+
   
   useEffect(() => {
     if (!document.startViewTransition || transitioningRef.current) {

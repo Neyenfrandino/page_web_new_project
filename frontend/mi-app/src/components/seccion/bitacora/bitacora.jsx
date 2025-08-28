@@ -36,7 +36,7 @@ const bitacora = [
         routeSeccion: '/bitacora/4',
     },
 ];
-
+ 
 const Bitacora = () => {
     const formatDate = (dateString) => {
         const date = new Date(dateString);

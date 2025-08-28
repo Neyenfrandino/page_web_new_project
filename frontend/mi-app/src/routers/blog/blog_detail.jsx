@@ -1,7 +1,21 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
-import { ArrowLeft, Calendar, User, Clock, Tag, Share2, Heart, BookOpen } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Calendar, 
+  User, 
+  Clock, 
+  Tag, 
+  Share2, 
+  Heart, 
+  BookOpen,
+  MapPin,
+  Sprout,
+  Droplets,
+  Sun,
+  ChevronRight
+} from 'lucide-react';
 import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
 import './blog_detail.scss';
 
@@ -15,20 +29,18 @@ const BlogDetail = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
     const [readingTime, setReadingTime] = useState(0);
+    const [activeSection, setActiveSection] = useState(null);
 
     useEffect(() => {
-        // Intentar obtener el blog desde el state primero (más rápido)
         if (location.state?.blogData && location.state.blogData.id === id) {
             setBlogPost(location.state.blogData);
             setIsLoading(false);
         } else if (blogs?.blogs) {
-            // Si no hay state, buscar en el contexto
             const foundBlog = blogs.blogs.find(blog => blog.id === id);
             if (foundBlog) {
                 setBlogPost(foundBlog);
             } else {
                 console.error('Blog no encontrado con ID:', id);
-                // Redirigir a la lista de blogs si no se encuentra
                 setTimeout(() => {
                     navigate('/blog', { replace: true });
                 }, 2000);
@@ -38,7 +50,6 @@ const BlogDetail = () => {
     }, [id, blogs, location.state, navigate]);
 
     useEffect(() => {
-        // Calcular tiempo de lectura
         if (blogPost?.content) {
             const wordsPerMinute = 200;
             let totalWords = 0;
@@ -51,6 +62,11 @@ const BlogDetail = () => {
                 blogPost.content.sections.forEach(section => {
                     totalWords += (section.text || '').split(' ').length;
                     totalWords += (section.heading || '').split(' ').length;
+                    if (section.list) {
+                        section.list.forEach(item => {
+                            totalWords += item.split(' ').length;
+                        });
+                    }
                 });
             }
             
@@ -61,6 +77,25 @@ const BlogDetail = () => {
             setReadingTime(Math.ceil(totalWords / wordsPerMinute));
         }
     }, [blogPost]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = document.querySelectorAll('.content-section');
+            const scrollPosition = window.scrollY + 200;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    setActiveSection(index);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleGoBack = () => {
         navigate('/blog');
@@ -78,7 +113,6 @@ const BlogDetail = () => {
                 console.log('Error al compartir:', error);
             }
         } else {
-            // Fallback: copiar al portapapeles
             navigator.clipboard.writeText(window.location.href);
             alert('¡Enlace copiado al portapapeles!');
         }
@@ -86,12 +120,10 @@ const BlogDetail = () => {
 
     const handleLike = () => {
         setIsLiked(!isLiked);
-        // Aquí podrías guardar el like en localStorage o enviarlo a una API
         localStorage.setItem(`blog-like-${id}`, (!isLiked).toString());
     };
 
     useEffect(() => {
-        // Verificar si ya tiene like
         const liked = localStorage.getItem(`blog-like-${id}`) === 'true';
         setIsLiked(liked);
     }, [id]);
@@ -101,11 +133,20 @@ const BlogDetail = () => {
         return new Date(dateString).toLocaleDateString('es-ES', options);
     };
 
+    const scrollToSection = (index) => {
+        const sections = document.querySelectorAll('.content-section');
+        if (sections[index]) {
+            sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="blog-detail__loading">
-                <div className="spinner"></div>
-                <p>Cargando artículo...</p>
+                <div className="loading-container">
+                    <Sprout className="loading-icon" size={48} />
+                    <p>Cargando artículo...</p>
+                </div>
             </div>
         );
     }
@@ -119,6 +160,8 @@ const BlogDetail = () => {
         );
     }
 
+    const isAgricultureCategory = blogPost.category === 'Agricultura';
+
     return (
         <div className="blog-detail">
             <SEOHelmet 
@@ -130,19 +173,20 @@ const BlogDetail = () => {
                 image={blogPost.card?.image} 
             />
 
-            {/* Hero Section con imagen de fondo */}
+            {/* Hero Section */}
             <div className="blog-detail__hero" 
                  style={{
                      backgroundImage: blogPost.card?.image ? `url(${blogPost.card.image})` : 'none'
                  }}>
+                <div className="hero-pattern"></div>
                 <div className="hero-overlay"></div>
                 
-                {/* Barra de navegación superior */}
+                {/* Navigation Bar */}
                 <div className="blog-detail__nav">
-                    <button onClick={handleGoBack} className="nav-back">
+                    {/* <button onClick={handleGoBack} className="nav-back">
                         <ArrowLeft size={20} />
                         <span>Volver al Blog</span>
-                    </button>
+                    </button> */}
                     
                     <div className="nav-actions">
                         <button onClick={handleShare} className="action-btn" aria-label="Compartir">
@@ -158,13 +202,15 @@ const BlogDetail = () => {
                     </div>
                 </div>
                 
-                {/* Contenido del hero */}
+                {/* Hero Content */}
                 <div className="hero-content">
                     {blogPost.category && (
-                        <span className="hero-category">
-                            <Tag size={14} />
-                            {blogPost.category}
-                        </span>
+                        <div className="hero-category-wrapper">
+                            <span className="hero-category">
+                                {isAgricultureCategory ? <Sprout size={16} /> : <Tag size={16} />}
+                                {blogPost.category}
+                            </span>
+                        </div>
                     )}
                     
                     <h1 className="hero-title">{blogPost.title}</h1>
@@ -192,122 +238,195 @@ const BlogDetail = () => {
                             <Clock size={16} />
                             {readingTime} min de lectura
                         </span>
+
+                        {isAgricultureCategory && (
+                            <span className="meta-item">
+                                <MapPin size={16} />
+                                Misiones, Argentina
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Contenido principal del artículo */}
+            {/* Main Content */}
             <article className="blog-detail__content">
-                <div className="content-wrapper">
-                    {/* Introducción */}
-                    {blogPost.content?.introduction && (
-                        <div className="content-introduction">
-                            <p>{blogPost.content.introduction}</p>
-                        </div>
-                    )}
-                    
-                    {/* Secciones del contenido */}
-                    {blogPost.content?.sections && blogPost.content.sections.map((section, index) => (
-                        <section key={index} className="content-section">
-                            {section.heading && (
-                                <h2 className="section-heading">{section.heading}</h2>
-                            )}
-                            {section.text && (
-                                <div className="section-text">
-                                    <p>{section.text}</p>
+                <div className="content-container">
+                    <div className="content-wrapper">
+                        {/* Introduction */}
+                        {blogPost.content?.introduction && (
+                            <div className="content-introduction">
+                                <div className="intro-icon">
+                                    <BookOpen size={20} />
                                 </div>
-                            )}
-                            {section.list && (
-                                <ul className="section-list">
-                                    {section.list.map((item, idx) => (
-                                        <li key={idx}>{item}</li>
+                                <p>{blogPost.content.introduction}</p>
+                            </div>
+                        )}
+                        
+                        {/* Content Sections */}
+                        {blogPost.content?.sections && blogPost.content.sections.map((section, index) => (
+                            <section key={index} className="content-section">
+                                {section.heading && (
+                                    <h2 className="section-heading">
+                                        <span className="heading-number">{String(index + 1).padStart(2, '0')}</span>
+                                        {section.heading}
+                                    </h2>
+                                )}
+                                
+                                {section.text && (
+                                    <div className="section-text">
+                                        <p>{section.text}</p>
+                                    </div>
+                                )}
+                                
+                                {section.list && (
+                                    <div className="section-list-container">
+                                        <ul className="section-list">
+                                            {section.list.map((item, idx) => (
+                                                <li key={idx}>
+                                                    <span className="list-icon">
+                                                        <ChevronRight size={16} />
+                                                    </span>
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                
+                                {section.quote && (
+                                    <blockquote className="section-quote">
+                                        <p>{section.quote}</p>
+                                        {section.quoteAuthor && (
+                                            <cite>— {section.quoteAuthor}</cite>
+                                        )}
+                                    </blockquote>
+                                )}
+                            </section>
+                        ))}
+                        
+                        {/* Conclusion */}
+                        {blogPost.content?.conclusion && (
+                            <div className="content-conclusion">
+                                <h2>
+                                    <Sun size={20} />
+                                    Conclusión
+                                </h2>
+                                <p>{blogPost.content.conclusion}</p>
+                            </div>
+                        )}
+                        
+                        {/* Footer */}
+                        <div className="content-footer">
+                            <div className="footer-tags">
+                                {blogPost.tags && blogPost.tags.map((tag, index) => (
+                                    <span key={index} className="tag">#{tag}</span>
+                                ))}
+                            </div>
+                            
+                            <div className="footer-actions">
+                                <button onClick={handleShare} className="share-btn">
+                                    <Share2 size={18} />
+                                    Compartir artículo
+                                </button>
+                                
+                                <button 
+                                    onClick={handleLike} 
+                                    className={`like-btn ${isLiked ? 'liked' : ''}`}
+                                >
+                                    <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
+                                    {isLiked ? 'Te gusta' : 'Me gusta'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Sidebar */}
+                    <aside className="blog-detail__sidebar">
+                        {/* Article Info Card */}
+                        <div className="sidebar-card">
+                            <h3>
+                                <BookOpen size={18} />
+                                Sobre este artículo
+                            </h3>
+                            <div className="sidebar-info">
+                                <div className="info-item">
+                                    <Tag size={14} />
+                                    <span><strong>Categoría:</strong> {blogPost.category || 'General'}</span>
+                                </div>
+                                <div className="info-item">
+                                    <Clock size={14} />
+                                    <span><strong>Lectura:</strong> {readingTime} minutos</span>
+                                </div>
+                                <div className="info-item">
+                                    <Calendar size={14} />
+                                    <span><strong>Publicado:</strong> {blogPost.date ? formatDate(blogPost.date) : 'Sin fecha'}</span>
+                                </div>
+                                {blogPost.author && (
+                                    <div className="info-item">
+                                        <User size={14} />
+                                        <span><strong>Autor:</strong> {blogPost.author}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Table of Contents */}
+                        {blogPost.content?.sections && blogPost.content.sections.length > 0 && (
+                            <div className="sidebar-card toc-card">
+                                <h3>Contenido</h3>
+                                <nav className="table-of-contents">
+                                    {blogPost.content.sections.map((section, index) => (
+                                        section.heading && (
+                                            <button
+                                                key={index}
+                                                className={`toc-item ${activeSection === index ? 'active' : ''}`}
+                                                onClick={() => scrollToSection(index)}
+                                            >
+                                                <span className="toc-number">{String(index + 1).padStart(2, '0')}</span>
+                                                <span className="toc-text">{section.heading}</span>
+                                            </button>
+                                        )
+                                    ))}
+                                </nav>
+                            </div>
+                        )}
+
+                        {/* Agriculture Tips Card */}
+                        {isAgricultureCategory && (
+                            <div className="sidebar-card tips-card">
+                                <h3>
+                                    <Droplets size={18} />
+                                    Tips de Agricultura
+                                </h3>
+                                <ul className="tips-list">
+                                    <li>Aprovecha la tierra roja misionera</li>
+                                    <li>Mantén un buen drenaje</li>
+                                    <li>Usa materia orgánica regularmente</li>
+                                    <li>Controla la humedad del suelo</li>
+                                </ul>
+                            </div>
+                        )}
+                        
+                        {/* Related Links */}
+                        {blogPost.relatedLinks && (
+                            <div className="sidebar-card">
+                                <h3>Enlaces relacionados</h3>
+                                <ul className="related-links">
+                                    {blogPost.relatedLinks.map((link, index) => (
+                                        <li key={index}>
+                                            <a href={link.url} target="_blank" rel="noopener noreferrer">
+                                                <ChevronRight size={14} />
+                                                {link.title}
+                                            </a>
+                                        </li>
                                     ))}
                                 </ul>
-                            )}
-                            {section.quote && (
-                                <blockquote className="section-quote">
-                                    <p>{section.quote}</p>
-                                    {section.quoteAuthor && (
-                                        <cite>— {section.quoteAuthor}</cite>
-                                    )}
-                                </blockquote>
-                            )}
-                        </section>
-                    ))}
-                    
-                    {/* Conclusión */}
-                    {blogPost.content?.conclusion && (
-                        <div className="content-conclusion">
-                            <h2>Conclusión</h2>
-                            <p>{blogPost.content.conclusion}</p>
-                        </div>
-                    )}
-                    
-                    {/* Footer del artículo */}
-                    <div className="content-footer">
-                        <div className="footer-tags">
-                            {blogPost.tags && blogPost.tags.map((tag, index) => (
-                                <span key={index} className="tag">#{tag}</span>
-                            ))}
-                        </div>
-                        
-                        <div className="footer-actions">
-                            <button onClick={handleShare} className="share-btn">
-                                <Share2 size={18} />
-                                Compartir artículo
-                            </button>
-                            
-                            <button 
-                                onClick={handleLike} 
-                                className={`like-btn ${isLiked ? 'liked' : ''}`}
-                            >
-                                <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
-                                {isLiked ? 'Te gusta' : 'Me gusta'}
-                            </button>
-                        </div>
-                    </div>
+                            </div>
+                        )}
+                    </aside>
                 </div>
-                
-                {/* Sidebar con información adicional */}
-                <aside className="blog-detail__sidebar">
-                    <div className="sidebar-card">
-                        <h3>
-                            <BookOpen size={18} />
-                            Sobre este artículo
-                        </h3>
-                        <div className="sidebar-info">
-                            <p><strong>Categoría:</strong> {blogPost.category || 'General'}</p>
-                            <p><strong>Tiempo de lectura:</strong> {readingTime} minutos</p>
-                            <p><strong>Publicado:</strong> {blogPost.date ? formatDate(blogPost.date) : 'Sin fecha'}</p>
-                            {blogPost.author && <p><strong>Autor:</strong> {blogPost.author}</p>}
-                        </div>
-                    </div>
-                    
-                    {/* Enlaces relacionados si existen */}
-                    {blogPost.relatedLinks && (
-                        <div className="sidebar-card">
-                            <h3>Enlaces relacionados</h3>
-                            <ul className="related-links">
-                                {blogPost.relatedLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a href={link.url} target="_blank" rel="noopener noreferrer">
-                                            {link.title}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                </aside>
             </article>
-            
-            {/* Navegación a otros posts */}
-            <div className="blog-detail__navigation">
-                <Link to="/blog" className="nav-all">
-                    <ArrowLeft size={20} />
-                    Ver todos los artículos
-                </Link>
-            </div>
         </div>
     );
 };

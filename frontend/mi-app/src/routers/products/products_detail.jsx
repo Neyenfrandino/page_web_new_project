@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
+
+import Modal from '../../components/ui/modal/modal';
+import SupportModalContent from '../../components/seccion/support_modal/support_modal';
+
 import {
   Calendar, Clock, Users, Monitor, Star, CheckCircle,
   ArrowRight, Share2, Heart, ShieldCheck, Award
 } from 'lucide-react';
 
-import './products_detail.scss'; // Debe ser renombrado también
+import './products_detail.scss';
 
 const defaultItem = {
   title: 'Producto destacado',
@@ -34,7 +38,7 @@ const defaultItem = {
 const ProductsDetail = ({ type = 'product' }) => {
   const { products } = useContext(ContextJsonLoadContext);
   const { id } = useParams();
-
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
 
   const currentItem = Array.isArray(products)
     ? products.find((item) => String(item.id) === String(id)) || defaultItem
@@ -80,6 +84,18 @@ const ProductsDetail = ({ type = 'product' }) => {
         stroke={i < Math.floor(numRating) ? '#8F764C' : '#d1d5db'}
       />
     ));
+  };
+
+  const handleOpenSupportModal = () => {
+    // Track analytics if needed
+    // if (window.gtag) {
+    //   window.gtag('event', 'contact_support', {
+    //     item_id: currentItem.id,
+    //     item_name: currentItem.title,
+    //     item_category: type
+    //   });
+    // }
+    setIsSupportModalOpen(true);
   };
 
   return (
@@ -131,7 +147,7 @@ const ProductsDetail = ({ type = 'product' }) => {
               {(currentItem.highlights || []).map((text, i) => (
                 <div key={i} className="highlight-products">
                   <CheckCircle size={20} />
-                  <span>{text}</span>
+                  <span> {text}</span>
                 </div>
               ))}
             </div>
@@ -184,7 +200,7 @@ const ProductsDetail = ({ type = 'product' }) => {
                 <div className="info-products">
                   <Calendar size={18} />
                   <div>
-                    <strong>Inicio</strong>
+                    <strong>Inicio: </strong>
                     <span>{formatDate(currentItem.date)}</span>
                   </div>
                 </div>
@@ -193,7 +209,7 @@ const ProductsDetail = ({ type = 'product' }) => {
               <div className="info-products">
                 <Clock size={18} />
                 <div>
-                  <strong>Duración</strong>
+                  <strong>Duración: </strong>
                   <span>{currentItem.duration}</span>
                 </div>
               </div>
@@ -201,7 +217,7 @@ const ProductsDetail = ({ type = 'product' }) => {
               <div className="info-products">
                 <Monitor size={18} />
                 <div>
-                  <strong>Formato</strong>
+                  <strong>Formato: </strong>
                   <span>{currentItem.format}</span>
                 </div>
               </div>
@@ -209,7 +225,7 @@ const ProductsDetail = ({ type = 'product' }) => {
               <div className="info-products">
                 <Users size={18} />
                 <div>
-                  <strong>Nivel</strong>
+                  <strong>Nivel: </strong>
                   <span>{currentItem.badge}</span>
                 </div>
               </div>
@@ -225,7 +241,9 @@ const ProductsDetail = ({ type = 'product' }) => {
         <div className="cta-card">
           <h3>¿Tienes preguntas?</h3>
           <p>Nuestro equipo está aquí para ayudarte</p>
-          <button className="contact-btn" onClick={() => alert('Contactando soporte...')}>Contactar soporte</button>
+          <button className="contact-btn" onClick={handleOpenSupportModal}>
+            Contactar soporte
+          </button>
         </div>
 
         <div className="redirect-btn">
@@ -236,6 +254,14 @@ const ProductsDetail = ({ type = 'product' }) => {
           </Link>
         </div>
       </div>
+
+      {/* Modal de Soporte */}
+      <Modal
+        isOpenModal={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
+      >
+        <SupportModalContent onClose={() => setIsSupportModalOpen(false)} />
+      </Modal>
     </div>
   );
 };

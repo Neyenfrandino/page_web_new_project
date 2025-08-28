@@ -27,6 +27,32 @@
     "router": "/servicios/curso-certificado-diseno-permacultura"
   },
   {
+    "id": "curso-agricultura-sintropica",
+    "type": "service",
+    "category": "curso",
+    "project": "Naluum",
+    "title": "Curso de Agricultura Sintrópica",
+    "subtitle": "Aprende a regenerar suelos y crear sistemas agroforestales sostenibles.",
+    "description": "Metodología desarrollada por Ernst Götsch, aplicada en Madre Selva. Incluye fundamentos de sucesión natural, manejo de podas, diseño agroforestal y regeneración del suelo para soberanía alimentaria.",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/04/49/adventure-1867028_1280.jpg",
+    "price": 129.99,
+    "currency": "USD",
+    "badge": "Todos los niveles",
+    "duration": "4 días por módulo",
+    "format": "Presencial",
+    "instructor": "Equipo Naluum",
+    "highlights": [
+      "70% práctico",
+      "Diseño agroforestal",
+      "Poda y mantenimiento",
+      "Fortalecimiento de sistemas maduros"
+    ],
+    "rating": 4.85,
+    "students": 95,
+    "date": "2025-09-05",
+    "router": "/servicios/curso-agricultura-sintropica"
+  },
+  {
     "id": "cursos-bioconstruccion",
     "type": "service",
     "category": "curso",
@@ -252,5 +278,30 @@
     "students": 50,
     "date": "2025-08-20",
     "router": "/servicios/programa-voluntariado"
+  },
+  {
+    "id": "visitas-guiadas",
+    "type": "service",
+    "category": "experiencia",
+    "project": "Madre Selva",
+    "title": "Visitas Guiadas de Fin de Semana",
+    "subtitle": "Recorre el Eco Centro Madre Selva y conoce proyectos regenerativos.",
+    "description": "Ofrecemos recorridos guiados para conocer nuestros sistemas de permacultura, agricultura sintropica, bioconstrucción y biodiversidad local.",
+    "image": "https://cdn.pixabay.com/photo/2016/11/18/15/54/learning-1839650_1280.jpg",
+    "price": 19.99,
+    "currency": "USD",
+    "badge": "Todos los niveles",
+    "duration": "Medio día",
+    "format": "Presencial",
+    "instructor": "Equipo Madre Selva",
+    "highlights": [
+      "Conocimiento práctico",
+      "Conexión con la naturaleza",
+      "Experiencia educativa"
+    ],
+    "rating": 4.8,
+    "students": 120,
+    "date": "2025-09-12",
+    "router": "/servicios/visitas-guiadas"
   }
 ]

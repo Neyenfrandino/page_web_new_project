@@ -1,17 +1,103 @@
+// =============================
+// Variables de Color
+// =============================
+$primary-dark: #063B2C;
+$primary-light: #D0DE85;
+$accent-brown: #8F764C;
+$neutral-gray: #7B7A70;
+$neutral-medium: #48514A;
+$cream: #D5CEA9;
+$white: #ffffff;
+
+// Variables adicionales
+$border-radius: 16px;
+$border-radius-sm: 8px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// =============================
+// Payment Container
+// =============================
 .payment__container {
-  max-width: 100%;
-  margin: 1rem auto;
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba($primary-dark, 0.02) 0%, rgba($cream, 0.05) 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
-//   background-color: #F9F9F6;
-  border-radius: 24px;
-//   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-//   border: 1px solid #D5CEA9;
-  color: #063B2C;
-  font-family: 'Inter', sans-serif;
-  animation: fadeInUp 0.5s ease both;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 }
 
-
 .payment__content {
-  margin-top: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.payment__change-method {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  animation: slideUp 0.3s ease-out;
+}
+
+.change-method-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: $primary-dark;
+  border: 1px solid rgba($primary-dark, 0.3);
+  border-radius: $border-radius-sm;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke: $primary-dark;
+  }
+
+  &:hover {
+    background: rgba($primary-dark, 0.05);
+    border-color: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($primary-dark, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// =============================
+// Animations
+// =============================
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

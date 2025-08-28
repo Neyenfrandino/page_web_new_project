@@ -19,25 +19,25 @@ $transition: all 0.3s ease;
     margin-bottom: 5%;
 
     .bitacora__content {
-        width: 95%;
+        width: 90%;
         padding: 2rem;
         position: relative;
         // border-radius: $border-radius;
         // border: 1px solid $primary-green;
         
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('/img/fondopapel2.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom;
-        transform: rotate(180deg);
-        border-radius: 5px;
-        opacity: 1;
-        z-index: -1;
-      }
+    //   &::before {
+    //     content: '';
+    //     position: absolute;
+    //     inset: 0;
+    //     background-image: url('/img/fondopapel2.png');
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     background-position: bottom;
+    //     transform: rotate(180deg);
+    //     border-radius: 5px;
+    //     opacity: 1;
+    //     z-index: -1;
+    //   }
         
         &__header {
             display: flex;

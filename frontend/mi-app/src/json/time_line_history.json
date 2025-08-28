@@ -4,51 +4,51 @@
     "items": [
       {
         "id": 1,
-        "year": "2019",
-        "title": "El Despertar",
-        "content": "En una pequeña comunidad costera de Costa Rica, un grupo de biólogos marinos descubrió algo extraordinario: los arrecifes que habían dado por muertos comenzaban a regenerarse de forma acelerada. Este fenómeno, que llamaron 'Naluum' (renacimiento en lengua maya), marcó el inicio de todo.",
-        "image": "🌊",
-        "highlight": "Primera señal de esperanza"
+        "year": "1998",
+        "title": "El Sueño Original",
+        "content": "En una comunidad maya de Noh Bec, Riviera Maya, el maestro Tierra Martínez de origen argentino concibe el primer instituto de permacultura. 'Naluum', que significa Madre Tierra en maya yucateco, nace como un susurro ancestral que conecta sabiduría milenaria con necesidades modernas de regeneración territorial.",
+        "image": "🌳",
+        "highlight": "Nacimiento del concepto Naluum"
       },
       {
         "id": 2,
-        "year": "2020",
-        "title": "La Conexión Global",
-        "content": "Durante los meses de quietud mundial, científicos, activistas y comunidades indígenas de cinco continentes se conectaron virtualmente. Compartieron conocimientos ancestrales y descubrimientos modernos sobre regeneración ecosistémica. Naluum dejó de ser un fenómeno local para convertirse en una filosofía de vida.",
-        "image": "🌍",
-        "highlight": "De lo local a lo global"
+        "year": "2000-2007",
+        "title": "El Viaje Transformador",
+        "content": "Después de relocalizarse en Playa del Carmen, situaciones de vida impulsan a la familia a iniciar un viaje por diferentes países y ecosistemas. Nacen sus hijas, una en México y otra en República Dominicana. Este viaje sin retorno les enseña que no se trata de regresar al mismo lugar, sino de no volver a ver el mundo de la misma forma.",
+        "image": "🗺️",
+        "highlight": "7 años de aprendizaje mundial"
       },
       {
         "id": 3,
-        "year": "2021",
-        "title": "Los Primeros Guardianes",
-        "content": "Surgieron los 'Guardianes Naluum': personas comprometidas con acciones concretas de regeneración. Desde reforestación masiva hasta limpieza de océanos, cada guardián adoptó un ecosistema. La red creció exponencialmente, alcanzando 100,000 miembros en 50 países.",
-        "image": "🌱",
-        "highlight": "100,000 guardianes activos"
+        "year": "2008-2015",
+        "title": "Instituto Itinerante",
+        "content": "Nace la metodología transformadora: Naluum se convierte en un instituto itinerante de diseño de permacultura. Viajan por montañas, bosques, mares y selvas, llevando permacultura a lugares donde era necesaria pero inaccesible. Integran bioconstrucción, agricultura sintrópica, diseño hidrológico y permacultura social con el rescate de saberes ancestrales como base espiritual.",
+        "image": "🎒",
+        "highlight": "Metodología itinerante revolucionaria"
       },
       {
         "id": 4,
-        "year": "2022",
-        "title": "Tecnología y Sabiduría",
-        "content": "El movimiento fusionó tecnología de punta con sabiduría ancestral. Drones reforestadores, biotecnología para limpiar agua y aplicaciones de monitoreo ecosistémico se combinaron con prácticas indígenas de agricultura regenerativa. Naluum demostró que el futuro está en honrar el pasado.",
-        "image": "🔬",
-        "highlight": "Innovación con propósito"
+        "year": "2016-2020",
+        "title": "Raíces en la Selva",
+        "content": "Se establece el Ecocentro Madre Selva en Misiones, Argentina. Un proyecto demostrativo de 22 hectáreas que transforma suelos degradados en un sistema regenerativo funcional. La metodología Na Lu'um se consolida como una propuesta holística que conecta permacultura con espiritualidad ancestral, llenando el vacío que existía en los diseños tradicionales.",
+        "image": "🌿",
+        "highlight": "Ecocentro Madre Selva establecido"
       },
       {
         "id": 5,
-        "year": "2023",
-        "title": "El Gran Cambio",
-        "content": "Gobiernos y corporaciones comenzaron a adoptar los principios Naluum. Se crearon las primeras 'Ciudades Regenerativas' y los 'Corredores de Vida' - extensiones de tierra dedicadas exclusivamente a la regeneración natural. El movimiento ya no era alternativo, era el nuevo paradigma.",
-        "image": "🏙️",
-        "highlight": "Del activismo a la política"
+        "year": "2022",
+        "title": "Reconocimiento Internacional",
+        "content": "Madre Selva se convierte en anfitrión del Encuentro Internacional de Permacultura 2022. Naluum es reconocido como parte del Consejo Internacional de Permacultura. La metodología que comenzó como un sueño de cuidado se convierte en una realidad reconocida mundialmente por su enfoque integral y transformador.",
+        "image": "🏆",
+        "highlight": "Consejo Internacional de Permacultura"
       },
       {
         "id": 6,
-        "year": "2024",
-        "title": "El Presente es Futuro",
-        "content": "Hoy, Naluum es más que un movimiento: es una forma de entender nuestra relación con el planeta. Millones de personas viven según sus principios: regenerar más de lo que consumimos, sanar más de lo que dañamos, crear más vida de la que encontramos. El planeta responde, y la esperanza florece.",
-        "image": "✨",
-        "highlight": "5 millones de miembros activos"
+        "year": "2023-2024",
+        "title": "Movimiento Global",
+        "content": "Naluum trasciende el instituto para convertirse en un movimiento mundial. Una comunidad global con grupos locales, nacionales y continentales que genera cambios regenerativos. Ofrecen acompañamientos, asesorías y procesos educativos certificados internacionalmente, incluyendo PDC, agricultura sintrópica y masters en diseño, llevando soberanía alimentaria y regeneración ecosistémica a comunidades de todo el mundo.",
+        "image": "🌍",
+        "highlight": "Red global regenerativa activa"
       }
     ]
   },

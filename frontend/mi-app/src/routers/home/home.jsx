@@ -51,6 +51,8 @@ import MercadoPagoCard from '../../components/integrations/mercado_pago_card/mer
 import PaymentMethodSelector from '../../components/integrations/payment_method/payment_method_selector';
 
 
+let DOMAIN = import.meta.env.VITE_API_URL;
+console.log(DOMAIN)
 // ------------------------------
 // 📂 Maps
 // Componentes relacionados con mapas y geolocalización
@@ -91,8 +93,9 @@ const fadeInProps = {
   speed: prefersReducedMotion ? 'fast' : "slow"
 };
 
+// Timer Configuration
 const timerProps = {
-  img: "/img/3.png",
+  img: `${DOMAIN}/img/3.png`,
   titles: {
     main: "",
     subtitle: "Festival Eco de la Tierra",
@@ -102,64 +105,103 @@ const timerProps = {
   timer: {
     targetDate: "2025-09-23T18:59:59"
   },
-  link : "/servicios/laboratorios-alimentacion-viva"
+  link : "/serviciosl/aboratorios-alimentacion-viva"
 };
 
 const missionCards = [
-  {
-    id: 1,
-    title: '🌱 Rehabilitamos suelos, pero también vínculos.',
-    description: 'Trabajamos regenerando la tierra y fortaleciendo la conexión entre las personas.',
-    image: '/img/4.png',
-  },
-  {
-    id: 2,
-    title: '🔥 Encendemos fogones, pero también la memoria colectiva.',
-    description: 'Creamos espacios de encuentro donde las historias, saberes y sentires se comparten.',
-    image: '/img/5.png',
-  },
-  {
-    id: 3,
-    title: '🏡 Diseñamos espacios, pero sobre todo, formas nuevas de habitar.',
-    description: 'Pensamos y construimos entornos sostenibles que nutren cuerpo, alma y comunidad.',
-    image: '/img/7.png',
-  },
-  {
-    id: 4,
-    title: '🌾 Cultivamos alimentos, pero también autonomía.',
-    description: 'Promovemos huertas comunitarias y saberes ancestrales para una vida autosuficiente.',
-    image: '/img/personas_trabajando.jpg',
-  },
-  {
-    id: 5,
-    title: '🎶 Compartimos cantos, pero también memorias.',
-    description: 'La música como medio para sanar, unir y reconectar con nuestras raíces.',
-    image: '/img/brote_mano.jpg',
-  },
-  {
-    id: 6,
-    title: '🛠 Construimos herramientas, pero también caminos.',
-    description: 'Creamos soluciones accesibles para que más personas puedan regenerar.',
-    image: '/img/4.png',
-  },
-  {
-    id: 7,
-    title: '💧 Cuidamos el agua, pero también la vida.',
-    description: 'La gestionamos con respeto y conciencia, como fuente de toda existencia.',
-    image: '/img/3.png',
-  }
+ {
+   id: 1,
+   title: '🌱 Regeneramos territorios, pero también comunidades.',
+   description: 'Trabajamos con permacultura y agricultura sintrópica para sanar la tierra y fortalecer vínculos comunitarios a través de nuestra red global.',
+   image: '/img/4.png',
+ },
+ {
+   id: 2,
+   title: '🔥 Rescatamos saberes ancestrales, pero también encendemos el futuro.',
+   description: 'Conectamos la sabiduría maya y de pueblos originarios con técnicas regenerativas modernas para crear soluciones innovadoras.',
+   image: '/img/5.png',
+ },
+ {
+   id: 3,
+   title: '🏡 Diseñamos con bioconstrucción, pero sobre todo, nuevas formas de habitar.',
+   description: 'Creamos espacios sustentables con materiales naturales que nutren la conexión entre las personas y la Madre Tierra.',
+   image: '/img/7.png',
+ },
+ {
+   id: 4,
+   title: '🌾 Cultivamos alimentos, pero también soberanía alimentaria.',
+   description: 'Promovemos huertas comunitarias y técnicas agroecológicas para lograr autonomía y abundancia local en cada territorio.',
+   image: '/img/personas_trabajando.jpg',
+ },
+ {
+   id: 5,
+   title: '💧 Gestionamos agua, pero también vida.',
+   description: 'Diseñamos sistemas hidrológicos regenerativos que honran el agua como fuente sagrada de toda existencia.',
+   image: '/img/brote_mano.jpg',
+ },
+ {
+   id: 6,
+   title: '🛠 Construimos herramientas, pero también redes de cambio.',
+   description: 'Capacitamos facilitadores que replican metodologías regenerativas, creando una constelación de proyectos interconectados.',
+   image: '/img/4.png',
+ },
+ {
+   id: 7,
+   title: '🌍 Conectamos proyectos locales, pero también transformamos globalmente.',
+   description: 'Desde grupos locales hasta alianzas continentales, tejemos una red viva que regenera el planeta proyecto a proyecto.',
+   image: '/img/3.png',
+ },
+ {
+   id: 8,
+   title: '🎓 Enseñamos permacultura, pero también despertamos propósito.',
+   description: 'Nuestros cursos y talleres no solo transmiten técnicas, sino que ayudan a cada persona a encontrar su lugar en la regeneración.',
+   image: '/img/personas_trabajando.jpg',
+ }
 ];
 
 const objectContentCard = {
-    question: "¿Qué es Movimiento Naluum?",
-    title: "Educación, conciencia y colaboración para transforma",
-    text: "El Movimiento Naluum es una propuesta para generar una comunidad educativa consciente y profesional que inspire a más personas. Está inspirado en los sistemas vivos que se autorregulan y se sostienen gracias a la colaboración efectiva y amorosa. Se basa en crear un sistema vivo, sustentable en el tiempo",
-    buttonPrimary: ["Conocer más sobre el movimiento", '/sobre_nosotros'],
-    image: "/img/personas_trabajando.jpg"
+   question: "¿Qué es el Movimiento Naluum?",
+   title: "Una red global de regeneración",
+   text: "El Movimiento Naluum es una comunidad viva que emergió hace más de dos décadas en las selvas del Caribe mexicano. Lo que comenzó como un instituto itinerante de permacultura se transformó en un movimiento mundial que conecta proyectos regenerativos través de una red descentralizada de grupos locales, redes nacionales y alianzas continentales, basado en el respeto por saberes ancestrales, regeneración de territorios y abundancia para todas las formas de vida.",
+   buttonPrimary: ["Conocer más sobre el Movimiento", '/movimiento_naluum'],
+   image: `${DOMAIN}/img/personas_trabajando.jpg`
 }
+
+// SEO: Datos estructurados para Schema.org
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Movimiento Naluum",
+  "description": "Movimiento que impulsa soluciones regenerativas para transformar vidas, conectar comunidades y sanar la Tierra",
+  "url": "https://movimientonaluum.org",
+  "logo": "https://movimientonaluum.org/img/logo_naluum_trasparente.svg",
+  "sameAs": [
+    "https://www.facebook.com/movimientonaluum",
+    "https://www.instagram.com/movimientonaluum",
+    "https://www.linkedin.com/company/movimientonaluum"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["es"]
+  }
+};
+
+// SEO: Datos estructurados para breadcrumbs
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Inicio",
+    "item": "https://movimientonaluum.org"
+  }]
+};
 
 
 const Home = () => {
+
   const { products, servicios, testimonios } = useContext(ContextJsonLoadContext);
   const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
 
@@ -175,6 +217,24 @@ const Home = () => {
       if (item) setIsModalOpen({ isOpen: true, item });
     }
   }, [servicioIdParam, servicios]);
+
+  // SEO: Inyectar datos estructurados en el head
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.text = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(breadcrumbScript);
+
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      if (breadcrumbScript.parentNode) breadcrumbScript.parentNode.removeChild(breadcrumbScript);
+    };
+  }, []);
 
   const handleOpenModal = useCallback((status, e, item) => {
     if (!item || !item.id) return;
@@ -219,40 +279,69 @@ const Home = () => {
   }, [isModalOpen, handleCloseModal, triggerElement, handlePayment]);
 
   return (
-    <main className='home__container' aria-label="Página principal">
+    <main className='home__container' aria-label="Página principal" itemScope itemType="https://schema.org/WebPage">
       <SEOHelmet 
-        title="Movimiento Naluum | Soluciones Regenerativas"
-        description="Descubrí cómo el Movimiento Naluum impulsa soluciones regenerativas para transformar vidas, conectar comunidades y sanar la Tierra."
-        keywords="regeneración, comunidad, agricultura regenerativa, soluciones sostenibles, plantines, tecnología social"
-        author="Neyen Frandino"
-        url="https://miempresa.com"
-        image="https://miempresa.com/img/logo_naluum_og.jpg"
+        title="Movimiento Naluum | Soluciones Regenerativas para un Futuro Sostenible"
+        description="Descubre cómo el Movimiento Naluum impulsa soluciones regenerativas para transformar vidas, conectar comunidades y sanar la Tierra. Capacitaciones, productos ecológicos y diseño permacultural."
+        keywords="regeneración, permacultura, agricultura regenerativa, soluciones sostenibles, educación ambiental, comunidad sustentable, diseño regenerativo, tecnología social, agroecología, desarrollo sostenible"
+        author="Movimiento Naluum"
+        url="https://movimientonaluum.org"
+        image={`${DOMAIN}/img/logo_naluum_trasparente.svg`}
+        type="website"
+        locale="es_ES"
+        siteName="Movimiento Naluum"
       />
-
+      
+      {/* SEO: Meta tags adicionales */}
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="googlebot" content="index, follow" />
+      <meta name="google" content="notranslate" />
+      <meta name="format-detection" content="telephone=no" />
+      <link rel="canonical" href="https://movimientonaluum.org" />
+      
       <Header>
         <div className='home__header-img-container'>
-          <img src="/img/Fotodeinicio.jpg" alt="Fondo Naluum" className="home__header-img" />
+          <img 
+            src={`${DOMAIN}/img/Fotodeinicio.jpg`} 
+            alt="Comunidad del Movimiento Naluum trabajando en proyectos regenerativos" 
+            className="home__header-img"
+            loading="eager"
+            fetchpriority="high"
+            width="1920"
+            height="1080"
+          />
         </div>
         <div className='home__header-container'>
           <div className='home__header-logo'>
             <div className='home__header-logo-img'>
-              <img src="/img/logo_naluum_trasparente.svg" alt="Logo Movimiento Naluum" />
+              <img 
+                src={`${DOMAIN}/img/logo_naluum_trasparente.svg`} 
+                alt="Logo Movimiento Naluum - Soluciones Regenerativas" 
+                width="200"
+                height="200"
+                loading="eager"
+              />
             </div>
             <div className='home__header-logo-text'>
-              <h1>Movimiento Naluum</h1>
+              <h1 itemProp="name">Movimiento Naluum</h1>
             </div>
           </div>
           <div className="home__content-titile">
             <div className='home__content-titile-text'>
-              <h1>Diseñamos futuros regenerativos que florecen desde el corazón</h1>
+              <h1 itemProp="headline">El Despertar de una Visión Colectiva</h1>
             </div>
             <div className='home__content-titile-subtitle'>
-              <h2>
-               Un movimiento vivo que aprende, crea y conecta para transformar el mundo desde el diseño consciente hacia una vida sustentable y colaborativa
+              <h2 itemProp="alternativeHeadline">
+                Hace más de dos décadas, en las selvas del Caribe mexicano, comenzó a germinar algo más grande que un simple proyecto. Lo que nació como un sueño personal de regeneración se transformó en un movimiento que hoy abraza continentes enteros.
               </h2>
             </div>
             <div className='home__content-titile-buttons'>
-              <Button text="Sobre el movimiento naluum" link="/sobre-nosotros" style="primary" />
+              <Button 
+                text="Sobre el movimiento naluum" 
+                link="/sobre-nosotros" 
+                style="primary"
+                aria-label="Conoce más sobre el Movimiento Naluum y nuestra misión"
+              />
             </div>
 
 
@@ -260,134 +349,168 @@ const Home = () => {
         </div>
       </Header>
 
-      <section className='home__content'>
+      <section className='home__content' itemScope itemType="https://schema.org/Organization">
+        <meta itemProp="name" content="Movimiento Naluum" />
+        <meta itemProp="description" content="Organización dedicada a impulsar soluciones regenerativas" />
+        
         <LineLogoSeparacion />
 
-        <div className='home__content--card-question'>
+        <article className='home__content--card-question' itemScope itemType="https://schema.org/Article">
           <FadeInOnView {...fadeInProps}>
-            <CardV2Img objectContentCard={objectContentCard} />
+            <CardV2Img objectContentCard={objectContentCard} buttonTrue={false} />
           </FadeInOnView>
-        </div>
+        </article>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--mision__container'>
+        <section className='home__content--mision__container' aria-labelledby="mision-title">
           <FadeInOnView {...fadeInProps}>
             <div className='home__content--mision'>
               <div className='content--mision--titiles'>
                 <div className='mision--titile'>
-                  <h1>! Lo que hacemos !</h1>
+                  <h1 id="mision-title">! Lo que hacemos !</h1>
                 </div>
                 <div className='mision--subTitle'>
                   <h2>Acompañamos proyectos con impacto regenerativo</h2>
                 </div>
+
                 <div className='mision--parrafo'>
-                  <p>
-                    Apoyamos proyectos y personas mediante capacitaciones efectivas para impulsar iniciativas regenerativas, guiados por el compromiso de regenerar el planeta y alcanzar un equilibrio social, económico y ecológico, sustentado en valores como el respeto, la integridad, la diversidad, la colaboración, el compromiso y el amor
+                  <p itemProp="description">
+                      Capacitamos personas y proyectos para impulsar iniciativas regenerativas que restauren el equilibrio social, económico y ecológico del planeta, basados en valores de respeto, colaboración y amor por la Madre Tierra.
                   </p>
                 </div>
+                
               </div>
               <div className='content--mision--carousel-wrapper'>
                 <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
               </div>
             </div>
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--servicios'>
-          <FadeInOnView {...fadeInProps}>
-            <div className='content--servicios__container'>
-              <div className='content--servicios__text'>
-                <h2>Juntos en el proceso de diseñar un mundo renovado</h2>
-                <p>
-                   Nuestro objetivo es crear una red de apoyo comunitaria global que impulse la colaboración y el aprendizaje compartido. A través de propuestas teórico-prácticas y procesos de diseño colaborativo, acompañamos a quienes buscan transformar su entorno y modo de vida de manera profunda y consciente.
-                </p>
-                <span>
-                Dirigimos nuestras actividades a personas comprometidas con un cambio auténtico, con la esperanza de generar una transformación social y económica significativa en familias, proyectos y territorios, construyendo juntos un futuro más sostenible y equitativo.
-                </span>
-              </div>
-              <div className='content--servicios__grid'>
-                <div className="grid-wrapper">
-                  <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
-                </div>
-                {modalContent}
-              </div>
+        <section className='home__content--servicios' aria-labelledby="servicios-title" itemScope itemType="https://schema.org/Service">
+        <FadeInOnView {...fadeInProps}>
+          <div className='content--servicios__container'>
+            <div className='content--servicios__text'>
+              <h2 id="servicios-title" itemProp="name">Juntos en el proceso de regenerar territorios</h2>
+              <p itemProp="description">
+                Nuestro objetivo es crear una red de regeneración global que impulse la colaboración y el aprendizaje compartido. A través de metodologías teórico-prácticas que integran permacultura, bioconstrucción y saberes ancestrales, acompañamos a quienes buscan transformar su entorno y modo de vida de manera profunda y consciente.
+              </p>
+              <span>
+              Dirigimos nuestras capacitaciones a personas comprometidas con un cambio regenerativo auténtico, con la esperanza de generar transformación social y territorial significativa en familias, proyectos y comunidades, construyendo juntos un futuro más sostenible donde la vida humana y la naturaleza encuentren equilibrio.
+              </span>
             </div>
-            <CtaImgCuentaRgresiva {...timerProps} />
-
-            <div className='home__content--servicios-buttons'>
-              <Button text="Explora todos los servicios" link="/servicios" style="outline" />
+            <div className='content--servicios__grid'>
+              <div className="grid-wrapper">
+                <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+              </div>
+              {modalContent}
             </div>
-          </FadeInOnView>
-        </div>
+          </div>
+          <CtaImgCuentaRgresiva {...timerProps} />
+          <div className='home__content--servicios-buttons'>
+            <Button 
+              text="Explora todos los servicios"
+              link="/servicios"
+              style="outline"
+              aria-label="Ver todos los servicios de capacitación y acompañamiento del Movimiento Naluum"
+            />
+          </div>
+        </FadeInOnView>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--impacto'>
+        <section className='home__content--impacto' aria-labelledby="impacto-title">
           <FadeInOnView {...fadeInProps}>
+            <h2 id="impacto-title" className="visually-hidden">Nuestro Impacto Regenerativo</h2>
             <CardDataImpacto />
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--beforeAfter'>
+        <section className='home__content--beforeAfter' aria-labelledby="transformacion-title">
           <FadeInOnView {...fadeInProps}>
+            <h2 id="transformacion-title" className="visually-hidden">Transformación: Antes y Después</h2>
             <BeforeAndAfter />
           </FadeInOnView>
-        </div>
+        </section>
 
-        <div className='home__content--testimonios'>
+        <section className='home__content--testimonios' aria-labelledby="testimonios-title" itemScope itemType="https://schema.org/Review">
           <FadeInOnView {...fadeInProps}>
-              <TestimonialCard typeTestimonial="testimonios_movimiento" />
+            <h2 id="testimonios-title" className="visually-hidden">Testimonios de nuestra comunidad</h2>
+            <TestimonialCard typeTestimonial="testimonios_movimiento" />
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--products'>
+        <section className='home__content--products' aria-labelledby="productos-title" itemScope itemType="https://schema.org/Product">
           <FadeInOnView {...fadeInProps}>
             <div className='home__content--products-title'>
-              <h2>Productos</h2>
-              <p>Conoce los productos que nos ayudan a cumplir con nuestras metas</p>
-
+              <h2 id="productos-title" itemProp="name">Productos Regenerativos</h2>
+              <p itemProp="description">Conoce los productos ecológicos que nos ayudan a cumplir con nuestras metas de regeneración</p>
             </div>
             <Grid items={products} slice={5} setIsOpen={handleOpenModal} />
             {modalContent}
             <div className='home__content--products-button'>
-              <Button text="Ver todos los productos" link="/productos" style="outline" />
+              <Button 
+                text="Ver todos los productos" 
+                link="/productos" 
+                style="outline"
+                aria-label="Explorar catálogo completo de productos regenerativos"
+              />
             </div>
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--bitacora'>
+        <section className='home__content--bitacora' aria-labelledby="bitacora-title">
           <FadeInOnView {...fadeInProps}>
+            <h2 id="bitacora-title" className="visually-hidden">Bitácora del Movimiento</h2>
             <Bitacora />
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--boletin' id='boletin'>
+        <section className='home__content--boletin' id='boletin' aria-labelledby="boletin-title">
           <FadeInOnView {...fadeInProps}>
+            <h2 id="boletin-title" className="visually-hidden">Suscríbete a nuestro boletín</h2>
             <CtaHablemos showSocialMedia={false} />
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
 
-        <div className='home__content--message_final'>
+        <section className='home__content--message_final' aria-labelledby="mensaje-final-title">
           <FadeInOnView {...fadeInProps}>
+            {/* <h2 id="mensaje-final-title" className="visually-hidden">Mensaje de cierre</h2> */}
             <MessageFinal indexMessage={0} />
           </FadeInOnView>
-        </div>
+        </section>
 
         <LineLogoSeparacion />
       </section>
+
+      {/* SEO: CSS para ocultar visualmente pero mantener accesible para screen readers */}
+      <style jsx>{`
+        .visually-hidden {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+      `}</style>
     </main>
   );
 };

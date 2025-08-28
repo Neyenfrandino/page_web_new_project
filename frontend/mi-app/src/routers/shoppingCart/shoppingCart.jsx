@@ -191,10 +191,10 @@ const ShoppingCart = () => {
                                     <span>Total</span>
                                     <span>${total.toFixed(2)}</span>
                                 </div>
-                                <div className='shopping-cart__promo-code'>
+                                {/* <div className='shopping-cart__promo-code'>
                                     <input type='text' placeholder='Código de promoción' />
                                     <button>Aplicar</button>
-                                </div>
+                                </div> */}
                                 <button className='shopping-cart__checkout-button'>
                                     Proceder al Pago
                                 </button>

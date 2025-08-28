@@ -3,108 +3,125 @@ import './card_data_impacto.scss';
 
 import {ContextJsonLoadContext} from '../../../context/context_json_load/context_json_load'
 
-// Hook personalizado para animar números
-const useCountUp = (end, duration = 2000, start = 0) => {
-    const [count, setCount] = useState(start);
-    const countRef = useRef(start);
+// Componente individual para cada card con su propio hook
+const ImpactCard = ({ item, index }) => {
+    const [count, setCount] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const elementRef = useRef(null);
+    const hasAnimated = useRef(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting && !isVisible) {
+                if (entry.isIntersecting && !hasAnimated.current) {
                     setIsVisible(true);
+                    hasAnimated.current = true;
                 }
             },
-            { threshold: 0.3 }
+            { threshold: 0.2 }
         );
 
         if (elementRef.current) {
             observer.observe(elementRef.current);
         }
 
-        return () => observer.disconnect();
-    }, [isVisible]);
+        return () => {
+            if (elementRef.current) {
+                observer.disconnect();
+            }
+        };
+    }, []);
 
     useEffect(() => {
         if (!isVisible) return;
 
+        const duration = 2000;
+        const end = item.value;
         const originalText = end.toString();
-        
-        // Extraer solo el número del texto
-        const numberMatch = originalText.match(/\d+/);
-        const endValue = numberMatch ? parseInt(numberMatch[0]) : 0;
+        const numberMatch = originalText.match(/[\d,]+/);
+        const cleanNumber = numberMatch ? numberMatch[0].replace(/,/g, '') : '0';
+        const endValue = parseInt(cleanNumber) || 0;
         
         if (endValue === 0) {
             setCount(originalText);
             return;
         }
 
-        const startTime = Date.now();
-        const startValue = countRef.current;
+        let startTimestamp = null;
+        let animationFrame = null;
         
-        const animate = () => {
-            const now = Date.now();
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
             
-            // Función de easing para una animación más suave
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            
-            const currentValue = startValue + (endValue - startValue) * easeOutQuart;
-            countRef.current = currentValue;
-            
-            // Formatear manteniendo el texto original pero reemplazando el número
-            const animatedNumber = Math.round(currentValue).toLocaleString();
-            const formattedValue = originalText.replace(/\d+/, animatedNumber);
+            const currentValue = Math.floor(progress * endValue);
+            const formattedNumber = currentValue.toLocaleString('es-ES');
+            const formattedValue = originalText.replace(/[\d,]+/, formattedNumber);
             
             setCount(formattedValue);
             
             if (progress < 1) {
-                requestAnimationFrame(animate);
+                animationFrame = window.requestAnimationFrame(step);
             }
         };
         
-        requestAnimationFrame(animate);
-    }, [isVisible, end, duration]);
+        animationFrame = window.requestAnimationFrame(step);
+        
+        return () => {
+            if (animationFrame) {
+                window.cancelAnimationFrame(animationFrame);
+            }
+        };
+    }, [isVisible, item.value]);
 
-    return [count, elementRef];
+    return (
+        <div 
+            className='card-data-impacto__card' 
+            ref={elementRef}
+        >
+            <div className='card-data-impacto__icon'>
+                <i className={item.icon}></i>
+            </div>
+            
+            <h3 className='card-data-impacto__value'>
+                {count || '0'}
+            </h3>
+            
+            <h4 className='card-data-impacto__title'>
+                {item.title}
+            </h4>
+            
+            <p className='card-data-impacto__description'>
+                {item.description}
+            </p>
+        </div>
+    );
 };
-  
-const CardDataImpacto = ({ data }) => {
+
+const CardDataImpacto = () => {
     const { dataImpactoReal } = useContext(ContextJsonLoadContext);
     
+    // Validación de datos
+    if (!dataImpactoReal || !Array.isArray(dataImpactoReal)) {
+        return (
+            <div className='card-data-impacto'>
+                <div className='card-data-impacto__grid'>
+                    <p>Cargando datos...</p>
+                </div>
+            </div>
+        );
+    }
+    
     return (
-        <div className='card-data-impacto__container'>
-            <div className='card-data-impacto__content'>
-                {dataImpactoReal.slice(0, 4).map((item, index) => {
-                    const [animatedValue, ref] = useCountUp(item.value, 2500 + index * 200);
-                    
-                    return (
-                        <div 
-                            className='card-data-impacto__item' 
-                            key={index}
-                            ref={ref}
-                            style={{
-                                animationDelay: `${index * 0.2}s`
-                            }}
-                        >
-                            <div className='card-data-impacto__icon'>
-                                <i className={item.icon}></i>
-                            </div>
-                            <div className='card-data-impacto__title'>
-                                {item.title}
-                            </div>
-                            <div className='card-data-impacto__value'>
-                                {animatedValue}
-                            </div>
-                            <div className='card-data-impacto__description'>
-                                {item.description}
-                            </div>
-                        </div>
-                    );
-                })}
+        <div className='card-data-impacto'>
+            <div className='card-data-impacto__grid'>
+                {dataImpactoReal.slice(0, 4).map((item, index) => (
+                    <ImpactCard 
+                        key={index} 
+                        item={item} 
+                        index={index} 
+                    />
+                ))}
             </div>
         </div>
     );

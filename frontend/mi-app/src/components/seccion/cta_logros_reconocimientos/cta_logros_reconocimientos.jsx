@@ -20,7 +20,7 @@ const petals = [
 //     <a href={to} className={className}>{children}</a>
 // );
 
-const CtaLogrosReconocimientos = () => {
+const CtaLogrosReconocimientos = ({redirectRouter}) => {
     const [stemVisible, setStemVisible] = useState(false);
     const [leavesVisible, setLeavesVisible] = useState([false, false, false]);
     const [petalsVisible, setPetalsVisible] = useState(Array(8).fill(false));
@@ -139,7 +139,7 @@ const CtaLogrosReconocimientos = () => {
 
                         
                         <div className='cta-logros-reconocimientos__text-button'>
-                            <Link to={'/proyectos'} className='button-CTA-logros'>
+                            <Link to={`${redirectRouter}`} className='button-CTA-logros'>
                                 <span className='button-text'>Semillas que germinan</span>
                                 <svg className='button-icon' viewBox="0 0 24 24" fill="none">
                                     <path d="M12 2C12 2 8 6 8 10C8 14 12 18 12 18C12 18 16 14 16 10C16 6 12 2 12 2Z" 

@@ -16,7 +16,7 @@ const CtaImgCuentaRgresiva = ({
         minutes: 0,
         seconds: 0
     });
-
+ 
     useEffect(() => {
         if (!timer.targetDate) return;
 

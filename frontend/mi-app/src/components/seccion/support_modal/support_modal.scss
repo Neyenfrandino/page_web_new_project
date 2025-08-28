@@ -1,0 +1,454 @@
+// =============================
+// Variables de Color
+// =============================
+$primary-dark: #063B2C;
+$primary-light: #D0DE85;
+$accent-brown: #8F764C;
+$neutral-gray: #7B7A70;
+$neutral-medium: #48514A;
+$cream: #D5CEA9;
+$white: #ffffff;
+
+// Variables adicionales
+$border-radius: 16px;
+$border-radius-sm: 8px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// =============================
+// Mixins
+// =============================
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+// =============================
+// Support Content Container
+// =============================
+.support-content {
+    
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    padding: 54px 150px;
+    width: 100%;
+    overflow: auto;
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: $primary-dark;
+    margin: 0 0 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+   
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 28px;
+      background: linear-gradient(180deg, $primary-light, $accent-brown);
+      border-radius: 2px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    color: $neutral-medium;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  &__info {
+    text-align: center;
+    padding: 16px;
+    background: rgba($cream, 0.3);
+    border-radius: $border-radius-sm;
+    
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $neutral-medium;
+    }
+  }
+
+  &__back {
+    @include button-reset;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: $neutral-medium;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    transition: $transition;
+
+    &:hover {
+      color: $primary-dark;
+      transform: translateX(-4px);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+// =============================
+// Contact Options
+// =============================
+.contact-option {
+  @include button-reset;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border: 2px solid transparent;
+  border-radius: $border-radius-sm;
+  transition: $transition;
+  text-align: left;
+  width: 100%;
+  background: $white;
+
+  &--whatsapp {
+    border-color: rgba(#25D366, 0.3);
+    background: linear-gradient(135deg, rgba(#25D366, 0.05) 0%, rgba(#25D366, 0.02) 100%);
+
+    &:hover {
+      border-color: #25D366;
+      background: rgba(#25D366, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(#25D366, 0.2);
+
+      .contact-option__icon {
+        background: #25D366;
+        color: $white;
+      }
+    }
+
+    .contact-option__icon {
+      color: #25D366;
+    }
+  }
+
+  &--email {
+    border-color: rgba($primary-dark, 0.3);
+    background: linear-gradient(135deg, rgba($primary-dark, 0.05) 0%, rgba($primary-light, 0.02) 100%);
+
+    &:hover {
+      border-color: $primary-dark;
+      background: rgba($primary-light, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba($primary-dark, 0.15);
+
+      .contact-option__icon {
+        background: $primary-dark;
+        color: $white;
+      }
+    }
+
+    .contact-option__icon {
+      color: $primary-dark;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    @include flex-center;
+    background: rgba($neutral-gray, 0.1);
+    transition: $transition;
+    flex-shrink: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: $primary-dark;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $neutral-gray;
+    }
+  }
+
+  &__arrow {
+    color: $neutral-gray;
+    transition: $transition;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover &__arrow {
+    transform: translateX(4px);
+  }
+}
+
+// =============================
+// Email Form
+// =============================
+.email-form {
+  &__title {
+    font-size: 1.375rem;
+    color: $primary-dark;
+    margin: 0 0 24px 0;
+    font-weight: 600;
+  }
+
+  &__group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $neutral-medium;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba($neutral-gray, 0.3);
+      border-radius: $border-radius-sm;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: $primary-dark;
+      background: $white;
+      transition: $transition;
+
+      &::placeholder {
+        color: rgba($neutral-gray, 0.6);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-light;
+        background: rgba($primary-light, 0.02);
+        box-shadow: 0 0 0 3px rgba($primary-light, 0.1);
+      }
+
+      &:hover {
+        border-color: rgba($primary-dark, 0.4);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+  }
+
+  &__alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: $border-radius-sm;
+    margin-bottom: 20px;
+    animation: slideIn 0.3s ease-out;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    &--success {
+      background: rgba($primary-light, 0.2);
+      color: darken($primary-dark, 10%);
+      border: 1px solid rgba($primary-light, 0.5);
+
+      svg {
+        stroke: darken($primary-dark, 10%);
+      }
+    }
+
+    &--error {
+      background: rgba(#ef4444, 0.1);
+      color: #dc2626;
+      border: 1px solid rgba(#ef4444, 0.3);
+
+      svg {
+        stroke: #dc2626;
+      }
+    }
+  }
+
+  &__submit {
+    @include button-reset;
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, $primary-dark, darken($primary-dark, 5%));
+    color: $white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: $border-radius-sm;
+    transition: $transition;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba($primary-light, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba($primary-dark, 0.3);
+
+      &::before {
+        left: 100%;
+      }
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      transition: $transition;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba($white, 0.3);
+      border-top-color: $white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}
+
+// =============================
+// Animations
+// =============================
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// =============================
+// Responsive Design
+// =============================
+@media (max-width: 640px) {
+  .support-content {
+    padding: 16px 0;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .contact-option {
+    padding: 16px 20px;
+
+    &__icon {
+      width: 42px;
+      height: 42px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &__content {
+      h3 {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .email-form {
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__group {
+      input,
+      textarea {
+        padding: 10px 14px;
+        font-size: 16px; // Evita zoom en iOS
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .support-content {
+    &__options {
+      gap: 12px;
+    }
+  }
+}
