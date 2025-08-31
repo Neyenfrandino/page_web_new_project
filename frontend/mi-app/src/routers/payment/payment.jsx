@@ -55,84 +55,292 @@ import './payment.scss';
 
 const Payment = () => {
   const { methodStatePayment, setMethodStatePayment } = useContext(MethodStatePaymentContext);
-  const [selectedMethod, setSelectedMethod] = useState(null);
-  const [showSelector, setShowSelector] = useState(true);
   
+  // Estados locales para manejo de errores y loading
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [paymentData, setPaymentData] = useState(null);
+
+  // Función para normalizar los datos del item independientemente de la estructura
+  const normalizeItemData = (data) => {
+    try {
+      // Si tiene normalizedItem, usar esa estructura
+      if (data?.normalizedItem) {
+        return {
+          item: {
+            id: data.normalizedItem.id,
+            title: data.normalizedItem.title,
+            subtitle: data.normalizedItem.subtitle,
+            price: data.normalizedItem.price,
+            currency: data.normalizedItem.currency,
+            image: data.normalizedItem.image,
+            badge: data.normalizedItem.badge,
+            category: data.normalizedItem.category,
+            // Datos adicionales del originalData si existen
+            ...data.normalizedItem.originalData
+          },
+          method: null // Se establecerá después
+        };
+      }
+
+      // Si tiene item directamente, usar esa estructura
+      if (data?.item) {
+        return {
+          item: data.item,
+          method: data.method || null
+        };
+      }
+
+      // Si es un objeto plano con los datos del item
+      if (data?.id && data?.title) {
+        return {
+          item: data,
+          method: null
+        };
+      }
+
+      return null;
+    } catch (err) {
+      console.error('Error normalizando datos del item:', err);
+      return null;
+    }
+  };
+
+  // Función para validar los datos del item
+  const validateItemData = (itemData) => {
+    if (!itemData) return false;
+    
+    const requiredFields = ['id', 'title', 'price'];
+    return requiredFields.every(field => 
+      itemData.item && 
+      itemData.item[field] !== undefined && 
+      itemData.item[field] !== null
+    );
+  };
+
+  // Efecto para procesar los datos del contexto
   useEffect(() => {
-    // Verificar si hay un método preseleccionado desde el contexto
-    if (methodStatePayment?.method?.methodId) {
-      setSelectedMethod(methodStatePayment.method.methodId);
-      setShowSelector(false);
+    if (methodStatePayment?.item || methodStatePayment?.normalizedItem) {
+      const normalizedData = normalizeItemData(methodStatePayment);
+      
+      if (validateItemData(normalizedData)) {
+        setPaymentData(normalizedData);
+        setError(null);
+      } else {
+        setError('Datos del producto incompletos o inválidos');
+        console.error('Datos inválidos:', methodStatePayment);
+      }
     }
   }, [methodStatePayment]);
 
-  const handleMethodSelection = (methodId) => {
-    // Actualizar el método seleccionado
-    setSelectedMethod(methodId);
-    
-    // Actualizar el contexto si existe la función setMethodStatePayment
-    if (setMethodStatePayment) {
-      setMethodStatePayment({
-        ...methodStatePayment,
-        method: {
-          ...methodStatePayment?.method,
-          methodId: methodId
-        }
-      });
-    }
-     
-    // Ocultar el selector y mostrar el componente de pago
-    setShowSelector(false);
+  // Función para manejar la selección del método de pago
+  const handleMethodSelection = (method) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Validar el método seleccionado
+      if (!method || !method.methodId) {
+        throw new Error('Método de pago inválido');
+      }
 
-    // Tracking analytics si está disponible
-    if (window.gtag) {
-      window.gtag('event', 'select_payment_method', {
-        payment_type: methodId,
-        value: methodStatePayment?.amount || 0
-      });
+      // Actualizar el estado con el método seleccionado
+      setMethodStatePayment(prev => ({
+        ...prev,
+        method: method
+      }));
+
+      // Actualizar los datos locales
+      if (paymentData) {
+        setPaymentData(prevData => ({
+          ...prevData,
+          method: method
+        }));
+      }
+
+    } catch (err) {
+      setError(`Error al seleccionar método de pago: ${err.message}`);
+      console.error('Error en handleMethodSelection:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // Función para manejar errores de pago
+  const handlePaymentError = (errorMessage) => {
+    setError(errorMessage);
+    setIsLoading(false);
+  };
+
+  // Función para manejar éxito de pago
+  const handlePaymentSuccess = (paymentResult) => {
+    setError(null);
+    setIsLoading(false);
+    // Aquí podrías redirigir o mostrar mensaje de éxito
+    console.log('Pago exitoso:', paymentResult);
+  };
+
+  // Función para resetear el método de pago (volver al selector)
+  const resetPaymentMethod = () => {
+    setMethodStatePayment(prev => ({
+      ...prev,
+      method: null
+    }));
+    
+    if (paymentData) {
+      setPaymentData(prevData => ({
+        ...prevData,
+        method: null
+      }));
+    }
+  };
+
+  // Función principal para renderizar el componente de pago apropiado
   const renderPaymentComponent = () => {
-    const currentMethod = selectedMethod || methodStatePayment?.method?.methodId;
-    
-    switch(currentMethod.id) {
-      case 'mercadopago':
-        return <MercadoPagoCard />;
-      case 'cards':
-        return <PaymentForm />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className='payment__container'>
-      <div className="payment__content">
-        {showSelector ? (
-          <PaymentMethodSelector onSelectMethod={handleMethodSelection} />
-        ) : (
-          <>
-            {renderPaymentComponent()}
-            
-            {/* Botón para cambiar método de pago */}
-            <div className="payment__change-method">
+    // Si hay un error, mostrar mensaje de error con opción de reintentar
+    if (error) {
+      return (
+        <div className="payment-error">
+          <div className="error-message">
+            <h3>Error en el proceso de pago</h3>
+            <p>{error}</p>
+            <div className="error-actions">
               <button 
-                className="change-method-btn"
-                onClick={() => setShowSelector(true)}
+                className="btn-retry" 
+                onClick={() => {
+                  setError(null);
+                  resetPaymentMethod();
+                }}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M21 16v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" strokeWidth="2"/>
-                  <circle cx="9" cy="7" r="4" strokeWidth="2"/>
-                  <path d="M23 21v-2a4 4 0 00-3-3.87" strokeWidth="2"/>
-                  <path d="M16 3.13a4 4 0 010 7.75" strokeWidth="2"/>
-                </svg>
-                <span>Cambiar método de pago</span>
+                Reintentar
               </button>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Si no hay datos del producto, mostrar mensaje
+    if (!paymentData) {
+      return (
+        <div className="payment-no-data">
+          <h3>No se encontraron datos del producto</h3>
+          <p>Por favor, selecciona un producto válido.</p>
+        </div>
+      );
+    }
+
+    // Si no hay método de pago seleccionado, mostrar selector
+    if (!paymentData?.method && !methodStatePayment?.method) {
+      return (
+        <div className="payment-selector-container">
+          <div className="product-summary">
+            <h3>Resumen de compra</h3>
+            <div className="product-info">
+              <img src={paymentData.item.image} alt={paymentData.item.title} />
+              <div>
+                <h4>{paymentData.item.title}</h4>
+                <p>{paymentData.item.subtitle}</p>
+                <span className="price">
+                  {paymentData.item.currency} ${paymentData.item.price}
+                </span>
+              </div>
+            </div>
+          </div>
+          <PaymentMethodSelector 
+            onMethodSelect={handleMethodSelection}
+            isLoading={isLoading}
+          />
+        </div>
+      );
+    }
+
+    // Obtener el método actual (prioritizar el del contexto)
+    const currentMethod = methodStatePayment?.method || paymentData?.method;
+    
+    if (!currentMethod) {
+      return <PaymentMethodSelector onMethodSelect={handleMethodSelection} />;
+    }
+
+    // Renderizar el componente específico según el método de pago
+    switch(currentMethod.methodId) {
+      case 'mercadopago':
+        return (
+          <div className="payment-form-container">
+            <ButtonBack onClick={resetPaymentMethod} />
+            <MercadoPagoCard 
+              itemData={paymentData.item}
+              onError={handlePaymentError}
+              onSuccess={handlePaymentSuccess}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              product={paymentData.item || paymentData.normalizedItem}
+            />
+          </div>
+        );
+        
+      case 'cards':
+      case 'credit_card':
+      case 'debit_card':
+        return (
+          <div className="payment-form-container">
+            <ButtonBack onClick={resetPaymentMethod} />
+            <PaymentForm 
+              itemData={paymentData.item}
+              paymentMethod={currentMethod}
+              onError={handlePaymentError}
+              onSuccess={handlePaymentSuccess}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
+          </div>
+        );
+        
+      case 'paypal':
+        // Aquí podrías agregar el componente de PayPal
+        return (
+          <div className="payment-form-container">
+            <ButtonBack onClick={resetPaymentMethod} />
+            <div>PayPal - Próximamente</div>
+          </div>
+        );
+        
+      case 'stripe':
+        // Aquí podrías agregar el componente de Stripe
+        return (
+          <div className="payment-form-container">
+            <ButtonBack onClick={resetPaymentMethod} />
+            <div>Stripe - Próximamente</div>
+          </div>
+        );
+        
+      default:
+        console.warn(`Método de pago no soportado: ${currentMethod.methodId}`);
+        return (
+          <div className="payment-unsupported">
+            <h3>Método de pago no soportado</h3>
+            <p>El método "{currentMethod.methodName}" no está disponible actualmente.</p>
+            <button onClick={resetPaymentMethod}>
+              Seleccionar otro método
+            </button>
+          </div>
+        );
+    }
+  };
+
+  // Debug logging (solo en desarrollo)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Payment Component Debug:', {
+      methodStatePayment,
+      paymentData,
+      error,
+      isLoading
+    });
+  }
+
+  return (
+    <div className="payment-container">
+      {renderPaymentComponent()}
     </div>
   );
 };

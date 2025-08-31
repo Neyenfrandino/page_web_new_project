@@ -50,7 +50,7 @@ const PaymentMethodSelector = ({ onMethodSelect, onClose }) => {
 
     const handleConfirmPayment = () => {
         const selectedMethodData = paymentMethods.find(m => m.id === selectedMethod);
-        
+        console.log(selectedMethodData)
         if (selectedMethodData && onMethodSelect) {
             setIsProcessing(true);
             

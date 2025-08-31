@@ -1,7 +1,10 @@
-
+import { useContext } from 'react';
+import { MethodStatePaymentContext } from '../../../../src/context/method_state_payment/method_state_payment.context';
 import './grid.scss';
 
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
+  const { setMethodStatePayment, setCurrentAcionPayment } = useContext(MethodStatePaymentContext);
+
   // Mapeo de iconos para servicios
   const getServiceIcon = (service) => {
     const name = service.title.toLowerCase();
@@ -56,6 +59,8 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     e.stopPropagation();
     const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
     console.log(`${action} ahora:`, normalizedItem.title);
+    console.log(normalizedItem)
+    setMethodStatePayment({ normalizedItem });
     // Aquí va tu lógica específica
   };
 
