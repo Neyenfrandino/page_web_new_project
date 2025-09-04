@@ -1,28 +1,30 @@
-const stripeConnectBE = async (paymentMethod) => {
-    console.log('paymentMethod', paymentMethod);
-  
-    try {
-        if (!paymentMethod || typeof paymentMethod !== "object") {
-            throw new Error("Método de pago no válido");
-        }
+const stripeConnectBE = async (requestData) => {
+  console.log("🚀 Enviando datos al backend:", requestData);
 
-        const response = await fetch("http://localhost:8000/stripe/create-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(paymentMethod), // ✅ Convierte el objeto en JSON válido
-        });
+  try {
+    const response = await fetch("http://localhost:8000/stripe/create-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestData), // solo enviamos el producto
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Error al procesar el pago");
-        }
+    const data = await response.json();
+    console.log("✅ Respuesta del backend:", data);
 
-        console.log("Respuesta del servidor:", response);
-        return await response.json();
-    } catch (error) {
-        console.error("Error al procesar el pago:", error);
-        return { success: false, error: error.message };
+    if (!response.ok) {
+      throw new Error(data.detail || data.message || "Error en backend");
     }
-}
+
+    if (!data.clientSecret) {
+      throw new Error("El backend no devolvió clientSecret");
+    }
+
+    // Retornamos solo lo necesario para el frontend
+    return { clientSecret: data.clientSecret };
+  } catch (err) {
+    console.error("❌ Error en stripeConnectBE:", err.message || JSON.stringify(err));
+    return { success: false, error: err.message || JSON.stringify(err) };
+  }
+};
 
 export default stripeConnectBE;

@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // ------------------------------
 // 📂 SEO y Meta
@@ -15,7 +16,7 @@ import PaymentMethodSelector from '../../components/integrations/payment_method/
 
 // ------------------------------
 // 📂 UI / Componentes visuales pequeños y reutilizables
-import ButtonBack from '../../components/ui/button_back/button_back';
+// import ButtonBack from '../../components/ui/button_back/button_back';
 
 // ------------------------------
 // 📂 Integrations
@@ -35,6 +36,7 @@ import MercadoPagoCard from '../../components/integrations/mercado_pago_card/mer
 // 📂 Context
 // Archivos relacionados con Context API para manejo global de estados
 import { MethodStatePaymentContext } from '../../context/method_state_payment/method_state_payment.context';
+import { ConectContext } from '../../context/context_conect_be/context_conect_be';
 
 // ------------------------------
 // 📂 Hooks
@@ -54,12 +56,16 @@ import { MethodStatePaymentContext } from '../../context/method_state_payment/me
 import './payment.scss';
 
 const Payment = () => {
+  const location = useLocation();
+  const isRouterPayment = location.pathname == '/payment';
+
+  const { handlePaymentMercadoPago , setSuccessPaymentMercadoPago} = useContext(ConectContext);
   const { methodStatePayment, setMethodStatePayment } = useContext(MethodStatePaymentContext);
-  
   // Estados locales para manejo de errores y loading
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [paymentData, setPaymentData] = useState(null);
+
 
   // Función para normalizar los datos del item independientemente de la estructura
   const normalizeItemData = (data) => {
@@ -124,6 +130,23 @@ const Payment = () => {
       const normalizedData = normalizeItemData(methodStatePayment);
       
       if (validateItemData(normalizedData)) {
+        setPaymentData(normalizedData);
+        setError(null);
+      } else {
+        setError('Datos del producto incompletos o inválidos');
+        console.error('Datos inválidos:', methodStatePayment);
+      }
+    }
+  }, [methodStatePayment]);
+
+  // Efecto para procesar los datos del contexto
+  useEffect(() => {
+    if (methodStatePayment?.item || methodStatePayment?.normalizedItem) {
+      const normalizedData = normalizeItemData(methodStatePayment);
+      
+      if (validateItemData(normalizedData)) {
+        handlePaymentMercadoPago(normalizedData);
+        setSuccessPaymentMercadoPago(true);
         setPaymentData(normalizedData);
         setError(null);
       } else {
@@ -264,35 +287,48 @@ const Payment = () => {
 
     // Renderizar el componente específico según el método de pago
     switch(currentMethod.methodId) {
-      case 'mercadopago':
-        return (
-          <div className="payment-form-container">
-            <ButtonBack onClick={resetPaymentMethod} />
-            <MercadoPagoCard 
-              itemData={paymentData.item}
-              onError={handlePaymentError}
-              onSuccess={handlePaymentSuccess}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              product={paymentData.item || paymentData.normalizedItem}
-            />
-          </div>
-        );
+      // case 'mercadopago':
+      //   return (
+      //     <div className="payment-form-container">
+      //       {/* <ButtonBack onClick={resetPaymentMethod} /> */}
+
+      //       <MercadoPagoCard 
+      //         itemData={paymentData.item}
+      //         onError={handlePaymentError}
+      //         onSuccess={handlePaymentSuccess}
+      //         isLoading={isLoading}
+      //         setIsLoading={setIsLoading}
+      //         product={paymentData.item || paymentData.normalizedItem}
+      //       />
+
+      //       <button 
+      //         className="change-payment-method-btn"
+      //         onClick={resetPaymentMethod}
+      //         disabled={isLoading}
+      //       >
+      //         Cambiar método de pago
+      //       </button>
+      //     </div>
+      //   );
         
       case 'cards':
       case 'credit_card':
       case 'debit_card':
         return (
           <div className="payment-form-container">
-            <ButtonBack onClick={resetPaymentMethod} />
+            {/* <ButtonBack onClick={resetPaymentMethod} /> */}
+            
             <PaymentForm 
-              itemData={paymentData.item}
-              paymentMethod={currentMethod}
-              onError={handlePaymentError}
-              onSuccess={handlePaymentSuccess}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
+               product={paymentData.item || paymentData.normalizedItem}
             />
+
+            <button 
+              className="change-payment-method-btn"
+              onClick={resetPaymentMethod}
+              disabled={isLoading}
+            >
+              Cambiar método de pago
+            </button>
           </div>
         );
         
@@ -300,8 +336,17 @@ const Payment = () => {
         // Aquí podrías agregar el componente de PayPal
         return (
           <div className="payment-form-container">
-            <ButtonBack onClick={resetPaymentMethod} />
+            {/* <ButtonBack onClick={resetPaymentMethod} /> */}
+            
             <div>PayPal - Próximamente</div>
+
+            <button 
+              className="change-payment-method-btn"
+              onClick={resetPaymentMethod}
+              disabled={isLoading}
+            >
+              Cambiar método de pago
+            </button>
           </div>
         );
         
@@ -309,8 +354,17 @@ const Payment = () => {
         // Aquí podrías agregar el componente de Stripe
         return (
           <div className="payment-form-container">
-            <ButtonBack onClick={resetPaymentMethod} />
+            {/* <ButtonBack onClick={resetPaymentMethod} /> */}
+            
             <div>Stripe - Próximamente</div>
+
+            <button 
+              className="change-payment-method-btn"
+              onClick={resetPaymentMethod}
+              disabled={isLoading}
+            >
+              Cambiar método de pago
+            </button>
           </div>
         );
         
@@ -340,7 +394,19 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
-      {renderPaymentComponent()}
+
+      {
+        isRouterPayment && !paymentData?.method &&
+        <div className='payment-method-header'>
+          <h2>Formas de Pago</h2>
+          <p>Selecciona tu método de pago preferido</p>
+        </div>
+      }
+      
+      <div className='payment-method-content'>
+        {renderPaymentComponent()}
+      </div>
+
     </div>
   );
 };

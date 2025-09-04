@@ -50,7 +50,6 @@ const PaymentMethodSelector = ({ onMethodSelect, onClose }) => {
 
     const handleConfirmPayment = () => {
         const selectedMethodData = paymentMethods.find(m => m.id === selectedMethod);
-        console.log(selectedMethodData)
         if (selectedMethodData && onMethodSelect) {
             setIsProcessing(true);
             
@@ -77,10 +76,10 @@ const PaymentMethodSelector = ({ onMethodSelect, onClose }) => {
 
     return (
         <div className='payment-method-selector'>
-            <div className='payment-method-selector__header'>
+            {/* <div className='payment-method-selector__header'>
                 <h2>Formas de Pago</h2>
                 <p>Selecciona tu método de pago preferido</p>
-            </div>
+            </div> */}
             
             <div className='payment-method-selector__options'>
                 {paymentMethods.map((method) => (

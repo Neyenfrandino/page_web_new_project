@@ -1,9 +1,66 @@
 // payment.scss
 .payment-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  
+  width: 100%;
+  height: auto;
+  padding: 0% 0% 5% 0%;
+  margin: 0% auto;
+  // padding: 20px;
+  position: relative;
+  // border: 1px solid red;
+      
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 95) 0%,
+        rgba(0, 0, 0, 0.85) 20%,
+        rgba(0, 0, 0, 0.75) 25%,
+        rgba(0, 0, 0, 0.65) 50%,
+        rgba(0, 0, 0, 0.45) 70%,
+        rgba(0, 0, 0, 0.15) 85%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+      z-index: -1;
+    }
+
+    .payment-method-header {
+      padding-top: 10%;
+      text-align: center;
+      margin-bottom: 40px;
+      z-index: 1;
+
+    h2 {
+        margin: 0 0 12px 0;
+        color: #ffffff;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 300;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+    }
+
+    p {
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(0.875rem, 2vw, 1rem);
+        font-weight: 400;
+        opacity: 0.9;
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+  }
+
+  .payment-method-content{
+    // padding-top: 7%;
+    height: 100%;
+    width: 100%;
+  }
+    
   // Error states
   .payment-error {
     display: flex;
@@ -76,6 +133,8 @@
   // Payment selector container
   .payment-selector-container {
     .product-summary {
+      width: 80%;
+      margin: 0 auto;
       background: white;
       border-radius: 12px;
       padding: 24px;
@@ -142,9 +201,56 @@
   
   // Payment form container
   .payment-form-container {
-    .back-button {
+    padding-top: 7%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    // Botón para cambiar método de pago
+    .change-payment-method-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      margin-top: 24px;
       margin-bottom: 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      // Ícono opcional si decides agregarlo después
+      &::before {
+        content: '←';
+        margin-right: 8px;
+        font-size: 1.1rem;
+      }
     }
+  
   }
   
   // Unsupported payment method

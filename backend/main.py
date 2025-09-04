@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import stripe
+import os
 from app.routers.routers_mercado_pago.routers_mercado_pago import router as mercado_pago
 from app.routers.routers_stripe.routers_stripe import router as stripe_router
 import uvicorn
+
+load_dotenv()
 
 App = FastAPI()
 

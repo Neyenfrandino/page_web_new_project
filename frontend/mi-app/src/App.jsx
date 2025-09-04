@@ -82,7 +82,10 @@ const App = () => {
           </div>
 
           <div className='app__back-button'>
-            <ButtonBack />
+            {
+              currentPath === '/payment' || currentPath.includes('/payment') ? null: <ButtonBack />
+            }
+            
           </div>
           </>
 

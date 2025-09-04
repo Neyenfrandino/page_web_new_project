@@ -1,29 +1,47 @@
-const conect_mercado_pago_BE = async (preferenceData) => {
-    console.log("Datos enviados a la API:", preferenceData);
-    // try {
-    //     const response = await fetch('http://localhost:8000/mercado_pago/create-preference', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(preferenceData),
-    //     });
+// services/mercado_pago.js
+const conect_mercado_pago_BE = {
+  createPreference: async (itemData) => {
+    console.log("🚀 Datos enviados a Mercado Pago:", itemData);
 
-    //     if (response.ok) {
-    //         const data = await response.json(); // Obtener los datos JSON de la respuesta
+    try {
+      const response = await fetch("http://localhost:8000/mercado_pago/create-preference", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              title: itemData.item.title,
+              quantity: 1,
+              unit_price: Number(itemData.item.price),
+              currency_id: itemData.item.currency || "ARS",
+            },
+          ],
+          back_urls: {
+            success: "https://www.google.com",
+            failure: "https://www.google.com",
+            pending: "https://www.google.com",
+          },
+          auto_return: "approved",
+          external_reference: `pedido_${itemData.item.id || Date.now()}`,
+          notification_url: "https://www.google.com",
+        }),
+      });
 
-    //         console.log(data); // Verifica la respuesta para confirmar la clave correcta
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
 
-    //         // Suponiendo que la respuesta tiene un campo 'preference_id'
-    //         return data['preference_id'];
-    //     } else {
-    //         console.error("Error al crear la preferencia", response.status);
-    //         return null; // Retorna null si hubo un error en la respuesta
-    //     }
-    // } catch (error) {
-    //     console.error("Error al conectar con el backend", error);
-    //     return null; // Retorna null si ocurre un error en la petición
-    // }
+      const data = await response.json();
+      console.log("✅ Datos devueltos por el backend:", data);
+
+      return data; // Aquí devuelves el JSON { success, data: { preference_id, init_point } }
+    } catch (error) {
+      console.error("❌ Error en createPreference:", error.message || error);
+      return { success: false, error: error.message };
+    }
+  },
 };
 
 export default conect_mercado_pago_BE;
