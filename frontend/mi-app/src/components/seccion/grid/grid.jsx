@@ -3,7 +3,7 @@ import { MethodStatePaymentContext } from '../../../../src/context/method_state_
 import './grid.scss';
 
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
-  const { setMethodStatePayment, setCurrentAcionPayment } = useContext(MethodStatePaymentContext);
+  const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
 
   // Mapeo de iconos para servicios
   const getServiceIcon = (service) => {

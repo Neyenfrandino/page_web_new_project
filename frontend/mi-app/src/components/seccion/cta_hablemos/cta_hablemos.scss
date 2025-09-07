@@ -40,6 +40,13 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
+// Variables adicionales para el diseño compacto
+$spacing-xs: 8px;
+$spacing-sm-compact: 12px;
+$spacing-md-compact: 16px;
+$spacing-lg-compact: 20px;
+$spacing-xl-compact: 28px;
+
 // Mixins
 @mixin transition($properties: all, $duration: 0.3s, $timing: ease) {
     transition: $properties $duration $timing;
@@ -158,7 +165,6 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         position: absolute;
         color: rgba($color-primary, 0.2);
         animation: bounce 3s ease-in-out infinite;
- ;
 
         &--1 {
             top: 128px;
@@ -174,7 +180,6 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             color: rgba(0,0,0, 0.2);
             animation-delay: 3s;
             z-index: 10;
-
         }
 
         &--3 {
@@ -192,7 +197,6 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         margin: 0 auto;
         position: relative;
         z-index: 1;
-        
     }
 
     // Header
@@ -202,8 +206,7 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         margin-bottom: $spacing-xxl;
         position: relative;
         width: 50%;
-        
-        
+       
 
         // Overlay para mejorar contraste
         &::before {
@@ -281,7 +284,7 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
     }
 
-    // Sección de imagen
+    // Sección de imagen - MEJORADA
     &__image-section {
         position: relative;
         @include gradient-background($color-primary, $color-primary-light);
@@ -289,6 +292,7 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         display: flex;
         align-items: center;
         justify-content: center;
+        min-height: 600px; // Altura mínima para mejor proporción
     }
 
     &__image-bg {
@@ -319,21 +323,50 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         z-index: 10;
         text-align: center;
         color: $color-white;
+        width: 100%;
+        max-width: 400px; // Ancho máximo para mejor control
     }
 
+    // IMAGEN DE PERFIL MEJORADA - MÁS GRANDE Y CON BORDER RADIUS 16PX
     &__profile-image {
-        width: 192px;
-        height: 192px;
+        width: 280px; // Aumentado considerablemente de tamaño original
+        height: 280px; // Mantener proporción cuadrada
         margin: 0 auto 32px auto;
-        border-radius: 50%;
+        border-radius: 16px; // Border radius exacto de 16px como solicitaste
         overflow: hidden;
         border: 4px solid rgba($color-white, 0.3);
         box-shadow: $shadow-2xl;
+        @include transition(transform, 0.3s, ease);
+
+        &:hover {
+            transform: scale(1.05); // Efecto hover sutil
+        }
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center; // Asegurar centrado
+        }
+
+        // Para pantallas medianas
+        @media (max-width: 1200px) {
+            width: 240px;
+            height: 240px;
+        }
+
+        // Para tablets
+        @media (max-width: 768px) {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 24px auto;
+        }
+
+        // Para móviles
+        @media (max-width: 480px) {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px auto;
         }
     }
 
@@ -402,6 +435,10 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         &--focused {
             color: $color-primary;
         }
+
+        &--error {
+            color: #dc2626;
+        }
     }
 
     &__input,
@@ -432,6 +469,11 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             border-color: $color-primary;
             box-shadow: 0 10px 15px -3px rgba($color-primary, 0.1), 0 4px 6px -2px rgba($color-primary, 0.05);
         }
+
+        &--error {
+            border-color: #dc2626;
+            box-shadow: 0 10px 15px -3px rgba(#dc2626, 0.1), 0 4px 6px -2px rgba(#dc2626, 0.05);
+        }
     }
 
     &__textarea {
@@ -442,6 +484,64 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         &--focused {
             border-color: $color-primary;
             box-shadow: 0 10px 15px -3px rgba($color-primary, 0.1), 0 4px 6px -2px rgba($color-primary, 0.05);
+        }
+
+        &--error {
+            border-color: #dc2626;
+            box-shadow: 0 10px 15px -3px rgba(#dc2626, 0.1), 0 4px 6px -2px rgba(#dc2626, 0.05);
+        }
+    }
+
+    // Mensajes de error y estado
+    &__field-error {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 6px;
+        font-size: 0.875rem;
+        color: #dc2626;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    &__char-counter {
+        text-align: right;
+        margin-top: 4px;
+        font-size: 0.75rem;
+        color: $color-gray-400;
+
+        &--warning {
+            color: #f59e0b;
+        }
+    }
+
+    &__status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border-radius: $border-radius-md;
+        margin-bottom: 20px;
+        font-size: 0.875rem;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &--success {
+            background-color: rgba($color-green, 0.1);
+            color: $color-green-dark;
+            border: 1px solid rgba($color-green, 0.2);
+        }
+
+        &--error {
+            background-color: rgba(#dc2626, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(#dc2626, 0.2);
         }
     }
 
@@ -647,11 +747,7 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
         &__image-section {
             padding: $spacing-md;
-        }
-
-        &__profile-image {
-            width: 128px;
-            height: 128px;
+            min-height: 400px; // Reducir altura en móvil
         }
     }
 
@@ -666,6 +762,364 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
         &__social-grid {
             gap: 16px;
+        }
+
+        &__image-section {
+            min-height: 350px; // Altura aún más reducida para móviles pequeños
+        }
+    }
+
+    // ============================================
+    // VERSIÓN COMPACTA - CLASE MODIFICADORA - ACTUALIZADA
+    // ============================================
+    
+    &--compact {
+        padding: 60px 16px; // Reducido de 80px
+
+        // Header más compacto
+        .modern-contact__header {
+            margin-bottom: 40px; // Reducido de $spacing-xxl (64px)
+            width: 60%; // Ajustado para mejor proporción
+            
+            &::before {
+                inset: -30px -16px; // Reducido padding del overlay
+            }
+
+            &-icon {
+                width: 60px; // Reducido de 80px
+                height: 60px; // Reducido de 80px
+                margin-bottom: 16px; // Reducido de 24px
+                
+                svg {
+                    width: 24px; // Reducido de 28px
+                    height: 24px;
+                }
+            }
+        }
+
+        .modern-contact__title {
+            font-size: 1.75rem; // Reducido de 2rem
+            margin: 0 0 12px 0; // Reducido de 16px
+        }
+
+        .modern-contact__subtitle {
+            font-size: 0.9rem; // Reducido de 1rem
+        }
+
+        // Formulario más compacto
+        .modern-contact__form-section {
+            margin: 0 auto 40px auto; // Reducido de $spacing-xxl (64px)
+        }
+
+        .modern-contact__form-card {
+            border-radius: 12px; // Reducido de $border-radius-xl (24px)
+        }
+
+        // Imagen de perfil más pequeña PERO CONSERVANDO EL BORDER RADIUS DE 16PX
+        .modern-contact__image-section {
+            padding: 24px; // Reducido de $spacing-xl (48px)
+            min-height: 450px; // Altura mínima reducida para la versión compacta
+        }
+
+        .modern-contact__profile-image {
+            width: 300px; // Reducido pero aún grande
+            height: 400px; // Mantener proporción cuadrada
+            margin: 0 auto 20px auto; // Reducido de 32px
+            border-radius: 16px; // MANTENER el border radius de 16px
+            
+            // Responsive para versión compacta
+            @media (max-width: 1200px) {
+                width: 180px;
+                height: 180px;
+            }
+
+            @media (max-width: 768px) {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto 16px auto;
+            }
+
+            @media (max-width: 480px) {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto 12px auto;
+            }
+        }
+
+        .modern-contact__profile-info {
+            h3 {
+                font-size: 1.25rem; // Reducido de 1.5rem
+                margin: 0 0 6px 0; // Reducido de 8px
+            }
+
+            p {
+                font-size: 1rem; // Reducido de 1.125rem
+            }
+        }
+
+        .modern-contact__profile-tagline {
+            margin-top: 12px; // Reducido de 16px
+            gap: 6px; // Reducido de 8px
+
+            span {
+                font-size: 0.8rem; // Reducido de 0.875rem
+            }
+
+            svg {
+                width: 14px; // Reducido de 16px
+                height: 14px;
+            }
+        }
+
+        // Decoraciones de imagen más pequeñas
+        .modern-contact__image-decoration {
+            &--top {
+                top: 20px; // Reducido de 32px
+                right: 20px; // Reducido de 32px
+                
+                svg {
+                    width: 80px; // Reducido de 100px
+                    height: 80px;
+                }
+            }
+
+            &--bottom {
+                bottom: 20px; // Reducido de 32px
+                left: 20px; // Reducido de 32px
+                
+                svg {
+                    width: 56px; // Reducido de 70px
+                    height: 56px;
+                }
+            }
+        }
+
+        // Contenido del formulario más compacto
+        .modern-contact__form-content {
+            padding: 28px; // Reducido de $spacing-xl (48px)
+
+            h2 {
+                font-size: 1.5rem; // Reducido de 1.875rem
+                margin: 0 0 6px 0; // Reducido de 8px
+            }
+
+            p {
+                margin: 0 0 24px 0; // Reducido de 32px
+            }
+        }
+
+        .modern-contact__form {
+            gap: 18px; // Reducido de 24px
+        }
+
+        // Campos del formulario más compactos
+        .modern-contact__field-icon {
+            left: 12px; // Reducido de 16px
+            
+            svg {
+                width: 18px; // Reducido de 20px
+                height: 18px;
+            }
+        }
+
+        .modern-contact__input,
+        .modern-contact__textarea {
+            padding: 12px 12px 12px 40px; // Reducido de 16px y 48px
+            border-radius: 10px; // Reducido de $border-radius-md (12px)
+            font-size: 0.9rem; // Reducido de 1rem
+        }
+
+        .modern-contact__textarea {
+            padding: 12px; // Reducido de 16px
+            min-height: 100px; // Reducido de 120px
+        }
+
+        // Botón más compacto
+        .modern-contact__submit {
+            padding: 12px 24px; // Reducido de 16px 32px
+            border-radius: 10px; // Reducido de $border-radius-md (12px)
+            font-size: 0.9rem; // Reducido de 1rem
+            gap: 6px; // Reducido de 8px
+
+            svg {
+                width: 18px; // Reducido de 20px
+                height: 18px;
+            }
+        }
+
+        .modern-contact__spinner {
+            width: 18px; // Reducido de 20px
+            height: 18px; // Reducido de 20px
+        }
+
+        // Mensajes de error más compactos
+        .modern-contact__field-error {
+            gap: 4px; // Reducido de posibles 6px
+            margin-top: 4px;
+            font-size: 0.75rem; // Más pequeño
+
+            svg {
+                width: 12px; // Reducido de 14px
+                height: 12px;
+            }
+        }
+
+        .modern-contact__char-counter {
+            margin-top: 4px;
+            font-size: 0.75rem; // Más pequeño
+        }
+
+        // Mensajes de estado más compactos
+        .modern-contact__status {
+            gap: 6px;
+            padding: 10px 12px; // Más compacto
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        // Sección social más compacta
+        .modern-contact__social-header {
+            margin-bottom: 28px; // Reducido de $spacing-xl (48px)
+            
+            &::before {
+                inset: -20px -16px; // Reducido padding del overlay
+            }
+
+            h2 {
+                font-size: 1.5rem; // Reducido de 1.875rem
+                margin: 0 0 12px 0; // Reducido de 16px
+            }
+        }
+
+        .modern-contact__social-grid {
+            gap: 18px; // Reducido de $spacing-md (24px)
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Reducido de 320px
+        }
+
+        .modern-contact__social-card {
+            border-radius: 12px; // Reducido de $border-radius-lg (16px)
+            padding: 20px; // Reducido de $spacing-lg (32px)
+
+            h3 {
+                font-size: 1.1rem; // Reducido de 1.25rem
+                margin: 0 0 6px 0; // Reducido de 8px
+            }
+
+            p {
+                margin: 0 0 18px 0; // Reducido de 24px
+                font-size: 0.9rem; // Reducido ligeramente
+            }
+        }
+
+        .modern-contact__social-icon {
+            width: 52px; // Reducido de 64px
+            height: 52px; // Reducido de 64px
+            border-radius: 10px; // Reducido de $border-radius-lg (16px)
+            margin: 0 auto 18px auto; // Reducido de 24px
+
+            svg {
+                width: 24px; // Reducido de 28px
+                height: 24px;
+            }
+        }
+
+        .modern-contact__social-button {
+            padding: 10px 20px; // Reducido de 12px 24px
+            border-radius: 10px; // Reducido de $border-radius-md (12px)
+            font-size: 0.9rem; // Reducido ligeramente
+            gap: 6px; // Reducido de 8px
+
+            svg {
+                width: 16px; // Reducido de 18px
+                height: 16px;
+            }
+        }
+
+        // Iconos flotantes más pequeños
+        .modern-contact__floating-icon {
+            &--1 svg {
+                width: 32px; // Reducido de 40px
+                height: 32px;
+            }
+
+            &--2 svg {
+                width: 26px; // Reducido de 32px
+                height: 26px;
+            }
+
+            &--3 svg {
+                width: 20px; // Reducido de 24px
+                height: 20px;
+            }
+        }
+
+        // Decoraciones de fondo más pequeñas
+        .modern-contact__bg-decoration {
+            &--1 {
+                width: 240px; // Reducido de 288px
+                height: 240px; // Reducido de 288px
+                top: 60px; // Reducido de 80px
+                left: 30px; // Reducido de 40px
+            }
+
+            &--2 {
+                width: 320px; // Reducido de 384px
+                height: 320px; // Reducido de 384px
+                top: 120px; // Reducido de 160px
+                right: 60px; // Reducido de 80px
+            }
+
+            &--3 {
+                width: 280px; // Reducido de 320px
+                height: 280px; // Reducido de 320px
+                bottom: 60px; // Reducido de 80px
+            }
+        }
+
+        // Responsive para diseño compacto
+        @media (max-width: 768px) {
+            padding: 30px 16px; // Reducido de 40px
+
+            .modern-contact__title {
+                font-size: 1.5rem; // Reducido de 2.25rem
+            }
+
+            .modern-contact__form-content {
+                padding: 20px; // Reducido de $spacing-md (24px)
+
+                h2 {
+                    font-size: 1.25rem; // Reducido de 1.5rem
+                }
+            }
+
+            .modern-contact__image-section {
+                padding: 18px; // Reducido de $spacing-md (24px)
+                min-height: 320px; // Altura reducida para tablets
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modern-contact__title {
+                font-size: 1.375rem; // Reducido de 1.875rem
+            }
+
+            .modern-contact__subtitle {
+                font-size: 0.875rem; // Reducido de 1.125rem
+            }
+
+            .modern-contact__social-grid {
+                gap: 12px; // Reducido de 16px
+                grid-template-columns: 1fr; // Una columna en móvil
+            }
+
+            .modern-contact__image-section {
+                min-height: 280px; // Altura aún más reducida para móviles pequeños
+            }
         }
     }
 }

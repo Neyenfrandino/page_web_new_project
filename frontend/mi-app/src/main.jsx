@@ -7,7 +7,7 @@ import { stripePromise } from './services/stripe/stripe';
 import { ConectContextProvider } from './context/context_conect_be/context_conect_be';  
 import { ContextJsonLoadProvider } from './context/context_json_load/context_json_load';
 import { MethodStatePaymentContextProvider } from './context/method_state_payment/method_state_payment.context';
-
+import { EmailProvider } from './context/email/email_context';
 import './index.css'
 import App from './App.jsx'
 
@@ -18,7 +18,9 @@ createRoot(document.getElementById('root')).render(
         <Elements stripe={stripePromise}>
           <ConectContextProvider>
             <MethodStatePaymentContextProvider>
-              <App />
+              <EmailProvider>
+                <App />
+              </EmailProvider>
             </MethodStatePaymentContextProvider>
           </ConectContextProvider>
         </Elements>

@@ -5,6 +5,7 @@ import stripe
 import os
 from app.routers.routers_mercado_pago.routers_mercado_pago import router as mercado_pago
 from app.routers.routers_stripe.routers_stripe import router as stripe_router
+from app.routers.routers_email.routers_email import router as email_router
 import uvicorn
 
 load_dotenv()
@@ -23,6 +24,7 @@ App.add_middleware(
 # Incluir el router
 App.include_router(mercado_pago)
 App.include_router(stripe_router)
+App.include_router(email_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:App", host="0.0.0.0", port=8000, reload=True)

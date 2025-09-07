@@ -48,4 +48,4 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
             {children}
         </MethodStatePaymentContext.Provider>
     );
-};
+}; 
