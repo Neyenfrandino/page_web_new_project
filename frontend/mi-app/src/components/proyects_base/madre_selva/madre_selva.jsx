@@ -18,7 +18,7 @@ import Header from '../../layout/header/header';
 import CardV2Img from '../../layout/card/cardV2_Img/cardV2_img';
 import ModalCard from '../../layout/card/modal_card/modal_card';
 
-
+ 
 // ------------------------------
 // 📂 Secciones
 // Bloques grandes o secciones completas que conforman las páginas

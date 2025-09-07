@@ -503,14 +503,43 @@ $breakpoints: (
 // =============================
 // Bio Container (Expandible)
 // =============================
-.bio-container {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height $transition-time $transition-cubic,
-              opacity $transition-time ease,
-              padding-top $transition-time ease;
-  padding-top: 0;
+  .bio-container {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height $transition-time $transition-cubic,
+                opacity $transition-time ease,
+                padding-top $transition-time ease;
+    padding-top: 0;
+    overflow: auto;
+    
+    // Estilos de scroll personalizados
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba($dark-green, 0.3);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, $primary-gold, $secondary-gold);
+      border-radius: 3px;
+      transition: background 0.3s ease;
+      
+      &:hover {
+        background: linear-gradient(180deg, lighten($primary-gold, 10%), lighten($secondary-gold, 10%));
+      }
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: linear-gradient(180deg, darken($primary-gold, 5%), darken($secondary-gold, 5%));
+    }
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: $secondary-gold rgba($dark-green, 0.3);
 
   .founder-bio {
     font-size: 0.95rem;

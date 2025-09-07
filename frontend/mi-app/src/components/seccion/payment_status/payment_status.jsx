@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './payment_status.scss';
 
 const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
@@ -64,7 +65,7 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
   };
 
   return (
-    <div className="payment-container">
+    <div className="payment-container-status">
       {/* Elementos decorativos de fondo */}
       <div className="decorative-shapes">
         <div className="shape"></div>
@@ -230,17 +231,9 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
           <div className="action-buttons">
             {status === 'success' ? (
               <>
-                <button className={`action-btn primary ${status}`}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: '8px'}}>
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4l-.4-2H3"></path>
-                    <circle cx="9" cy="20" r="1"></circle>
-                    <circle cx="20" cy="20" r="1"></circle>
-                  </svg>
-                  Ver mis pedidos
-                </button>
-                <button className={`action-btn secondary ${status}`}>
-                  Seguir comprando
-                </button>
+                <Link className={`action-btn primary ${status}`} to="/servicios">
+                  Seguir Explorando
+                </Link>
               </>
             ) : (
               <>

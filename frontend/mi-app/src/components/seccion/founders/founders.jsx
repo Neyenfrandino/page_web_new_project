@@ -5,33 +5,34 @@ let DOMAIN = import.meta.env.VITE_API_URL;
 const Founders = () => {
   const [expandedCard, setExpandedCard] = useState(null);
   
-  const founders = [
-    {
-      id: 1,
-      name: "Alexandra Chen",
-      role: "Visionaria Principal",
-      bio: "Pionera en la integración de tecnología y conciencia humana",
-      quote: "El futuro pertenece a quienes entienden que la tecnología debe servir a la humanidad",
-      image: `${DOMAIN}/img/tierra_martinez.jpg`
-    },
-    {
-      id: 2,
-      name: "Marcus Aurelius",
-      role: "Arquitecto de Sistemas",
-      bio: "Experto en diseño de ecosistemas digitales sostenibles",
-      quote: "Construimos puentes entre el mundo digital y el mundo natural",
-      image: `${DOMAIN}/img/marcus-aurelius.jpg`
-    }
-  ];
+const founders = [
+  {
+    id: 1,
+    name: "Tierra Martínez",
+    role: "Co-fundador",
+    bio: "Con más de 25 años de experiencia en Permacultura y Diseño Regenerativo, ha trabajado en más de 40 países acompañando a comunidades, instituciones y proyectos en la creación de modelos sostenibles y resilientes. Reconocido por integrar ciencia, tradición y espiritualidad en procesos educativos transformadores.",
+    quote: "Transformamos la forma de habitar el mundo integrando ciencia, tradición y espiritualidad.",
+    image: `${DOMAIN}/img/tierra_martinez.jpg`
+  },
+  {
+    id: 2,
+    name: "Beatriz Ramírez Cruz",
+    role: "Co-fundadora",
+    bio: "Pionera en Permacultura Social, especializada en procesos grupales, liderazgo consciente y metodologías participativas. Ha formado a miles de personas en el diseño de vínculos sanos, proyectos colectivos y modelos organizativos sustentables, conectando lo ancestral, lo humano y lo comunitario.",
+    quote: "El cambio verdadero comienza en la forma en que nos relacionamos con nosotros y con la comunidad.",
+    image: `${DOMAIN}/img/beatriz_ramirez.jpg`
+  }
+];
 
-  const familyFounder = {
-    id: 3,
-    name: "La familia Naluum",
-    role: "Unidos por un propósito común",
-    bio: "Juntos diseñamos un futuro donde la tecnología, la naturaleza y el amor por lo que hacemos se entrelazan.",
-    quote: "Más que un equipo, somos una familia que sueña, crea y crece unida.",
-    image: `${DOMAIN}/img/familia_naluum.jpg`
-  };
+const familyFounder = {
+  id: 3,
+  name: "La Familia Na Lu'um",
+  role: "Unidos por un propósito común",
+  bio: "El proyecto es sostenido por la familia de Tierra y Beatriz, quienes aportan desde distintas disciplinas a la construcción de una vida regenerativa. Junto a colaboradores en todo el mundo, forman una comunidad global dedicada a enseñar y vivir la regeneración de la vida en todas sus formas.",
+  quote: "Somos una familia al servicio de la Tierra, aprendiendo y enseñando que otro mundo no solo es posible, sino necesario.",
+  image: `${DOMAIN}/img/familia_na_luum.jpg`
+};
+
 
   const handleCardClick = (founderId) => {
     // Si la tarjeta ya está expandida, la contraemos, si no, la expandimos

@@ -100,7 +100,7 @@ const App = () => {
 
           <Route path="/sobre-nosotros" element={<AboutMe />} />
           <Route path="/contacto" element={<Contact />} />
-          <Route path="/carrito-de-compras" element={<ShoppingCart />} />
+          {/* <Route path="/carrito-de-compras" element={<ShoppingCart />} /> */}
 
           <Route path="/landingPage" element={<LandingPage />} />
           <Route path="/calendario" element={<CalendarRouter />} />

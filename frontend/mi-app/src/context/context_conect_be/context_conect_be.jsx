@@ -93,36 +93,45 @@ export const ConectContextProvider = ({ children }) => {
         },
         [stripe, elements]
     );
+    
+const handlePaymentMercadoPago = useCallback(
+  async (item) => {
+    console.log("🔥 Estado actual de successPaymentMercadoPago:", state.successPaymentMercadoPago);
 
-    const handlePaymentMercadoPago = useCallback(
-      async (item) => {
-        if (! state.successPaymentMercadoPago) return;
+    // Si quieres evitar detener el flujo cuando el estado esté mal:
+    if (!state.successPaymentMercadoPago) {
+      console.warn("⚠️ No se ejecutó porque successPaymentMercadoPago es falso o undefined");
+      // return;  // <-- comenta esto mientras pruebas
+    }
 
-        try {
-          const data = await conect_mercado_pago_BE.createPreference(item);
+    try {
+      console.log("📡 Creando preferencia en el backend con item:", item);
 
-          // Validación de la respuesta
-          if (!data.success || !data.data?.preference_id) {
-            throw new Error("No se recibió un preferenceId válido desde el backend");
-          }
+      const data = await conect_mercado_pago_BE.createPreference(item);
 
-          // Obtengo los datos necesarios
-          const { preference_id, init_point } = data.data;
+      console.log("📩 Respuesta del backend:", data);
 
-          console.log("✅ Preference ID:", preference_id);
-          console.log("🔗 URL de checkout:", init_point);
+      // Validación de la respuesta
+      if (!data?.success || !data.data?.preference_id || !data.data?.init_point) {
+        throw new Error("No se recibió un preferenceId o init_point válido desde el backend");
+      }
 
-          // Redirigir automáticamente al checkout de Mercado Pago
-          window.location.href = init_point;
+      const { preference_id, init_point } = data.data;
 
-          return { success: true, preference_id, init_point };
-        } catch (err) {
-          console.error("❌ Error en handlePaymentMercadoPago:", err.message || err);
-          return { success: false, error: err.message || err };
-        }
-      },
-      [ state.successPaymentMercadoPago ]
-    );
+      console.log("✅ Preference ID:", preference_id);
+      console.log("🔗 URL de checkout:", init_point);
+
+      // Redirigir automáticamente al checkout de Mercado Pago
+      window.location.href = init_point;
+
+      return { success: true, preference_id, init_point };
+    } catch (err) {
+      console.error("❌ Error en handlePaymentMercadoPago:", err.message || err);
+      return { success: false, error: err.message || err };
+    }
+  },
+  [state.successPaymentMercadoPago]
+);
 
 
     return (
