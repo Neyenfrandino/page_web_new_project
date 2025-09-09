@@ -54,7 +54,7 @@ body {
   font-family: var(--font-main);
   font-weight: 400;
   min-height: 100vh;
-  overflow-x: hidden; /* Previene scroll horizontal */
+  /* overflow-x: hidden; Previene scroll horizontal */
   /* Mejora el rendimiento */
   will-change: scroll-position;
   /* Transición suave para cambios de tema */

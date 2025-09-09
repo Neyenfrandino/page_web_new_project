@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 // 📂 Secciones
 import PaymentMethodSelector from '../../components/integrations/payment_method/payment_method_selector';
 import LoadingComponent from '../../components/seccion/loading_component/loading_component';
+import FormularioUsuario from '../../components/seccion/form/formulario_usuario';
 
 // 📂 Integrations
 import PaymentForm from '../../components/integrations/payment-form/payment-form';
@@ -12,6 +13,9 @@ import PaymentForm from '../../components/integrations/payment-form/payment-form
 // 📂 Context
 import { MethodStatePaymentContext } from '../../context/method_state_payment/method_state_payment.context';
 import { ConectContext } from '../../context/context_conect_be/context_conect_be';
+
+// Ui
+import Modal from '../../components/ui/modal/modal';
 
 // 📂 Styles
 import './payment.scss';
@@ -21,12 +25,18 @@ const Payment = () => {
   const isRouterPayment = location.pathname === '/payment';
 
   const { handlePaymentMercadoPago, setSuccessPaymentMercadoPago } = useContext(ConectContext);
-  const { methodStatePayment, setMethodStatePayment } = useContext(MethodStatePaymentContext);
+  const { methodStatePayment, setMethodStatePayment, clearMethodStatePayment } = useContext(MethodStatePaymentContext);
 
   const [paymentData, setPaymentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isProcessingMercadoPago, setIsProcessingMercadoPago] = useState(false);
+
+  // 🔹 Estado para modal y datos del formulario
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userFormData, setUserFormData] = useState(null);
+
+  console.log('🚀 userFormData:', userFormData);
 
   // ------------------------------
   // Normalizador de datos del producto
@@ -34,7 +44,6 @@ const Payment = () => {
   const normalizeItemData = useCallback((data) => {
     if (!data || Object.keys(data).length === 0) return null;
 
-    // Si viene con estructura normalizada
     if (data.normalizedItem) {
       return {
         item: {
@@ -54,7 +63,6 @@ const Payment = () => {
       };
     }
 
-    // Si viene como item directo
     if (data.item) {
       return {
         item: data.item,
@@ -62,7 +70,6 @@ const Payment = () => {
       };
     }
 
-    // Si viene como objeto suelto con info básica
     if (data.id && data.title) {
       return {
         item: data,
@@ -110,6 +117,17 @@ const Payment = () => {
   }, [methodStatePayment]);
 
   // ------------------------------
+  // Limpia localStorage al salir de la ruta /payment
+  // ------------------------------
+  useEffect(() => {
+    if (location.pathname !== '/payment') {
+      localStorage.removeItem('methodStatePayment');
+      clearMethodStatePayment(); // Limpia también el contexto
+      console.log('🧹 Se limpió localStorage y contexto porque saliste de /payment');
+    }
+  }, [location.pathname, clearMethodStatePayment]);
+
+  // ------------------------------
   // Selección de método de pago
   // ------------------------------
   const handleMethodSelection = (method) => {
@@ -128,6 +146,9 @@ const Payment = () => {
       }));
 
       setError(null);
+
+      // 🚨 Antes de procesar, abrir modal con formulario de usuario
+      setIsModalOpen(true);
     } catch (err) {
       console.error('Error en handleMethodSelection:', err);
       setError(`Error al seleccionar método de pago: ${err.message}`);
@@ -144,23 +165,40 @@ const Payment = () => {
   };
 
   // ------------------------------
-  // 🚀 Proceso de Mercado Pago con loading
+  // Validación y confirmación de datos del modal
+  // ------------------------------
+  // ------------------------------
+  // Validación y confirmación de datos del modal
+  // ------------------------------
+  const handleUserFormSubmit = (formData) => {
+    console.log('🚀 Datos confirmados del usuario:', formData);
+    setUserFormData(formData);
+    setIsModalOpen(false);
+
+    // Solo procesamos Mercado Pago si el método seleccionado es 'mercadopago'
+    if (paymentData?.method?.methodId === 'mercadopago') {
+      processMercadoPago();
+    }
+  };
+
+  // 🚀 Proceso de Mercado Pago
   // ------------------------------
   const processMercadoPago = async () => {
+    if (paymentData?.method?.methodId !== 'mercadopago') return;
+
     if (!paymentData?.item?.id || !paymentData?.item?.price) {
       setError('No hay información válida del producto para procesar el pago.');
       return;
     }
-    console.log("🚀 Datos del pago para Mercado Pago:", paymentData);
+
+    console.log('🚀 Datos del pago para Mercado Pago:', paymentData);
+
     try {
       setIsProcessingMercadoPago(true);
       console.log('🚀 Iniciando proceso Mercado Pago con:', paymentData);
+      
+      await handlePaymentMercadoPago(paymentData);
 
-      // Llama al handler global
-     const asdd = await handlePaymentMercadoPago(paymentData);
-      console.log("🚀 Datos devueltos por el handler:", asdd);
-
-      // Guarda en el contexto global de éxito
       setSuccessPaymentMercadoPago(paymentData);
     } catch (err) {
       console.error('Error durante el pago con Mercado Pago:', err);
@@ -170,21 +208,21 @@ const Payment = () => {
     }
   };
 
-  // Lanzar automáticamente el flujo de Mercado Pago cuando se selecciona
-  useEffect(() => {
-    if (
-      paymentData?.method?.methodId === 'mercadopago' &&
-      paymentData?.item?.id &&
-      paymentData?.item?.price > 0 &&
-      !isProcessingMercadoPago
-    ) {
-      processMercadoPago();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paymentData?.method, paymentData?.item]);
+  // ------------------------------
+  // Renderizado del modal
+  // ------------------------------
+  const renderModal = () => (
+    <Modal
+      isOpenModal={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      title="Completa tus datos"
+    >
+      <FormularioUsuario onSubmit={handleUserFormSubmit} />
+    </Modal>
+  );
 
   // ------------------------------
-  // Renderizado del componente de pago
+  // Renderizado principal
   // ------------------------------
   const renderPaymentComponent = () => {
     if (isLoading) {
@@ -210,7 +248,7 @@ const Payment = () => {
       );
     }
 
-    // Mostrar selector si no hay método seleccionado
+    // Si no hay método seleccionado, mostramos selector
     if (!paymentData.method) {
       return (
         <div className="payment-selector-container">
@@ -236,17 +274,45 @@ const Payment = () => {
 
     const currentMethod = paymentData.method;
 
+    // Si el formulario no está completo, pedimos completar
+    if (!userFormData) {
+      return (
+        <div className="payment-waiting-form">
+          <h3>Completa tus datos para continuar</h3>
+          <p>Por favor, completa el formulario antes de continuar con el pago.</p>
+        </div>
+      );
+    }
+
     switch (currentMethod.methodId) {
-      
       case 'mercadopago':
-        
-        return (
-          <div className="payment-form-container">
-            {isProcessingMercadoPago ? (
+        // Si está procesando, mostramos loading
+        if (isProcessingMercadoPago) {
+          return (
+            <div className="payment-form-container">
               <LoadingComponent size="large" color="#3b82f6" />
-            ) : (
-              <p>Preparando proceso de pago con Mercado Pago...</p>
-            )}
+            </div>
+          );
+        }
+        // Si terminó, volvemos a mostrar selector y resumen
+        return (
+          <div className="payment-selector-container">
+            <div className="product-summary">
+              <h3>Resumen de compra</h3>
+              <div className="product-info">
+                {paymentData.item.image && (
+                  <img src={paymentData.item.image} alt={paymentData.item.title} />
+                )}
+                <div>
+                  <h4>{paymentData.item.title}</h4>
+                  <p>{paymentData.item.subtitle}</p>
+                  <span className="price">
+                    {paymentData.item.currency} ${paymentData.item.price}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <PaymentMethodSelector onMethodSelect={handleMethodSelection} />
           </div>
         );
 
@@ -256,26 +322,6 @@ const Payment = () => {
         return (
           <div className="payment-form-container">
             <PaymentForm product={paymentData.item} />
-            <button className="change-payment-method-btn" onClick={resetPaymentMethod}>
-              Cambiar método de pago
-            </button>
-          </div>
-        );
-
-      case 'paypal':
-        return (
-          <div className="payment-form-container">
-            <div>PayPal - Próximamente</div>
-            <button className="change-payment-method-btn" onClick={resetPaymentMethod}>
-              Cambiar método de pago
-            </button>
-          </div>
-        );
-
-      case 'stripe':
-        return (
-          <div className="payment-form-container">
-            <div>Stripe - Próximamente</div>
             <button className="change-payment-method-btn" onClick={resetPaymentMethod}>
               Cambiar método de pago
             </button>
@@ -293,12 +339,9 @@ const Payment = () => {
     }
   };
 
-  // ------------------------------
-  // Render principal
-  // ------------------------------
   return (
     <div className="payment-container">
-      {isRouterPayment && !paymentData?.method && (
+      {isRouterPayment  && (
         <div className="payment-method-header">
           <h2>Formas de Pago</h2>
           <p>Selecciona tu método de pago preferido</p>
@@ -306,6 +349,9 @@ const Payment = () => {
       )}
 
       <div className="payment-method-content">{renderPaymentComponent()}</div>
+
+      {/* Modal con formulario */}
+      {renderModal()}
     </div>
   );
 };

@@ -121,8 +121,8 @@ const handlePaymentMercadoPago = useCallback(
       console.log("✅ Preference ID:", preference_id);
       console.log("🔗 URL de checkout:", init_point);
 
-      // Redirigir automáticamente al checkout de Mercado Pago
-      window.location.href = init_point;
+      // 🔹 Abrir checkout en una nueva pestaña
+      window.open(init_point, '_blank', 'noopener,noreferrer');
 
       return { success: true, preference_id, init_point };
     } catch (err) {
@@ -132,6 +132,7 @@ const handlePaymentMercadoPago = useCallback(
   },
   [state.successPaymentMercadoPago]
 );
+
 
 
     return (
