@@ -26,5 +26,5 @@ createRoot(document.getElementById('root')).render(
         </Elements>
       </ContextJsonLoadProvider>
     </Router>
-  </StrictMode>,
+  </StrictMode>
 )

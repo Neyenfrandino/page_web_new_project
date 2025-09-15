@@ -1,5 +1,5 @@
 {
-  "img": "{DOMAIN}/img/3.png",
+  "img": "/img/3.png",
   "titles": {
     "main": "",
     "subtitle": "Festival Eco de la Tierra"
@@ -11,3 +11,4 @@
   },
   "link": "/servicios/laboratorios-alimentacion-viva"
 }
+ 

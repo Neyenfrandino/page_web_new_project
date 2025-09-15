@@ -348,3 +348,55 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.payment-warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 70%;
+  margin: 0 auto;
+  background: #fff8e1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+
+  button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradiente atractivo */
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+
+    &:hover {
+        background: linear-gradient(135deg, #2575fc, #6a11cb); /* Invertimos el gradiente */
+        transform: translateY(-2px); /* Pequeño efecto flotante */
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+  }
+
+
+  .payment-warning button
+  .payment-warning button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}

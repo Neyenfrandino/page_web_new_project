@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './payment_status.scss';
 
-const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
-  console.log("🚀 Producto recibido:", product);
-  console.log("🚀 Estado inicial:", currentStatus);
-
-  const [status, setStatus] = useState(currentStatus);
+const PaymentStatus = ({ product = null }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Estados del componente original
+  const [status, setStatus] = useState('processing'); // Cambiar estado inicial a processing
   const [isAnimating, setIsAnimating] = useState(true);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
+  
+  // Estados de la lógica de pago integrada
+  const [paymentInfo, setPaymentInfo] = useState(null);
+  const [countdown, setCountdown] = useState(5);
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log("🚀 Producto recibido:", product);
+  console.log("🚀 Estado inicial:", status);
 
   // Producto por defecto si no se pasa uno
   const defaultProduct = {
@@ -20,10 +29,133 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
 
   const productData = product || defaultProduct;
 
+  // Lógica integrada del primer componente
   useEffect(() => {
-    const timer = setTimeout(() => setIsAnimating(false), 1000);
+    const query = new URLSearchParams(location.search);
+    
+    // Parámetros de diferentes métodos de pago
+    const payment_id = query.get("payment_id");
+    const paymentStatus = query.get("status");
+    const external_reference = query.get("external_reference");
+    const session_id = query.get("session_id");
+    const checkout_pro_id = query.get("checkout_pro_id");
+    const transaction_id = query.get("transaction_id");
+
+    console.log("📩 Parámetros recibidos:", {
+      payment_id,
+      paymentStatus,
+      external_reference,
+      session_id,
+      checkout_pro_id,
+      transaction_id,
+    });
+
+    const processPayment = async () => {
+      try {
+        setIsLoading(true);
+        setStatus('processing');
+        setIsAnimating(true);
+        
+        let result = null;
+        
+        if (payment_id && paymentStatus) {
+          // Caso Mercado Pago
+          console.log("🔄 Procesando pago de Mercado Pago...");
+          
+          // Simulación para demo - aquí integrarías tu lógica real
+          // await new Promise(resolve => setTimeout(resolve, 1500));
+          result = { 
+            success: paymentStatus === 'approved', 
+            method: 'Mercado Pago', 
+            reference: external_reference || payment_id,
+            amount: productData.price.toString(),
+            currency: productData.currency
+          };
+          
+        } else if (session_id) {
+          // Caso Stripe
+          console.log("🔄 Procesando pago de Stripe...");
+          
+          // await new Promise(resolve => setTimeout(resolve, 11500));
+          result = { 
+            success: true, 
+            method: 'Stripe', 
+            reference: session_id,
+            amount: productData.price.toString(),
+            currency: productData.currency
+          };
+          
+        } else if (checkout_pro_id || transaction_id) {
+          // Caso Checkout Pro
+          console.log("🔄 Procesando pago de Checkout Pro...");
+          
+          // await new Promise(resolve => setTimeout(resolve, 1500));
+          result = { 
+            success: true, 
+            method: 'Checkout Pro', 
+            reference: checkout_pro_id || transaction_id,
+            amount: productData.price.toString(),
+            currency: productData.currency
+          };
+          
+        } else {
+          // Si no hay parámetros de pago, mostrar estado exitoso por defecto
+          console.log("ℹ️ No se detectaron parámetros de pago, usando estado por defecto");
+          // await new Promise(resolve => setTimeout(resolve, 1500));
+          result = { 
+            success: true, 
+            method: 'Demo', 
+            reference: `DEMO-${Date.now()}`,
+            amount: productData.price.toString(),
+            currency: productData.currency
+          };
+        }
+
+        if (result && result.success) {
+          setPaymentInfo(result);
+          setStatus(paymentStatus);
+          startCountdown();
+        } else {
+          setStatus('failed');
+        }
+        
+      } catch (error) {
+        console.error("❌ Error procesando el pago:", error.message);
+        setStatus('failed');
+      } finally {
+        setIsLoading(false);
+        setTimeout(() => setIsAnimating(false), 1000);
+      }
+    };
+
+    // Simular delay de procesamiento inicial
+    const timer = setTimeout(() => {
+      processPayment();
+    }, 1000);
+
     return () => clearTimeout(timer);
-  }, []);
+  }, [location, productData.price, productData.currency]);
+
+  const startCountdown = () => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          // navigate('/dashboard');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const handleManualRedirect = (path) => {
+    navigate(path || '/');
+  };
+
+  const handleRetry = () => {
+    navigate('/checkout');
+  };
 
   // Datos de orden dinámicos
   const orderDetails = {
@@ -63,6 +195,53 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
   const formatPrice = (price) => {
     return productData.currency === 'USD' ? `$${price.toFixed(2)}` : `ARS ${price.toFixed(2)}`;
   };
+
+  // Mostrar estado de procesamiento
+  if (status === 'processing') {
+    return (
+      <div className="payment-container-status">
+        <div className="decorative-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+        </div>
+        
+        <div className={`payment-card processing ${isAnimating ? 'animating' : ''}`}>
+          <div className="shimmer-bar processing"></div>
+          
+          <div className="payment-header processing">
+            <div className="particles">
+              {[...Array(6)].map((_, i) => (
+                <div 
+                  key={i}
+                  className="particle"
+                  style={{
+                    top: `${20 + i * 15}%`,
+                    left: `${10 + i * 15}%`,
+                    animationDelay: `${i * 0.3}s`
+                  }}
+                ></div>
+              ))}
+            </div>
+
+            <div className="icon-wrapper">
+              <div className="main-icon processing animating">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+            </div>
+            
+            <h1 className="payment-title">Procesando tu pago...</h1>
+            <p className="payment-subtitle">
+              Por favor espera mientras confirmamos tu transacción. 
+              Este proceso puede tomar unos momentos.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="payment-container-status">
@@ -120,6 +299,21 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
               ? 'Tu transacción ha sido procesada correctamente'
               : 'No pudimos procesar tu pago. Intenta nuevamente.'}
           </p>
+
+          {/* Mostrar información del pago si está disponible */}
+          {paymentInfo && status === 'success' && (
+            <div className="payment-info-summary">
+              <p><strong>Método:</strong> {paymentInfo.method}</p>
+              <p><strong>Referencia:</strong> {paymentInfo.reference}</p>
+            </div>
+          )}
+
+          {/* Mostrar countdown si el pago fue exitoso */}
+          {status === 'success' && countdown > 0 && (
+            <p className="countdown-text">
+              Serás redirigido en {countdown} segundos...
+            </p>
+          )}
         </div>
 
         {/* Información del pedido */}
@@ -231,13 +425,22 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
           <div className="action-buttons">
             {status === 'success' ? (
               <>
-                <Link className={`action-btn primary ${status}`} to="/servicios">
+                <button 
+                  className={`action-btn primary ${status}`}
+                  onClick={() => handleManualRedirect('/dashboard')}
+                >
+                  Ir al Dashboard
+                </button>
+                <Link className={`action-btn secondary ${status}`} to="/servicios">
                   Seguir Explorando
                 </Link>
               </>
             ) : (
               <>
-                <button className={`action-btn primary ${status}`}>
+                <button 
+                  className={`action-btn primary ${status}`}
+                  onClick={handleRetry}
+                >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: '8px'}}>
                     <polyline points="23 4 23 10 17 10"></polyline>
                     <polyline points="1 20 1 14 7 14"></polyline>
@@ -245,7 +448,10 @@ const PaymentStatus = ({ currentStatus = 'success', product = null }) => {
                   </svg>
                   Reintentar pago
                 </button>
-                <button className={`action-btn secondary ${status}`}>
+                <button 
+                  className={`action-btn secondary ${status}`}
+                  onClick={() => handleManualRedirect('/support')}
+                >
                   Contactar soporte
                 </button>
               </>

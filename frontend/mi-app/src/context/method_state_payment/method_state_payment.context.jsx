@@ -33,24 +33,27 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { methodStatePayment } = state;
 
-  // --- Guarda el método de pago en el contexto y en localStorage ---
+  // --- Guarda el método en el contexto y en localStorage ---
   const setMethodStatePayment = (payload) => {
     dispatch({ type: TYPE_FORM.SET_METHOD_STATE_PAYMENT, payload });
     localStorage.setItem('methodStatePayment', JSON.stringify(payload));
   };
 
-  // --- Limpia método de pago del contexto y localStorage ---
+  // --- Limpia método de pago ---
   const clearMethodStatePayment = () => {
     dispatch({ type: TYPE_FORM.CLEAR_METHOD_STATE_PAYMENT });
     localStorage.removeItem('methodStatePayment');
   };
 
-  // --- 🔹 Este es el useEffect que te pasé, para cargar localStorage al iniciar ---
+  // --- Cargar desde localStorage solo una vez al iniciar ---
   useEffect(() => {
     const storedMethod = localStorage.getItem('methodStatePayment');
     if (storedMethod) {
       try {
-        setMethodStatePayment(JSON.parse(storedMethod));
+        dispatch({
+          type: TYPE_FORM.SET_METHOD_STATE_PAYMENT,
+          payload: JSON.parse(storedMethod),
+        });
       } catch (error) {
         console.error('Error al parsear localStorage', error);
         localStorage.removeItem('methodStatePayment');
@@ -58,19 +61,27 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
     }
   }, []);
 
-  // --- Redirige a /payment si hay un método seleccionado ---
+  // --- Opcional: Limpia solo cuando sales DEFINITIVAMENTE del flujo de pago ---
   useEffect(() => {
-    if (methodStatePayment && location.pathname !== '/payment') {
-      navigate('/payment');
-    }
-  }, [methodStatePayment, location.pathname, navigate]);
+    const isLeavingPaymentFlow =
+      !location.pathname.startsWith('/payment') &&
+      !location.pathname.startsWith('/checkout');
 
-  // --- Limpia el estado cuando el usuario sale de /payment ---
-  useEffect(() => {
-    if (location.pathname !== '/payment') {
+    if (isLeavingPaymentFlow) {
+      console.log('hola')
       clearMethodStatePayment();
     }
   }, [location.pathname]);
+
+  console.log(methodStatePayment)
+
+  // --- Redirige a /payment si hay método seleccionado ---
+  useEffect(() => {
+    if (methodStatePayment && location.pathname !== '/payment') {
+      console.log('2')
+      navigate('/payment');
+    }
+  }, [methodStatePayment, location.pathname]);
 
   return (
     <MethodStatePaymentContext.Provider

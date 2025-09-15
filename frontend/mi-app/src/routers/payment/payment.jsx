@@ -17,6 +17,9 @@ import { ConectContext } from '../../context/context_conect_be/context_conect_be
 // Ui
 import Modal from '../../components/ui/modal/modal';
 
+// utils
+import { orderTemplate } from '../../utils/data/orderTemplate';
+
 // 📂 Styles
 import './payment.scss';
 
@@ -102,6 +105,11 @@ const Payment = () => {
           ...normalizedData,
           method: prev?.method || normalizedData.method || null,
         }));
+
+        // 🔹 Si ya hay método seleccionado, abrimos modal directamente
+        if (normalizedData.method) {
+          setIsModalOpen(true);
+        }
       } else {
         setPaymentData(null);
         setError('No se pudo obtener la información del producto.');
@@ -119,13 +127,15 @@ const Payment = () => {
   // ------------------------------
   // Limpia localStorage al salir de la ruta /payment
   // ------------------------------
+
   useEffect(() => {
-    if (location.pathname !== '/payment') {
+    
+    // if (location.pathname !== '/payment') {
       localStorage.removeItem('methodStatePayment');
       clearMethodStatePayment(); // Limpia también el contexto
       console.log('🧹 Se limpió localStorage y contexto porque saliste de /payment');
-    }
-  }, [location.pathname, clearMethodStatePayment]);
+    // }
+  }, []);
 
   // ------------------------------
   // Selección de método de pago
@@ -147,7 +157,7 @@ const Payment = () => {
 
       setError(null);
 
-      // 🚨 Antes de procesar, abrir modal con formulario de usuario
+      // 🚨 Abrir modal con formulario de usuario
       setIsModalOpen(true);
     } catch (err) {
       console.error('Error en handleMethodSelection:', err);
@@ -162,28 +172,70 @@ const Payment = () => {
     console.log('🚀 resetPaymentMethod');
     setMethodStatePayment((prev) => ({ ...prev, method: null }));
     setPaymentData((prev) => (prev ? { ...prev, method: null } : prev));
+    setIsModalOpen(false);
   };
 
   // ------------------------------
-  // Validación y confirmación de datos del modal
-  // ------------------------------
-  // ------------------------------
-  // Validación y confirmación de datos del modal
+  // Confirmación de datos del modal
   // ------------------------------
   const handleUserFormSubmit = (formData) => {
     console.log('🚀 Datos confirmados del usuario:', formData);
     setUserFormData(formData);
     setIsModalOpen(false);
 
-    // Solo procesamos Mercado Pago si el método seleccionado es 'mercadopago'
-    if (paymentData?.method?.methodId === 'mercadopago') {
-      processMercadoPago();
+    // Crear una copia limpia de la orden
+    const nuevaOrden = JSON.parse(JSON.stringify(orderTemplate));
+
+    // 🧾 Datos del cliente
+    nuevaOrden.nombre = formData.nombre;
+    nuevaOrden.correo = formData.correo;
+    nuevaOrden.telefono = formData.telefono;
+    nuevaOrden.direccion = formData.direccion;
+    nuevaOrden.ciudad = formData.ciudad;
+    nuevaOrden.codigo_postal = formData.codigo_postal;
+    nuevaOrden.pais = formData.pais;
+
+    // 🛒 Producto comprado
+    if (paymentData?.item) {
+      nuevaOrden.productos = [
+        {
+          id_producto: paymentData.item.id || "",
+          nombre: paymentData.item.title || "",
+          cantidad: 1,
+          precio_unitario: paymentData.item.price || 0
+        }
+      ];
+    }
+
+    // 💳 Datos del pago
+    nuevaOrden.metodo_pago = paymentData?.method?.methodId || "";
+    nuevaOrden.estado_pago = "pendiente";
+    nuevaOrden.pedido_id = `ORD-${Date.now()}`;
+    nuevaOrden.fecha_compra = new Date().toISOString();
+
+    // Extras
+    nuevaOrden.notas = formData.notas || "";
+    nuevaOrden.origen_pedido = "web";
+    nuevaOrden.tracking_id = "";
+
+    console.log("✅ Orden estructurada lista para enviar al backend:", nuevaOrden);
+
+    // Guardar la orden en estado
+    setPaymentData((prev) => ({
+      ...prev,
+      orden: nuevaOrden
+    }));
+
+    // Procesar Mercado Pago si corresponde
+    if (paymentData?.method?.methodId === "mercadopago") {
+      processMercadoPago(nuevaOrden);
     }
   };
 
+  // ------------------------------
   // 🚀 Proceso de Mercado Pago
   // ------------------------------
-  const processMercadoPago = async () => {
+  const processMercadoPago = async (nuevaOrden) => {
     if (paymentData?.method?.methodId !== 'mercadopago') return;
 
     if (!paymentData?.item?.id || !paymentData?.item?.price) {
@@ -196,8 +248,8 @@ const Payment = () => {
     try {
       setIsProcessingMercadoPago(true);
       console.log('🚀 Iniciando proceso Mercado Pago con:', paymentData);
-      
-      await handlePaymentMercadoPago(paymentData);
+
+      await handlePaymentMercadoPago(paymentData, nuevaOrden);
 
       setSuccessPaymentMercadoPago(paymentData);
     } catch (err) {
@@ -248,8 +300,11 @@ const Payment = () => {
       );
     }
 
-    // Si no hay método seleccionado, mostramos selector
-    if (!paymentData.method) {
+    const currentMethod = paymentData.method;
+    console.log('🚀 Método de pago seleccionado:', currentMethod);
+
+    // ✅ Caso 1: No hay método seleccionado → Mostrar selector
+    if (!currentMethod) {
       return (
         <div className="payment-selector-container">
           <div className="product-summary">
@@ -267,26 +322,20 @@ const Payment = () => {
               </div>
             </div>
           </div>
+
           <PaymentMethodSelector onMethodSelect={handleMethodSelection} />
         </div>
       );
     }
 
-    const currentMethod = paymentData.method;
-
-    // Si el formulario no está completo, pedimos completar
-    if (!userFormData) {
-      return (
-        <div className="payment-waiting-form">
-          <h3>Completa tus datos para continuar</h3>
-          <p>Por favor, completa el formulario antes de continuar con el pago.</p>
-        </div>
-      );
+    // ✅ Caso 2: Ya hay método seleccionado → Modal activo
+    if (isModalOpen) {
+      return renderModal();
     }
 
+    // ✅ Caso 3: Procesamiento según método
     switch (currentMethod.methodId) {
       case 'mercadopago':
-        // Si está procesando, mostramos loading
         if (isProcessingMercadoPago) {
           return (
             <div className="payment-form-container">
@@ -294,46 +343,41 @@ const Payment = () => {
             </div>
           );
         }
-        // Si terminó, volvemos a mostrar selector y resumen
         return (
-          <div className="payment-selector-container">
-            <div className="product-summary">
-              <h3>Resumen de compra</h3>
-              <div className="product-info">
-                {paymentData.item.image && (
-                  <img src={paymentData.item.image} alt={paymentData.item.title} />
-                )}
-                <div>
-                  <h4>{paymentData.item.title}</h4>
-                  <p>{paymentData.item.subtitle}</p>
-                  <span className="price">
-                    {paymentData.item.currency} ${paymentData.item.price}
-                  </span>
-                </div>
+          <div className="payment-success">
+            <h3>Procesando con Mercado Pago...</h3>
+          </div>
+        );
+
+        case 'cards':
+        case 'credit_card':
+        case 'debit_card':
+          if (!userFormData) {
+            return (
+              <div className="payment-warning">
+                <h3>Datos incompletos</h3>
+                <p>Por favor completa el formulario antes de continuar con el pago.</p>
+                <button onClick={() => setIsModalOpen(true)}>
+                  Completar datos
+                </button>
               </div>
+            );
+          }
+
+          return (
+            <div className="payment-form-container">
+              <PaymentForm product={paymentData.item} />
+              <button className="change-payment-method-btn" onClick={resetPaymentMethod}>
+                Cambiar método de pago
+              </button>
             </div>
-            <PaymentMethodSelector onMethodSelect={handleMethodSelection} />
-          </div>
-        );
-
-      case 'cards':
-      case 'credit_card':
-      case 'debit_card':
-        return (
-          <div className="payment-form-container">
-            <PaymentForm product={paymentData.item} />
-            <button className="change-payment-method-btn" onClick={resetPaymentMethod}>
-              Cambiar método de pago
-            </button>
-          </div>
-        );
-
+          );
       default:
         return (
-          <div className="payment-unsupported">
+          <div className="payment-unknown-method">
             <h3>Método de pago no soportado</h3>
-            <p>El método "{currentMethod?.methodName}" no está disponible actualmente.</p>
-            <button onClick={resetPaymentMethod}>Seleccionar otro método</button>
+            <p>El método seleccionado no es válido. Por favor, elige otro método.</p>
+            <button onClick={resetPaymentMethod}>Elegir otro método</button>
           </div>
         );
     }
@@ -341,7 +385,7 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
-      {isRouterPayment  && (
+      {isRouterPayment && (
         <div className="payment-method-header">
           <h2>Formas de Pago</h2>
           <p>Selecciona tu método de pago preferido</p>
@@ -350,8 +394,8 @@ const Payment = () => {
 
       <div className="payment-method-content">{renderPaymentComponent()}</div>
 
-      {/* Modal con formulario */}
-      {renderModal()}
+      {/* Modal */}
+      {isModalOpen && renderModal()}
     </div>
   );
 };

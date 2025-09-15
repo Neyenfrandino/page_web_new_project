@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './cta_img_cuenta_rgresiva.scss';
 import { Link } from 'react-router-dom';
 
+let DOMAIN = import.meta.env.VITE_API_URL;
+console.log(DOMAIN)
+
+
+
+//   const handlePrimaryAction = (normalizedItem, e) => {
+//     e.stopPropagation();
+//     const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
+  
+//     setMethodStatePayment({ normalizedItem });
+//     // Aquí va tu lógica específica
+//   };
+
 const CtaImgCuentaRgresiva = ({ 
     img, 
     titles = { main:'', subtitle: "¿Ya tienes una cuenta?" }, 
@@ -16,7 +29,8 @@ const CtaImgCuentaRgresiva = ({
         minutes: 0,
         seconds: 0
     });
- 
+
+
     useEffect(() => {
         if (!timer.targetDate) return;
 
@@ -56,7 +70,7 @@ const CtaImgCuentaRgresiva = ({
                 <div className="cta-cuenta-regresiva__image">
                     {img && (
                         <img 
-                            src={img} 
+                            src={`${DOMAIN}${img}`} 
                             alt="Cuenta Regresiva" 
                             className="cta-cuenta-regresiva__img"
                         />

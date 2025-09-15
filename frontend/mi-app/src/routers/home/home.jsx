@@ -94,19 +94,19 @@ const fadeInProps = {
 };
 
 // Timer Configuration
-const timerProps = {
-  img: `${DOMAIN}/img/3.png`,
-  titles: {
-    main: "",
-    subtitle: "Festival Eco de la Tierra",
-  },
-  text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-  buttonText: "Inscríbete ahora",
-  timer: {
-    targetDate: "2025-09-23T18:59:59"
-  },
-  link : "/serviciosl/aboratorios-alimentacion-viva"
-};
+// const timerProps = {
+//   img: `${DOMAIN}/img/3.png`,
+//   titles: {
+//     main: "",
+//     subtitle: "Festival Eco de la Tierra",
+//   },
+//   text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+//   buttonText: "Inscríbete ahora",
+//   timer: {
+//     targetDate: "2025-09-23T18:59:59"
+//   },
+//   link : "/serviciosl/aboratorios-alimentacion-viva"
+// };
 
 const missionCards = [
  {
@@ -202,7 +202,7 @@ const breadcrumbSchema = {
 
 const Home = () => {
 
-  const { products, servicios, testimonios } = useContext(ContextJsonLoadContext);
+  const { products, servicios, testimonios, timerProps } = useContext(ContextJsonLoadContext);
   const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
 
   const [servicioIdParam, setServicioIdParam, removeServicioIdParam] = useQueryParam('servicios');

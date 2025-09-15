@@ -20,6 +20,12 @@ class MercadoPagoPreferenceSchema(BaseModel):
     external_reference: Optional[str] = "pedido_12345"
     notification_url: Optional[str] = "https://www.google.com"
 
+
+class PaymentConfirmationSchema(BaseModel):
+    payment_id: str
+    status: str
+    external_reference: str
+    
 class BillingDetails(BaseModel):
     name: str
     email: str
@@ -64,3 +70,5 @@ class OrderSchema(BaseModel):
     notas: str = Field(default="", description="Notas o comentarios del cliente")
     origen_pedido: str = Field(default="web", description="Origen de la orden, ejemplo: web, app, tienda física")
     tracking_id: str = Field(default="", description="Código de seguimiento del envío")
+
+

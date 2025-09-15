@@ -95,7 +95,7 @@ export const ConectContextProvider = ({ children }) => {
     );
     
 const handlePaymentMercadoPago = useCallback(
-  async (item) => {
+  async (item, orden) => {
     console.log("🔥 Estado actual de successPaymentMercadoPago:", state.successPaymentMercadoPago);
 
     // Si quieres evitar detener el flujo cuando el estado esté mal:
@@ -105,9 +105,10 @@ const handlePaymentMercadoPago = useCallback(
     }
 
     try {
+      console.log("📡 Creando preferencia en el backend con item:", orden);
       console.log("📡 Creando preferencia en el backend con item:", item);
 
-      const data = await conect_mercado_pago_BE.createPreference(item);
+      const data = await conect_mercado_pago_BE.createPreference(item, orden);
 
       console.log("📩 Respuesta del backend:", data);
 

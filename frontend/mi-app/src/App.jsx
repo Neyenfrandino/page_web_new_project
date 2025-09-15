@@ -29,11 +29,13 @@ import ShoppingCart from './routers/shoppingCart/shoppingCart';
 import Payment from './routers/payment/payment';
 
 
-
 // 📂 Detalles (subpáginas de routers)
 import ProductDetail from './routers/products/products_detail';
 import ServiceDetail from './routers/services/services_detail';
 import BlogDetail from './routers/blog/blog_detail';
+
+// seccion
+import PaymentStatus from './components/seccion/payment_status/payment_status';
 
 import './App.scss';
 
@@ -75,20 +77,16 @@ const App = () => {
         currentPath === 'landingPage' || currentPath === '/landingPage' || currentPath.includes('/landingPage') ?
         null :       
           <>
-          <div className='App__nav'>
-          
-            <Nav listRouters={listRouters} projects={projects} />
+            <div className='App__nav'>
+              <Nav listRouters={listRouters} projects={projects} />
+            </div>
 
-          </div>
-
-          <div className='app__back-button'>
-            {
-              currentPath === '/payment' || currentPath.includes('/payment') ? null: <ButtonBack />
-            }
-            
-          </div>
+            <div className='app__back-button'>
+              {
+                currentPath === '/payment' || currentPath.includes('/payment') ? null: <ButtonBack />
+              }
+            </div>
           </>
-
       }
   
       <ScrollToTop />
@@ -117,6 +115,8 @@ const App = () => {
           <Route path="/blog" element={<Blog />}>
             <Route path="/blog/:id" element={<BlogDetail />} />
           </Route>
+
+          <Route path="/payment-status" element={ <PaymentStatus />}></Route>
 
         </Routes>
       </main>

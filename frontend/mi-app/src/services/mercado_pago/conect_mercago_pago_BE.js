@@ -18,11 +18,17 @@ const conect_mercado_pago_BE = {
               currency_id: itemData.item.currency || "ARS",
             },
           ],
-          back_urls: {
-            success: "https://www.google.com",
-            failure: "https://www.google.com",
-            pending: "https://www.google.com",
+          "back_urls": {
+            "success": "https://www.google.com/success",
+            "failure": "https://www.youtube.com/failure",
+            "pending": "https://chatgpt.com/pending"
           },
+
+          // back_urls: {
+          //   success: "http://localhost:3000/payment/success",
+          //   failure: "http://localhost:3000/payment/failure",
+          //   pending: "http://localhost:3000/payment/pending",
+          // },
           auto_return: "approved",
           external_reference: `pedido_${itemData.item.id || Date.now()}`,
           notification_url: "https://www.google.com",

@@ -58,7 +58,8 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
   const handlePrimaryAction = (normalizedItem, e) => {
     e.stopPropagation();
     const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
-  
+    
+    console.log(normalizedItem)
     setMethodStatePayment({ normalizedItem });
     // Aquí va tu lógica específica
   };
