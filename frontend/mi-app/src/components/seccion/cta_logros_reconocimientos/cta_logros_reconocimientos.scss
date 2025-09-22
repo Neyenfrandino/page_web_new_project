@@ -47,11 +47,6 @@ $neutral-light: #D5CEA9;
     justify-content: center;
     padding: 4rem 2rem;
     overflow: hidden;
-    background: linear-gradient(135deg, 
-        rgba(6, 59, 44, 0.1) 0%, 
-        rgba(208, 222, 133, 0.05) 50%, 
-        rgba(143, 118, 76, 0.08) 100%
-    );
 }
 
 .cta-logros-reconocimientos__container::before {
@@ -61,10 +56,6 @@ $neutral-light: #D5CEA9;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 30% 70%, 
-        rgba(208, 222, 133, 0.15) 0%, 
-        transparent 50%
-    );
     animation: float 20s ease-in-out infinite;
 }
 

@@ -148,7 +148,7 @@ $neutral-light: #D5CEA9;     // Beige claro
         align-items: center;
         gap: 1.2rem;
         position: relative;
-        backdrop-filter: blur(8px) saturate(150%);
+        backdrop-filter: blur(2px) saturate(150%);
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -182,35 +182,11 @@ $neutral-light: #D5CEA9;     // Beige claro
             z-index: -10;
         }
         
-        // Efecto de líneas de luz animadas
-        &::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 10px;
-            background: linear-gradient(45deg, 
-                transparent, 
-                rgba(208, 222, 133, 0.4), 
-                transparent
-            );
-            background-size: 400% 400%;
-            // animation: shimmer 3s ease-in-out infinite;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
 
         &:hover {
-            box-shadow: 0 10px 40px rgba(208, 222, 133, 0.2);
+            box-shadow: 0 5px 20px rgba(208, 222, 133, 0.2);
             transform: translateY(-3px);
-            
-            &::before {
-                opacity: 1;
-            }
-            
+        
             .aboutMe__header-content-title h1 {
                 text-shadow: 0 4px 20px rgba(208, 222, 133, 0.5);
             }
@@ -298,21 +274,7 @@ $neutral-light: #D5CEA9;     // Beige claro
                         0 4px 15px rgba(208, 222, 133, 0.3),
                         inset 0 1px 0 rgba(255, 255, 255, 0.3);
                     animation: floatAnimation 3s ease-in-out infinite;
-                    
-                    // Efecto de onda
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        width: 0;
-                        height: 0;
-                        border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.5);
-                        transform: translate(-50%, -50%);
-                        transition: width 0.6s, height 0.6s;
-                    }
-                    
+                
                     &::after {
                         content: '';
                         position: absolute;

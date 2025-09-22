@@ -1,4 +1,4 @@
-import { useReducer, useEffect, createContext } from 'react';
+import { useReducer, useEffect, createContext, use } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const MethodStatePaymentContext = createContext({
@@ -45,6 +45,10 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
     localStorage.removeItem('methodStatePayment');
   };
 
+  // useEffect(() => {
+  //   clearMethodStatePayment();
+  // },[]);
+
   // --- Cargar desde localStorage solo una vez al iniciar ---
   useEffect(() => {
     const storedMethod = localStorage.getItem('methodStatePayment');
@@ -61,6 +65,16 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
     }
   }, []);
 
+    // --- Redirige a /payment si hay método seleccionado ---
+  useEffect(() => {
+    if (methodStatePayment && location.pathname !== '/payment') {
+      console.log(methodStatePayment, 'method')
+      console.log(location.pathname, 'location.pathname')
+      console.log('Redirigiendo a /payment por método seleccionado');
+      navigate('/payment');
+    }
+  }, [methodStatePayment]);
+
   // --- Opcional: Limpia solo cuando sales DEFINITIVAMENTE del flujo de pago ---
   useEffect(() => {
     const isLeavingPaymentFlow =
@@ -68,20 +82,11 @@ export const MethodStatePaymentContextProvider = ({ children }) => {
       !location.pathname.startsWith('/checkout');
 
     if (isLeavingPaymentFlow) {
-      console.log('hola')
+
       clearMethodStatePayment();
     }
   }, [location.pathname]);
 
-  console.log(methodStatePayment)
-
-  // --- Redirige a /payment si hay método seleccionado ---
-  useEffect(() => {
-    if (methodStatePayment && location.pathname !== '/payment') {
-      console.log('2')
-      navigate('/payment');
-    }
-  }, [methodStatePayment, location.pathname]);
 
   return (
     <MethodStatePaymentContext.Provider

@@ -11,7 +11,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         correo: '',
         mensaje: ''
     });
-    
+     
     const [errors, setErrors] = useState({});
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const [focusedField, setFocusedField] = useState('');

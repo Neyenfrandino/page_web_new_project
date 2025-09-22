@@ -13,6 +13,7 @@ import message from '../../json/messge.json';
 import FAQ from '../../json/FAQ.json';
 import blogs from '../../json/blogs.json';
 import timerProps from '../../json/timerProps.json';
+import eventos from '../../json/eventos.json';
 
 
 let DOMAIN = import.meta.env.VITE_API_URL;
@@ -33,7 +34,8 @@ const initialState = {
   FAQ: [],
   blogs: [],
   timerProps: timerProps,
-  DOMAIN: DOMAIN
+  DOMAIN: DOMAIN,
+  eventos: []
 };
 
 // Tipos de acciones
@@ -81,8 +83,10 @@ export const ContextJsonLoadProvider = ({ children }) => {
           message: message,
           FAQ: FAQ,
           blogs: blogs,
-          // timerProps: timerProps,
-          DOMAIN: DOMAIN
+          timerProps: timerProps,
+          DOMAIN: DOMAIN,
+          eventos: eventos
+          
         },
       });
     };
@@ -101,7 +105,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
     ...timerProps,
     img: timerProps.img.replace("{DOMAIN}", DOMAIN)
   };
-  console.log(DOMAIN)
+  console.log(eventos)
 
   const value = {
     ...state,

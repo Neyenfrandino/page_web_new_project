@@ -17,7 +17,7 @@ const Founders = lazy(() => import('../../components/seccion/founders/founders')
 const Valores = lazy(() => import('../../components/seccion/valores/valores'));
 const CtaLogrosReconocimientos = lazy(() => import('../../components/seccion/cta_logros_reconocimientos/cta_logros_reconocimientos'));
 const TimeLineHistory = lazy(() => import('../../components/seccion/history_about/time_line_history'));
-
+ 
 // ------------------------------
 // 📂 UI
 import Button from '../../components/ui/button/button';
@@ -154,7 +154,7 @@ const AboutMe = () => {
               </FadeInOnView>
             </Suspense>
           </section>
-
+ 
           {/* Fundadores con ID para ancla */}
           <section 
             className='aboutMe__founders' 

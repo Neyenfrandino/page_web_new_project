@@ -21,3 +21,4 @@ async def send_order_email_endpoint(order: OrderSchema):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error al procesar la orden: {str(e)}"
         )
+ 

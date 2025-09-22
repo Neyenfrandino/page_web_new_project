@@ -97,7 +97,7 @@ const Services = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { servicios, FAQ: faqData } = useContext(ContextJsonLoadContext);
+  const { servicios, FAQ: faqData, dataTimerProps } = useContext(ContextJsonLoadContext);
  
   const handleOpenModal = useCallback(
     (status, e, item) => {
@@ -186,13 +186,14 @@ const Services = () => {
               <div className="services--content--testimonials">
                 <TestimonialCard typeTestimonial="servicio" />
               </div>
-        
-            <FadeInOnView {...fadeInProps}>
-              <div className="services--content--CTA-cuenta-rgresiva">
-                <CtaImgCuentaRgresiva {...timerProps} />
-              </div>
+           
+            <FadeInOnView {...animationProps}>
+              <section className="products--content--CTA-cuenta-rgresiva" aria-label="Evento próximo">
+                <h2 className="sr-only">Próximo evento especial</h2>
+                <CtaImgCuentaRgresiva {...dataTimerProps} />
+              </section>
             </FadeInOnView>
-     
+    
             <FadeInOnView {...fadeInProps}>
               <div className="services--content--faq">
                 <FAQ faqs={faqData} defaultCategory="servicios" />

@@ -1,14 +1,13 @@
 {
   "img": "/img/3.png",
   "titles": {
-    "main": "",
+    "main": "¡Prepárate para el gran día!",
     "subtitle": "Festival Eco de la Tierra"
   },
-  "text": "lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+  "text": "Celebra con nosotros la conexión con la naturaleza en una jornada llena de música, talleres, charlas y experiencias sostenibles para toda la familia.",
   "buttonText": "Inscríbete ahora",
   "timer": {
-    "targetDate": "2025-09-23T18:59:59"
+    "targetDate": "2025-09-20T18:59:59"
   },
-  "link": "/servicios/laboratorios-alimentacion-viva"
+  "id": "festival-eco-de-la-tierra"
 }
- 

@@ -14,7 +14,7 @@ const petals = [
   { className: "petal-8", rotate: "rotate(315 100 40)" },
 ];
 
-
+ 
 // // Simulamos Link para la demo
 // const Link = ({ to, className, children }) => (
 //     <a href={to} className={className}>{children}</a>

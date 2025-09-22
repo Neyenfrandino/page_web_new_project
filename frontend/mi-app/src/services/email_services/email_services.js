@@ -1,9 +1,11 @@
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5173";
+
 const sendEmail = async (formState) => {
     console.log("🚀 Enviando email:", formState);
 
     try {
-        const response = await fetch("http://localhost:8000/email/send", {
+        const response = await fetch(`${API_URL}/order/send_order_email`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,3 +28,4 @@ const sendEmail = async (formState) => {
 };  
 
 export default sendEmail;
+ 

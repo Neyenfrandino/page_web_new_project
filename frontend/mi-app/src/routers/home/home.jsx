@@ -391,34 +391,42 @@ const Home = () => {
         <LineLogoSeparacion />
 
         <section className='home__content--servicios' aria-labelledby="servicios-title" itemScope itemType="https://schema.org/Service">
-        <FadeInOnView {...fadeInProps}>
-          <div className='content--servicios__container'>
-            <div className='content--servicios__text'>
-              <h2 id="servicios-title" itemProp="name">Juntos en el proceso de regenerar territorios</h2>
-              <p itemProp="description">
-                Nuestro objetivo es crear una red de regeneración global que impulse la colaboración y el aprendizaje compartido. A través de metodologías teórico-prácticas que integran permacultura, bioconstrucción y saberes ancestrales, acompañamos a quienes buscan transformar su entorno y modo de vida de manera profunda y consciente.
-              </p>
-              <span>
-              Dirigimos nuestras capacitaciones a personas comprometidas con un cambio regenerativo auténtico, con la esperanza de generar transformación social y territorial significativa en familias, proyectos y comunidades, construyendo juntos un futuro más sostenible donde la vida humana y la naturaleza encuentren equilibrio.
-              </span>
-            </div>
-            <div className='content--servicios__grid'>
-              <div className="grid-wrapper">
-                <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+          <FadeInOnView {...fadeInProps}>
+            <div className='content--servicios__container'>
+              <div className='content--servicios__text'>
+                <h2 id="servicios-title" itemProp="name">Juntos en el proceso de regenerar territorios</h2>
+                <p itemProp="description">
+                  Nuestro objetivo es crear una red de regeneración global que impulse la colaboración y el aprendizaje compartido. A través de metodologías teórico-prácticas que integran permacultura, bioconstrucción y saberes ancestrales, acompañamos a quienes buscan transformar su entorno y modo de vida de manera profunda y consciente.
+                </p>
+                <span>
+                Dirigimos nuestras capacitaciones a personas comprometidas con un cambio regenerativo auténtico, con la esperanza de generar transformación social y territorial significativa en familias, proyectos y comunidades, construyendo juntos un futuro más sostenible donde la vida humana y la naturaleza encuentren equilibrio.
+                </span>
               </div>
-              {modalContent}
+              <div className='content--servicios__grid'>
+                <div className="grid-wrapper">
+                  <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+                </div>
+                {modalContent}
+              </div>
             </div>
-          </div>
-          <CtaImgCuentaRgresiva {...timerProps} />
-          <div className='home__content--servicios-buttons'>
-            <Button 
-              text="Explora todos los servicios"
-              link="/servicios"
-              style="outline"
-              aria-label="Ver todos los servicios de capacitación y acompañamiento del Movimiento Naluum"
-            />
-          </div>
-        </FadeInOnView>
+
+            <div className='content--servicios__cta-timer'>
+              <div className='content--servicios__cta-component'>
+                <CtaImgCuentaRgresiva {...timerProps} />
+              </div>
+
+              <div className='home__content--servicios-buttons'>
+                <Button 
+                  text="Explora todos los servicios"
+                  link="/servicios"
+                  style="outline"
+                  aria-label="Ver todos los servicios de capacitación y acompañamiento del Movimiento Naluum"
+                />
+              </div>
+
+            </div>
+
+          </FadeInOnView>
         </section>
 
         <LineLogoSeparacion />
@@ -485,7 +493,7 @@ const Home = () => {
           </FadeInOnView>
         </section>
 
-        <LineLogoSeparacion />
+        {/* <LineLogoSeparacion /> */}
 
         <section className='home__content--message_final' aria-labelledby="mensaje-final-title">
           <FadeInOnView {...fadeInProps}>

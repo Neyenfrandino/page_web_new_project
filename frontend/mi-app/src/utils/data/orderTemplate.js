@@ -22,4 +22,4 @@ export const orderTemplate = {
   notas: "",                  // Notas opcionales del cliente
   origen_pedido: "web",       // web | app | tienda física
   tracking_id: ""             // Para asignar cuando se cree el envío
-};
+}; 

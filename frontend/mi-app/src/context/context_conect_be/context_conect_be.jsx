@@ -105,8 +105,8 @@ const handlePaymentMercadoPago = useCallback(
     }
 
     try {
-      console.log("📡 Creando preferencia en el backend con item:", orden);
-      console.log("📡 Creando preferencia en el backend con item:", item);
+      // console.log("📡 Creando preferencia en el backend con item:", orden);
+      // console.log("📡 Creando preferencia en el backend con item:", item);
 
       const data = await conect_mercado_pago_BE.createPreference(item, orden);
 
@@ -119,8 +119,8 @@ const handlePaymentMercadoPago = useCallback(
 
       const { preference_id, init_point } = data.data;
 
-      console.log("✅ Preference ID:", preference_id);
-      console.log("🔗 URL de checkout:", init_point);
+      // console.log("✅ Preference ID:", preference_id);
+      // console.log("🔗 URL de checkout:", init_point);
 
       // 🔹 Abrir checkout en una nueva pestaña
       window.open(init_point, '_blank', 'noopener,noreferrer');
@@ -137,8 +137,8 @@ const handlePaymentMercadoPago = useCallback(
 
 
     return (
-        <ConectContext.Provider value={{ handlePayment, setConect, handlePaymentMercadoPago, setSuccessPaymentMercadoPago }}>
+      <ConectContext.Provider value={{ handlePayment, setConect, handlePaymentMercadoPago, setSuccessPaymentMercadoPago }}>
         {children}
-        </ConectContext.Provider>
+      </ConectContext.Provider>
     );
 };
