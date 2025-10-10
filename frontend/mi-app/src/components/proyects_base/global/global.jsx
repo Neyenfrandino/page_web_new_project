@@ -501,7 +501,7 @@ const Global = () => {
   
                 <div className='global__content--testimonial'>
                     <FadeInOnView {...fadeInProps}>
-                        <TestimonialCard typeTestimonial='global'/>
+                        <TestimonialCard typeTestimonial='servicios_madreSelva'/>
                     </FadeInOnView>
                 </div>
 

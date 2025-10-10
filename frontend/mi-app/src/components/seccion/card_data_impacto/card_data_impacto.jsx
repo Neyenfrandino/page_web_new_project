@@ -97,7 +97,7 @@ const ImpactCard = ({ item, index }) => {
         </div>
     );
 };
-
+ 
 const CardDataImpacto = () => {
     const { dataImpactoReal } = useContext(ContextJsonLoadContext);
     

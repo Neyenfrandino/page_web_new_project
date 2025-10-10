@@ -2,7 +2,7 @@
   {
     "icon": "fa-solid fa-seedling",
     "title": "Proyectos activos",
-    "value": "+100",
+    "value": "+ 50",
     "description": "Proyectos en marcha"
   },
   {
@@ -14,7 +14,7 @@
   {
     "icon": "fa-solid fa-people-group",
     "title": "Comunidades beneficiadas",
-    "value": "+ 80",
+    "value": "+ 15",
     "description": "Familias involucradas en prácticas sostenibles"
   },
   {
@@ -32,19 +32,19 @@
   {
     "icon": "fa-solid fa-map-location-dot",
     "title": "Regiones activas",
-    "value": "4",
+    "value": "24",
     "description": "Provincias argentinas con presencia del proyecto"
   },
   {
     "icon": "fa-solid fa-handshake",
     "title": "Pdc",
-    "value": "+ 250",
+    "value": "+ 500",
     "description": "Cursos dictados de formación pegagogica"
   },
   {
     "icon": "fa-solid fa-globe-americas",
     "title": "Paises",
-    "value": "+40",
+    "value": "+15",
     "description": "Proyectos en colaboración internacional"
   }
 ]

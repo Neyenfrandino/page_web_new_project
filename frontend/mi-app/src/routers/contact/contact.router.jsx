@@ -63,7 +63,6 @@ import './contact.router.scss';
 const Contact = () => {
 
     const { message } = useContext(ContextJsonLoadContext);
-    console.log(message);
 
     if (!message) return null;
 
@@ -121,12 +120,12 @@ const Contact = () => {
                 </div>
 
                 
-                <LineLogoSeparacion />
+                {/* <LineLogoSeparacion /> */}
 
 
-                <div className='contact--content__message'>
+                {/* <div className='contact--content__message'>
                     <MessageFinal indexMessage={2} />
-                </div>
+                </div> */}
                 
                 <LineLogoSeparacion />
 

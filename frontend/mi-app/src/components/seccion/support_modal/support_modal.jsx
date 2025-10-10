@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import './support_modal.scss';
 
-const SupportModalContent = ({ onClose }) => {
+const messageTitle = {
+  informacionProductos: 'Para una mejor atencion, hemos abierto un canal de contacto donde te proporcionaremos toda la información que necesitas sobre nuestros productos y servicios.',
+  soporteTecnico: 'Soporte Técnico',
+  consultasGenerales: 'Consultas Generales'
+}
+
+const SupportModalContent = ({ onClose, item }) => {
+  
   const [contactMethod, setContactMethod] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -13,8 +20,8 @@ const SupportModalContent = ({ onClose }) => {
   const [submitStatus, setSubmitStatus] = useState(null);
 
   // WhatsApp configuration
-  const WHATSAPP_NUMBER = '5491123456789'; // Reemplaza con tu número
-  const WHATSAPP_MESSAGE = 'Hola, necesito ayuda con...';
+  const WHATSAPP_NUMBER = '3534240350'; // Reemplaza con tu número
+  const WHATSAPP_MESSAGE = `Hola, me gustaría obtener más información sobre ${item ? item.title : 'sus servicios'}.`;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,12 +59,12 @@ const SupportModalContent = ({ onClose }) => {
 
   return (
     <div className="support-content">
-      <h2 className="support-content__title">Centro de Soporte</h2>
+      <h2 className="support-content__title">¿Cómo prefieres contactarnos?</h2>
       
       {!contactMethod ? (
         <>
           <p className="support-content__subtitle">
-            ¿Cómo prefieres contactarnos?
+            {item.originalData?.type == 'product' || item.originalData?.type == 'service' ? messageTitle.informacionProductos : messageTitle.soporteTecnico}
           </p>
           
           <div className="support-content__options">

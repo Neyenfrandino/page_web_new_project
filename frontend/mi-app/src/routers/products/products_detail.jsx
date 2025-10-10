@@ -123,9 +123,30 @@ const ProductsDetail = ({ type = 'product' }) => {
               </span>
             </div>
             <div className="actions">
-              <button className="action-btn" onClick={() => navigator.clipboard.writeText(window.location.href)}>
+              <button
+                className="action-btn"
+                onClick={async () => {
+                  const shareData = {
+                    title: currentItem.title,
+                    text: currentItem.subtitle || 'Mira este producto interesante',
+                    url: window.location.href,
+                  };
+
+                  if (navigator.share) {
+                    try {
+                      await navigator.share(shareData);
+                    } catch (error) {
+                      console.error('Error al compartir:', error);
+                    }
+                  } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Enlace copiado al portapapeles');
+                  }
+                }}
+              >
                 <Share2 size={20} />
               </button>
+
               <button className={`action-btn ${isLiked ? 'liked' : ''}`} onClick={() => setIsLiked(!isLiked)}>
                 <Heart size={20} fill={isLiked ? '#ef4444' : 'none'} />
               </button>
@@ -254,13 +275,13 @@ const ProductsDetail = ({ type = 'product' }) => {
           </Link>
         </div>
       </div>
-
+ 
       {/* Modal de Soporte */}
       <Modal
         isOpenModal={isSupportModalOpen}
         onClose={() => setIsSupportModalOpen(false)}
       >
-        <SupportModalContent onClose={() => setIsSupportModalOpen(false)} />
+        <SupportModalContent onClose={() => setIsSupportModalOpen(false)} item={currentItem} />
       </Modal>
     </div>
   );

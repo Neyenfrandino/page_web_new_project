@@ -409,7 +409,7 @@ const Home = () => {
                 {modalContent}
               </div>
             </div>
-
+ 
             <div className='content--servicios__cta-timer'>
               <div className='content--servicios__cta-component'>
                 <CtaImgCuentaRgresiva {...timerProps} />
@@ -437,7 +437,7 @@ const Home = () => {
             <CardDataImpacto />
           </FadeInOnView>
         </section>
-
+ 
         <LineLogoSeparacion />
 
         <section className='home__content--beforeAfter' aria-labelledby="transformacion-title">

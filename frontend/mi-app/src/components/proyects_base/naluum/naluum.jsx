@@ -4,7 +4,7 @@ import { useQueryParam } from '../../../hooks/useQueryParams';
 import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import { MethodStatePaymentContext } from '../../../context/method_state_payment/method_state_payment.context';
 
-
+ 
 // ------------------------------
 // 📂 SEO y Meta
 // Importaciones de componentes relacionados con SEO y metadata
@@ -201,7 +201,6 @@ const Naluum = () => {
                 <div className='naluum__content--history'>
                     <FadeInOnView {...fadeInProps}>
                         <TimeLineHistory index={1} titles={titles} showHeroBg={true} heroBgImage={'/img/logo_naluum_trasparente.svg'} theme={'naluum'} />
-
                     </FadeInOnView>
                 </div>
 

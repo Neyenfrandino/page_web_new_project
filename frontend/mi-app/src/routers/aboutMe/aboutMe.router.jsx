@@ -20,7 +20,7 @@ const TimeLineHistory = lazy(() => import('../../components/seccion/history_abou
  
 // ------------------------------
 // 📂 UI
-import Button from '../../components/ui/button/button';
+// import Button from '../../components/ui/button/button';
 
 // ------------------------------
 // 📂 Styles
@@ -102,7 +102,7 @@ const AboutMe = () => {
         <Header>
           <section className='aboutMe__header-img-container' aria-label="Imagen hero">
             <img 
-              src="/img/hero_sobreMi.jpg" 
+              src="/img/curso1.jpg" 
               alt="Vista panorámica del movimiento Naluum - Regeneración planetaria en acción" 
               className="aboutMe__header-img"
               loading="eager"
@@ -115,7 +115,7 @@ const AboutMe = () => {
           <section className='aboutMe__header-content-container' aria-label="Introducción">
             <div className='aboutMe__header-content'>
               <header className='aboutMe__header-content-title'>
-                <h1>Naluum: La Madre Tierra que Inspira un Movimiento Global</h1>
+                <h1>Naluum un camino de regeneración y amor a la vida</h1>
                 <p>La historia de cómo un sueño ancestral de cuidado de la Madre Tierra se convirtió en un movimiento global de transformación regenerativa</p>
               </header>
               

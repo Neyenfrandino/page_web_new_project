@@ -157,5 +157,5 @@ const CtaImgCuentaRgresiva = ({
     </div>
   );
 };
-
+ 
 export default CtaImgCuentaRgresiva;

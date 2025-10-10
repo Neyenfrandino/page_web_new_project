@@ -107,19 +107,19 @@ const getAnimationProps = () => {
 
 // ------------------------------
 // Timer Configuration
-const timerProps = {
-  img: `${DOMAIN}/img/3.png`,
-  titles: {
-    main: "",
-    subtitle: "Festival Eco de la Tierra",
-  },
-  text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-  buttonText: "Inscríbete ahora",
-  timer: {
-    targetDate: "2025-09-23T18:59:59"
-  },
-  link : "/servicios/laboratorios-alimentacion-viva"
-};
+// const timerProps = {
+//   img: `${DOMAIN}/img/3.png`,
+//   titles: {
+//     main: "",
+//     subtitle: "Festival Eco de la Tierra",
+//   },
+//   text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+//   buttonText: "Inscríbete ahora",
+//   timer: {
+//     targetDate: "2025-09-23T18:59:59"
+//   },
+//   link : "/servicios/laboratorios-alimentacion-viva"
+// };
 
 
 // ------------------------------
@@ -133,7 +133,7 @@ const Products = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { products, FAQ: faqData, dataTimerProps } = useContext(ContextJsonLoadContext);
+  const { products, FAQ: faqData, timerProps } = useContext(ContextJsonLoadContext);
 
   const animationProps = getAnimationProps();
   const isExactProductsRoute = location.pathname === "/productos" || location.pathname === "/productos/";
@@ -209,6 +209,7 @@ const Products = () => {
 
   const seoData = getSEOData();
 
+
   return (
     <div className={`products__container ${isVisible ? "visible" : ""}`}>
       <SEOHelmet
@@ -223,14 +224,13 @@ const Products = () => {
         price={seoData.price}
         availability={seoData.availability}
       />
-
       {isExactProductsRoute && !id && (
         <>
           <Header>
             <header className="products--header__container" role="banner">
               <div className="products--header__img">
                 <img 
-                  src="/img/initial_products.jpg" 
+                  src={`${DOMAIN}/img/initial_products.jpg`} 
                   alt="Productos ecológicos y naturales de Naluum" 
                   loading="eager"
                   width="1920"
@@ -253,7 +253,7 @@ const Products = () => {
 
               <div className="scroll-indicator" aria-hidden="true">
                 <div className="mouse"></div>
-                <span className="sr-only">Desplázate hacia abajo para ver más</span>
+                {/* <span className="sr-only">Desplázate hacia abajo para ver más</span> */}
               </div>
             </header>
           </Header>
@@ -261,32 +261,32 @@ const Products = () => {
           <main className="products--content"  role="main">
             {/* Breadcrumb for SEO */}
  
-          <section className="products--content--filters" aria-label="Filtros de productos">
-            <style>
-              {`
-                .products--content--filters::before {
-                  content: '';
-                  position: absolute;
-                  inset: 0;
-                  background-image: url(${DOMAIN}/img/fondopapel2.png);
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  background-position: bottom;
-                  transform: rotate(180deg);
-                  opacity: 1;
-                  z-index: -1;
-                }
-              `}
-            </style>
-            <h2 className="sr-only">Filtrar productos</h2>
-            <Suspense fallback={<LoadingSpinner />}>
-              <CatalogFilter
-                items={products}
-                onFilteredItems={setFilteredProducts}
-                ariaLabel="Filtros de catálogo de productos"
-              />
-            </Suspense>
-          </section>
+            <section className="products--content--filters" aria-label="Filtros de productos">
+              <style>
+                {`
+                  .products--content--filters::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background-image: url(${DOMAIN}/img/fondopapel2.png);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: bottom;
+                    transform: rotate(180deg);
+                    opacity: 1;
+                    z-index: -1;
+                  }
+                `}
+              </style>
+              <h2 className="sr-only">Filtrar productos</h2>
+              <Suspense fallback={<LoadingSpinner />}>
+                <CatalogFilter
+                  items={products}
+                  onFilteredItems={setFilteredProducts}
+                  ariaLabel="Filtros de catálogo de productos"
+                />
+              </Suspense>
+            </section>
 
             <section className="products--content--grid" aria-label="Catálogo de productos">
               <style>
@@ -351,7 +351,7 @@ const Products = () => {
               <FadeInOnView {...animationProps}>
                 <section className="products--content--CTA-cuenta-rgresiva" aria-label="Evento próximo">
                   <h2 className="sr-only">Próximo evento especial</h2>
-                  <CtaImgCuentaRgresiva {...dataTimerProps} />
+                  <CtaImgCuentaRgresiva {...timerProps} />
                 </section>
               </FadeInOnView>
             </Suspense>

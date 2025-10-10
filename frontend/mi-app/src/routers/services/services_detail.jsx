@@ -188,10 +188,49 @@ const ServiceDetail = () => {
               </span>
             </div>
             
-            <div className="actions">
-              <button onClick={handleShare} className="action-btn" aria-label="Compartir">
+                <div className="actions">
+              <button
+                className="action-btn"
+                onClick={async () => {
+                  const shareData = {
+                    title: currentService.title,
+                    text: currentService.subtitle || 'Mira este curso interesante',
+                    url: window.location.href,
+                  };
+
+                  if (navigator.share) {
+                    try {
+                      await navigator.share(shareData);
+                    } catch (error) {
+                      console.error('Error al compartir:', error);
+                    }
+                  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(window.location.href);
+                    const toast = document.createElement('div');
+                    toast.textContent = 'Enlace copiado 📋';
+                    toast.style.position = 'fixed';
+                    toast.style.bottom = '20px';
+                    toast.style.left = '50%';
+                    toast.style.transform = 'translateX(-50%)';
+                    toast.style.background = 'rgba(0,0,0,0.8)';
+                    toast.style.color = '#fff';
+                    toast.style.padding = '10px 20px';
+                    toast.style.borderRadius = '12px';
+                    toast.style.fontSize = '14px';
+                    toast.style.zIndex = '9999';
+                    toast.style.transition = 'opacity 0.3s ease';
+                    document.body.appendChild(toast);
+                    setTimeout(() => (toast.style.opacity = '0'), 1500);
+                    setTimeout(() => toast.remove(), 1800);
+                  } else {
+                    alert('Función de compartir no disponible en este navegador');
+                  }
+                }}
+                aria-label="Compartir"
+              >
                 <Share2 size={20} />
               </button>
+
               <button 
                 onClick={handleLike} 
                 className={`action-btn ${isLiked ? 'liked' : ''}`} 

@@ -97,7 +97,7 @@ const Services = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { servicios, FAQ: faqData, dataTimerProps } = useContext(ContextJsonLoadContext);
+  const { servicios, FAQ: faqData, dataTimerProps, animationProps  } = useContext(ContextJsonLoadContext);
  
   const handleOpenModal = useCallback(
     (status, e, item) => {

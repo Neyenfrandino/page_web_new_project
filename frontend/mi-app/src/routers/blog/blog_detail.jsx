@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
 import './blog_detail.scss';
-
+ 
 const BlogDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();

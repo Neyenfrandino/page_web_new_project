@@ -4,7 +4,8 @@ import {
   Star, Clock, Users, Monitor, DollarSign, Sparkles,
   ArrowRight, ShoppingCart, BookOpen, Calendar
 } from 'lucide-react';
-import { FaExpandArrowsAlt, FaLink } from 'react-icons/fa';
+import { FaExpandArrowsAlt, FaLink} from 'react-icons/fa';
+import { Share2 } from 'lucide-react';
 
 import DiscountBadge from '../../../ui/discount_badge/discount_badge';
 
@@ -198,10 +199,47 @@ const ModalCard = ({ course, children }) => {
           </button>
 
           <div className="card_modal__buttons-floating">
-            <button onClick={handleCopy} className="btn-copy-link">
-              <FaLink />
-              Copiar enlace
+            <button
+              className="btn-copy-link"
+              onClick={async () => {
+                const shareData = {
+                  title: document.title,
+                  text: 'Mira este enlace interesante',
+                  url: window.location.href,
+                };
+
+                if (navigator.share) {
+                  try {
+                    await navigator.share(shareData);
+                  } catch (error) {
+                    console.error('Error al compartir:', error);
+                  }
+                } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                  await navigator.clipboard.writeText(window.location.href);
+                  const toast = document.createElement('div');
+                  toast.textContent = 'Enlace copiado 📋';
+                  toast.style.position = 'fixed';
+                  toast.style.bottom = '20px';
+                  toast.style.left = '50%';
+                  toast.style.transform = 'translateX(-50%)';
+                  toast.style.background = 'rgba(0,0,0,0.8)';
+                  toast.style.color = '#fff';
+                  toast.style.padding = '10px 20px';
+                  toast.style.borderRadius = '12px';
+                  toast.style.fontSize = '14px';
+                  toast.style.zIndex = '9999';
+                  toast.style.transition = 'opacity 0.3s ease';
+                  document.body.appendChild(toast);
+                  setTimeout(() => (toast.style.opacity = '0'), 1500);
+                  setTimeout(() => toast.remove(), 1800);
+                } else {
+                  alert('Función de compartir no disponible en este navegador');
+                }
+              }}
+            >
+              <Share2 size={20} />
             </button>
+
             
             <Link to={buildCourseUrl()} className="card_modal__vermas-link" title='Expandir'>
               <FaExpandArrowsAlt />

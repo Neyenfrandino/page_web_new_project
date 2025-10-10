@@ -203,19 +203,19 @@ const MadreSelva = () => {
      const modalContent = useMemo(() => {
         if (!isModalOpen.isOpen || !isModalOpen.item) return null;
         return (
-        <Modal
-            isOpenModal={isModalOpen}
-            onClose={handleCloseModal}
-            triggerElement={triggerElement}
-            showPointer={true}
-        >
-            <ModalCard course={isModalOpen.item}>
-            <PaymentMethodSelector
-                item={isModalOpen.item}
-                onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
-            />
-            </ModalCard>
-        </Modal>
+            <Modal
+                isOpenModal={isModalOpen}
+                onClose={handleCloseModal}
+                triggerElement={triggerElement}
+                showPointer={true}
+            >
+                <ModalCard course={isModalOpen.item}>
+                <PaymentMethodSelector
+                    item={isModalOpen.item}
+                    onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
+                />
+                </ModalCard>
+            </Modal>
         );
     }, [isModalOpen, handleCloseModal, triggerElement, handlePayment]);
 

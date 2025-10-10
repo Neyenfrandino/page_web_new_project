@@ -18,7 +18,7 @@ const FAQ = ({
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
-
+ 
   return (
     <section className="faq-section">
       <div className="faq-container">
@@ -97,7 +97,7 @@ const FAQ = ({
             <p>No hay preguntas frecuentes en esta categoría.</p>
           </div>
         )}
-
+{/* 
         <div className="faq-footer">
           <div className="help-section">
             <h3>¿No encontraste lo que buscabas?</h3>
@@ -117,7 +117,7 @@ const FAQ = ({
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

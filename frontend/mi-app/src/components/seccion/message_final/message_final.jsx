@@ -2,6 +2,8 @@ import { useContext } from 'react';
 import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import './message_final.scss';
 
+const DOMAIN = import.meta.env.VITE_API_URL;
+
 
 const MessageFinal = ({indexMessage}) => {
     const { message } = useContext(ContextJsonLoadContext);
@@ -9,9 +11,8 @@ const MessageFinal = ({indexMessage}) => {
     if (!Array.isArray(message) || typeof indexMessage !== 'number' || !message[indexMessage]) return null;
 
     const messageFinal = message[indexMessage];
-
     return (
-        <div className='message_final__container' style={{ backgroundImage: `url(${messageFinal.image})` }}>
+        <div className='message_final__container' style={{ backgroundImage: `url(${DOMAIN}${messageFinal.image})` }}>
             <div className='message_final__overlay'></div>
             <div className='message_final__content'>
                 <div className='message_final__text'>

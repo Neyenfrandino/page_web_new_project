@@ -1,5 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MethodStatePaymentContext } from '../../../../src/context/method_state_payment/method_state_payment.context';
+import SupportModalContent from '../support_modal/support_modal'; 
+import Modal from '../../ui/modal/modal';
+
 import './grid.scss';
 
 const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
@@ -54,13 +57,15 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
       setIsOpen(true, e, normalizedItem.originalData);
     }
   };
-
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState({statusOpenModal: false, item: null});
+  console.log(isSupportModalOpen.statusOpenModal);
   const handlePrimaryAction = (normalizedItem, e) => {
     e.stopPropagation();
-    const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
+    setIsSupportModalOpen({statusOpenModal: true, item: normalizedItem});
+
+    // const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
     
-    console.log(normalizedItem)
-    setMethodStatePayment({ normalizedItem });
+    // setMethodStatePayment({ normalizedItem });
     // Aquí va tu lógica específica
   };
 
@@ -165,6 +170,17 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
             </div>
           );
         })}
+
+        <Modal
+            isOpenModal={isSupportModalOpen.statusOpenModal}
+            onClose={() => setIsSupportModalOpen({ statusOpenModal: false, item: null })}
+          >
+            <SupportModalContent 
+              onClose={() => setIsSupportModalOpen({ statusOpenModal: false, item: null })} 
+              item={isSupportModalOpen.item} 
+            />
+        </Modal>
+
       </div>
     </div>
   );
