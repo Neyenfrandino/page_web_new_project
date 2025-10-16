@@ -1,10 +1,17 @@
 import { useState, useCallback, useContext } from 'react';
+import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import { EmailContext } from '../../../context/email/email_context';
 import { Mail, MessageCircle, Instagram, Leaf, Send, User, AtSign, AlertCircle, CheckCircle } from 'lucide-react';
 import './cta_hablemos.scss';
 
-const CtaHablemos = ({ showSocialMedia = true }) => {
+const CtaHablemos = ({
+    proyecto = "Na Lu'um",
+    showSocialMedia = true, // prop para mostrar/ocultar redes sociales
+}) => {
     const { sendEmail } = useContext(EmailContext);
+    const { info_contacto } = useContext(ContextJsonLoadContext);
+
+    const contacto = info_contacto?.find(item => item.proyecto === proyecto)?.contacto;
 
     const [formState, setFormState] = useState({
         nombre: '',
@@ -21,7 +28,8 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         asunto: {
             location: window.location.pathname,
             tipo: "Consulta",
-            fecha: new Date().toISOString()
+            fecha: new Date().toISOString(),
+            proyectoSeleccionado: proyecto
         },
         infoExtra: {
             prioridad: "alta",
@@ -65,17 +73,17 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         return formErrors;
     };
 
-    const handleInputChange = useCallback((field, value, e) => {
+    const handleInputChange = useCallback((field, value) => {
         setFormState(prev => ({ ...prev, [field]: value }));
 
-        // Guardar input dinámico en additionalData
         setAdditionalData(prev => ({
             ...prev,
             asunto: {
                 ...prev.asunto,
                 location: window.location.pathname,
                 tipo: "Consulta",
-                fecha: new Date().toISOString()
+                fecha: new Date().toISOString(),
+                proyectoSeleccionado: proyecto
             }
         }));
 
@@ -90,7 +98,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         }
 
         if (submitStatus) setSubmitStatus(null);
-    }, [errors, isFormSubmitted, submitStatus]);
+    }, [errors, isFormSubmitted, submitStatus, proyecto]);
 
     const handleSubmit = useCallback(async (e) => {
         e?.preventDefault();
@@ -104,7 +112,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
         try {
             const finalData = {
                 ...formState,
-                ...additionalData // datos adicionales (asunto e infoExtra)
+                ...additionalData
             };
 
             const response = await sendEmail(finalData);
@@ -113,7 +121,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                 setFormState({ nombre: '', correo: '', mensaje: '' });
                 setErrors({});
                 setFocusedField('');
-                setAdditionalData(prev => ({ ...prev, userInputs: {} })); // limpiar inputs
+                setAdditionalData(prev => ({ ...prev, userInputs: {} }));
             } else {
                 setSubmitStatus('error');
             }
@@ -121,7 +129,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
             console.error('Error al enviar email:', error);
             setSubmitStatus('error');
         }
-    }, [additionalData, sendEmail]);
+    }, [additionalData, sendEmail, formState]);
 
     const handleFocus = (field) => {
         setFocusedField(field);
@@ -149,6 +157,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
             </div>
 
             <div className="modern-contact__container">
+                {/* Header */}
                 <div className="modern-contact__header">
                     <div className="modern-contact__header-icon"><Leaf size={24} /></div>
                     <h1 className="modern-contact__title">Hablemos</h1>
@@ -157,6 +166,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                     </p>
                 </div>
 
+                {/* Formulario */}
                 <div className="modern-contact__form-section">
                     <div className="modern-contact__form-card">
                         <div className="modern-contact__form-grid">
@@ -170,11 +180,11 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                                 </div>
                                 <div className="modern-contact__image-content">
                                     <div className="modern-contact__profile-image">
-                                        <img src="/img/tierra_martinez.jpg" alt="Naluum - Movimiento de Permacultura" loading="lazy" />
+                                        <img src="/img/tierra_martinez.jpg" alt={`${contacto?.nombre}`} loading="lazy" />
                                     </div>
                                     <div className="modern-contact__profile-info">
-                                        <h3>Naluum</h3>
-                                        <p>Movimiento de Permacultura</p>
+                                        <h3>{contacto?.nombre}</h3>
+                                        <p>{proyecto}</p>
                                         <div className="modern-contact__profile-tagline">
                                             <Leaf size={14} />
                                             <span>Construyendo un futuro sostenible</span>
@@ -201,6 +211,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                                 )}
 
                                 <form className="modern-contact__form" onSubmit={handleSubmit}>
+                                    {/* Nombre */}
                                     <div className="modern-contact__field">
                                         <div className={`modern-contact__field-icon ${focusedField === 'nombre' ? 'modern-contact__field-icon--focused' : ''} ${errors.nombre ? 'modern-contact__field-icon--error' : ''}`}>
                                             <User size={18} />
@@ -225,6 +236,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                                         )}
                                     </div>
 
+                                    {/* Correo */}
                                     <div className="modern-contact__field">
                                         <div className={`modern-contact__field-icon ${focusedField === 'correo' ? 'modern-contact__field-icon--focused' : ''} ${errors.correo ? 'modern-contact__field-icon--error' : ''}`}>
                                             <AtSign size={18} />
@@ -249,6 +261,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                                         )}
                                     </div>
 
+                                    {/* Mensaje */}
                                     <div className="modern-contact__field">
                                         <textarea
                                             placeholder="Escribe tu mensaje aquí..."
@@ -274,6 +287,7 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                                         </div>
                                     </div>
 
+                                    {/* Submit */}
                                     <button 
                                         type="submit"
                                         disabled={isFormSubmitted || !isFormValid()}
@@ -297,7 +311,8 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                     </div>
                 </div>
 
-                {showSocialMedia && (
+                {/* Redes sociales dinámicas */}
+                {showSocialMedia && contacto && (
                     <div className="modern-contact__social-section">
                         <div className="modern-contact__social-header">
                             <h2>También podés encontrarnos por otros medios</h2>
@@ -305,57 +320,63 @@ const CtaHablemos = ({ showSocialMedia = true }) => {
                         </div>
 
                         <div className="modern-contact__social-grid">
-                            <div className="modern-contact__social-card">
-                                <div className="modern-contact__social-icon modern-contact__social-icon--email">
-                                    <Mail size={24} />
+                            {contacto.email && (
+                                <div className="modern-contact__social-card">
+                                    <div className="modern-contact__social-icon modern-contact__social-icon--email">
+                                        <Mail size={24} />
+                                    </div>
+                                    <h3>Escribinos por email</h3>
+                                    <p>{contacto.email}</p>
+                                    <a 
+                                        href={`mailto:${contacto.email}`} 
+                                        className="modern-contact__social-button modern-contact__social-button--email"
+                                        aria-label={`Enviar email a ${contacto.nombre}`}
+                                    >
+                                        <Mail size={16} />
+                                        <span>Enviar mensaje</span>
+                                    </a>
                                 </div>
-                                <h3>Escribinos por email</h3>
-                                <p>naluum@ejemplo.com</p>
-                                <a 
-                                    href="mailto:naluum@ejemplo.com" 
-                                    className="modern-contact__social-button modern-contact__social-button--email"
-                                    aria-label="Enviar email a Naluum"
-                                >
-                                    <Mail size={16} />
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            </div>
+                            )}
 
-                            <div className="modern-contact__social-card">
-                                <div className="modern-contact__social-icon modern-contact__social-icon--whatsapp">
-                                    <MessageCircle size={24} />
+                            {contacto.telefono && (
+                                <div className="modern-contact__social-card">
+                                    <div className="modern-contact__social-icon modern-contact__social-icon--whatsapp">
+                                        <MessageCircle size={24} />
+                                    </div>
+                                    <h3>Habla por WhatsApp</h3>
+                                    <p>{contacto.telefono}</p>
+                                    <a 
+                                        href={`https://wa.me/${contacto.telefono.replace(/\D/g, '')}?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20${contacto.nombre}`} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="modern-contact__social-button modern-contact__social-button--whatsapp"
+                                        aria-label={`Abrir chat de WhatsApp con ${contacto.nombre}`}
+                                    >
+                                        <MessageCircle size={16} />
+                                        <span>Conversemos</span>
+                                    </a>
                                 </div>
-                                <h3>Habla por WhatsApp</h3>
-                                <p>+57 345 608 2190</p>
-                                <a 
-                                    href="https://wa.me/573456082190?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20Naluum" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="modern-contact__social-button modern-contact__social-button--whatsapp"
-                                    aria-label="Abrir chat de WhatsApp con Naluum"
-                                >
-                                    <MessageCircle size={16} />
-                                    <span>Conversemos</span>
-                                </a>
-                            </div>
+                            )}
 
-                            <div className="modern-contact__social-card">
-                                <div className="modern-contact__social-icon modern-contact__social-icon--instagram">
-                                    <Instagram size={24} />
+                            {contacto.redes_sociales?.instagram && (
+                                <div className="modern-contact__social-card">
+                                    <div className="modern-contact__social-icon modern-contact__social-icon--instagram">
+                                        <Instagram size={24} />
+                                    </div>
+                                    <h3>Seguinos en redes</h3>
+                                    <p>@{contacto.nombre}</p>
+                                    <a 
+                                        href={contacto.redes_sociales.instagram} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="modern-contact__social-button modern-contact__social-button--instagram"
+                                        aria-label={`Visitar perfil de Instagram de ${contacto.nombre}`}
+                                    >
+                                        <Instagram size={16} />
+                                        <span>Haz parte de la red</span>
+                                    </a>
                                 </div>
-                                <h3>Seguinos en redes</h3>
-                                <p>@naluum.permacultura</p>
-                                <a 
-                                    href="https://www.instagram.com/naluum.permacultura" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="modern-contact__social-button modern-contact__social-button--instagram"
-                                    aria-label="Visitar perfil de Instagram de Naluum"
-                                >
-                                    <Instagram size={16} />
-                                    <span>Haz parte de la red</span>
-                                </a>
-                            </div>
+                            )}
                         </div>
                     </div>
                 )}

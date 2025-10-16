@@ -21,6 +21,8 @@ import {
   Globe
 } from 'lucide-react';
 
+let DOMAIN = import.meta.env.VITE_API_URL;
+
 import './Nav.scss';
 
 const iconMap = {
@@ -274,7 +276,7 @@ const Nav = () => {
               >
                 <div className={isProjectDropdown ? 'nav__project-images' : 'nav__standard-images'}>
                   <img
-                    src={backgroundImage}
+                    src={`${DOMAIN}${backgroundImage}`}
                     alt={subItem.name}
                     className={isProjectDropdown ? 'nav__project-background nav__project-background--active' : 'nav__standard-background'}
                     loading="lazy"

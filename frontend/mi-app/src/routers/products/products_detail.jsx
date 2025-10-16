@@ -38,7 +38,6 @@ const defaultItem = {
 const ProductsDetail = ({ type = 'product' }) => {
   const { products } = useContext(ContextJsonLoadContext);
   const { id } = useParams();
-  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
 
   const currentItem = Array.isArray(products)
     ? products.find((item) => String(item.id) === String(id)) || defaultItem
@@ -46,6 +45,9 @@ const ProductsDetail = ({ type = 'product' }) => {
 
   const [isLiked, setIsLiked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -86,15 +88,20 @@ const ProductsDetail = ({ type = 'product' }) => {
     ));
   };
 
+  /** 🔹 Abrir modal de soporte **/
   const handleOpenSupportModal = () => {
-    // Track analytics if needed
-    // if (window.gtag) {
-    //   window.gtag('event', 'contact_support', {
-    //     item_id: currentItem.id,
-    //     item_name: currentItem.title,
-    //     item_category: type
-    //   });
-    // }
+    const updatedItem = {
+      ...currentItem,
+      type: `${currentItem.type || type} soporte`,
+    };
+    console.log('Abriendo modal de soporte para:', updatedItem);
+    setSelectedItem(updatedItem);
+    setIsSupportModalOpen(true);
+  };
+
+  /** 🔹 Botón de compra **/
+  const handlePurchase = () => {
+    setSelectedItem(currentItem);
     setIsSupportModalOpen(true);
   };
 
@@ -119,7 +126,8 @@ const ProductsDetail = ({ type = 'product' }) => {
             <div className="rating">
               <div className="stars">{renderStars(currentItem.rating)}</div>
               <span className="rating-text">
-                {currentItem.rating || 0} ({currentItem.students || 0} {type === 'producto' ? 'clientes' : 'estudiantes'})
+                {currentItem.rating || 0} ({currentItem.students || 0}{' '}
+                {type === 'producto' ? 'clientes' : 'estudiantes'})
               </span>
             </div>
             <div className="actions">
@@ -147,7 +155,10 @@ const ProductsDetail = ({ type = 'product' }) => {
                 <Share2 size={20} />
               </button>
 
-              <button className={`action-btn ${isLiked ? 'liked' : ''}`} onClick={() => setIsLiked(!isLiked)}>
+              <button
+                className={`action-btn ${isLiked ? 'liked' : ''}`}
+                onClick={() => setIsLiked(!isLiked)}
+              >
                 <Heart size={20} fill={isLiked ? '#ef4444' : 'none'} />
               </button>
             </div>
@@ -175,14 +186,21 @@ const ProductsDetail = ({ type = 'product' }) => {
           </section>
 
           <section className="section section--instructor">
-            <h2 className="section__title">{type === 'producto' ? 'Fabricante' : 'Tu instructor'}</h2>
+            <h2 className="section__title">
+              {type === 'producto' ? 'Fabricante' : 'Tu instructor'}
+            </h2>
             <div className="instructor-card">
               <div className="instructor-avatar">
                 <Users size={32} />
               </div>
               <div className="instructor-info">
                 <h3>{currentItem.instructor || 'Equipo especializado'}</h3>
-                <p>Especialista en {type === 'producto' ? 'productos ecológicos' : 'formación sustentable'}</p>
+                <p>
+                  Especialista en{' '}
+                  {type === 'producto'
+                    ? 'productos ecológicos'
+                    : 'formación sustentable'}
+                </p>
               </div>
             </div>
           </section>
@@ -211,7 +229,7 @@ const ProductsDetail = ({ type = 'product' }) => {
               <span className="price-label">Precio total</span>
             </div>
 
-            <button className="purchase-btn" onClick={() => alert(`¡Has adquirido el ${type}: ${currentItem.title}!`)}>
+            <button className="purchase-btn" onClick={handlePurchase}>
               {type === 'product' ? 'Comprar ahora' : 'Inscribirme ahora'}
               <ArrowRight size={20} />
             </button>
@@ -270,18 +288,26 @@ const ProductsDetail = ({ type = 'product' }) => {
         <div className="redirect-btn">
           <h3>Ver todos los {type === 'producto' ? 'productos' : 'servicios'}</h3>
           <p>{type === 'producto' ? 'Productos destacados' : 'Servicios disponibles'}</p>
-          <Link className="contact-btn" to={`/${type === 'product' ? 'productos' : 'servicios'}`}>
+          <Link
+            className="contact-btn"
+            to={`/${type === 'product' ? 'productos' : 'servicios'}`}
+          >
             Ir a {type === 'product' ? 'productos' : 'servicios'}
           </Link>
         </div>
       </div>
- 
+
       {/* Modal de Soporte */}
       <Modal
         isOpenModal={isSupportModalOpen}
         onClose={() => setIsSupportModalOpen(false)}
       >
-        <SupportModalContent onClose={() => setIsSupportModalOpen(false)} item={currentItem} />
+        {selectedItem && (
+          <SupportModalContent
+            onClose={() => setIsSupportModalOpen(false)}
+            item={selectedItem}
+          />
+        )}
       </Modal>
     </div>
   );

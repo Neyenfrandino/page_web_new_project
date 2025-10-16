@@ -13,103 +13,58 @@ import {
   ShieldCheck,
   Award
 } from 'lucide-react';
-// ------------------------------
-// 📂 SEO y Meta
-// Importaciones de componentes relacionados con SEO y metadata
 
-// ------------------------------
-// 📂 Layout
-// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
+import Modal from '../../components/ui/modal/modal';
+import SupportModalContent from '../../components/seccion/support_modal/support_modal';
 
-// ------------------------------
-// 📂 Secciones
-// Bloques grandes o secciones completas que conforman las páginas
-
-// ------------------------------
-// 📂 UI / Componentes visuales pequeños y reutilizables
-
-// ------------------------------
-// 📂 Integrations
-// Servicios externos, pasarelas de pago, APIs de terceros
-
-// ------------------------------
-// 📂 Maps
-// Componentes relacionados con mapas y geolocalización
-
-// ------------------------------
-// 📂 Tracking
-// Funciones y componentes para seguimiento de usuario y analytics
-
-// ------------------------------
-// 📂 Context
-// Archivos relacionados con Context API para manejo global de estados
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
- 
-// ------------------------------
-// 📂 Hooks
-// Hooks personalizados para reutilización de lógica
-
-// ------------------------------
-// 📂 Services
-// Funciones para llamadas a APIs y lógica de negocio
-
-// ------------------------------
-// 📂 Utils
-// Funciones auxiliares y helpers
-
-// ------------------------------
-// 📂 Styles
-// Estilos globales, variables SCSS y temas
 import './services_detail.scss';
 
-  // Datos por defecto en caso de que no haya servicio
-  const defaultService = {
-    title: 'Curso de Construcción Sostenible',
-    subtitle: 'Aprende técnicas modernas y ancestrales de construcción ecológica',
-    description: 'Este curso te enseñará las mejores prácticas en construcción sostenible, combinando técnicas tradicionales con innovaciones modernas.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=400&fit=crop',
-    badge: 'Intermedio',
-    format: 'Online',
-    price: 299,
-    currency: 'USD',
-    rating: 4.8,
-    students: 1250,
-    instructor: 'Carlos Mendoza',
-    duration: '8 semanas',
-    date: '2024-02-15',
-    highlights: [
-      'Técnicas de construcción con materiales naturales',
-      'Diseño bioclimático y eficiencia energética',
-      'Sistemas de captación de agua lluvia',
-      'Construcción con tierra y fibras naturales',
-      'Certificación en construcción sostenible'
-    ]
-  };
-
+// Datos por defecto en caso de que no haya servicio
+const defaultService = {
+  title: 'Curso de Construcción Sostenible',
+  subtitle: 'Aprende técnicas modernas y ancestrales de construcción ecológica',
+  description: 'Este curso te enseñará las mejores prácticas en construcción sostenible, combinando técnicas tradicionales con innovaciones modernas.',
+  image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=400&fit=crop',
+  badge: 'Intermedio',
+  format: 'Online',
+  price: 299,
+  currency: 'USD',
+  rating: 4.8,
+  students: 1250,
+  instructor: 'Carlos Mendoza',
+  duration: '8 semanas',
+  date: '2024-02-15',
+  highlights: [
+    'Técnicas de construcción con materiales naturales',
+    'Diseño bioclimático y eficiencia energética',
+    'Sistemas de captación de agua lluvia',
+    'Construcción con tierra y fibras naturales',
+    'Certificación en construcción sostenible'
+  ]
+};
 
 const ServiceDetail = () => {
   const { servicios } = useContext(ContextJsonLoadContext);
   const { id } = useParams();
-  
-  // Asumiendo que servicios es un array y necesitas el primer elemento o un servicio específico
-  const currentService = Array.isArray(servicios)
-  ? servicios.find((s) => String(s.id) === String(id)) || defaultService
-  : defaultService;
 
-  
+  const currentService = Array.isArray(servicios)
+    ? servicios.find((s) => String(s.id) === String(id)) || defaultService
+    : defaultService;
+
   const [isLiked, setIsLiked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-
   const formatPrice = (price) => {
     if (!price) return '$0';
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('es-ES', {
       style: 'currency',
       currency: currentService.currency || 'USD',
     }).format(price);
@@ -119,9 +74,12 @@ const ServiceDetail = () => {
     if (!date) return 'Fecha por confirmar';
     try {
       const courseDate = new Date(date);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      return courseDate.toLocaleDateString('es-ES', options);
-    } catch (error) {
+      return courseDate.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+    } catch {
       return 'Fecha por confirmar';
     }
   };
@@ -134,32 +92,25 @@ const ServiceDetail = () => {
         size={20}
         fill={i < Math.floor(numRating) ? '#8F764C' : 'none'}
         stroke={i < Math.floor(numRating) ? '#8F764C' : '#d1d5db'}
-        className="star"
       />
     ));
   };
 
-  const handleShare = () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(window.location.href)
-        .then(() => alert('¡Enlace copiado al portapapeles!'))
-        .catch(() => alert('Error al copiar el enlace'));
-    } else {
-      // Fallback para navegadores que no soportan clipboard API
-      alert('Función de compartir no disponible en este navegador');
-    }
+  /** 🔹 Abrir modal de soporte **/
+  const handleOpenSupportModal = () => {
+    const updatedService = {
+      ...currentService,
+      type: `${currentService.type || 'servicio'} soporte`,
+    };
+    console.log('Abriendo soporte para:', updatedService);
+    setSelectedItem(updatedService);
+    setIsSupportModalOpen(true);
   };
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-  };
-
+  /** 🔹 Botón de compra **/
   const handlePurchase = () => {
-    alert(`¡Te has inscrito al curso: ${currentService.title}!`);
-  };
-
-  const handleContact = () => {
-    alert('Contactando con soporte...');
+    setSelectedItem(currentService);
+    setIsSupportModalOpen(true);
   };
 
   return (
@@ -170,16 +121,16 @@ const ServiceDetail = () => {
           <img src={currentService.image} alt={currentService.title} />
           <div className="overlay"></div>
         </div>
-        
+
         <div className="service-detail__hero-content">
           <div className="badge-container">
             <span className="badge badge--level">{currentService.badge}</span>
             <span className="badge badge--format">{currentService.format}</span>
           </div>
-          
+
           <h1 className="title">{currentService.title}</h1>
           <p className="subtitle">{currentService.subtitle}</p>
-          
+
           <div className="hero-footer">
             <div className="rating">
               <div className="stars">{renderStars(currentService.rating)}</div>
@@ -187,8 +138,8 @@ const ServiceDetail = () => {
                 {currentService.rating || 0} ({currentService.students || 0} estudiantes)
               </span>
             </div>
-            
-                <div className="actions">
+
+            <div className="actions">
               <button
                 className="action-btn"
                 onClick={async () => {
@@ -231,9 +182,9 @@ const ServiceDetail = () => {
                 <Share2 size={20} />
               </button>
 
-              <button 
-                onClick={handleLike} 
-                className={`action-btn ${isLiked ? 'liked' : ''}`} 
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                className={`action-btn ${isLiked ? 'liked' : ''}`}
                 aria-label="Me gusta"
               >
                 <Heart size={20} fill={isLiked ? '#ef4444' : 'none'} />
@@ -246,26 +197,23 @@ const ServiceDetail = () => {
       {/* Main Content */}
       <div className="service-detail__container">
         <div className="service-detail__content">
-          {/* Description Section */}
           <section className="section section--description">
             <h2 className="section__title">Acerca de este curso</h2>
             <p className="description">{currentService.description}</p>
           </section>
 
-          {/* Highlights Section */}
           <section className="section section--highlights">
             <h2 className="section__title">Lo que aprenderás</h2>
             <div className="highlights-grid">
-              {(currentService.highlights || []).map((highlight, index) => (
-                <div key={index} className="highlight-item">
-                  <CheckCircle size={20} className="icon" />
-                  <span>{highlight}</span>
+              {(currentService.highlights || []).map((text, i) => (
+                <div key={i} className="highlight-item">
+                  <CheckCircle size={20} />
+                  <span>{text}</span>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Instructor Section */}
           <section className="section section--instructor">
             <h2 className="section__title">Tu instructor</h2>
             <div className="instructor-card">
@@ -277,30 +225,25 @@ const ServiceDetail = () => {
                 <p>Experto en construcción sostenible y técnicas ancestrales</p>
               </div>
             </div>
-
-            
           </section>
 
-          {/* Additional Info */}
           <section className="section section--info">
             <h2 className="section__title">Información adicional</h2>
             <div className="info-cards">
               <div className="info-card">
-                <ShieldCheck size={24} className="icon" />
-                <h4>Garantía de satisfacción</h4>
-                <p>30 días de garantía de devolución</p>
+                <ShieldCheck size={24} />
+                <h4>Garantía</h4>
+                <p>30 días de garantía de satisfacción</p>
               </div>
               <div className="info-card">
-                <Award size={24} className="icon" />
-                <h4>Certificado</h4>
-                <p>Obtén tu certificado al completar el curso</p>
+                <Award size={24} />
+                <h4>Certificación</h4>
+                <p>Incluye certificado oficial</p>
               </div>
             </div>
           </section>
-          
         </div>
 
-        {/* Sidebar */}
         <aside className="service-detail__sidebar">
           <div className="purchase-card">
             <div className="price-section">
@@ -318,63 +261,73 @@ const ServiceDetail = () => {
                 <div className="info-item">
                   <Calendar size={18} />
                   <div>
-                    <strong>Fecha de inicio</strong>
+                    <strong>Inicio:</strong>
                     <span>{formatDate(currentService.date)}</span>
                   </div>
                 </div>
               )}
-              
+
               <div className="info-item">
                 <Clock size={18} />
                 <div>
-                  <strong>Duración</strong>
-                  <span>{currentService.duration || 'Por definir'}</span>
+                  <strong>Duración:</strong>
+                  <span>{currentService.duration}</span>
                 </div>
               </div>
-              
+
               <div className="info-item">
                 <Monitor size={18} />
                 <div>
-                  <strong>Formato</strong>
-                  <span>{currentService.format || 'Online'}</span>
+                  <strong>Formato:</strong>
+                  <span>{currentService.format}</span>
                 </div>
               </div>
-              
+
               <div className="info-item">
                 <Users size={18} />
                 <div>
-                  <strong>Nivel</strong>
-                  <span>{currentService.badge || 'Todos los niveles'}</span>
+                  <strong>Nivel:</strong>
+                  <span>{currentService.badge}</span>
                 </div>
               </div>
             </div>
 
             <div className="guarantee">
               <ShieldCheck size={20} />
-              <p>Este curso incluye garantía de satisfacción de 30 días</p>
+              <p>Incluye garantía de satisfacción</p>
             </div>
           </div>
         </aside>
-        
+
         <div className="cta-card">
-          <div>
-            <h3>¿Tienes preguntas?</h3>
-            <p>Nuestro equipo está aquí para ayudarte</p>
-            <button className="contact-btn" onClick={handleContact}>
-              Contactar soporte
-            </button>
-          </div>
+          <h3>¿Tienes preguntas?</h3>
+          <p>Nuestro equipo está aquí para ayudarte</p>
+          <button className="contact-btn" onClick={handleOpenSupportModal}>
+            Contactar soporte
+          </button>
         </div>
 
-        <div className='redirect-btn'>
+        <div className="redirect-btn">
           <h3>Ver todos los servicios</h3>
           <p>Todos los servicios disponibles</p>
           <Link className="contact-btn" to="/servicios">
             Ir a servicios
           </Link>
         </div>
-
       </div>
+
+      {/* Modal de soporte */}
+      <Modal
+        isOpenModal={isSupportModalOpen}
+        onClose={() => setIsSupportModalOpen(false)}
+      >
+        {selectedItem && (
+          <SupportModalContent
+            onClose={() => setIsSupportModalOpen(false)}
+            item={selectedItem}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

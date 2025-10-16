@@ -143,6 +143,7 @@
 
 
 // src/context/ContextJsonLoadContext.jsx
+import { Contact } from "lucide-react";
 import React, { createContext, useReducer, useEffect } from "react";
 
 let DOMAIN = import.meta.env.VITE_API_URL;
@@ -166,6 +167,7 @@ const initialState = {
   timerProps: [],
   eventos: [],
   DOMAIN: DOMAIN,
+  info_contacto: []
 };
 
 // Tipos de acciones
@@ -200,6 +202,7 @@ const jsonFiles = [
   "blogs",
   "timerProps",
   "eventos",
+  "info_contacto"
 ];
 
 // Provider
@@ -251,6 +254,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
           timerProps: payload["timerProps"] || [],
           eventos: payload["eventos"] || [],
           DOMAIN: DOMAIN,
+          info_contacto: payload["info_contacto"] || []
         },
       });
     };
@@ -262,7 +266,7 @@ export const ContextJsonLoadProvider = ({ children }) => {
     dispatch({ type: types.SET_JSON_LOAD, payload: value });
   };
 
-  console.log(state.timerProps);
+  console.log(state.info_contacto);
 
   const value = { ...state, setJsonLoad };
 

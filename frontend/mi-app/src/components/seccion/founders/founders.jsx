@@ -28,10 +28,11 @@ const familyFounder = {
   id: 3,
   name: "La Familia Na Lu'um",
   role: "Unidos por un propósito común",
-  bio: "El proyecto es sostenido por la familia de Tierra y Beatriz, quienes aportan desde distintas disciplinas a la construcción de una vida regenerativa. Junto a colaboradores en todo el mundo, forman una comunidad global dedicada a enseñar y vivir la regeneración de la vida en todas sus formas.",
-  quote: "Somos una familia al servicio de la Tierra, aprendiendo y enseñando que otro mundo no solo es posible, sino necesario.",
+  bio: "El Instituto de Permacultura Na Lu'um International tiene como propósito común la regeneración planetaria a través de procesos educativos en diseño de permacultura, bioconstrucción, permacultura social, reingeniería del ser, diseño hidrológico y agricultura sintrópica. Somos una familia unida por la regeneración de los sistemas. La Familia Na Lu'um sostiene un proceso educativo mediante una organización viva, donde cada integrante aporta desde su servicio al proyecto.",
+  quote: "Somos una familia unida por la regeneración de la Tierra, sosteniendo una organización viva al servicio del cambio.",
   image: `${DOMAIN}/img/familia_na_luum.jpg`
 };
+
 
 
   const handleCardClick = (founderId) => {

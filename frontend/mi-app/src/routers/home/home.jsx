@@ -50,9 +50,9 @@ import PaymentForm from '../../components/integrations/payment-form/payment-form
 import MercadoPagoCard from '../../components/integrations/mercado_pago_card/mercado_pago_card';
 import PaymentMethodSelector from '../../components/integrations/payment_method/payment_method_selector';
 
-
 let DOMAIN = import.meta.env.VITE_API_URL;
 console.log(DOMAIN)
+
 // ------------------------------
 // 📂 Maps
 // Componentes relacionados con mapas y geolocalización

@@ -4,24 +4,18 @@ import { useQueryParam } from '../../../hooks/useQueryParams';
 import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import { MethodStatePaymentContext } from '../../../context/method_state_payment/method_state_payment.context';
 
-
 // ------------------------------
 // 📂 SEO y Meta
-// Importaciones de componentes relacionados con SEO y metadata
 import SEOHelmet from '../../seo/SEOHelmet/SEOHelmet';
-
 
 // ------------------------------
 // 📂 Layout
-// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
 import Header from '../../layout/header/header';
 import CardV2Img from '../../layout/card/cardV2_Img/cardV2_img';
 import ModalCard from '../../layout/card/modal_card/modal_card';
 
- 
 // ------------------------------
 // 📂 Secciones
-// Bloques grandes o secciones completas que conforman las páginas
 import TimeLineHistory from '../../seccion/history_about/time_line_history';
 import Grid from '../../seccion/grid/grid';
 import CtaImgCuentaRgresiva from '../../seccion/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
@@ -29,52 +23,27 @@ import CtaHablemos from '../../seccion/cta_hablemos/cta_hablemos';
 import TestimonialCard from '../../seccion/testimonial_card/testimonial_card';
 import Newsletter from '../../seccion/newsletter/newsletter';
 import FAQ from '../../seccion/FAQ/FAQ';
-import MessageFinal  from '../../seccion/message_final/message_final' 
+import MessageFinal from '../../seccion/message_final/message_final';
 import FadeInOnView from '../../seccion/fadeInOnView/fadeInOnView';
 import MissionCarousel from '../../seccion/carrusel_imagenes/carrusel_imagenes';
 
 // ------------------------------
-// 📂 UI / Componentes visuales pequeños y reutilizables
+// 📂 UI
 import Modal from '../../ui/modal/modal';
 import Button from '../../ui/button/button';
 
-
 // ------------------------------
-// 📂 Integrations
-// Servicios externos, pasarelas de pago, APIs de terceros
+// 📂 Integraciones
 import PaymentMethodSelector from '../../integrations/payment_method/payment_method_selector';
-
-
-// ------------------------------
-// 📂 Maps
-// Componentes relacionados con mapas y geolocalización
-
-// ------------------------------
-// 📂 Tracking
-// Funciones y componentes para seguimiento de usuario y analytics
-
-// ------------------------------
-// 📂 Context
-// Archivos relacionados con Context API para manejo global de estados
-
-// ------------------------------
-// 📂 Hooks
-// Hooks personalizados para reutilización de lógica
-
-// ------------------------------
-// 📂 Services
-// Funciones para llamadas a APIs y lógica de negocio
-
-// ------------------------------
-// 📂 Utils
-// Funciones auxiliares y helpers
 
 // ------------------------------
 // 📂 Styles
-// Estilos globales, variables SCSS y temas
 import './madre_selva.scss';
 
-
+let DOMAIN = import.meta.env.VITE_API_URL;
+console.log("DOMAIN:", DOMAIN);
+// ------------------------------
+// ⚙️ Animaciones y configuración
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const fadeInProps = {
@@ -86,268 +55,295 @@ const fadeInProps = {
   speed: prefersReducedMotion ? 'fast' : "slow"
 };
 
+// ------------------------------
+// 🕓 Contenido dinámico
 const timerProps = {
   img: "/img/3.png",
   titles: {
     main: "",
     subtitle: "Festival Eco de la Tierra",
   },
-  text: " lorem ipsum dolor sit amet, con sectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+  text: "Únete al próximo Festival Eco de la Tierra: un encuentro de saberes, música y experiencias regenerativas para celebrar la vida en comunidad.",
   buttonText: "Inscríbete ahora",
   timer: {
-    targetDate: "2025-09-23T18:59:59"
+    targetDate: "2025-09-23T18:59:59",
   },
-  link : "/servicios/laboratorios-alimentacion-viva"
+  link: "/servicios/laboratorios-alimentacion-viva",
 };
 
 const objectContentCard = {
-    question: "¿Qué es Madre Selva?",
-    title: "Centro de investigación en agricultura sintrópica y diseño regenerativo.",
-    text: "22 hectareas de preservación, cultivo e interación saludable entre humanos y naturaleza.",
-    buttonPrimary: ["Explorar el universo de Madre Selva", "/madreSelva"],
-    image: "/img/message_final.jpg",
+  question: "¿Qué es Madre Selva?",
+  title: "Centro de investigación en agricultura sintrópica y diseño regenerativo.",
+  text: "22 hectáreas de selva misionera donde la naturaleza, la ciencia y la comunidad se entrelazan para regenerar el futuro.",
+  buttonPrimary: ["Explorar el universo de Madre Selva", "/madreSelva"],
+  image: "/img/message_final.jpg",
 };
 
 const titles = {
-    titulo: "Filosofía / Propósito ",
-    subTitle: "Madre Selva",
-    description: "Nos inspira una filosofía arraigada en la conexión profunda con la naturaleza y el compromiso inquebrantable con la sostenibilidad. Nuestra misión va más allá de ser un espacio; es un llamado a la acción para mejorar la salud tanto de las personas como de la tierra que habitamos.",
-}
+  titulo: "Filosofía / Propósito ",
+  subTitle: "Madre Selva",
+  description:
+    "Inspirados por la permacultura y la pedagogía regenerativa, cultivamos salud, conocimiento y comunidad desde el corazón de la selva misionera.",
+};
 
+// ------------------------------
+// 🌾 Actividades destacadas
 const actividadesMadreSelva = [
   {
     id: 1,
     title: '🌳 Caminatas guiadas por la selva',
-    description: 'Explora senderos vivos, conoce especies nativas y descubre cómo cada rincón del bosque participa en la regeneración.',
+    description:
+      'Explora senderos vivos y descubre cómo cada especie contribuye a la regeneración del ecosistema.',
     image: '/img/caminata.jpg',
   },
   {
     id: 2,
     title: '🪵 Talleres de construcción natural',
-    description: 'Aprende a levantar estructuras con materiales locales y técnicas sostenibles que respetan el equilibrio del entorno.',
+    description:
+      'Aprende técnicas sostenibles con materiales locales: bioconstrucción, adobe y bambú.',
     image: '/img/construccion.jpg',
   },
   {
     id: 3,
     title: '🌾 Agricultura sintrópica en acción',
-    description: 'Participa en nuestras huertas regenerativas, desde la siembra hasta la cosecha, cultivando alimentos y esperanza.',
+    description:
+      'Participa en nuestras huertas regenerativas y conecta con los ciclos naturales de la tierra.',
     image: '/img/agricultura.jpg',
   },
   {
     id: 4,
     title: '💧 Rutas del agua',
-    description: 'Descubre cómo cuidamos y gestionamos el agua, desde manantiales y arroyos hasta sistemas de captación y filtrado.',
+    description:
+      'Conoce los sistemas de captación, filtrado y uso responsable del agua en el ecosistema.',
     image: '/img/agua.jpg',
   },
   {
     id: 5,
     title: '🔥 Encuentros alrededor del fuego',
-    description: 'Comparte historias, cantos y saberes en veladas que fortalecen los lazos entre personas y culturas.',
+    description:
+      'Vivencias colectivas de canto, historia y transmisión de saberes ancestrales.',
     image: '/img/fuego.jpg',
   },
   {
     id: 6,
     title: '🔬 Experiencias de investigación',
-    description: 'Participa en proyectos de observación y estudio sobre biodiversidad, suelos y diseño regenerativo.',
+    description:
+      'Participa en proyectos de observación sobre biodiversidad, suelos y restauración ambiental.',
     image: '/img/investigacion.jpg',
   },
   {
     id: 7,
     title: '🛖 Vivencias inmersivas',
-    description: 'Convive en el Eco-Centro, aprende de la vida diaria y sumérgete en la filosofía de sostenibilidad de Madre Selva.',
+    description:
+      'Vive la experiencia de habitar Madre Selva: aprendizaje, contemplación y acción regenerativa.',
     image: '/img/immersiva.jpg',
-  }
+  },
 ];
 
-
+// ------------------------------
+// 🌿 COMPONENTE PRINCIPAL
 const MadreSelva = () => {
-    const { servicios, FAQ: faqData, products } = useContext(ContextJsonLoadContext);
+  const { servicios, FAQ: faqData, products } = useContext(ContextJsonLoadContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [triggerElement, setTriggerElement] = useState(null);
+  const [servicioIdParam, setServicioIdParam, removeServicioIdParam] = useQueryParam('servicios');
+  const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
+  const navigate = useNavigate();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [triggerElement, setTriggerElement] = useState(null);
-    const [servicioIdParam, setServicioIdParam, removeServicioIdParam] = useQueryParam('servicios');
-    const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
-    
-    const navigate = useNavigate();
-
-    useEffect(() => {
+  useEffect(() => {
     if (servicioIdParam && servicios?.length > 0) {
-        const item = servicios.find(s => s.id.toString() === servicioIdParam.toString());
-        if (item) setIsModalOpen({ isOpen: true, item });
+      const item = servicios.find(s => s.id.toString() === servicioIdParam.toString());
+      if (item) setIsModalOpen({ isOpen: true, item });
     }
-    }, [servicioIdParam, servicios]);
+  }, [servicioIdParam, servicios]);
 
-    if (!servicios || !products) return null;
+  if (!servicios || !products) return null;
 
-    const handleOpenModal = useCallback((status, e, item) => {
-        if (!item || !item.id) return;
+  const handleOpenModal = useCallback((status, e, item) => {
+    if (!item || !item.id) return;
+    setTriggerElement(e.currentTarget);
+    setIsModalOpen({ isOpen: status, item });
+    setServicioIdParam(item.id);
+  }, [setServicioIdParam, navigate]);
 
-        setTriggerElement(e.currentTarget);
-        setIsModalOpen({ isOpen: status, item });
-        setServicioIdParam(item.id);
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setTriggerElement(null);
+    removeServicioIdParam();
+  }, [removeServicioIdParam]);
 
-    }, [setServicioIdParam, navigate]);
+  const handlePayment = useCallback((item, method) => {
+    if (method && item) {
+      setMethodStatePayment({ item, method });
+    }
+  }, [setMethodStatePayment]);
 
-    const handleCloseModal = useCallback(() => {
-        setIsModalOpen(false);
-        setTriggerElement(null);
-        removeServicioIdParam();
-    }, [removeServicioIdParam]);
-
-    const handlePayment = useCallback((item, method) => {
-        if (method && item) {
-        setMethodStatePayment({ item, method });
-        }
-    }, [setMethodStatePayment]);
-
-     const modalContent = useMemo(() => {
-        if (!isModalOpen.isOpen || !isModalOpen.item) return null;
-        return (
-            <Modal
-                isOpenModal={isModalOpen}
-                onClose={handleCloseModal}
-                triggerElement={triggerElement}
-                showPointer={true}
-            >
-                <ModalCard course={isModalOpen.item}>
-                <PaymentMethodSelector
-                    item={isModalOpen.item}
-                    onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
-                />
-                </ModalCard>
-            </Modal>
-        );
-    }, [isModalOpen, handleCloseModal, triggerElement, handlePayment]);
-
-
-
-    // Filtrar servicios de madreSelva
-    const servicesMadreSelva = useMemo(() => {
-        return servicios.filter(
-            (item) => item.type === 'service' && item.project?.toLowerCase().trim() === 'madre selva'
-        );
-        
-    }, [servicios]);
-
-     const memoizedCards = useMemo(() => actividadesMadreSelva, []);
-   
-
-
+  const modalContent = useMemo(() => {
+    if (!isModalOpen.isOpen || !isModalOpen.item) return null;
     return (
-        <div className='madreSelva__container'>
-            <SEOHelmet 
-                title='Madre Selva' 
-                description='Simplify Your Focus' 
-                keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
-                author='Neyen Frandino' 
-                url='https://miempresa.com' 
-                image='https://miempresa.com/default-image.jpg' 
-            />
-            <div className='madreSelva__header' id="inicio">
-                <Header>
-                    <div className='madreSelva__header__content'>
-                        <div className='madreSelva__header__content__logo'>
-                            <img src="/img/madre_selva_logo_asd.svg" alt="Logo madreSelva" />
-                        </div>
-
-                        <div className='madreSelva__header__content__title'>
-                            <p>Bienvenidos al Eco-Centro Madre Selva, un santuario de regeneración en el corazón de la naturaleza. En nuestro compromiso con la salud de las personas y la tierra.</p>
-                        </div>
-                    </div>
-                </Header>
-            </div>
-
-            <div className='madreSelva__content'>
-
-                <div className='madreSelva__content--question' id='sobre-mi'>
-                    <FadeInOnView {...fadeInProps}>
-                        <CardV2Img objectContentCard={objectContentCard} buttonTrue={false} />
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--history'>
-                    <FadeInOnView {...fadeInProps}>
-                        <TimeLineHistory index={2} titles={titles} showHeroBg={false} heroBgImage={null} />
-                    </FadeInOnView>
-                </div>
-
-
-                <div className='madreSelva__grid' id='servicios'>
-                    <FadeInOnView {...fadeInProps}>
-                        <div className='madreSelva__services-titile'>
-                            <h2 className='title'>Servicios y productos</h2>
-                            <p className='subtitle'>Destacamos no solo por nuestras construcciones realizadas con materiales naturales, sino por la pasión que impulsa cada rincón de nuestro centro. Aquí, las prácticas eco-amigables son la base de nuestro diario vivir, guiándonos hacia un equilibrio armonioso con el entorno.</p>
-                        </div>
-                        
-                        <div className='madreSelva__services'>
-                            <Grid items={servicesMadreSelva} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
-                            {modalContent}
-
-                            <div className='madreSelva__button'>
-                                <Button text={"Ver todos los servicios"} link="/servicios" style="secondary" />
-                            </div>
-                        </div>
-
-                        <div className='madreSelva__products'>
-                            <Grid items={products} gridType="products" slice={3} setIsOpen={handleOpenModal} />
-                            {modalContent}
-
-                            <div className='madreSelva__button'>
-                                <Button text={"Ver todos los productos"} link="/productos" style="secondary" />
-                            </div>
-                        </div>
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--CTA'>
-                    <FadeInOnView {...fadeInProps}>
-                        <CtaImgCuentaRgresiva {...timerProps} />
-                    </FadeInOnView>
-                </div>
-
-  
-                <div className='madreSelva__content--testimonial'>
-                    <FadeInOnView {...fadeInProps}>
-                        <TestimonialCard typeTestimonial='servicios_madreSelva'/>
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--contact' id='contacto'>
-                    <FadeInOnView {...fadeInProps}>
-                        <CtaHablemos showSocialMedia={true} />
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--menssage_final' id='menssage_final'>   
-                    <FadeInOnView {...fadeInProps}>
-                        <MessageFinal indexMessage={0} />
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--carrousel' id='carrousel'>
-                    <FadeInOnView {...fadeInProps}>
-                        <div className='content__carrousel--titiles'>
-                            <h2>Madre Selva no es solo un lugar, es una experiencia.</h2>
-                            <p>Invitamos a cada visitante a sumergirse en la naturaleza virgen, a explorar nuestros bosques, a escuchar el susurro del arroyo y a ser parte de un ecosistema que fomenta la regeneración.</p>
-                        </div>
-                        <div className='content__carrousel--cards'>
-                            <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
-                        </div>
-                    </FadeInOnView>
-                </div>
-
-                <div className='madreSelva__content--newsletter' id='newsletter'>
-                    <Newsletter />
-                </div>
-
-                <div className='madreSelva__content--FAQ' id='FAQ'>
-                    <FadeInOnView {...fadeInProps}>
-                        <FAQ faqs={faqData} defaultCategory="madre-selva" />
-                    </FadeInOnView>
-                </div>
-            </div>
-        </div>
+      <Modal
+        isOpenModal={isModalOpen}
+        onClose={handleCloseModal}
+        triggerElement={triggerElement}
+        showPointer={true}
+      >
+        <ModalCard course={isModalOpen.item}>
+          <PaymentMethodSelector
+            item={isModalOpen.item}
+            onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
+          />
+        </ModalCard>
+      </Modal>
     );
+  }, [isModalOpen, handleCloseModal, triggerElement, handlePayment]);
+
+  // Filtrar servicios de Madre Selva
+  const servicesMadreSelva = useMemo(() => {
+    return servicios.filter(
+      (item) => item.type === 'service' && item.project?.toLowerCase().trim() === 'madre selva'
+    );
+  }, [servicios]);
+
+  const memoizedCards = useMemo(() => actividadesMadreSelva, []);
+
+  // 🧠 SEO optimizado
+  const meta = {
+    title: 'Madre Selva | Centro de permacultura y regeneración en la selva misionera',
+    description:
+      'Madre Selva es un espacio de 22 hectáreas dedicado a la investigación, educación y acción regenerativa. Un proyecto del movimiento Naluum para restaurar la selva misionera y cultivar una nueva relación con la Tierra.',
+    keywords:
+      'madre selva, permacultura, regeneración, selva misionera, agricultura sintrópica, educación ambiental, ecología, Naluum, sostenibilidad, restauración ecológica',
+    author: 'Neyen Frandino',
+    url: 'https://miempresa.com/projects/madre-selva',
+    image: 'https://miempresa.com/images/madre-selva-cover.jpg',
+  };
+
+  return (
+    <div className='madreSelva__container'>
+      {/* 🧠 SEO Dinámico */}
+      <SEOHelmet
+        title={meta.title}
+        description={meta.description}
+        keywords={meta.keywords}
+        author={meta.author}
+        url={meta.url}
+        image={meta.image}
+      />
+
+      <div 
+        className='madreSelva__header' 
+        id="inicio"
+        style={{ backgroundImage: `url(${DOMAIN}/img/madreSelva.png)` }}
+      >
+        <Header>
+          <div className='madreSelva__header__content'>
+            <div className='madreSelva__header__content__logo'>
+              <img src={`${DOMAIN}/img/madre_selva_logo_asd.svg`} alt="Logo Madre Selva" />
+            </div>
+            <div className='madreSelva__header__content__title'>
+              <p>
+                Bienvenidos al Eco-Centro Madre Selva, un santuario de regeneración en el corazón
+                de la naturaleza. Donde la salud del suelo, las plantas y las personas se
+                entrelazan para regenerar la vida.
+              </p>
+            </div>
+          </div>
+        </Header>
+      </div>
+
+
+      <div className='madreSelva__content'>
+        <div className='madreSelva__content--question' id='sobre-mi'>
+          <FadeInOnView {...fadeInProps}>
+            <CardV2Img objectContentCard={objectContentCard} buttonTrue={false} />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--history'>
+          <FadeInOnView {...fadeInProps}>
+            <TimeLineHistory index={2} titles={titles} showHeroBg={false} heroBgImage={null} />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__grid' id='servicios'>
+          <FadeInOnView {...fadeInProps}>
+            <div className='madreSelva__services-titile'>
+              <h2 className='title'>Servicios y productos</h2>
+              <p className='subtitle'>
+                Promovemos prácticas ecológicas, bioconstrucción, talleres educativos y productos
+                elaborados desde la ética de la permacultura y el respeto por la Tierra.
+              </p>
+            </div>
+
+            <div className='madreSelva__services'>
+              <Grid items={servicesMadreSelva} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
+              {modalContent}
+              <div className='madreSelva__button'>
+                <Button text={"Ver todos los servicios"} link="/servicios" style="secondary" />
+              </div>
+            </div>
+
+            <div className='madreSelva__products'>
+              <Grid items={products} gridType="products" slice={3} setIsOpen={handleOpenModal} />
+              {modalContent}
+              <div className='madreSelva__button'>
+                <Button text={"Ver todos los productos"} link="/productos" style="secondary" />
+              </div>
+            </div>
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--CTA'>
+          <FadeInOnView {...fadeInProps}>
+            <CtaImgCuentaRgresiva {...timerProps} />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--testimonial'>
+          <FadeInOnView {...fadeInProps}>
+            <TestimonialCard typeTestimonial='servicios_madreSelva' />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--contact' id='contacto'>
+          <FadeInOnView {...fadeInProps}>
+            <CtaHablemos showSocialMedia={true} proyecto='Madre Selva' />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--menssage_final' id='menssage_final'>
+          <FadeInOnView {...fadeInProps}>
+            <MessageFinal indexMessage={0} />
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--carrousel' id='carrousel'>
+          <FadeInOnView {...fadeInProps}>
+            <div className='content__carrousel--titiles'>
+              <h2>Madre Selva no es solo un lugar, es una experiencia.</h2>
+              <p>
+                Te invitamos a sumergirte en la selva viva, escuchar el pulso de la Tierra y ser
+                parte de un proceso colectivo de regeneración.
+              </p>
+            </div>
+            <div className='content__carrousel--cards'>
+              <MissionCarousel cards={memoizedCards} autoPlayInterval={5000} />
+            </div>
+          </FadeInOnView>
+        </div>
+
+        <div className='madreSelva__content--newsletter' id='newsletter'>
+          <Newsletter />
+        </div>
+
+        <div className='madreSelva__content--FAQ' id='FAQ'>
+          <FadeInOnView {...fadeInProps}>
+            <FAQ faqs={faqData} defaultCategory="madre-selva" />
+          </FadeInOnView>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default MadreSelva;

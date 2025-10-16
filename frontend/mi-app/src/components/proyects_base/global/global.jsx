@@ -4,24 +4,18 @@ import { useQueryParam } from '../../../hooks/useQueryParams';
 import { ContextJsonLoadContext } from '../../../context/context_json_load/context_json_load';
 import { MethodStatePaymentContext } from '../../../context/method_state_payment/method_state_payment.context';
 
-
 // ------------------------------
 // 📂 SEO y Meta
-// Importaciones de componentes relacionados con SEO y metadata
 import SEOHelmet from '../../seo/SEOHelmet/SEOHelmet';
-
 
 // ------------------------------
 // 📂 Layout
-// Componentes que forman la estructura y navegación principal (header, footer, nav, etc.)
 import Header from '../../layout/header/header';
 import CardV2Img from '../../layout/card/cardV2_Img/cardV2_img';
 import ModalCard from '../../layout/card/modal_card/modal_card';
 
-
 // ------------------------------
 // 📂 Secciones
-// Bloques grandes o secciones completas que conforman las páginas
 import TimeLineHistory from '../../seccion/history_about/time_line_history';
 import Grid from '../../seccion/grid/grid';
 import CtaImgCuentaRgresiva from '../../seccion/cta_img_cuenta_rgresiva/cta_img_cuenta_rgresiva';
@@ -29,51 +23,21 @@ import CtaHablemos from '../../seccion/cta_hablemos/cta_hablemos';
 import TestimonialCard from '../../seccion/testimonial_card/testimonial_card';
 import Newsletter from '../../seccion/newsletter/newsletter';
 import FAQ from '../../seccion/FAQ/FAQ';
-import MessageFinal  from '../../seccion/message_final/message_final' 
+import MessageFinal from '../../seccion/message_final/message_final';
 import FadeInOnView from '../../seccion/fadeInOnView/fadeInOnView';
 
-
 // ------------------------------
-// 📂 UI / Componentes visuales pequeños y reutilizables
+// 📂 UI
 import Modal from '../../ui/modal/modal';
 import Button from '../../ui/button/button';
 
-
 // ------------------------------
 // 📂 Integrations
-// Servicios externos, pasarelas de pago, APIs de terceros
 import PaymentMethodSelector from '../../integrations/payment_method/payment_method_selector';
-
-
-// ------------------------------
-// 📂 Maps
-// Componentes relacionados con mapas y geolocalización
-
-// ------------------------------
-// 📂 Tracking
-// Funciones y componentes para seguimiento de usuario y analytics
-
-// ------------------------------
-// 📂 Context
-// Archivos relacionados con Context API para manejo global de estados
-
-// ------------------------------
-// 📂 Hooks
-// Hooks personalizados para reutilización de lógica
-
-// ------------------------------
-// 📂 Services
-// Funciones para llamadas a APIs y lógica de negocio
-
-// ------------------------------
-// 📂 Utils
-// Funciones auxiliares y helpers
 
 // ------------------------------
 // 📂 Styles
-// Estilos globales, variables SCSS y temas
 import './global.scss';
-
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -100,15 +64,6 @@ const timerProps = {
   link : "/servicios/laboratorios-alimentacion-viva"
 };
 
-// const objectContentCard = {
-//     question: "¿Qué es Madre Selva?",
-//     title: "Centro de investigación y aprendizaje",
-//     text: "Acá encuentras 22 hectareas de preservación, cultivo y interación saludable entre humanos y naturaleza.",
-//     // text: "Madre Selva es un espacio dedicado a la investigación, experimentación y aprendizaje de los procesos naturales, aplicados a sistemas que buscan imitar la inteligencia de la naturaleza. Es un laboratorio vivo donde la ciencia, la observación y la práctica se unen para crear soluciones inspiradas en los ecosistemas, fomentando la regeneración, la sostenibilidad y el conocimiento compartido.",
-//     buttonPrimary: ["Explorar el universo de global", "/global"],
-//     image: "/img/message_final.jpg",
-// };
-
 const titles = {
   titulo: " Consultoría Regenerativa Internacional",
   subTitle: "GLOBAL",
@@ -130,55 +85,35 @@ const Global = () => {
     const [servicioIdParam, setServicioIdParam, removeServicioIdParam] = useQueryParam('servicios');
     const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
     
-    // 🎯 Estados para la animación del header
-    const [headerAnimationState, setHeaderAnimationState] = useState('initial'); // initial, peek, hidden, hover-ready
+    const [headerAnimationState, setHeaderAnimationState] = useState('initial');
     const [isHovered, setIsHovered] = useState(false);
-    
     const navigate = useNavigate();
 
-    // 🎯 useEffect para la secuencia de animación inicial del header
     useEffect(() => {
         if (prefersReducedMotion) {
-            // Si el usuario prefiere movimiento reducido, ir directo a hover-ready
             setHeaderAnimationState('hover-ready');
             return;
         }
-
-        const timer1 = setTimeout(() => {
-            setHeaderAnimationState('peek');
-        }, 2500); // Después de 2.5s muestra el peek
-
-        const timer2 = setTimeout(() => {
-            setHeaderAnimationState('hidden');
-        }, 4500); // Después de 4.5s oculta el peek
-
-        const timer3 = setTimeout(() => {
-            setHeaderAnimationState('hover-ready');
-        }, 5500); // Después de 5.5s habilita solo hover
-
-        return () => {
-            clearTimeout(timer1);
-            clearTimeout(timer2);
-            clearTimeout(timer3);
-        };
+        const timer1 = setTimeout(() => setHeaderAnimationState('peek'), 2500);
+        const timer2 = setTimeout(() => setHeaderAnimationState('hidden'), 4500);
+        const timer3 = setTimeout(() => setHeaderAnimationState('hover-ready'), 5500);
+        return () => { clearTimeout(timer1); clearTimeout(timer2); clearTimeout(timer3); };
     }, []);
 
     useEffect(() => {
-    if (servicioIdParam && servicios?.length > 0) {
-        const item = servicios.find(s => s.id.toString() === servicioIdParam.toString());
-        if (item) setIsModalOpen({ isOpen: true, item });
-    }
+        if (servicioIdParam && servicios?.length > 0) {
+            const item = servicios.find(s => s.id.toString() === servicioIdParam.toString());
+            if (item) setIsModalOpen({ isOpen: true, item });
+        }
     }, [servicioIdParam, servicios]);
 
     if (!servicios || !products) return null;
 
     const handleOpenModal = useCallback((status, e, item) => {
         if (!item || !item.id) return;
-
         setTriggerElement(e.currentTarget);
         setIsModalOpen({ isOpen: status, item });
         setServicioIdParam(item.id);
-
     }, [setServicioIdParam, navigate]);
 
     const handleCloseModal = useCallback(() => {
@@ -188,209 +123,103 @@ const Global = () => {
     }, [removeServicioIdParam]);
 
     const handlePayment = useCallback((item, method) => {
-        if (method && item) {
-        setMethodStatePayment({ item, method });
-        }
+        if (method && item) setMethodStatePayment({ item, method });
     }, [setMethodStatePayment]);
 
-     const modalContent = useMemo(() => {
+    const modalContent = useMemo(() => {
         if (!isModalOpen.isOpen || !isModalOpen.item) return null;
         return (
-        <Modal
-            isOpenModal={isModalOpen}
-            onClose={handleCloseModal}
-            triggerElement={triggerElement}
-            showPointer={true}
-        >
-            <ModalCard course={isModalOpen.item}>
-            <PaymentMethodSelector
-                item={isModalOpen.item}
-                onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
-            />
-            </ModalCard>
-        </Modal>
+            <Modal
+                isOpenModal={isModalOpen}
+                onClose={handleCloseModal}
+                triggerElement={triggerElement}
+                showPointer={true}
+            >
+                <ModalCard course={isModalOpen.item}>
+                    <PaymentMethodSelector
+                        item={isModalOpen.item}
+                        onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
+                    />
+                </ModalCard>
+            </Modal>
         );
     }, [isModalOpen, handleCloseModal, triggerElement, handlePayment]);
 
-    // 🎯 Función para manejar el teclado (accesibilidad)
     const handleKeyPress = (e) => {
         if ((e.key === 'Enter' || e.key === ' ') && headerAnimationState === 'hover-ready') {
             setIsHovered(!isHovered);
         }
     };
 
-    // 🎯 Funciones para obtener las clases y estilos dinámicos
     const getContentClasses = () => {
         let baseClass = 'global__header__content';
-        
-        if (headerAnimationState === 'hover-ready' && isHovered) {
-            baseClass += ' hovered';
-        }
-        
+        if (headerAnimationState === 'hover-ready' && isHovered) baseClass += ' hovered';
         return baseClass;
     };
 
     const getLogoStyles = () => {
-        const baseStyles = {
-            transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            willChange: 'transform, opacity, filter'
-        };
-
+        const baseStyles = { transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)', willChange: 'transform, opacity, filter' };
         switch (headerAnimationState) {
-            case 'initial':
-                return {
-                    ...baseStyles,
-                    opacity: 1,
-                    transform: 'translate(-50%, -50%)',
-                    filter: 'none',
-                    pointerEvents: 'auto'
-                };
-            
-            case 'peek':
-                return {
-                    ...baseStyles,
-                    opacity: 0,
-                    transform: 'translate(-50%, -50%) translateY(-20px) scale(0.98)',
-                    filter: 'blur(2px)',
-                    pointerEvents: 'none'
-                };
-            
+            case 'initial': return { ...baseStyles, opacity: 1, transform: 'translate(-50%, -50%)', filter: 'none', pointerEvents: 'auto' };
+            case 'peek': return { ...baseStyles, opacity: 0, transform: 'translate(-50%, -50%) translateY(-20px) scale(0.98)', filter: 'blur(2px)', pointerEvents: 'none' };
             case 'hidden':
             case 'hover-ready':
                 return {
                     ...baseStyles,
                     opacity: headerAnimationState === 'hover-ready' && isHovered ? 0 : 1,
-                    transform: headerAnimationState === 'hover-ready' && isHovered 
-                        ? 'translate(-50%, -50%) translateY(-30px) scale(0.95)' 
-                        : 'translate(-50%, -50%)',
+                    transform: headerAnimationState === 'hover-ready' && isHovered ? 'translate(-50%, -50%) translateY(-30px) scale(0.95)' : 'translate(-50%, -50%)',
                     filter: headerAnimationState === 'hover-ready' && isHovered ? 'blur(3px)' : 'none',
                     pointerEvents: headerAnimationState === 'hover-ready' && isHovered ? 'none' : 'auto'
                 };
-            
-            default:
-                return baseStyles;
+            default: return baseStyles;
         }
     };
 
     const getTitlesStyles = () => {
-        const baseStyles = {
-            transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            willChange: 'transform, opacity'
-        };
-
+        const baseStyles = { transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)', willChange: 'transform, opacity' };
         switch (headerAnimationState) {
-            case 'initial':
-                return {
-                    ...baseStyles,
-                    opacity: 0,
-                    transform: 'translate(-50%, -50%) translateY(40px)',
-                    pointerEvents: 'none'
-                };
-            
-            case 'peek':
-                return {
-                    ...baseStyles,
-                    opacity: 0.9,
-                    transform: 'translate(-50%, -50%) translateY(0)',
-                    pointerEvents: 'auto'
-                };
-            
-            case 'hidden':
-                return {
-                    ...baseStyles,
-                    opacity: 0,
-                    transform: 'translate(-50%, -50%) translateY(40px)',
-                    pointerEvents: 'none'
-                };
-            
-            case 'hover-ready':
-                return {
-                    ...baseStyles,
-                    opacity: isHovered ? 1 : 0,
-                    transform: isHovered 
-                        ? 'translate(-50%, -50%) translateY(0)' 
-                        : 'translate(-50%, -50%) translateY(40px)',
-                    pointerEvents: isHovered ? 'auto' : 'none'
-                };
-            
-            default:
-                return baseStyles;
+            case 'initial': return { ...baseStyles, opacity: 0, transform: 'translate(-50%, -50%) translateY(40px)', pointerEvents: 'none' };
+            case 'peek': return { ...baseStyles, opacity: 0.9, transform: 'translate(-50%, -50%) translateY(0)', pointerEvents: 'auto' };
+            case 'hidden': return { ...baseStyles, opacity: 0, transform: 'translate(-50%, -50%) translateY(40px)', pointerEvents: 'none' };
+            case 'hover-ready': return { ...baseStyles, opacity: isHovered ? 1 : 0, transform: isHovered ? 'translate(-50%, -50%) translateY(0)' : 'translate(-50%, -50%) translateY(40px)', pointerEvents: isHovered ? 'auto' : 'none' };
+            default: return baseStyles;
         }
     };
 
     const getChildStyles = (delay = 0) => {
-        const baseStyles = {
-            transition: `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s`
-        };
-
+        const baseStyles = { transition: `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s` };
         switch (headerAnimationState) {
-            case 'initial':
-                return {
-                    ...baseStyles,
-                    opacity: 0,
-                    transform: 'translateY(0px) scale(0.98)'
-                };
-            
-            case 'peek':
-                return {
-                    ...baseStyles,
-                    opacity: 1,
-                    transform: 'translateY(0) scale(1)'
-                };
-            
-            case 'hidden':
-                return {
-                    ...baseStyles,
-                    opacity: 0,
-                    transform: 'translateY(20px) scale(0.98)'
-                };
-            
-            case 'hover-ready':
-                return {
-                    ...baseStyles,
-                    opacity: isHovered ? 1 : 0,
-                    transform: isHovered 
-                        ? 'translateY(0) scale(1)' 
-                        : 'translateY(30px) scale(0.98)'
-                };
-            
-            default:
-                return baseStyles;
+            case 'initial': return { ...baseStyles, opacity: 0, transform: 'translateY(0px) scale(0.98)' };
+            case 'peek': return { ...baseStyles, opacity: 1, transform: 'translateY(0) scale(1)' };
+            case 'hidden': return { ...baseStyles, opacity: 0, transform: 'translateY(20px) scale(0.98)' };
+            case 'hover-ready': return { ...baseStyles, opacity: isHovered ? 1 : 0, transform: isHovered ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.98)' };
+            default: return baseStyles;
         }
     };
 
-    // Filtrar servicios de global
     const servicesMadreSelva = useMemo(() => {
-        return servicios.filter(
-            (item) => item.type === 'service' && item.project?.toLowerCase().trim() === 'madre selva'
-        );
-        
+        return servicios.filter((item) => item.type === 'service' && item.project?.toLowerCase().trim() === 'madre selva');
     }, [servicios]);
 
     useEffect(() => {
         if (isLoadPeges) return;
-        const timer = setTimeout(() => {
-            setIsLoadPeges(true);
-        }, 1000); // Espera 1 segundo antes de cargar las páginas
-        
+        const timer = setTimeout(() => setIsLoadPeges(true), 1000);
         return () => clearTimeout(timer);
-        
     }, []);
 
-   
     return (
         <div className='global__container'>
             <SEOHelmet 
-                title='global' 
-                description='Simplify Your Focus' 
-                keywords='tecnología, software, negocios, soluciones digitales, emprendimientos' 
-                author='Neyen Frandino' 
-                url='https://miempresa.com' 
-                image='https://miempresa.com/default-image.jpg' 
+                title="Global | Consultoría Regenerativa Internacional del Movimiento Na Lu'um"
+                description="Global es una red viva de consultoría regenerativa nacida del Movimiento Na Lu'um. Acompañamos procesos ecosociales, pedagógicos y tecnológicos inspirados en la permacultura, la sabiduría ancestral y la innovación contemporánea."
+                keywords="consultoría regenerativa, Na Lu'um, permacultura, regeneración, sostenibilidad, ecosocial, sabiduría ancestral, innovación, pedagogía, comunidad, transición ecológica"
+                author="Movimiento Na Lu'um | Coordinación Global"
+                url="https://miempresa.com/projects/global"
+                image="https://miempresa.com/images/global-cover.jpg"
             />
+
             <div className='global__header' id="inicio">
                 <Header className="global__header">
-                
                     <div 
                         className={getContentClasses()}
                         onMouseEnter={() => headerAnimationState === 'hover-ready' && setIsHovered(true)}
@@ -400,40 +229,15 @@ const Global = () => {
                         role="banner"
                         aria-label="Global header con contenido interactivo"
                     >
-                        <div 
-                            className="global__header__content__logo"
-                            style={getLogoStyles()}
-                        >
-                            {/* Opción 1: Con imagen del logo */}
-                            <img 
-                                src="/img/fondo_transparente_global.svg" 
-                                alt="Logo Global"
-                                style={{
-                                    animationPlayState: (headerAnimationState === 'hover-ready' && isHovered) ? 'paused' : 'running'
-                                }}
-                            />
-                            
-                            {/* Opción 2: Logo placeholder mientras no tengas la imagen */}
-                            {/* <div className="logo-placeholder">
-                                <span>GLOBAL</span>
-                            </div> */}
+                        <div className="global__header__content__logo" style={getLogoStyles()}>
+                            <img src="/img/fondo_transparente_global.svg" alt="Logo Global" style={{ animationPlayState: (headerAnimationState === 'hover-ready' && isHovered) ? 'paused' : 'running' }} />
                         </div>
-                        
-                        <div 
-                            className="global__header__content__titles"
-                            style={getTitlesStyles()}
-                        >
-                            <h1 style={getChildStyles(0.15)}>
-                                CONSULTORÍA REGENERATIVA INTERNACIONAL
-                            </h1>
-                            <p className="subtitle" style={getChildStyles(0.3)}>
-                                Red viva de transformación ecosocial
-                            </p>
+                        <div className="global__header__content__titles" style={getTitlesStyles()}>
+                            <h1 style={getChildStyles(0.15)}>CONSULTORÍA REGENERATIVA INTERNACIONAL</h1>
+                            <p className="subtitle" style={getChildStyles(0.3)}>Red viva de transformación ecosocial</p>
                             <p style={getChildStyles(0.45)}>
-                                No somos una empresa. Somos un <span className="highlight">tejido vivo</span> de personas 
-                                comprometidas con la regeneración de la vida. Nacidos desde la experiencia del {' '}
-                                <span className="highlight">Movimiento Na Lu'um</span> y nutrida por décadas de trabajo 
-                                en territorios diversos, co-creamos realidades donde la vida puede florecer.
+                                No somos una empresa. Somos un <span className="highlight">tejido vivo</span> de personas comprometidas con la regeneración de la vida. Nacidos desde la experiencia del {' '}
+                                <span className="highlight">Movimiento Na Lu'um</span> y nutrida por décadas de trabajo en territorios diversos, co-creamos realidades donde la vida puede florecer.
                             </p>
                         </div>
                     </div>
@@ -441,14 +245,12 @@ const Global = () => {
             </div>
 
             <div className='global__content'>
-
                 <div className='global__content--question' id='sobre-mi'>
                     <FadeInOnView {...fadeInProps}>
                         <div className='global__content--question__card'>
                             <div className='global__content--question__card__img'>
                                 <img src="/img/elequipo.jpg" alt="Global" />
                             </div>
-                            
                             <div className='global__content--question__card__text'>
                                 <h2>{globalCard.titulo}</h2>
                                 <p>{globalCard.subtitulo}</p>
@@ -464,27 +266,22 @@ const Global = () => {
                     </FadeInOnView>
                 </div>
 
-
                 <div className='global__grid' id='servicios'>
                     <FadeInOnView {...fadeInProps}>
                         <div className='global__services-titile'>
                             <h2>Servicios Y Productos</h2>
                             <p>Conoce los servicios y productos que nos ayudan a cumplir con nuestras metas</p>
                         </div>
-                        
                         <div className='global__services'>
                             <Grid items={servicesMadreSelva} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
                             {modalContent}
-
                             <div className='global__button'>
                                 <Button text={"Ver todos los servicios"} link="/servicios" style="secondary" />
                             </div>
                         </div>
-
                         <div className='global__products'>
                             <Grid items={products} gridType="products" slice={3} setIsOpen={handleOpenModal} />
                             {modalContent}
-
                             <div className='global__button'>
                                 <Button text={"Ver todos los productos"} link="/productos" style="secondary" />
                             </div>
@@ -498,7 +295,6 @@ const Global = () => {
                     </FadeInOnView>
                 </div>
 
-  
                 <div className='global__content--testimonial'>
                     <FadeInOnView {...fadeInProps}>
                         <TestimonialCard typeTestimonial='servicios_madreSelva'/>
@@ -516,7 +312,6 @@ const Global = () => {
                         <MessageFinal indexMessage={0} />
                     </FadeInOnView>
                 </div>
-
 
                 <div className='global__content--newsletter' id='newsletter'>
                     <Newsletter />

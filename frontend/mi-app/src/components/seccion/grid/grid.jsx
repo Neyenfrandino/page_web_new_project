@@ -58,13 +58,15 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     }
   };
   const [isSupportModalOpen, setIsSupportModalOpen] = useState({statusOpenModal: false, item: null});
-  console.log(isSupportModalOpen.statusOpenModal);
+  console.log('isSupportModalOpen:', isSupportModalOpen);
   const handlePrimaryAction = (normalizedItem, e) => {
+    console.log('Acción primaria para:', normalizedItem);
     e.stopPropagation();
-    setIsSupportModalOpen({statusOpenModal: true, item: normalizedItem});
+
 
     // const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
-    
+    // console.log(`${action} - Item:`, normalizedItem);
+    setIsSupportModalOpen({statusOpenModal: true, item: normalizedItem});
     // setMethodStatePayment({ normalizedItem });
     // Aquí va tu lógica específica
   };
