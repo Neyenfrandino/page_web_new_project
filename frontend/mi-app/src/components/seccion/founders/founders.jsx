@@ -9,20 +9,21 @@ const founders = [
   {
     id: 1,
     name: "Tierra Martínez",
-    role: "Co-fundador",
-    bio: "Con más de 25 años de experiencia en Permacultura y Diseño Regenerativo, ha trabajado en más de 40 países acompañando a comunidades, instituciones y proyectos en la creación de modelos sostenibles y resilientes. Reconocido por integrar ciencia, tradición y espiritualidad en procesos educativos transformadores.",
-    quote: "Transformamos la forma de habitar el mundo integrando ciencia, tradición y espiritualidad.",
+    role: "Co-Fundador y Coordinador General",
+    bio: "Diseñador en Permacultura y educador internacional con más de 25 años de experiencia en procesos de regeneración ecológica, social y cultural. Ha trabajado en más de 40 países desarrollando proyectos de diseño regenerativo, educación y desarrollo comunitario. Co-fundador del Instituto Na Lu’um y del Eco Centro Madre Selva (Argentina), impulsa espacios de aprendizaje vivo donde se integran la sabiduría ancestral, la ciencia moderna y la espiritualidad práctica para construir una humanidad en equilibrio con la Tierra.",
+    quote: "Solo cuando recordamos cómo habitar la Tierra con humildad y propósito, comienza la verdadera transformación.",
     image: `${DOMAIN}/img/tierra_martinez.jpg`
   },
   {
     id: 2,
     name: "Beatriz Ramírez Cruz",
-    role: "Co-fundadora",
-    bio: "Pionera en Permacultura Social, especializada en procesos grupales, liderazgo consciente y metodologías participativas. Ha formado a miles de personas en el diseño de vínculos sanos, proyectos colectivos y modelos organizativos sustentables, conectando lo ancestral, lo humano y lo comunitario.",
-    quote: "El cambio verdadero comienza en la forma en que nos relacionamos con nosotros y con la comunidad.",
+    role: "Co-Fundadora y Directora General de Campo",
+    bio: "Diseñadora en Permacultura especializada en Bioconstrucción y Diseño Social, con más de 15 años de experiencia. Co-facilitadora de los cursos de Diseño en Permacultura del Instituto Na Lu’um, ha trabajado en más de 30 países compartiendo herramientas para la regeneración ecológica y humana. De origen mexicana, coordina programas educativos en Madre Selva y el Instituto Na Lu’um, impulsando una educación viva que une conocimiento, propósito y acción.",
+    quote: "La vida es muy sencilla, solo que la complicamos en nombre de la búsqueda incansable de quienes somos, sin saber que ya somos alguien desde que hacemos.",
     image: `${DOMAIN}/img/beatriz_ramirez.jpg`
   }
 ];
+
 
 const familyFounder = {
   id: 3,

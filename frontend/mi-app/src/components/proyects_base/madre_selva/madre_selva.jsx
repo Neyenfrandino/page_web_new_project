@@ -57,19 +57,19 @@ const fadeInProps = {
 
 // ------------------------------
 // 🕓 Contenido dinámico
-const timerProps = {
-  img: "/img/3.png",
-  titles: {
-    main: "",
-    subtitle: "Festival Eco de la Tierra",
-  },
-  text: "Únete al próximo Festival Eco de la Tierra: un encuentro de saberes, música y experiencias regenerativas para celebrar la vida en comunidad.",
-  buttonText: "Inscríbete ahora",
-  timer: {
-    targetDate: "2025-09-23T18:59:59",
-  },
-  link: "/servicios/laboratorios-alimentacion-viva",
-};
+// const timerProps = {
+//   img: "/img/3.png",
+//   titles: {
+//     main: "",
+//     subtitle: "Festival Eco de la Tierra",
+//   },
+//   text: "Únete al próximo Festival Eco de la Tierra: un encuentro de saberes, música y experiencias regenerativas para celebrar la vida en comunidad.",
+//   buttonText: "Inscríbete ahora",
+//   timer: {
+//     targetDate: "2025-09-23T18:59:59",
+//   },
+//   link: "/servicios/laboratorios-alimentacion-viva",
+// };
 
 const objectContentCard = {
   question: "¿Qué es Madre Selva?",
@@ -94,56 +94,56 @@ const actividadesMadreSelva = [
     title: '🌳 Caminatas guiadas por la selva',
     description:
       'Explora senderos vivos y descubre cómo cada especie contribuye a la regeneración del ecosistema.',
-    image: '/img/caminata.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 2,
     title: '🪵 Talleres de construcción natural',
     description:
       'Aprende técnicas sostenibles con materiales locales: bioconstrucción, adobe y bambú.',
-    image: '/img/construccion.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 3,
     title: '🌾 Agricultura sintrópica en acción',
     description:
       'Participa en nuestras huertas regenerativas y conecta con los ciclos naturales de la tierra.',
-    image: '/img/agricultura.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 4,
     title: '💧 Rutas del agua',
     description:
       'Conoce los sistemas de captación, filtrado y uso responsable del agua en el ecosistema.',
-    image: '/img/agua.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 5,
     title: '🔥 Encuentros alrededor del fuego',
     description:
       'Vivencias colectivas de canto, historia y transmisión de saberes ancestrales.',
-    image: '/img/fuego.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 6,
     title: '🔬 Experiencias de investigación',
     description:
       'Participa en proyectos de observación sobre biodiversidad, suelos y restauración ambiental.',
-    image: '/img/investigacion.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
   {
     id: 7,
     title: '🛖 Vivencias inmersivas',
     description:
       'Vive la experiencia de habitar Madre Selva: aprendizaje, contemplación y acción regenerativa.',
-    image: '/img/immersiva.jpg',
+    image: `${DOMAIN}/img/caminatas.jpg`,
   },
 ];
 
 // ------------------------------
 // 🌿 COMPONENTE PRINCIPAL
 const MadreSelva = () => {
-  const { servicios, FAQ: faqData, products } = useContext(ContextJsonLoadContext);
+  const { servicios, FAQ: faqData, products, timerProps } = useContext(ContextJsonLoadContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [triggerElement, setTriggerElement] = useState(null);
   const [servicioIdParam, setServicioIdParam, removeServicioIdParam] = useQueryParam('servicios');
