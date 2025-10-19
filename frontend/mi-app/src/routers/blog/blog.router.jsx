@@ -50,7 +50,7 @@ const Blog = () => {
         url="https://miempresa.com"
         image="https://miempresa.com/default-image.jpg"
       />
-
+ 
       {/* Si NO hay id => estoy en /blog => muestro listado */}
       {!id ? (
         <>
@@ -79,7 +79,7 @@ const Blog = () => {
             </div>
           </Header>
 
-          {blogs?.blogs && blogs.blogs.length > 1 ? (
+          {blogs?.blogs && blogs.blogs.length > 0 ? (
             <div className="blog__content">
               <div className="blog__content--grid">
                 {blogs.blogs.map((item) => (
@@ -122,15 +122,13 @@ const Blog = () => {
               </div>
             </div>
           ) : (
-            <ComingSoonCard
-              sectionName="Nueva Sección"
-              estimatedDate="Primer trimestre 2025"
-              alternativeAction={{
-                text: "Mientras tanto, explora nuestro catálogo",
-                link: "/productos",
-                buttonText: "Ver productos disponibles"
-              }}
-            />
+            <div className="blog__content">
+
+                <ComingSoonCard 
+                  title="Estamos construyendo algo especial"
+                  message="Esta sección estará disponible muy pronto"
+                />
+            </div>
           )}
         </>
       ) : (

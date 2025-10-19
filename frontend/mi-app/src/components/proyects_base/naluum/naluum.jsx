@@ -39,6 +39,8 @@ import PaymentMethodSelector from '../../integrations/payment_method/payment_met
 // 📂 Styles
 import './naluum.scss';
 
+let DOMAIN = import.meta.env.VITE_API_URL;
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const fadeInProps = {
@@ -144,26 +146,26 @@ const Naluum = () => {
         image="https://movimientonaluum.com/img/preview_naluum.jpg"
       />
 
-      <div className='naluum__header' id="inicio">
-        <Header>
-          <div className='naluum__header__content'>
-            <div className='naluum__header__content__logo'>
-              <img src="/img/logo_naluum_trasparente.svg" alt="Logo de Naluum - Movimiento Educativo Consciente" />
-            </div>
+    <div className='naluum__header' id="inicio" style={{ backgroundImage: `url('${DOMAIN}/img/inicio_naluum.svg')` }}>
+      <Header>
+        <div className='naluum__header__content'>
+          <div className='naluum__header__content__logo'>
+            <img src={`${DOMAIN}/img/logo_naluum_trasparente.svg`} alt="Logo de Naluum - Movimiento Educativo Consciente" />
           </div>
-        </Header>
-      </div>
+        </div>
+      </Header>
+    </div>
 
       <div className='naluum__content'>
         <div className='naluum__content--question' id='sobre-naluum'>
           <FadeInOnView {...fadeInProps}>
-            <CardV2Img objectContentCard={objectContentCard} />
+            <CardV2Img objectContentCard={objectContentCard} buttonTrue={false} />
           </FadeInOnView>
         </div>
 
         <div className='naluum__content--history'>
           <FadeInOnView {...fadeInProps}>
-            <TimeLineHistory index={1} titles={titles} showHeroBg={true} heroBgImage={'/img/logo_naluum_trasparente.svg'} theme={'naluum'} />
+            <TimeLineHistory index={1} titles={titles} showHeroBg={true} heroBgImage={`${DOMAIN}/img/logo_naluum_trasparente.svg`} theme={'naluum'} />
           </FadeInOnView>
         </div>
 
@@ -173,7 +175,7 @@ const Naluum = () => {
               <h2>Servicios Educativos de Naluum</h2>
               <p>Conoce las experiencias formativas y acompañamientos que promueven la transformación y el aprendizaje consciente.</p>
             </div>
-
+ 
             <Grid items={servicios} gridType="services" slice={3} setIsOpen={handleOpenModal} variant="minimal" />
             {modalContent}
 

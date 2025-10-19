@@ -34,6 +34,7 @@ import CtaHablemos from '../../components/seccion/cta_hablemos/cta_hablemos';
 import MessageFinal from '../../components/seccion/message_final/message_final';
 import TestimonialCard from '../../components/seccion/testimonial_card/testimonial_card';
 import FadeInOnView from '../../components/seccion/fadeInOnView/fadeInOnView';
+import SupportModalContent from '../../components/seccion/support_modal/support_modal';
 
 
 // ------------------------------
@@ -51,7 +52,7 @@ import MercadoPagoCard from '../../components/integrations/mercado_pago_card/mer
 import PaymentMethodSelector from '../../components/integrations/payment_method/payment_method_selector';
 
 let DOMAIN = import.meta.env.VITE_API_URL;
-console.log(DOMAIN)
+
 
 // ------------------------------
 // 📂 Maps
@@ -269,9 +270,13 @@ const Home = () => {
         showPointer={true}
       >
         <ModalCard course={isModalOpen.item}>
-          <PaymentMethodSelector
+          {/* <PaymentMethodSelector
             item={isModalOpen.item}
             onMethodSelect={(method) => handlePayment(isModalOpen.item, method)}
+          /> */}
+          <SupportModalContent
+            onClose={handleCloseModal}
+            item={isModalOpen.item}
           />
         </ModalCard>
       </Modal>

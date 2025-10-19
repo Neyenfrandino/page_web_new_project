@@ -87,7 +87,7 @@ const ProductsDetail = ({ type = 'product' }) => {
       />
     ));
   };
-
+ 
   /** 🔹 Abrir modal de soporte **/
   const handleOpenSupportModal = () => {
     const updatedItem = {

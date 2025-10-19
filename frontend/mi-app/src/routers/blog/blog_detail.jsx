@@ -14,10 +14,14 @@ import {
   Sprout,
   Droplets,
   Sun,
-  ChevronRight
+  ChevronRight,
+  Image as ImageIcon
 } from 'lucide-react';
 import SEOHelmet from '../../components/seo/SEOHelmet/SEOHelmet';
 import './blog_detail.scss';
+
+let DOMAIN = import.meta.env.VITE_API_URL;
+
  
 const BlogDetail = () => {
     const { id } = useParams();
@@ -30,6 +34,7 @@ const BlogDetail = () => {
     const [isLiked, setIsLiked] = useState(false);
     const [readingTime, setReadingTime] = useState(0);
     const [activeSection, setActiveSection] = useState(null);
+    const [imageErrors, setImageErrors] = useState({});
 
     useEffect(() => {
         if (location.state?.blogData && location.state.blogData.id === id) {
@@ -128,6 +133,10 @@ const BlogDetail = () => {
         setIsLiked(liked);
     }, [id]);
 
+    const handleImageError = (imageKey) => {
+        setImageErrors(prev => ({ ...prev, [imageKey]: true }));
+    };
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('es-ES', options);
@@ -176,7 +185,7 @@ const BlogDetail = () => {
             {/* Hero Section */}
             <div className="blog-detail__hero" 
                  style={{
-                     backgroundImage: blogPost.card?.image ? `url(${blogPost.card.image})` : 'none'
+                     backgroundImage: blogPost.card?.image ? `url(${DOMAIN}${blogPost.card.image})` : 'none'
                  }}>
                 <div className="hero-pattern"></div>
                 <div className="hero-overlay"></div>
@@ -271,6 +280,22 @@ const BlogDetail = () => {
                                         <span className="heading-number">{String(index + 1).padStart(2, '0')}</span>
                                         {section.heading}
                                     </h2>
+                                )}
+                                
+                                {/* Section Image */}
+                                {section.image && !imageErrors[`section-${index}`] && (
+                                    <div className="section-image-container">
+                                        <img 
+                                            src={`${DOMAIN}${section.image}`} 
+                                            alt={section.heading || `Imagen de sección ${index + 1}`}
+                                            className="section-image"
+                                            onError={() => handleImageError(`section-${index}`)}
+                                            loading="lazy"
+                                        />
+                                        {section.imageCaption && (
+                                            <p className="image-caption">{section.imageCaption}</p>
+                                        )}
+                                    </div>
                                 )}
                                 
                                 {section.text && (

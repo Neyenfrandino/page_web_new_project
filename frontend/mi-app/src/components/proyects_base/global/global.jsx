@@ -39,6 +39,8 @@ import PaymentMethodSelector from '../../integrations/payment_method/payment_met
 // 📂 Styles
 import './global.scss';
 
+let DOMAIN = import.meta.env.VITE_API_URL;
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const fadeInProps = {
@@ -230,7 +232,7 @@ const Global = () => {
                         aria-label="Global header con contenido interactivo"
                     >
                         <div className="global__header__content__logo" style={getLogoStyles()}>
-                            <img src="/img/fondo_transparente_global.svg" alt="Logo Global" style={{ animationPlayState: (headerAnimationState === 'hover-ready' && isHovered) ? 'paused' : 'running' }} />
+                            <img src={`${DOMAIN}/img/fondo_transparente_global.svg`} alt="Logo Global" style={{ animationPlayState: (headerAnimationState === 'hover-ready' && isHovered) ? 'paused' : 'running' }} />
                         </div>
                         <div className="global__header__content__titles" style={getTitlesStyles()}>
                             <h1 style={getChildStyles(0.15)}>CONSULTORÍA REGENERATIVA INTERNACIONAL</h1>
@@ -262,7 +264,7 @@ const Global = () => {
 
                 <div className='global__content--history'>
                     <FadeInOnView {...fadeInProps}>
-                        <TimeLineHistory index={3} theme={'global'} titles={titles} showHeroBg={true} heroBgImage={'/img/fondo_transparente_global.svg'} />
+                        <TimeLineHistory index={3} theme={'global'} titles={titles} showHeroBg={true} heroBgImage={`${DOMAIN}/img/fondo_transparente_global.svg`} />
                     </FadeInOnView>
                 </div>
 
