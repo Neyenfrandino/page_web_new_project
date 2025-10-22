@@ -1,16 +1,19 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import { MethodStatePaymentContext } from '../../../../src/context/method_state_payment/method_state_payment.context';
 import SupportModalContent from '../support_modal/support_modal'; 
 import Modal from '../../ui/modal/modal';
 
 import './grid.scss';
 
-const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
+const Grid = ({ items = [], slice, setIsOpen }) => {
   const { setMethodStatePayment } = useContext(MethodStatePaymentContext);
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState({ statusOpenModal: false, item: null }); 
+  // Límite de items a mostrar
+  const limit = useMemo(() => (typeof slice === 'number' ? slice : items.length), [slice, items.length]);
 
   // Mapeo de iconos para servicios
   const getServiceIcon = (service) => {
-    const name = service.title.toLowerCase();
+    const name = (service.title || '').toLowerCase();
     const iconMap = {
       'diseño': '🌱', 'espacio': '🌱',
       'taller': '🤝', 'vivencial': '🤝',
@@ -21,7 +24,6 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
       'círculo': '👥', 'escucha': '👥',
       'alimentación': '🥬', 'cocina': '🥬'
     };
-     
     for (const [key, icon] of Object.entries(iconMap)) {
       if (name.includes(key)) return icon;
     }
@@ -35,40 +37,59 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     subtitle: item.subtitle || item.description,
     image: item.image,
     badge: item.badge || '',
-    icon: item.icon || (item.type === 'service' ? getServiceIcon(item) : ''),
+    icon: item.icon || ((item.type || '').toLowerCase().includes('service') ? getServiceIcon(item) : ''),
     category: item.category || '',
     price: item.price,
     currency: item.currency || 'USD',
     content: item.content || '',
     originalData: item,
-    itemType: item.type,
+    itemType: item.type, // 'product' | 'service' (o ya puede venir con acción)
     originalPrice: item.originalPrice || item.price,
+    router: item.router,
   });
 
-  // Formatear precio
+  // Formatear precio (robusto)
   const formatPrice = (item) => {
-    if (!item.price) return '';
-    return `${item.currency} ${item.price.toFixed(2)}`;
+    if (item.price === null || item.price === undefined || item.price === '') return '';
+    const n = Number(item.price);
+    if (!Number.isFinite(n)) return `${item.currency} ${item.price}`;
+    try {
+      return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: item.currency || 'USD',
+      }).format(n);
+    } catch {
+      return `${item.currency} ${n.toFixed(2)}`;
+    }
   };
 
   // Manejadores de eventos
   const handleCardClick = (normalizedItem, e) => {
-    if (setIsOpen) {
-      setIsOpen(true, e, normalizedItem.originalData);
-    }
+    if (setIsOpen) setIsOpen(true, e, normalizedItem.originalData);
   };
-  const [isSupportModalOpen, setIsSupportModalOpen] = useState({statusOpenModal: false, item: null});
-  console.log('isSupportModalOpen:', isSupportModalOpen);
+
+  
+
   const handlePrimaryAction = (normalizedItem, e) => {
-    console.log('Acción primaria para:', normalizedItem);
     e.stopPropagation();
 
+    // Derivar base 'product' | 'service' aunque el type ya viniera con acción
+    const raw = String(normalizedItem.itemType || '').toLowerCase();
+    const isProduct = raw.includes('product') || raw.includes('producto');
+    const baseType = isProduct ? 'product' : 'service';
+    const action = isProduct ? 'compra' : 'inscripción';
 
-    // const action = normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse';
-    // console.log(`${action} - Item:`, normalizedItem);
-    setIsSupportModalOpen({statusOpenModal: true, item: normalizedItem});
-    // setMethodStatePayment({ normalizedItem });
-    // Aquí va tu lógica específica
+    // Construir el payload como lo esperan los otros componentes
+    const enriched = {
+      ...normalizedItem.originalData,
+      type: `${baseType} ${action}`,      // ej: 'service inscripción' | 'product compra'
+      itemType: `${baseType} ${action}`,  // duplico por compatibilidad con checks existentes
+    };
+
+    // (Opcional) guardar en contexto si luego usás pasarela de pago
+    // setMethodStatePayment({ item: enriched });
+
+    setIsSupportModalOpen({ statusOpenModal: true, item: enriched });
   };
 
   const handleKeyDown = (normalizedItem, e) => {
@@ -78,16 +99,17 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
     }
   };
 
+  console.log(isSupportModalOpen)
   return (
     <div className="grid">
       <div className="grid__container">
-        {items.slice(0, slice).map((item) => {
+        {items.slice(0, limit).map((item) => {
           const normalizedItem = normalizeItem(item);
 
           return (
             <div
               key={normalizedItem.id}
-              className={`grid__card grid__card--${normalizedItem.itemType}`}
+              className={`grid__card grid__card--${(normalizedItem.itemType || '').toString().toLowerCase().includes('product') ? 'product' : 'service'}`}
               // onClick={(e) => handleCardClick(normalizedItem, e)}
               onKeyDown={(e) => handleKeyDown(normalizedItem, e)}
               role="button"
@@ -110,7 +132,7 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
 
               {/* Contenido superpuesto */}
               <div className="grid__card-overlay">
-                {/* NUEVA ESTRUCTURA: Header con precio e ícono arriba */}
+                {/* Header con precio e ícono */}
                 <div className="grid__card-header">
                   {normalizedItem.price && (
                     <span className="grid__card-price">
@@ -129,28 +151,28 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
                   {normalizedItem.title}
                 </h3>
 
-                {/* Descripción (solo visible en hover) */}
+                {/* Descripción (hover) */}
                 {normalizedItem.subtitle && (
                   <p className="grid__card-subtitle">
                     {normalizedItem.subtitle}
                   </p>
                 )}
 
-                {/* Meta información (ahora solo categoría) */}
+                {/* Meta */}
                 <div className="grid__card-meta">
                   <span className="grid__card-category">
                     {normalizedItem.category}
                   </span>
                 </div>
 
-                {/* Información extra para servicios (solo visible en hover) */}
-                {normalizedItem.content && normalizedItem.itemType === 'service' && (
+                {/* Info extra (solo servicios, hover) */}
+                {normalizedItem.content && (normalizedItem.itemType || '').toLowerCase().includes('service') && (
                   <div className="grid__card-extra-info">
                     {normalizedItem.content}
                   </div>
                 )}
 
-                {/* Botones (solo visibles en hover) */}
+                {/* Botones (hover) */}
                 <div className="grid__card-buttons">
                   <button
                     className="grid__card-button-info"
@@ -163,9 +185,9 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
                   <button
                     className="grid__card-button-main"
                     onClick={(e) => handlePrimaryAction(normalizedItem, e)}
-                    aria-label={`${normalizedItem.itemType === 'product' ? 'Comprar' : 'Inscribirse'} ${normalizedItem.title}`}
+                    aria-label={`${(normalizedItem.itemType || '').toLowerCase().includes('product') ? 'Comprar' : 'Inscribirse'} ${normalizedItem.title}`}
                   >
-                    {normalizedItem.itemType === 'product' ? 'Comprar ahora' : 'Inscribirse ahora'}
+                    {(normalizedItem.itemType || '').toLowerCase().includes('product') ? 'Comprar ahora' : 'Inscribirse ahora'}
                   </button>
                 </div>
               </div>
@@ -174,15 +196,14 @@ const Grid = ({ items = [], slice = items?.length, setIsOpen }) => {
         })}
 
         <Modal
-            isOpenModal={isSupportModalOpen.statusOpenModal}
+          isOpenModal={isSupportModalOpen.statusOpenModal}
+          onClose={() => setIsSupportModalOpen({ statusOpenModal: false, item: null })}
+        >
+          <SupportModalContent
             onClose={() => setIsSupportModalOpen({ statusOpenModal: false, item: null })}
-          >
-            <SupportModalContent 
-              onClose={() => setIsSupportModalOpen({ statusOpenModal: false, item: null })} 
-              item={isSupportModalOpen.item} 
-            />
+            item={isSupportModalOpen.item}
+          />
         </Modal>
-
       </div>
     </div>
   );

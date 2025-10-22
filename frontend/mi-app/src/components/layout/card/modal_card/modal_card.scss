@@ -11,7 +11,6 @@
   overflow: auto;
   overflow-x: hidden;
   animation: fadeInUp 0.6s ease both;
-  
 
   // Scroll personalizado
   &::-webkit-scrollbar {
@@ -334,20 +333,42 @@
 /* FORM CHILDREN */
 
 .children__container {
+  /* layout general */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;      /* apila el contenido para que empiece arriba */
+  align-items: center;          /* mantiene centrado horizontalmente como tenías */
+  justify-content: flex-start;  /* ⬅️ evita centrar vertical y que “salte” con overflow */
+
+  /* tamaño igual que antes */
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
+
+  /* scroll interno sin desbordar */
+  overflow: auto;
+  overflow-x: hidden;
+
+  /* aspecto */
   background-color: rgba(173, 216, 230, 0.2);
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+
+  /* 👉 MUY IMPORTANTE:
+     dejamos espacio arriba para que el botón (absolute) no se superponga al contenido
+     ajusta 48px si tu botón es más alto/bajo */
+  padding-top: calc(1.5rem + 48px);
+
+  /* si hay hijos flexibles que metan scroll, esto ayuda */
+  min-height: 0;
 
   .button__container {
-    position: absolute;
-    top: 2%;
-    left: 2%;
+    position: absolute; /* ⬅️ lo dejamos donde estaba */
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 2;
+
     button {
       background-color: #063b2c;
       color: white;
@@ -363,18 +384,19 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       }
-
-      &:active {
-        transform: translateY(0);
-      }
-
-      &:focus {
-        outline: 3px solid rgba(4, 90, 43, 0.3);
-        outline-offset: 2px;
-      }
+      &:active { transform: translateY(0); }
+      &:focus { outline: 3px solid rgba(4, 90, 43, 0.3); outline-offset: 2px; }
     }
   }
 }
+
+/* opcional: por si en móviles el botón necesita un poco menos de offset */
+@media (max-width: 480px) {
+  .children__container {
+    padding-top: calc(1.5rem + 42px);
+  }
+}
+
 
 /* BOTONES FLOTANTES (expandir y copiar link) */
 

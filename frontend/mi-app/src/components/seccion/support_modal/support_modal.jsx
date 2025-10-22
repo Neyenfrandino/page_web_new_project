@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { EmailContext } from '../../../context/email/email_context';
 import './support_modal.scss';
 
 const messageTitle = {
@@ -8,110 +9,169 @@ const messageTitle = {
   consultasGenerales: 'Consultas Generales',
 };
 
+// util simple para normalizar strings sin acentos
+const normalize = (s = '') =>
+  s.normalize?.('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() || String(s).toLowerCase();
+
 const SupportModalContent = ({ onClose, item }) => {
-  console.log('SupportModalContent - Item recibido:', item.type);
+  const { sendEmail } = useContext(EmailContext);
+  console.log('📩 SupportModalContent - Item recibido:', item);
+
   const [contactMethod, setContactMethod] = useState(null);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
+    type: 'Consulta', // se sincroniza más abajo
     message: '',
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [isSubjectLocked, setIsSubjectLocked] = useState(false);
 
-  // 🟢 WhatsApp number
   const WHATSAPP_NUMBER = '5493534240350';
 
-  /** 🔹 Define acción principal (Comprar, Inscribirse o Consultar) **/
-  const action =
-    item?.itemType === 'product'|| item.type === 'product'
-      ? 'comprar'
-      : item?.itemType === 'service' || item.type === 'service'
-      ? 'inscribirme'
-      : 'hacer una consulta';
-
-  /** 🔹 Genera mensaje dinámico **/
-  const WHATSAPP_MESSAGE = `Hola, quiero ${action} al ${item?.title || 'uno de sus servicios'}.`;
-
-  /** 🔹 Pre-cargar asunto y mensaje según tipo **/
-  useEffect(() => {
-    if (item) {
-      const productName = item?.title || 'Producto o servicio';
-      const productId = item?.id ? `#${item.id}` : '';
-
-      let subject = '';
-      let message = '';
-
-      if (item.itemType === 'product' || item.type === 'product') {
-        subject = `Consulta para comprar ${productName} ${productId}`;
-        message = `Hola, quiero comprar "${productName}". ¿Podrían brindarme más detalles sobre el proceso de compra?`;
-      } else if (item.itemType === 'service' || item.type === 'service') {
-        subject = `Inscripción al servicio ${productName} ${productId}`;
-        message = `Hola, quiero inscribirme en "${productName}". ¿Podrían indicarme los pasos a seguir?`;
-      } else {
-        subject = `Consulta general sobre ${productName}`;
-        message = `Hola, quiero hacer una consulta sobre "${productName}". ¿Podrían ayudarme?`;
-      }
-
-      setFormData((prev) => ({
-        ...prev,
-        subject,
-        message,
-      }));
-    }
+  // ===== Derivar intención/ctx desde item.type / item.itemType =====
+  const ctx = useMemo(() => {
+    const raw = normalize(`${item?.type || ''} ${item?.itemType || ''}`);
+    const isPurchase = raw.includes('compra');
+    const isEnroll = raw.includes('inscripcion'); // cubre inscripción/inscripcion por normalize
+    const isSupport = raw.includes('soporte');
+    const isProduct = raw.includes('product') || raw.includes('producto');
+    const isService = raw.includes('service') || raw.includes('servicio');
+    const base = isProduct ? 'product' : isService ? 'service' : 'unknown';
+    return { isPurchase, isEnroll, isSupport, base, raw };
   }, [item]);
 
-  /** 🔹 Manejo de inputs **/
+  /** 🔹 Acción según el tipo (para WhatsApp) */
+  const action = ctx.isPurchase
+    ? 'comprar'
+    : ctx.isEnroll
+    ? 'inscribirme'
+    : ctx.isSupport
+    ? 'recibir soporte sobre'
+    : 'hacer una consulta sobre';
+
+  const WHATSAPP_MESSAGE = `Hola, quiero ${action} ${
+    item?.title ? `"${item.title}"` : ctx.base === 'service' ? 'un servicio' : 'un producto'
+  }${item?.id ? ` (ID ${item.id})` : ''}.`;
+
+  /** 🔹 Pre-cargar asunto/mensaje y sincronizar tipo según intención */
+  useEffect(() => {
+    if (!item) return;
+
+    const productName = item?.title || 'Producto o servicio';
+    const productId = item?.id ? `#${item.id}` : '';
+
+    let subject = '';
+    let message = '';
+    let lockSubject = false;
+    let derivedType = 'Consulta';
+
+    if (ctx.isPurchase) {
+      subject = `Consulta para comprar ${productName} ${productId}`.trim();
+      message = `Hola, quiero comprar "${productName}". ¿Podrían brindarme más detalles sobre el proceso de compra, medios de pago y tiempos de entrega/confirmación?`;
+      lockSubject = false;
+      derivedType = 'Compra';
+    } else if (ctx.isEnroll) {
+      subject = `Inscripción al servicio ${productName} ${productId}`.trim();
+      message = `Hola, quiero inscribirme en "${productName}". ¿Podrían indicarme los pasos a seguir, fechas de inicio y requisitos?`;
+      lockSubject = true; // usualmente bloqueado
+      derivedType = 'Inscripción';
+    } else if (ctx.isSupport) {
+      subject = `Soporte para ${productName} ${productId}`.trim();
+      message = `Hola, necesito ayuda con "${productName}". Detallo a continuación:`;
+      lockSubject = false;
+      derivedType = 'Soporte';
+    } else {
+      subject = `Consulta general sobre ${productName} ${productId}`.trim();
+      message = `Hola, quiero hacer una consulta sobre "${productName}". ¿Podrían ayudarme?`;
+      lockSubject = false;
+      derivedType = 'Consulta';
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      subject,
+      message,
+      type: derivedType,
+    }));
+    setIsSubjectLocked(lockSubject);
+  }, [item, ctx.isPurchase, ctx.isEnroll, ctx.isSupport]);
+
+  /** 🔹 Manejo de inputs */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  /** 🔹 Redirección a WhatsApp **/
-/** 🔹 Redirección a WhatsApp — siempre en navegador (WhatsApp Web) **/
-const handleWhatsAppRedirect = () => {
-  try {
-    const phone = WHATSAPP_NUMBER;
+  /** 🔹 Redirección a WhatsApp (forzar WhatsApp Web) */
+  const handleWhatsAppRedirect = () => {
+    const cleanPhone = String(WHATSAPP_NUMBER).replace(/\D/g, '');
     const message = encodeURIComponent(WHATSAPP_MESSAGE);
-
-    // 🔸 Fuerza apertura en WhatsApp Web directamente
-    const webUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
-
+    const webUrl = `https://web.whatsapp.com/send?phone=${cleanPhone}&text=${message}`;
     window.open(webUrl, '_blank', 'noopener,noreferrer');
-  } catch (error) {
-    console.error('Error al abrir WhatsApp Web:', error);
-    window.open(
-      `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
-      '_blank'
-    );
-  }
-};
+  };
 
+  const isValidEmail = (val) => /\S+@\S+\.\S+/.test(val);
 
-  /** 🔹 Envío del formulario **/
-  const handleEmailSubmit = async (e) => {
+  /** 🔹 Envío del formulario (NO cierra modal; limpia SOLO nombre y email) */
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    if (isSubmitting) return;
+    if (!isValidEmail(formData.email)) {
       setSubmitStatus('error');
-      alert('Por favor completa todos los campos obligatorios.');
       return;
     }
 
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula envío real
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+    const emailData = {
+      nombre_completo: formData.name,
+      email: formData.email,
+      asunto: formData.subject,
+      tipo_consulta: formData.type, // Compra | Inscripción | Soporte | Consulta
+      tipo_class: (formData.type || '').toLowerCase(),
+      mensaje: formData.message,
+      fecha_hora: new Date().toLocaleString('es-AR', {
+        dateStyle: 'short',
+        timeStyle: 'short',
+      }),
+      producto_nombre: item?.title || 'Sin especificar',
+      producto_id: item?.id ?? 'N/A',
+      producto_tipo: item?.type || item?.itemType || 'N/A',
+    };
 
-      setTimeout(() => {
-        setSubmitStatus(null);
-        if (onClose) onClose();
-      }, 2000);
+    try {
+      if (typeof sendEmail !== 'function') {
+        console.error('❌ EmailContext.sendEmail no disponible');
+        setSubmitStatus('error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      console.log('📤 Enviando datos por email:', emailData);
+      const response = await sendEmail(emailData);
+
+      if (response?.success) {
+        setSubmitStatus('success');
+
+        // ✅ solo limpiar nombre y email; mantener subject/message/type y el lock del asunto
+        setFormData((prev) => ({
+          ...prev,
+          name: '',
+          email: '',
+        }));
+        // Mantener isSubjectLocked tal cual está
+        // NO cerrar el modal
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
-      console.error('Error al enviar el mensaje:', error);
+      console.error('❌ Error al enviar el correo:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -119,7 +179,7 @@ const handleWhatsAppRedirect = () => {
   };
 
   const messageText =
-    item?.originalData?.type === 'product' || item?.originalData?.type === 'service' || item?.type === 'product' || item?.type === 'service'
+    normalize(item?.type).includes('product') || normalize(item?.type).includes('service')
       ? messageTitle.informacionProductos
       : messageTitle.soporteTecnico;
 
@@ -132,21 +192,33 @@ const handleWhatsAppRedirect = () => {
           <p className="support-content__subtitle">{messageText}</p>
 
           <div className="support-content__options">
-            <button className="contact-option contact-option--whatsapp" onClick={handleWhatsAppRedirect}>
+            {/* 🔹 WhatsApp */}
+            <button
+              className="contact-option contact-option--whatsapp"
+              onClick={handleWhatsAppRedirect}
+              aria-label="Contactar por WhatsApp"
+              title="Contactar por WhatsApp"
+            >
               <div className="contact-option__icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
                 </svg>
               </div>
               <div className="contact-option__content">
                 <h3>WhatsApp</h3>
-                <p>Se abrirá en la app o en el navegador</p>
+                <p>Se abrirá en WhatsApp Web</p>
               </div>
             </button>
 
-            <button className="contact-option contact-option--email" onClick={() => setContactMethod('email')}>
+            {/* 🔹 Email */}
+            <button
+              className="contact-option contact-option--email"
+              onClick={() => setContactMethod('email')}
+              aria-label="Contactar por correo"
+              title="Contactar por correo"
+            >
               <div className="contact-option__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                   <path
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     strokeWidth="2"
@@ -167,14 +239,19 @@ const handleWhatsAppRedirect = () => {
         </>
       ) : (
         <>
-          <button className="support-content__back" onClick={() => setContactMethod(null)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <button
+            className="support-content__back"
+            onClick={() => setContactMethod(null)}
+            aria-label="Volver a opciones de contacto"
+            title="Volver"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" strokeWidth="2" strokeLinecap="round" />
             </svg>
             <span>Volver</span>
           </button>
 
-          <form className="email-form" onSubmit={handleEmailSubmit}>
+          <form className="email-form" onSubmit={handleSubmit}>
             <h3 className="email-form__title">Envíanos tu mensaje</h3>
 
             <div className="email-form__group">
@@ -187,6 +264,7 @@ const handleWhatsAppRedirect = () => {
                 onChange={handleInputChange}
                 required
                 placeholder="Juan Pérez"
+                autoComplete="name"
               />
             </div>
 
@@ -200,6 +278,7 @@ const handleWhatsAppRedirect = () => {
                 onChange={handleInputChange}
                 required
                 placeholder="tu@email.com"
+                autoComplete="email"
               />
             </div>
 
@@ -212,7 +291,14 @@ const handleWhatsAppRedirect = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 required
+                disabled={isSubjectLocked}
+                style={isSubjectLocked ? { backgroundColor: '#f3f3f3', cursor: 'not-allowed' } : {}}
               />
+              {isSubjectLocked && (
+                <small style={{ color: '#777', fontSize: '0.85rem' }}>
+                  Este asunto se genera automáticamente y no puede modificarse.
+                </small>
+              )}
             </div>
 
             <div className="email-form__group">

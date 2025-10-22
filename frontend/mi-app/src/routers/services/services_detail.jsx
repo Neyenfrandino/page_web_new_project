@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   Calendar,
@@ -20,12 +20,17 @@ import SupportModalContent from '../../components/seccion/support_modal/support_
 import { ContextJsonLoadContext } from '../../context/context_json_load/context_json_load';
 import './services_detail.scss';
 
+// Imagen fallback simple
+const FALLBACK_IMAGE = 'https://picsum.photos/1200/600?blur=2';
+
 // Datos por defecto en caso de que no haya servicio
 const defaultService = {
   title: 'Curso de Construcción Sostenible',
   subtitle: 'Aprende técnicas modernas y ancestrales de construcción ecológica',
-  description: 'Este curso te enseñará las mejores prácticas en construcción sostenible, combinando técnicas tradicionales con innovaciones modernas.',
-  image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=400&fit=crop',
+  description:
+    'Este curso te enseñará las mejores prácticas en construcción sostenible, combinando técnicas tradicionales con innovaciones modernas.',
+  image:
+    'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=400&fit=crop',
   badge: 'Intermedio',
   format: 'Online',
   price: 299,
@@ -48,9 +53,13 @@ const ServiceDetail = () => {
   const { servicios } = useContext(ContextJsonLoadContext);
   const { id } = useParams();
 
-  const currentService = Array.isArray(servicios)
-    ? servicios.find((s) => String(s.id) === String(id)) || defaultService
-    : defaultService;
+  // Mantener referencia estable y emular el patrón del componente de productos
+  const currentService = useMemo(() => {
+    if (Array.isArray(servicios)) {
+      return servicios.find((s) => String(s.id) === String(id)) || defaultService;
+    }
+    return defaultService;
+  }, [servicios, id]);
 
   const [isLiked, setIsLiked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -63,53 +72,105 @@ const ServiceDetail = () => {
   }, []);
 
   const formatPrice = (price) => {
-    if (!price) return '$0';
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: currentService.currency || 'USD',
-    }).format(price);
+    // Robusto: soporta number y string; deja strings no numéricas (p.ej. "Gratis")
+    if (price === null || price === undefined) return '$0';
+    if (typeof price !== 'number') {
+      const n = Number(price);
+      if (Number.isFinite(n)) price = n;
+      else return String(price);
+    }
+    try {
+      return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: currentService.currency || 'USD'
+      }).format(price);
+    } catch {
+      return `$${price}`;
+    }
   };
 
   const formatDate = (date) => {
     if (!date) return 'Fecha por confirmar';
-    try {
-      const courseDate = new Date(date);
-      return courseDate.toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
-    } catch {
-      return 'Fecha por confirmar';
-    }
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return 'Fecha por confirmar';
+    return d.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
   };
 
   const renderStars = (rating) => {
-    const numRating = rating || 0;
+    const numRating = Math.max(0, Math.min(5, Math.floor(rating || 0)));
     return [...Array(5)].map((_, i) => (
       <Star
         key={i}
         size={20}
-        fill={i < Math.floor(numRating) ? '#8F764C' : 'none'}
-        stroke={i < Math.floor(numRating) ? '#8F764C' : '#d1d5db'}
+        fill={i < numRating ? '#8F764C' : 'none'}
+        stroke={i < numRating ? '#8F764C' : '#d1d5db'}
+        aria-hidden="true"
       />
     ));
+  };
+
+  // Compartir / copiar (alineado al de productos, con toast)
+  const handleShare = async () => {
+    const shareData = {
+      title: currentService.title,
+      text: currentService.subtitle || 'Mira este curso interesante',
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        // cae a copiar
+      }
+    }
+
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(window.location.href);
+      const toast = document.createElement('div');
+      toast.textContent = 'Enlace copiado 📋';
+      toast.style.position = 'fixed';
+      toast.style.bottom = '20px';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.background = 'rgba(0,0,0,0.8)';
+      toast.style.color = '#fff';
+      toast.style.padding = '10px 20px';
+      toast.style.borderRadius = '12px';
+      toast.style.fontSize = '14px';
+      toast.style.zIndex = '9999';
+      toast.style.transition = 'opacity 0.3s ease';
+      document.body.appendChild(toast);
+      setTimeout(() => (toast.style.opacity = '0'), 1500);
+      setTimeout(() => toast.remove(), 1800);
+      return;
+    }
+
+    alert('Función de compartir no disponible en este navegador');
   };
 
   /** 🔹 Abrir modal de soporte **/
   const handleOpenSupportModal = () => {
     const updatedService = {
       ...currentService,
-      type: `${currentService.type || 'servicio'} soporte`,
+      type: `${currentService.type || 'servicio'} soporte`
     };
-    console.log('Abriendo soporte para:', updatedService);
     setSelectedItem(updatedService);
     setIsSupportModalOpen(true);
   };
 
   /** 🔹 Botón de compra **/
   const handlePurchase = () => {
-    setSelectedItem(currentService);
+    const updatedService = {
+      ...currentService,
+      type: `${currentService.type || 'servicio'} inscripción`
+    };
+    setSelectedItem(updatedService);
     setIsSupportModalOpen(true);
   };
 
@@ -118,21 +179,36 @@ const ServiceDetail = () => {
       {/* Hero Section */}
       <section className="service-detail__hero">
         <div className="service-detail__hero-background">
-          <img src={currentService.image} alt={currentService.title} />
+          <img
+            src={currentService.image}
+            alt={currentService.title}
+            onError={(e) => {
+              e.currentTarget.src = FALLBACK_IMAGE;
+            }}
+          />
           <div className="overlay"></div>
         </div>
 
         <div className="service-detail__hero-content">
           <div className="badge-container">
-            <span className="badge badge--level">{currentService.badge}</span>
-            <span className="badge badge--format">{currentService.format}</span>
+            {currentService.badge && (
+              <span className="badge badge--level">{currentService.badge}</span>
+            )}
+            {currentService.format && (
+              <span className="badge badge--format">{currentService.format}</span>
+            )}
           </div>
 
           <h1 className="title">{currentService.title}</h1>
-          <p className="subtitle">{currentService.subtitle}</p>
+          {currentService.subtitle && (
+            <p className="subtitle">{currentService.subtitle}</p>
+          )}
 
           <div className="hero-footer">
-            <div className="rating">
+            <div
+              className="rating"
+              aria-label={`Valoración ${currentService.rating || 0} de 5`}
+            >
               <div className="stars">{renderStars(currentService.rating)}</div>
               <span className="rating-text">
                 {currentService.rating || 0} ({currentService.students || 0} estudiantes)
@@ -142,50 +218,18 @@ const ServiceDetail = () => {
             <div className="actions">
               <button
                 className="action-btn"
-                onClick={async () => {
-                  const shareData = {
-                    title: currentService.title,
-                    text: currentService.subtitle || 'Mira este curso interesante',
-                    url: window.location.href,
-                  };
-
-                  if (navigator.share) {
-                    try {
-                      await navigator.share(shareData);
-                    } catch (error) {
-                      console.error('Error al compartir:', error);
-                    }
-                  } else if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(window.location.href);
-                    const toast = document.createElement('div');
-                    toast.textContent = 'Enlace copiado 📋';
-                    toast.style.position = 'fixed';
-                    toast.style.bottom = '20px';
-                    toast.style.left = '50%';
-                    toast.style.transform = 'translateX(-50%)';
-                    toast.style.background = 'rgba(0,0,0,0.8)';
-                    toast.style.color = '#fff';
-                    toast.style.padding = '10px 20px';
-                    toast.style.borderRadius = '12px';
-                    toast.style.fontSize = '14px';
-                    toast.style.zIndex = '9999';
-                    toast.style.transition = 'opacity 0.3s ease';
-                    document.body.appendChild(toast);
-                    setTimeout(() => (toast.style.opacity = '0'), 1500);
-                    setTimeout(() => toast.remove(), 1800);
-                  } else {
-                    alert('Función de compartir no disponible en este navegador');
-                  }
-                }}
+                onClick={handleShare}
                 aria-label="Compartir"
+                title="Compartir"
               >
                 <Share2 size={20} />
               </button>
 
               <button
-                onClick={() => setIsLiked(!isLiked)}
+                onClick={() => setIsLiked((v) => !v)}
                 className={`action-btn ${isLiked ? 'liked' : ''}`}
-                aria-label="Me gusta"
+                aria-label={isLiked ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                title={isLiked ? 'Quitar de favoritos' : 'Agregar a favoritos'}
               >
                 <Heart size={20} fill={isLiked ? '#ef4444' : 'none'} />
               </button>

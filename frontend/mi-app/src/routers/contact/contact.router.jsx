@@ -78,7 +78,7 @@ const Contact = () => {
                     image="https://miempresa.com/img/logo_naluum_og.jpg"
                 />
             </>
-         
+          
             <Header>
                 <div className='contact--header__container'>
                     <div className='contact--header__img'>

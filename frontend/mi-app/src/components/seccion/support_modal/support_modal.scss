@@ -39,8 +39,10 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     flex-direction: column;
     // justify-content: center;
     // align-items: center;
-    padding: 54px 150px;
+    padding: 34px 90px;
     width: 100%;
+    height: 100%;
+    position: relative;
     overflow: auto;
 
   &__title {
@@ -221,6 +223,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // Email Form
 // =============================
 .email-form {
+
   &__title {
     font-size: 1.375rem;
     color: $primary-dark;

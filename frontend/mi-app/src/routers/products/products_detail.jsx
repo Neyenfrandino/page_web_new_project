@@ -54,6 +54,7 @@ const ProductsDetail = ({ type = 'product' }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  /** 🔹 Formateo de precio **/
   const formatPrice = (price) => {
     if (!price) return '$0';
     return new Intl.NumberFormat('es-ES', {
@@ -62,6 +63,7 @@ const ProductsDetail = ({ type = 'product' }) => {
     }).format(price);
   };
 
+  /** 🔹 Formateo de fecha **/
   const formatDate = (date) => {
     if (!date) return 'Fecha por confirmar';
     try {
@@ -76,6 +78,7 @@ const ProductsDetail = ({ type = 'product' }) => {
     }
   };
 
+  /** 🔹 Renderizado de estrellas **/
   const renderStars = (rating) => {
     const numRating = rating || 0;
     return [...Array(5)].map((_, i) => (
@@ -87,7 +90,7 @@ const ProductsDetail = ({ type = 'product' }) => {
       />
     ));
   };
- 
+
   /** 🔹 Abrir modal de soporte **/
   const handleOpenSupportModal = () => {
     const updatedItem = {
@@ -101,12 +104,19 @@ const ProductsDetail = ({ type = 'product' }) => {
 
   /** 🔹 Botón de compra **/
   const handlePurchase = () => {
-    setSelectedItem(currentItem);
+    const updatedItem = {
+      ...currentItem,
+      type: `${currentItem.type || 'product'} compra`,
+    };
+    setSelectedItem(updatedItem);
     setIsSupportModalOpen(true);
   };
 
+  console.log('Current Item:', isSupportModalOpen);
+
   return (
     <div className={`products-detail ${isVisible ? 'visible' : ''}`}>
+      {/* ===== HERO ===== */}
       <section className="products-detail__hero">
         <div className="products-detail__hero-background">
           <img src={currentItem.image} alt={currentItem.title} />
@@ -127,10 +137,12 @@ const ProductsDetail = ({ type = 'product' }) => {
               <div className="stars">{renderStars(currentItem.rating)}</div>
               <span className="rating-text">
                 {currentItem.rating || 0} ({currentItem.students || 0}{' '}
-                {type === 'producto' ? 'clientes' : 'estudiantes'})
+                {type === 'product' ? 'clientes' : 'estudiantes'})
               </span>
             </div>
+
             <div className="actions">
+              {/* Compartir */}
               <button
                 className="action-btn"
                 onClick={async () => {
@@ -155,6 +167,7 @@ const ProductsDetail = ({ type = 'product' }) => {
                 <Share2 size={20} />
               </button>
 
+              {/* Like */}
               <button
                 className={`action-btn ${isLiked ? 'liked' : ''}`}
                 onClick={() => setIsLiked(!isLiked)}
@@ -166,28 +179,32 @@ const ProductsDetail = ({ type = 'product' }) => {
         </div>
       </section>
 
+      {/* ===== CONTENIDO PRINCIPAL ===== */}
       <div className="products-detail__container">
         <div className="products-detail__content">
+          {/* Descripción */}
           <section className="section section--description">
             <h2 className="section__title">Acerca de este {type}</h2>
             <p className="description">{currentItem.description}</p>
           </section>
 
+          {/* Beneficios */}
           <section className="section section--highlights">
             <h2 className="section__title">Lo que obtienes</h2>
             <div className="highlights-grid">
               {(currentItem.highlights || []).map((text, i) => (
                 <div key={i} className="highlight-products">
                   <CheckCircle size={20} />
-                  <span> {text}</span>
+                  <span>{text}</span>
                 </div>
               ))}
             </div>
           </section>
 
+          {/* Instructor o fabricante */}
           <section className="section section--instructor">
             <h2 className="section__title">
-              {type === 'producto' ? 'Fabricante' : 'Tu instructor'}
+              {type === 'product' ? 'Fabricante' : 'Tu instructor'}
             </h2>
             <div className="instructor-card">
               <div className="instructor-avatar">
@@ -197,7 +214,7 @@ const ProductsDetail = ({ type = 'product' }) => {
                 <h3>{currentItem.instructor || 'Equipo especializado'}</h3>
                 <p>
                   Especialista en{' '}
-                  {type === 'producto'
+                  {type === 'product'
                     ? 'productos ecológicos'
                     : 'formación sustentable'}
                 </p>
@@ -205,6 +222,7 @@ const ProductsDetail = ({ type = 'product' }) => {
             </div>
           </section>
 
+          {/* Información adicional */}
           <section className="section section--info">
             <h2 className="section__title">Información adicional</h2>
             <div className="info-cards">
@@ -222,6 +240,7 @@ const ProductsDetail = ({ type = 'product' }) => {
           </section>
         </div>
 
+        {/* ===== SIDEBAR ===== */}
         <aside className="products-detail__sidebar">
           <div className="purchase-card">
             <div className="price-section">
@@ -277,6 +296,7 @@ const ProductsDetail = ({ type = 'product' }) => {
           </div>
         </aside>
 
+        {/* CTA Soporte */}
         <div className="cta-card">
           <h3>¿Tienes preguntas?</h3>
           <p>Nuestro equipo está aquí para ayudarte</p>
@@ -285,9 +305,10 @@ const ProductsDetail = ({ type = 'product' }) => {
           </button>
         </div>
 
+        {/* Redirección */}
         <div className="redirect-btn">
-          <h3>Ver todos los {type === 'producto' ? 'productos' : 'servicios'}</h3>
-          <p>{type === 'producto' ? 'Productos destacados' : 'Servicios disponibles'}</p>
+          <h3>Ver todos los {type === 'product' ? 'productos' : 'servicios'}</h3>
+          <p>{type === 'product' ? 'Productos destacados' : 'Servicios disponibles'}</p>
           <Link
             className="contact-btn"
             to={`/${type === 'product' ? 'productos' : 'servicios'}`}
@@ -297,7 +318,7 @@ const ProductsDetail = ({ type = 'product' }) => {
         </div>
       </div>
 
-      {/* Modal de Soporte */}
+      {/* ===== MODAL DE SOPORTE ===== */}
       <Modal
         isOpenModal={isSupportModalOpen}
         onClose={() => setIsSupportModalOpen(false)}
